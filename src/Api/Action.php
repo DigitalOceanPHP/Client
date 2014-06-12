@@ -28,10 +28,10 @@ class Action extends AbstractApi
 
         $results = array();
         foreach ($actions->actions as $action) {
-            $result[] = new ActionEntity($action);
+            $results[] = new ActionEntity($action);
         }
 
-        return $result;
+        return $results;
     }
 
     /**
