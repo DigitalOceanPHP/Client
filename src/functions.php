@@ -14,7 +14,8 @@ namespace DigitalOceanV2;
 /**
  * Transform snake_case to camelCase.
  *
- * @param  string $property
+ * @param string $property
+ *
  * @return string
  */
 function convert_to_camel_case($property)
@@ -31,7 +32,8 @@ function convert_to_camel_case($property)
 /**
  * Transform camelCase to snake_case.
  *
- * @param  string $property
+ * @param string $property
+ *
  * @return string
  */
 function convert_to_snake_case($property)

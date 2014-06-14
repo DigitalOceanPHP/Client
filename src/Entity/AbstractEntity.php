@@ -25,8 +25,10 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param  string                    $property
+     * @param string                    $property
+     *
      * @throws \InvalidArgumentException
+     *
      * @return mixed
      */
     public function __get($property)
@@ -41,8 +43,9 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param  string                    $property
-     * @param  mixed                     $value
+     * @param string                    $property
+     * @param mixed                     $value
+     *
      * @throws \InvalidArgumentException
      */
     public function __set($property, $value)

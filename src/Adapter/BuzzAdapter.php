@@ -46,4 +46,30 @@ class BuzzAdapter implements AdapterInterface
 
         return $response->getContent();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($url, $headers = array())
+    {
+        $response = $this->browser->delete($url, $headers);
+
+        if (!$response->isSuccessful()) {
+            throw new \RuntimeException('Request not processed.');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function put($url, $headers = array(), $content = "")
+    {
+        $response = $this->browser->put($url, $headers, $content);
+
+        if (!$response->isSuccessful()) {
+            throw new \RuntimeException('Request not processed.');
+        }
+
+        return $response->getContent();
+    }
 }

@@ -19,7 +19,7 @@ TODO
 - [ ] [Droplet actions](https://github.com/digitaloceancloud/api-v2-docs#droplet-actions)
 - [ ] [Droplets](https://github.com/digitaloceancloud/api-v2-docs#droplets)
 - [ ] [Image actions](https://github.com/digitaloceancloud/api-v2-docs#image-actions)
-- [ ] [Images](https://github.com/digitaloceancloud/api-v2-docs#images)
+- [x] [Images](https://github.com/digitaloceancloud/api-v2-docs#images)
 - [ ] [Keys](https://github.com/digitaloceancloud/api-v2-docs#keys)
 - [ ] [Regions](https://github.com/digitaloceancloud/api-v2-docs#regions)
 
