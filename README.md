@@ -18,7 +18,7 @@ TODO
 - [ ] [Domains](https://github.com/digitaloceancloud/api-v2-docs#domains)
 - [ ] [Droplet actions](https://github.com/digitaloceancloud/api-v2-docs#droplet-actions)
 - [ ] [Droplets](https://github.com/digitaloceancloud/api-v2-docs#droplets)
-- [ ] [Image actions](https://github.com/digitaloceancloud/api-v2-docs#image-actions)
+- [x] [Image actions](https://github.com/digitaloceancloud/api-v2-docs#image-actions)
 - [x] [Images](https://github.com/digitaloceancloud/api-v2-docs#images)
 - [ ] [Keys](https://github.com/digitaloceancloud/api-v2-docs#keys)
 - [ ] [Regions](https://github.com/digitaloceancloud/api-v2-docs#regions)

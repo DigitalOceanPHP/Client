@@ -49,4 +49,15 @@ interface AdapterInterface
      * @return string
      */
     public function put($url, $headers = array(), $content = "");
+
+    /**
+     * @param string            $url
+     * @param array             $headers
+     * @param string            $content
+     *
+     * @throws \RuntimeException
+     *
+     * @return string
+     */
+    public function post($url, $headers = array(), $content = "");
 }

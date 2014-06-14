@@ -72,4 +72,19 @@ class BuzzAdapter implements AdapterInterface
 
         return $response->getContent();
     }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function post($url, $headers = array(), $content = "")
+    {
+        $response = $this->browser->post($url, $headers, $content);
+
+        if (!$response->isSuccessful()) {
+            throw new \RuntimeException('Request not processed.');
+        }
+
+        return $response->getContent();
+    }
 }
