@@ -35,8 +35,7 @@ class Action extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
+     * @param  integer      $id
      * @return ActionEntity
      */
     public function getById($id)

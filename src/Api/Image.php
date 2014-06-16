@@ -16,7 +16,6 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
- *
  */
 class Image extends AbstractApi
 {
@@ -37,8 +36,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     *
+     * @param  integer     $id
      * @return ImageEntity
      */
     public function getById($id)
@@ -50,8 +48,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param string $slug
-     *
+     * @param  string      $slug
      * @return ImageEntity
      */
     public function getBySlug($slug)
@@ -63,17 +60,16 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     * @param string  $name
-     *
+     * @param integer            $id
+     * @param string             $name
      * @throws \RuntimeException
-     *
      * @return ImageEntity
      */
     public function update($id, $name)
     {
-        $headers = array("Content-Type: application/json");
+        $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s"}', $name);
+
         $image = $this->adapter->put(sprintf("%s/images/%d", self::ENDPOINT, $id), $headers, $content);
         $image = json_decode($image);
 
@@ -81,30 +77,27 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
+     * @param  integer           $id
      * @throws \RuntimeException
      */
     public function delete($id)
     {
-        $headers = array("Content-Type: application/x-www-form-urlencoded");
+        $headers = array('Content-Type: application/x-www-form-urlencoded');
         $this->adapter->delete(sprintf("%s/images/%d", self::ENDPOINT, $id), $headers);
     }
 
     /**
-     * @param integer $id
-     * @param string  $regionSlug
-     *
+     * @param  integer           $id
+     * @param  string            $regionSlug
      * @throws \RuntimeException
-     *
      * @return ActionEntity
      */
     public function transfer($id, $regionSlug)
     {
-        $headers = array("Content-Type: application/json");
+        $headers = array('Content-Type: application/json');
         $content = sprintf('{"type":"transfer","region":"%s"}', $regionSlug);
-        $action = $this->adapter->post(sprintf("%s/images/%d/actions", self::ENDPOINT, $id), $headers, $content);
 
+        $action = $this->adapter->post(sprintf("%s/images/%d/actions", self::ENDPOINT, $id), $headers, $content);
         $action = json_decode($action);
 
         return new ActionEntity($action->$action);

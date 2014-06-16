@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class Image extends AbstractEntity
 {
     /**
-     * @var int
+     * @var integer
      */
     public $id;
 
@@ -37,7 +37,7 @@ class Image extends AbstractEntity
     public $slug;
 
     /**
-     * @var bool
+     * @var boolean
      */
     public $public;
 
