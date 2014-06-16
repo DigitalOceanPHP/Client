@@ -19,7 +19,7 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 class Action extends AbstractApi
 {
     /**
-     * @return Action[]
+     * @return ActionEntity[]
      */
     public function getAll()
     {
@@ -35,8 +35,9 @@ class Action extends AbstractApi
     }
 
     /**
-     * @param  integer $id
-     * @return Action
+     * @param int $id
+     *
+     * @return ActionEntity
      */
     public function getById($id)
     {

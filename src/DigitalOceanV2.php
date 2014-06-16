@@ -13,6 +13,7 @@ namespace DigitalOceanV2;
 
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Api\Image;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -43,5 +44,13 @@ class DigitalOceanV2
     public function action()
     {
         return new Action($this->adapter);
+    }
+
+    /**
+     * @return Image
+     */
+    public function image()
+    {
+        return new Image($this->adapter);
     }
 }

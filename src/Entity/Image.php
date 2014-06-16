@@ -12,9 +12,9 @@
 namespace DigitalOceanV2\Entity;
 
 /**
- * @author Antoine Corcy <contact@sbin.dk>
+ * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Action extends AbstractEntity
+class Image extends AbstractEntity
 {
     /**
      * @var int
@@ -24,30 +24,30 @@ class Action extends AbstractEntity
     /**
      * @var string
      */
-    public $status;
+    public $name;
 
     /**
      * @var string
      */
-    public $type;
+    public $distribution;
 
     /**
      * @var string
      */
-    public $startedAt;
+    public $slug;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $completedAt;
+    public $public;
 
     /**
-     * @var string
+     * @var array
      */
-    public $resourceId;
+    public $regions;
 
     /**
-     * @var string
+     * @var array
      */
-    public $resourceType;
+    public $actionIds;
 }

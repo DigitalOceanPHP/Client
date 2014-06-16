@@ -22,9 +22,42 @@ interface AdapterInterface
     public function __construct($accessToken);
 
     /**
-     * @param  string            $url
+     * @param string            $url
+     *
      * @throws \RuntimeException
+     *
      * @return string
      */
     public function get($url);
+
+    /**
+     * @param string            $url
+     *
+     * @param array             $headers
+     *
+     * @throws \RuntimeException
+     */
+    public function delete($url, $headers = array(""));
+
+    /**
+     * @param string            $url
+     * @param array             $headers
+     * @param string            $content
+     *
+     * @throws \RuntimeException
+     *
+     * @return string
+     */
+    public function put($url, $headers = array(), $content = "");
+
+    /**
+     * @param string            $url
+     * @param array             $headers
+     * @param string            $content
+     *
+     * @throws \RuntimeException
+     *
+     * @return string
+     */
+    public function post($url, $headers = array(), $content = "");
 }

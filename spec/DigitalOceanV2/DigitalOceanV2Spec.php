@@ -22,4 +22,9 @@ class DigitalOceanV2Spec extends ObjectBehavior
     {
         $this->action()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Action');
     }
+
+    function it_should_return_an_image_instance()
+    {
+        $this->image()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Image');
+    }
 }
