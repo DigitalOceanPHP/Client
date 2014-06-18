@@ -21,7 +21,7 @@ TODO
 - [x] [Image actions](https://github.com/digitaloceancloud/api-v2-docs#image-actions)
 - [x] [Images](https://github.com/digitaloceancloud/api-v2-docs#images)
 - [ ] [Keys](https://github.com/digitaloceancloud/api-v2-docs#keys)
-- [ ] [Regions](https://github.com/digitaloceancloud/api-v2-docs#regions)
+- [x] [Regions](https://github.com/digitaloceancloud/api-v2-docs#regions)
 - [x] [Sizes](https://github.com/digitaloceancloud/api-v2-docs#sizes)
 
 Installation

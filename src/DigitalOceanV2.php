@@ -15,6 +15,7 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\Image;
+use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 
 /**
@@ -70,5 +71,13 @@ class DigitalOceanV2
     public function size()
     {
         return new Size($this->adapter);
+    }
+
+    /**
+     * @return Region
+     */
+    public function region()
+    {
+        return new Region($this->adapter);
     }
 }
