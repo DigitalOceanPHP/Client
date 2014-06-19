@@ -11,9 +11,12 @@
 
 namespace DigitalOceanV2;
 
-use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Api\Action;
+use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\Image;
+use DigitalOceanV2\Api\Region;
+use DigitalOceanV2\Api\Size;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -52,5 +55,29 @@ class DigitalOceanV2
     public function image()
     {
         return new Image($this->adapter);
+    }
+
+    /**
+     * @return Domain
+     */
+    public function domain()
+    {
+        return new Domain($this->adapter);
+    }
+
+    /**
+     * @return Size
+     */
+    public function size()
+    {
+        return new Size($this->adapter);
+    }
+
+    /**
+     * @return Region
+     */
+    public function region()
+    {
+        return new Region($this->adapter);
     }
 }
