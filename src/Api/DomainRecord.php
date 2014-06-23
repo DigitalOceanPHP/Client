@@ -63,32 +63,24 @@ class DomainRecord extends AbstractApi
     {
         $headers = array('Content-Type: application/json');
         $content = "";
-        if($type === "A" || $type === "AAAA" || $type === "CNAME"|| $type === "TXT")
-        {
-            $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s"}', $name, $type, $data);
-        }
-        else if($type === "NS")
-        {
-            $content .= sprintf('{"type":"%s", "data":"%s"}', $type, $data);
-        }
-        else if($type === "MX")
-        {
-            if($priority === NULL)
-            {
+        switch($type){
+            case "A":
+            case "AAAA":
+            case "CNAME":
+            case "TXT":
+                $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s"}', $name, $type, $data);
+                break;
+            case "NS":
                 $content .= sprintf('{"type":"%s", "data":"%s"}', $type, $data);
-            }
-            else
-            {
-                $content .= sprintf('{"type":"%s", "data":"%s", "priority":"%s"}', $type, $data, $priority);
-            }
-        }
-        else if($type === "SRV")
-        {
-            $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s", "priority":%d, "port":%d, "weight":%d}', $name, $type, $data, $priority, $port, $weight);
-        }
-        else
-        {
-            throw new \RuntimeException("Domain record type is invalid");
+                break;
+            case "SRV":
+                $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s", "priority":%d, "port":%d, "weight":%d}', $name, $type, $data, $priority, $port, $weight);
+                break;
+            case "MX":
+                $content .= sprintf('{"type":"%s", "data":"%s", "priority":%d}',$type,$data,$priority);
+                break;
+            default:
+                throw new \RuntimeException("Domain record type is invalid");
         }
 
         $domainRecord = $this->adapter->post(sprintf("%s/domains/%s/records", self::ENDPOINT, $domainName), $headers, $content);
