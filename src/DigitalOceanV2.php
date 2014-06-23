@@ -17,6 +17,7 @@ use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
+use DigitalOceanV2\Api\DomainRecord;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -63,6 +64,14 @@ class DigitalOceanV2
     public function domain()
     {
         return new Domain($this->adapter);
+    }
+
+    /**
+     * @return DomainRecord
+     */
+    public function domainRecord()
+    {
+        return new DomainRecord($this->adapter);
     }
 
     /**
