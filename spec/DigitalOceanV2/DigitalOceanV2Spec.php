@@ -27,4 +27,29 @@ class DigitalOceanV2Spec extends ObjectBehavior
     {
         $this->image()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Image');
     }
+
+    function it_should_return_a_domain_records_instance()
+    {
+        $this->domainRecord()->shouldBeAnInstanceOf('DigitalOceanV2\Api\DomainRecord');
+    }
+
+    function it_should_return_a_domain_instance()
+    {
+        $this->domain()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Domain');
+    }
+
+    function it_should_return_a_size_instance()
+    {
+        $this->size()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Size');
+    }
+
+    function it_should_return_a_region_instance()
+    {
+        $this->region()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Region');
+    }
+
+    function it_should_return_a_key_instance()
+    {
+        $this->key()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Key');
+    }
 }
