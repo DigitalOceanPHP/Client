@@ -14,10 +14,11 @@ namespace DigitalOceanV2;
 use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Domain;
+use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Image;
+use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
-use DigitalOceanV2\Api\DomainRecord;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -88,5 +89,13 @@ class DigitalOceanV2
     public function region()
     {
         return new Region($this->adapter);
+    }
+
+    /**
+     * @return Key
+     */
+    public function key()
+    {
+        return new Key($this->adapter);
     }
 }

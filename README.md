@@ -20,7 +20,7 @@ TODO
 - [ ] [Droplets](https://developers.digitalocean.com/v2/#droplets)
 - [x] [Image actions](https://developers.digitalocean.com/v2/#image-actions)
 - [x] [Images](https://developers.digitalocean.com/v2/#images)
-- [ ] [Keys](https://developers.digitalocean.com/v2/#keys)
+- [X] [Keys](https://developers.digitalocean.com/v2/#keys)
 - [x] [Regions](https://developers.digitalocean.com/v2/#regions)
 - [x] [Sizes](https://developers.digitalocean.com/v2/#sizes)
 
