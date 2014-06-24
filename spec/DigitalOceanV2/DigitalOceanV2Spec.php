@@ -3,10 +3,8 @@
 namespace spec\DigitalOceanV2;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
-use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
-class DigitalOceanV2Spec extends ObjectBehavior
+class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
 {
     function let(AdapterInterface $adapter)
     {
