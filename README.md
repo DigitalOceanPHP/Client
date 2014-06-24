@@ -13,16 +13,16 @@ This libray is in *work in progress* as well as the *API*.
 TODO
 ----
 
-- [x] [Actions](https://github.com/digitaloceancloud/api-v2-docs#actions)
-- [x] [Domain records](https://github.com/digitaloceancloud/api-v2-docs#domain-records)
-- [x] [Domains](https://github.com/digitaloceancloud/api-v2-docs#domains)
-- [ ] [Droplet actions](https://github.com/digitaloceancloud/api-v2-docs#droplet-actions)
-- [ ] [Droplets](https://github.com/digitaloceancloud/api-v2-docs#droplets)
-- [x] [Image actions](https://github.com/digitaloceancloud/api-v2-docs#image-actions)
-- [x] [Images](https://github.com/digitaloceancloud/api-v2-docs#images)
-- [ ] [Keys](https://github.com/digitaloceancloud/api-v2-docs#keys)
-- [x] [Regions](https://github.com/digitaloceancloud/api-v2-docs#regions)
-- [x] [Sizes](https://github.com/digitaloceancloud/api-v2-docs#sizes)
+- [x] [Actions](https://developers.digitalocean.com/v2/#actions)
+- [x] [Domain records](https://developers.digitalocean.com/v2/#domain-records)
+- [x] [Domains](https://developers.digitalocean.com/v2/#domains)
+- [ ] [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions)
+- [ ] [Droplets](https://developers.digitalocean.com/v2/#droplets)
+- [x] [Image actions](https://developers.digitalocean.com/v2/#image-actions)
+- [x] [Images](https://developers.digitalocean.com/v2/#images)
+- [ ] [Keys](https://developers.digitalocean.com/v2/#keys)
+- [x] [Regions](https://developers.digitalocean.com/v2/#regions)
+- [x] [Sizes](https://developers.digitalocean.com/v2/#sizes)
 
 Installation
 ------------
