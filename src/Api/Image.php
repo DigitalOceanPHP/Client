@@ -102,4 +102,17 @@ class Image extends AbstractApi
 
         return new ActionEntity($action->$action);
     }
+
+    /**
+     * @param  integer      $id
+     * @param  integer      $actionId
+     * @return ActionEntity
+     */
+    public function getAction($id, $actionId)
+    {
+        $action = $this->adapter->get(sprintf("%s/images/%d/actions/%d", self::ENDPOINT, $id, $actionId));
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
 }
