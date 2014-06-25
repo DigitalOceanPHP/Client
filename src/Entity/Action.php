@@ -50,4 +50,9 @@ class Action extends AbstractEntity
      * @var string
      */
     public $resourceType;
+
+    /**
+     * @var string
+     */
+    public $region;
 }
