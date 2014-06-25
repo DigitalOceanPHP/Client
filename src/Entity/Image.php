@@ -47,7 +47,7 @@ class Image extends AbstractEntity
     public $regions;
 
     /**
-     * @var array
+     * @var string
      */
-    public $actionIds;
+    public $createdAt;
 }
