@@ -42,12 +42,12 @@ class Size extends AbstractEntity
     public $transfer;
 
     /**
-     * @var integer
+     * @var string
      */
     public $priceMonthly;
 
     /**
-     * @var integer
+     * @var string
      */
     public $priceHourly;
 
