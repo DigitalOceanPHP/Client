@@ -40,3 +40,19 @@ function convert_to_snake_case($property)
 {
     return strtolower(preg_replace('/([A-Z])/', '_$1', $property));
 }
+
+/**
+ * Returns a string representation of a boolean
+ *
+ * @param boolean   $value
+ * @return string
+ */
+function bool_to_string($value)
+{
+    return ($value) ? 'true' : 'false';
+}
+
+
+
+
+

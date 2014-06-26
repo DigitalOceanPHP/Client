@@ -37,6 +37,11 @@ class Image extends AbstractEntity
     public $slug;
 
     /**
+     * @var string
+     */
+    public $createdAt;
+
+    /**
      * @var boolean
      */
     public $public;

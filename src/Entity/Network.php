@@ -14,30 +14,32 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Region extends AbstractEntity
+class Network extends AbstractEntity
 {
     /**
      * @var string
      */
-    public $slug;
+    public $ipAddress;
 
     /**
      * @var string
      */
-    public $name;
+    public $gateway;
 
     /**
-     * @var boolean
+     * @var string
      */
-    public $available;
+    public $type;
 
     /**
-     * @var Size[]
+     * ipv6 specific
+     * @var string
      */
-    public $sizes;
+    public $cidr;
 
     /**
-     * @var string[]
+     * ipv4 specific
+     * @var string
      */
-    public $features;
+    public $netmask;
 }
