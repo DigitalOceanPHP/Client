@@ -50,4 +50,9 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
     {
         $this->key()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Key');
     }
+
+    function it_should_return_a_droplet_instance()
+    {
+        $this->droplet()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Droplet');
+    }
 }
