@@ -2,6 +2,7 @@ DigitalOcean V2
 ===============
 
 Let's consume the [DigitalOcean API V2](https://github.com/digitaloceancloud/api-v2-docs) :)
+
 This libray is in *work in progress* as well as the *API*.
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
@@ -13,6 +14,8 @@ This libray is in *work in progress* as well as the *API*.
 TODO
 ----
 
+- [ ] Documentation
+- [ ] Specs tests
 - [x] [Actions](https://developers.digitalocean.com/v2/#actions)
 - [x] [Domain records](https://developers.digitalocean.com/v2/#domain-records)
 - [x] [Domains](https://developers.digitalocean.com/v2/#domains)
