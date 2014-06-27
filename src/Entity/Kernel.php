@@ -14,12 +14,12 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Region extends AbstractEntity
+class Kernel extends AbstractEntity
 {
     /**
-     * @var string
+     * @var integer
      */
-    public $slug;
+    public $id;
 
     /**
      * @var string
@@ -27,17 +27,7 @@ class Region extends AbstractEntity
     public $name;
 
     /**
-     * @var boolean
+     * @var string
      */
-    public $available;
-
-    /**
-     * @var Size[]
-     */
-    public $sizes;
-
-    /**
-     * @var string[]
-     */
-    public $features;
+    public $version;
 }

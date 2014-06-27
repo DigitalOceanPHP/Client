@@ -17,7 +17,7 @@ TODO
 - [x] [Domain records](https://developers.digitalocean.com/v2/#domain-records)
 - [x] [Domains](https://developers.digitalocean.com/v2/#domains)
 - [ ] [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions)
-- [ ] [Droplets](https://developers.digitalocean.com/v2/#droplets)
+- [x] [Droplets](https://developers.digitalocean.com/v2/#droplets)
 - [x] [Image actions](https://developers.digitalocean.com/v2/#image-actions)
 - [x] [Images](https://developers.digitalocean.com/v2/#images)
 - [X] [Keys](https://developers.digitalocean.com/v2/#keys)

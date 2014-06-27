@@ -15,6 +15,7 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
+use DigitalOceanV2\Api\Droplet;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\Region;
@@ -97,5 +98,13 @@ class DigitalOceanV2
     public function key()
     {
         return new Key($this->adapter);
+    }
+
+    /**
+     * @return Droplet
+     */
+    public function droplet()
+    {
+        return new Droplet($this->adapter);
     }
 }

@@ -37,6 +37,11 @@ class Image extends AbstractEntity
     public $slug;
 
     /**
+     * @var string
+     */
+    public $createdAt;
+
+    /**
      * @var boolean
      */
     public $public;
@@ -45,9 +50,4 @@ class Image extends AbstractEntity
      * @var array
      */
     public $regions;
-
-    /**
-     * @var string
-     */
-    public $createdAt;
 }
