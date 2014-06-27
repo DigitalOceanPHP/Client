@@ -26,11 +26,8 @@ class Region extends AbstractApi
         $regions = $this->adapter->get(sprintf('%s/regions', self::ENDPOINT));
         $regions = json_decode($regions);
 
-        $results = array();
-        foreach ($regions->regions as $region) {
-            $results[] = new RegionEntity($region);
-        }
-
-        return $results;
+        return array_map(function ($region) {
+            return new RegionEntity($region);
+        }, $regions->regions);
     }
 }

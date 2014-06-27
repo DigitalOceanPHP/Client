@@ -26,11 +26,8 @@ class Size extends AbstractApi
         $sizes = $this->adapter->get(sprintf('%s/sizes', self::ENDPOINT));
         $sizes = json_decode($sizes);
 
-        $results = array();
-        foreach ($sizes->sizes as $size) {
-            $results[] = new SizeEntity($size);
-        }
-
-        return $results;
+        return array_map(function ($size) {
+            return new SizeEntity($size);
+        }, $sizes->sizes);
     }
 }

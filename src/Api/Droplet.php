@@ -28,12 +28,9 @@ class Droplet extends AbstractApi
         $droplets = $this->adapter->get(sprintf('%s/droplets', self::ENDPOINT));
         $droplets = json_decode($droplets);
 
-        $results = array();
-        foreach ($droplets->droplets as $droplet) {
-            $results[] = new DropletEntity($droplet);
-        }
-
-        return $results;
+        return array_map(function ($droplet) {
+            return new DropletEntity($droplet);
+        }, $droplets->droplets);
     }
 
     /**
@@ -104,12 +101,9 @@ class Droplet extends AbstractApi
         $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', self::ENDPOINT, $dropletId));
         $kernels = json_decode($kernels);
 
-        $results = array();
-        foreach ($kernels->kernels as $kernel) {
-            $results[] = new KernelEntity($kernel);
-        }
-
-        return $results;
+        return array_map(function ($kernel) {
+            return new KernelEntity($kernel);
+        }, $kernels->kernels);
     }
 
     /**
@@ -121,12 +115,9 @@ class Droplet extends AbstractApi
         $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots', self::ENDPOINT, $dropletId));
         $snapshots = json_decode($snapshots);
 
-        $results = array();
-        foreach ($snapshots->snapshots as $snapshot) {
-            $results[] = new ImageEntity($snapshot);
-        }
-
-        return $results;
+        return array_map(function ($snapshot) {
+            return new ImageEntity($snapshot);
+        }, $snapshots->snapshots);
     }
 
     /**
@@ -138,11 +129,8 @@ class Droplet extends AbstractApi
         $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups', self::ENDPOINT, $dropletId));
         $backups = json_decode($backups);
 
-        $results = array();
-        foreach ($backups->backups as $backup) {
-            $results[] = new ImageEntity($backup);
-        }
-
-        return $results;
+        return array_map(function ($backup) {
+            return new ImageEntity($backup);
+        }, $backups->backups);
     }
 }

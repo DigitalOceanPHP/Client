@@ -26,12 +26,9 @@ class Action extends AbstractApi
         $actions = $this->adapter->get(sprintf('%s/actions', self::ENDPOINT));
         $actions = json_decode($actions);
 
-        $results = array();
-        foreach ($actions->actions as $action) {
-            $results[] = new ActionEntity($action);
-        }
-
-        return $results;
+        return array_map(function ($action) {
+            return new ActionEntity($action);
+        }, $actions->actions);
     }
 
     /**

@@ -27,12 +27,9 @@ class Image extends AbstractApi
         $images = $this->adapter->get(sprintf('%s/images', self::ENDPOINT));
         $images = json_decode($images);
 
-        $results = array();
-        foreach ($images->images as $image) {
-            $results[] = new ImageEntity($image);
-        }
-
-        return $results;
+        return array_map(function ($image) {
+            return new ImageEntity($image);
+        }, $images->images);
     }
 
     /**
