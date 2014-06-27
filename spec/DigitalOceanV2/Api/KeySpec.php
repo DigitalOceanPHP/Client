@@ -16,6 +16,15 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Key');
     }
 
+    function it_returns_an_empty_array($adapter)
+    {
+        $adapter->get('https://api.digitalocean.com/v2/account/keys')->willReturn('{"ssh_keys": []}');
+
+        $keys = $this->getAll();
+        $keys->shouldBeArray();
+        $keys->shouldHaveCount(0);
+    }
+
     function it_returns_an_array_of_key_entity($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/account/keys')->willReturn('{"ssh_keys": [{},{},{}]}');

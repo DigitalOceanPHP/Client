@@ -26,12 +26,9 @@ class Key extends AbstractApi
         $keys = $this->adapter->get(sprintf("%s/account/keys", self::ENDPOINT));
         $keys = json_decode($keys);
 
-        $results = array();
-        foreach ($keys->ssh_keys as $key) {
-            $results[] = new KeyEntity($key);
-        }
-
-        return $results;
+        return array_map(function ($key) {
+            return new KeyEntity($key);
+        }, $keys->ssh_keys);
     }
 
     /**
