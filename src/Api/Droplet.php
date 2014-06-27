@@ -25,7 +25,7 @@ class Droplet extends AbstractApi
      */
     public function getAll()
     {
-        $droplets = $this->adapter->get(sprintf("%s/droplets", self::ENDPOINT));
+        $droplets = $this->adapter->get(sprintf('%s/droplets', self::ENDPOINT));
         $droplets = json_decode($droplets);
 
         $results = array();
@@ -43,7 +43,7 @@ class Droplet extends AbstractApi
      */
     public function getById($id)
     {
-        $droplet = $this->adapter->get(sprintf("%s/droplets/%d", self::ENDPOINT, $id));
+        $droplet = $this->adapter->get(sprintf('%s/droplets/%d', self::ENDPOINT, $id));
         $droplet = json_decode($droplet);
 
         return new DropletEntity($droplet->droplet);
@@ -57,7 +57,7 @@ class Droplet extends AbstractApi
      * @param  boolean           $backups (optional)
      * @param  boolean           $ipv6 (optional)
      * @param  boolean           $privateNetworking (optional)
-     * @param  null|integer[]    $sshKeys (optional)
+     * @param  integer[]         $sshKeys (optional)
      * @throws \RuntimeException
      * @return DropletEntity
      */
@@ -67,7 +67,7 @@ class Droplet extends AbstractApi
         $sshIds  = '';
 
         if(null !== $sshKeys && 0 < count($sshKeys)) {
-            $sshIds = sprintf(",ssh_keys: [%s]",implode(",",$sshKeys));
+            $sshIds = sprintf(',ssh_keys: [%s]', implode(',', $sshKeys));
         }
 
         $content = sprintf(
@@ -78,7 +78,7 @@ class Droplet extends AbstractApi
             \DigitalOceanV2\bool_to_string($privateNetworking), $sshIds
         );
 
-        $droplet = $this->adapter->post(sprintf("%s/droplets", self::ENDPOINT), $headers, $content);
+        $droplet = $this->adapter->post(sprintf('%s/droplets', self::ENDPOINT), $headers, $content);
         $droplet = json_decode($droplet);
 
         return new DropletEntity($droplet->droplet);
@@ -91,7 +91,7 @@ class Droplet extends AbstractApi
     public function delete($id)
     {
         $headers = array('Content-Type: application/x-www-form-urlencoded');
-        $this->adapter->delete(sprintf("%s/droplets/%d", self::ENDPOINT, $id), $headers);
+        $this->adapter->delete(sprintf('%s/droplets/%d', self::ENDPOINT, $id), $headers);
     }
 
     /**
@@ -101,7 +101,7 @@ class Droplet extends AbstractApi
      */
     public function getAvailableKernelsByDroplet($dropletId)
     {
-        $kernels = $this->adapter->get(sprintf("%s/droplets/%d/kernels", self::ENDPOINT, $dropletId));
+        $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', self::ENDPOINT, $dropletId));
         $kernels = json_decode($kernels);
 
         $results = array();
@@ -118,7 +118,7 @@ class Droplet extends AbstractApi
      */
     public function getDropletSnapshots($dropletId)
     {
-        $snapshots = $this->adapter->get(sprintf("%s/droplets/%d/snapshots", self::ENDPOINT, $dropletId));
+        $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots', self::ENDPOINT, $dropletId));
         $snapshots = json_decode($snapshots);
 
         $results = array();
@@ -135,7 +135,7 @@ class Droplet extends AbstractApi
      */
     public function getDropletBackups($dropletId)
     {
-        $backups = $this->adapter->get(sprintf("%s/droplets/%d/backups", self::ENDPOINT, $dropletId));
+        $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups', self::ENDPOINT, $dropletId));
         $backups = json_decode($backups);
 
         $results = array();

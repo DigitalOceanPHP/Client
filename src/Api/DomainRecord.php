@@ -19,12 +19,12 @@ use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
 class DomainRecord extends AbstractApi
 {
     /**
-     * @param string                 $domainName
+     * @param  string               $domainName
      * @return DomainRecordEntity[]
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->adapter->get(sprintf("%s/domains/%s/records", self::ENDPOINT, $domainName));
+        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records', self::ENDPOINT, $domainName));
         $domainRecords = json_decode($domainRecords);
 
         $results = array();
@@ -36,63 +36,71 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param string                $domainName
-     * @param integer               $id
+     * @param  string             $domainName
+     * @param  integer            $id
      * @return DomainRecordEntity
      */
     public function getById($domainName, $id)
     {
-        $domainRecords = $this->adapter->get(sprintf("%s/domains/%s/records/%d", self::ENDPOINT, $domainName, $id));
+        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $id));
         $domainRecords = json_decode($domainRecords);
 
         return new DomainRecordEntity($domainRecords->domain_record);
     }
 
     /**
-     * @param string                $domainName
-     * @param string                $type
-     * @param string                $name
-     * @param string                $data
-     * @param string|null           $priority
-     * @param string|null           $port
-     * @param string|null           $weight
+     * @param  string             $domainName
+     * @param  string             $type
+     * @param  string             $name
+     * @param  string             $data
+     * @param  string             $priority (optional)
+     * @param  string             $port (optional)
+     * @param  string             $weight (optional)
      * @throws \RuntimeException
      * @return DomainRecordEntity
      */
-    public function create($domainName, $type, $name, $data, $priority = NULL, $port = NULL, $weight = NULL)
+    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null)
     {
         $headers = array('Content-Type: application/json');
-        $content = "";
-        switch($type){
-            case "A":
-            case "AAAA":
-            case "CNAME":
-            case "TXT":
+        $content = '';
+
+        switch (strtoupper($type)) {
+            case 'A':
+            case 'AAAA':
+            case 'CNAME':
+            case 'TXT':
                 $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s"}', $name, $type, $data);
                 break;
-            case "NS":
+
+            case 'NS':
                 $content .= sprintf('{"type":"%s", "data":"%s"}', $type, $data);
                 break;
-            case "SRV":
-                $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s", "priority":%d, "port":%d, "weight":%d}', $name, $type, $data, $priority, $port, $weight);
+
+            case 'SRV':
+                $content .= sprintf(
+                    '{"name":"%s", "type":"%s", "data":"%s", "priority":%d, "port":%d, "weight":%d}',
+                    $name, $type, $data, $priority, $port, $weight
+                );
                 break;
-            case "MX":
-                $content .= sprintf('{"type":"%s", "data":"%s", "priority":%d}',$type,$data,$priority);
+
+            case 'MX':
+                $content .= sprintf('{"type":"%s", "data":"%s", "priority":%d}', $type, $data, $priority);
                 break;
+
             default:
-                throw new \RuntimeException("Domain record type is invalid");
+                throw new \RuntimeException('Domain record type is invalid.');
         }
 
-        $domainRecord = $this->adapter->post(sprintf("%s/domains/%s/records", self::ENDPOINT, $domainName), $headers, $content);
+        $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', self::ENDPOINT, $domainName), $headers, $content);
         $domainRecord = json_decode($domainRecord);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
 
     /**
-     * @param string                $domainName
-     * @param integer               $recordId
-     * @param string                $name
+     * @param  string             $domainName
+     * @param  integer            $recordId
+     * @param  string             $name
      * @throws \RuntimeException
      * @return DomainRecordEntity
      */
@@ -101,19 +109,19 @@ class DomainRecord extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s"}', $name);
 
-        $domainRecord = $this->adapter->put(sprintf("%s/domains/%s/records/%d", self::ENDPOINT, $domainName, $recordId), $headers, $content);
+        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
         $domainRecord = json_decode($domainRecord);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
 
     /**
-     * @param string                $domainName
-     * @param integer               $recordId
+     * @param string  $domainName
+     * @param integer $recordId
      */
     public function delete($domainName, $recordId)
     {
         $headers = array('Content-Type: application/x-www-form-urlencoded');
-        $this->adapter->delete(sprintf("%s/domains/%s/records/%d", self::ENDPOINT, $domainName, $recordId), $headers);
+        $this->adapter->delete(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers);
     }
 }

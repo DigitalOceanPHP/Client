@@ -23,7 +23,7 @@ class Key extends AbstractApi
      */
     public function getAll()
     {
-        $keys = $this->adapter->get(sprintf("%s/account/keys", self::ENDPOINT));
+        $keys = $this->adapter->get(sprintf('%s/account/keys', self::ENDPOINT));
         $keys = json_decode($keys);
 
         return array_map(function ($key) {
@@ -37,7 +37,7 @@ class Key extends AbstractApi
      */
     public function getById($id)
     {
-        $key = $this->adapter->get(sprintf("%s/account/keys/%d", self::ENDPOINT, $id));
+        $key = $this->adapter->get(sprintf('%s/account/keys/%d', self::ENDPOINT, $id));
         $key = json_decode($key);
 
         return new KeyEntity($key->ssh_key);
@@ -49,7 +49,7 @@ class Key extends AbstractApi
      */
     public function getByFingerprint($fingerprint)
     {
-        $key = $this->adapter->get(sprintf("%s/account/keys/%s", self::ENDPOINT, $fingerprint));
+        $key = $this->adapter->get(sprintf('%s/account/keys/%s', self::ENDPOINT, $fingerprint));
         $key = json_decode($key);
 
         return new KeyEntity($key->ssh_key);
@@ -66,7 +66,7 @@ class Key extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s", "public_key":"%s"}', $name, $publicKey);
 
-        $key = $this->adapter->post(sprintf("%s/account/keys", self::ENDPOINT), $headers, $content);
+        $key = $this->adapter->post(sprintf('%s/account/keys', self::ENDPOINT), $headers, $content);
         $key = json_decode($key);
 
         return new KeyEntity($key->ssh_key);
@@ -83,7 +83,7 @@ class Key extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s"}', $name);
 
-        $key = $this->adapter->put(sprintf("%s/account/keys/%d", self::ENDPOINT, $id), $headers, $content);
+        $key = $this->adapter->put(sprintf('%s/account/keys/%d', self::ENDPOINT, $id), $headers, $content);
         $key = json_decode($key);
 
         return new KeyEntity($key->ssh_key);
@@ -96,6 +96,6 @@ class Key extends AbstractApi
     public function delete($id)
     {
         $headers = array('Content-Type: application/x-www-form-urlencoded');
-        $this->adapter->delete(sprintf("%s/account/keys/%d", self::ENDPOINT, $id), $headers);
+        $this->adapter->delete(sprintf('%s/account/keys/%d', self::ENDPOINT, $id), $headers);
     }
 }

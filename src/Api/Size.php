@@ -23,7 +23,7 @@ class Size extends AbstractApi
      */
     public function getAll()
     {
-        $sizes = $this->adapter->get(sprintf("%s/sizes", self::ENDPOINT));
+        $sizes = $this->adapter->get(sprintf('%s/sizes', self::ENDPOINT));
         $sizes = json_decode($sizes);
 
         $results = array();

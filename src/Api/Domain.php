@@ -23,7 +23,7 @@ class Domain extends AbstractApi
      */
     public function getAll()
     {
-        $domains = $this->adapter->get(sprintf("%s/domains", self::ENDPOINT));
+        $domains = $this->adapter->get(sprintf('%s/domains', self::ENDPOINT));
         $domains = json_decode($domains);
 
         $results = array();
@@ -41,7 +41,7 @@ class Domain extends AbstractApi
      */
     public function getByName($domainName)
     {
-        $domain = $this->adapter->get(sprintf("%s/domains/%s", self::ENDPOINT, $domainName));
+        $domain = $this->adapter->get(sprintf('%s/domains/%s', self::ENDPOINT, $domainName));
         $domain = json_decode($domain);
 
         return new DomainEntity($domain->domain);
@@ -58,7 +58,7 @@ class Domain extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s", "ip_address":"%s"}', $name, $ipAddress);
 
-        $domain = $this->adapter->post(sprintf("%s/domains/", self::ENDPOINT), $headers, $content);
+        $domain = $this->adapter->post(sprintf('%s/domains/', self::ENDPOINT), $headers, $content);
         $domain = json_decode($domain);
 
         return new DomainEntity($domain->domain);
@@ -71,6 +71,6 @@ class Domain extends AbstractApi
     public function delete($domain)
     {
         $headers = array('Content-Type: application/x-www-form-urlencoded');
-        $this->adapter->delete(sprintf("%s/domains/%s", self::ENDPOINT, $domain), $headers);
+        $this->adapter->delete(sprintf('%s/domains/%s', self::ENDPOINT, $domain), $headers);
     }
 }

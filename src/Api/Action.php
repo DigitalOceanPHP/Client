@@ -23,7 +23,7 @@ class Action extends AbstractApi
      */
     public function getAll()
     {
-        $actions = $this->adapter->get(sprintf("%s/actions", self::ENDPOINT));
+        $actions = $this->adapter->get(sprintf('%s/actions', self::ENDPOINT));
         $actions = json_decode($actions);
 
         $results = array();
@@ -40,7 +40,7 @@ class Action extends AbstractApi
      */
     public function getById($id)
     {
-        $action = $this->adapter->get(sprintf("%s/actions/%d", self::ENDPOINT, $id));
+        $action = $this->adapter->get(sprintf('%s/actions/%d', self::ENDPOINT, $id));
         $action = json_decode($action);
 
         return new ActionEntity($action->action);
