@@ -81,30 +81,36 @@ class Droplet extends AbstractEntity
      */
     public function build($parameters)
     {
-        foreach ($parameters as $property => $value)
-        {
-            switch($property){
-                case "networks":
-                    foreach ($value->v4 as $subProperty => $subValue)
+        foreach ($parameters as $property => $value) {
+            switch ($property) {
+                case 'networks':
+                    foreach ($value->v4 as $subProperty => $subValue) {
                         $this->networks[] = new Network($subValue);
-                    foreach ($value->v6 as $subProperty => $subValue)
+                    }
+
+                    foreach ($value->v6 as $subProperty => $subValue) {
                         $this->networks[] = new Network($subValue);
+                    }
                     break;
-                case "kernel":
+
+                case 'kernel':
                     $this->kernel = new Kernel($value);
                     break;
-                case "size":
+
+                case 'size':
                     $this->size = new Size($value);
                     break;
-                case "region":
+
+                case 'region':
                     $this->region = new Region($value);
                     break;
-                case "image":
+
+                case 'image':
                     $this->image = new Image($value);
                     break;
+
                 default:
                     $this->{\DigitalOceanV2\convert_to_camel_case($property)} = $value;
-                    break;
             }
         }
     }

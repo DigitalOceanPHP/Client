@@ -37,7 +37,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer        $id
+     * @param  integer           $id
      * @throws \RuntimeException
      * @return DropletEntity
      */
@@ -50,26 +50,33 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param string              $name
-     * @param string              $region
-     * @param string              $size
-     * @param string              $image
-     * @param bool                $backups
-     * @param bool                $ipv6
-     * @param bool                $privateNetworking
-     * @param null|integer[]      $sshKeys
+     * @param  string            $name
+     * @param  string            $region
+     * @param  string            $size
+     * @param  string            $image
+     * @param  boolean           $backups (optional)
+     * @param  boolean           $ipv6 (optional)
+     * @param  boolean           $privateNetworking (optional)
+     * @param  null|integer[]    $sshKeys (optional)
      * @throws \RuntimeException
      * @return DropletEntity
      */
     public function create($name, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, $sshKeys = null)
     {
         $headers = array('Content-Type: application/json');
-        $sshIds = "";
-        if($sshKeys != null && count($sshKeys) > 0){
+        $sshIds  = '';
+
+        if(null !== $sshKeys && 0 < count($sshKeys)) {
             $sshIds = sprintf(",ssh_keys: [%s]",implode(",",$sshKeys));
         }
-        $content = sprintf('{"name":"%s","region":"%s","size":"%s","image":%d,"backups":%s,"ipv6":%s,"private_networking":%s%s}'
-            , $name, $region, $size, $image, \DigitalOceanV2\bool_to_string($backups), \DigitalOceanV2\bool_to_string($ipv6), \DigitalOceanV2\bool_to_string($privateNetworking), $sshIds);
+
+        $content = sprintf(
+            '{"name":"%s","region":"%s","size":"%s","image":%d,"backups":%s,"ipv6":%s,"private_networking":%s%s}',
+            $name, $region, $size, $image,
+            \DigitalOceanV2\bool_to_string($backups),
+            \DigitalOceanV2\bool_to_string($ipv6),
+            \DigitalOceanV2\bool_to_string($privateNetworking), $sshIds
+        );
 
         $droplet = $this->adapter->post(sprintf("%s/droplets", self::ENDPOINT), $headers, $content);
         $droplet = json_decode($droplet);
@@ -78,7 +85,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param  integer           $id
      * @throws \RuntimeException
      */
     public function delete($id)
@@ -88,7 +95,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer             $dropletId
+     * @param  integer           $dropletId
      * @throws \RuntimeException
      * @return KernelEntity[]
      */
@@ -106,7 +113,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer        $dropletId
+     * @param  integer       $dropletId
      * @return ImageEntity[]
      */
     public function getDropletSnapshots($dropletId)
@@ -123,7 +130,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer        $dropletId
+     * @param  integer       $dropletId
      * @return ImageEntity[]
      */
     public function getDropletBackups($dropletId)

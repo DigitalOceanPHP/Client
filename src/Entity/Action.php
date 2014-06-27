@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class Action extends AbstractEntity
 {
     /**
-     * @var int
+     * @var integer
      */
     public $id;
 

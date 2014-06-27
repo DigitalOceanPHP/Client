@@ -32,13 +32,15 @@ class Network extends AbstractEntity
     public $type;
 
     /**
-     * ipv6 specific
+     * IPv6 specific.
+     *
      * @var string
      */
     public $cidr;
 
     /**
-     * ipv4 specific
+     * IPv4 specific.
+     *
      * @var string
      */
     public $netmask;

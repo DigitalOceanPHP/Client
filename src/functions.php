@@ -42,17 +42,12 @@ function convert_to_snake_case($property)
 }
 
 /**
- * Returns a string representation of a boolean
+ * Returns a string representation of a boolean.
  *
- * @param boolean   $value
+ * @param  boolean $value
  * @return string
  */
 function bool_to_string($value)
 {
-    return ($value) ? 'true' : 'false';
+    return $value ? 'true' : 'false';
 }
-
-
-
-
-
