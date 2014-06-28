@@ -16,10 +16,14 @@ TODO
 
 - [ ] Documentation
 - [ ] Specs tests
+
+DONE
+----
+
 - [x] [Actions](https://developers.digitalocean.com/v2/#actions)
 - [x] [Domain records](https://developers.digitalocean.com/v2/#domain-records)
 - [x] [Domains](https://developers.digitalocean.com/v2/#domains)
-- [ ] [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions)
+- [x] [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions)
 - [x] [Droplets](https://developers.digitalocean.com/v2/#droplets)
 - [x] [Image actions](https://developers.digitalocean.com/v2/#image-actions)
 - [x] [Images](https://developers.digitalocean.com/v2/#images)

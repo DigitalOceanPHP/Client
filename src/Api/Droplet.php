@@ -11,6 +11,7 @@
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Droplet as DropletEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Kernel as KernelEntity;
@@ -132,5 +133,179 @@ class Droplet extends AbstractApi
         return array_map(function ($backup) {
             return new ImageEntity($backup);
         }, $backups->backups);
+    }
+
+    /**
+     * @param  integer      $dropletId
+     * @param  integer      $actionId
+     * @return ActionEntity
+     */
+    public function getDropletActionById($dropletId, $actionId)
+    {
+        $action = $this->adapter->get(sprintf('%s/droplets/%d/actions/%d', self::ENDPOINT, $dropletId, $actionId));
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function reboot($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "reboot"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function powerCycle($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "power_cycle"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function shutdown($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "shutdown"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function powerOff($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "power_off"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function powerOn($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "power_on"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function passwordReset($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "password_reset"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @param  string            $size
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function resize($dropletId, $size)
+    {
+        $this->executeAction($dropletId, array("type" => "resize", "size" => $size));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @param  integer|string    $image
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function restore($dropletId, $image)
+    {
+        $this->executeAction($dropletId, array("type" => "resize", "image" => $image));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @param  integer|string    $image
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function rebuild($dropletId, $image)
+    {
+        $this->executeAction($dropletId, array("type" => "rebuild", "image" => $image));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @param  string            $name
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function rename($dropletId, $name)
+    {
+        $this->executeAction($dropletId, array("type" => "rename", "image" => $name));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @param  integer           $kernel
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function changeKernel($dropletId, $kernel)
+    {
+        $this->executeAction($dropletId, array("type" => "change_kernel", "kernel" => $kernel));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function enableIpv6($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "enable_ipv6"));
+    }
+
+    /**
+     * @param  integer           $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function disableBackups($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "disable_backups"));
+    }
+
+    /**
+     * @param  integer            $dropletId
+     * @throws \RuntimeException
+     * @return ActionEntity[]
+     */
+    public function enablePrivateNetworking($dropletId)
+    {
+        $this->executeAction($dropletId, array("type" => "enable_private_networking"));
+    }
+
+    /**
+     * @param  integer            $dropletId
+     * @param  array              $options
+     * @throws \RuntimeException
+     * @return ActionEntity
+     */
+    private function executeAction($dropletId, $options){
+        $headers = array('Content-Type: application/json');
+        $content = json_encode($options);
+
+        $action = $this->adapter->post(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $dropletId), $headers, $content);
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
     }
 }
