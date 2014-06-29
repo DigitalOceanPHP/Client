@@ -65,17 +65,28 @@ require 'vendor/autoload.php';
 use DigitalOceanV2\Adapter\BuzzAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 
+// create an adapter with your access token
 $adapter = new BuzzAdapter('your_access_token');
+
+// create a digital ocean object with the previous adapter
 $digitalOcean = new DigitalOceanV2($adapter);
 
-$action = $digitalOcean->action();
+// ...
+```
 
-try {
-    var_dump($action->getAll());
-    var_dump($action->getById(12345));
-} catch (Exception $e) {
-    die($e->getMessage());
-}
+Action
+------
+
+```php
+// ..
+// return the action api
+$action  = $digitalOcean->action();
+
+// return a collection of Action entity
+$actions = $action->getAll();
+
+// return the Action entity
+$action123 = $action->getById(123);
 ```
 
 Contributing
