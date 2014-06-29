@@ -21,8 +21,8 @@ API | Documentation | Specification tests
 [Domains](https://developers.digitalocean.com/v2/#domains) | - | -
 [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | - | -
 [Droplets](https://developers.digitalocean.com/v2/#droplets) | - | -
-[Image actions](https://developers.digitalocean.com/v2/#image-actions) | - | -
-[Images](https://developers.digitalocean.com/v2/#images) | - | -
+[Image actions](https://developers.digitalocean.com/v2/#image-actions) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
+[Images](https://developers.digitalocean.com/v2/#images) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
 [Keys](https://developers.digitalocean.com/v2/#keys) | [√](https://github.com/toin0u/DigitalOceanV2#key) | √
 [Regions](https://developers.digitalocean.com/v2/#regions) | [√](https://github.com/toin0u/DigitalOceanV2#region) | √
 [Sizes](https://developers.digitalocean.com/v2/#sizes) | [√](https://github.com/toin0u/DigitalOceanV2#size) | √
@@ -103,7 +103,32 @@ n/a
 Image
 -----
 
-n/a
+```php
+// ..
+// return the image api
+$image  = $digitalOcean->image();
+
+// return a collection of Image entity
+$images = $image->getAll();
+
+// return the Image entity 123
+$image123 = $image->getById(123);
+
+// return the Image entity with the given image slug
+$imageFoobar = $image->getBySlug('foobar');
+
+// return the updated Image entity
+$updatedImage = $image->update(123, 'new-name');
+
+// delete the image 123
+$image->delete(123);
+
+// return the Action entity of the transfered image 123 to the given region slug
+$transferedImage = $image->transfer(123, 'region-slug');
+
+// return the Action entity 456 of the image 123
+$actionImage = $image->getAction(123, 456);
+```
 
 Key
 ---
@@ -129,7 +154,7 @@ $createdKey = $key->create('my-key', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPrt
 $updatedKey = $key->update(123, 'new-key-name');
 
 // return void if deleted successfully
-$deletedKey = $key->delete(123);
+$key->delete(123);
 ```
 
 Region

@@ -97,7 +97,7 @@ class Image extends AbstractApi
         $action = $this->adapter->post(sprintf('%s/images/%d/actions', self::ENDPOINT, $id), $headers, $content);
         $action = json_decode($action);
 
-        return new ActionEntity($action->$action);
+        return new ActionEntity($action->action);
     }
 
     /**
