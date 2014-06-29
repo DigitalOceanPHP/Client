@@ -20,21 +20,21 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter->get('https://api.digitalocean.com/v2/actions')->willReturn('{"actions": []}');
 
-        $keys = $this->getAll();
-        $keys->shouldBeArray();
-        $keys->shouldHaveCount(0);
+        $actions = $this->getAll();
+        $actions->shouldBeArray();
+        $actions->shouldHaveCount(0);
     }
 
     function it_returns_an_array_of_action_entity($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/actions')->willReturn('{"actions": [{},{},{}]}');
 
-        $keys = $this->getAll();
-        $keys->shouldBeArray();
-        $keys->shouldHaveCount(3);
-        $keys[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $keys[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $keys[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $actions = $this->getAll();
+        $actions->shouldBeArray();
+        $actions->shouldHaveCount(3);
+        $actions[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $actions[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $actions[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
 
     function it_returns_an_action_entity_get_by_its_id($adapter)
