@@ -24,7 +24,7 @@ API | Documentation | Specification tests
 [Image actions](https://developers.digitalocean.com/v2/#image-actions) | - | -
 [Images](https://developers.digitalocean.com/v2/#images) | - | -
 [Keys](https://developers.digitalocean.com/v2/#keys) | [√](https://github.com/toin0u/DigitalOceanV2#key) | √
-[Regions](https://developers.digitalocean.com/v2/#regions) | - | -
+[Regions](https://developers.digitalocean.com/v2/#regions) | [√](https://github.com/toin0u/DigitalOceanV2#region) | √
 [Sizes](https://developers.digitalocean.com/v2/#sizes) | [√](https://github.com/toin0u/DigitalOceanV2#size) | -
 
 Installation
@@ -135,7 +135,14 @@ $deletedKey = $key->delete(123);
 Region
 ------
 
-n/a
+```php
+// ..
+// return the region api
+$region  = $digitalOcean->region();
+
+// return a collection of Region entity
+$regions = $region->getAll();
+```
 
 Size
 ----

@@ -32,7 +32,7 @@ class Region extends AbstractEntity
     public $available;
 
     /**
-     * @var Size[]
+     * @var string[]
      */
     public $sizes;
 
