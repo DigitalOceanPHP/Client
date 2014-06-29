@@ -84,12 +84,12 @@ class Droplet extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'networks':
-                    if (!empty($value->v4)) {
-                        $this->networks[] = new Network($value->v4[0]);
+                    foreach ($value->v4 as $subProperty => $subValue) {
+                        $this->networks[] = new Network($subValue);
                     }
 
-                    if (!empty($value->v6)) {
-                        $this->networks[] = new Network($value->v6[0]);
+                    foreach ($value->v6 as $subProperty => $subValue) {
+                        $this->networks[] = new Network($subValue);
                     }
                     break;
 
