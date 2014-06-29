@@ -14,22 +14,18 @@ This libray is in *work in progress* as well as the *API*.
 TODO
 ----
 
-- [ ] Documentation
-- [ ] Specs tests
-
-DONE
-----
-
-- [x] [Actions](https://developers.digitalocean.com/v2/#actions)
-- [x] [Domain records](https://developers.digitalocean.com/v2/#domain-records)
-- [x] [Domains](https://developers.digitalocean.com/v2/#domains)
-- [x] [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions)
-- [x] [Droplets](https://developers.digitalocean.com/v2/#droplets)
-- [x] [Image actions](https://developers.digitalocean.com/v2/#image-actions)
-- [x] [Images](https://developers.digitalocean.com/v2/#images)
-- [X] [Keys](https://developers.digitalocean.com/v2/#keys)
-- [x] [Regions](https://developers.digitalocean.com/v2/#regions)
-- [x] [Sizes](https://developers.digitalocean.com/v2/#sizes)
+API | Documentation | Specification tests
+--- | ------------- | -------------------
+[Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
+[Domain records](https://developers.digitalocean.com/v2/#domain-records) | - | -
+[Domains](https://developers.digitalocean.com/v2/#domains) | - | -
+[Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | - | -
+[Droplets](https://developers.digitalocean.com/v2/#droplets) | - | -
+[Image actions](https://developers.digitalocean.com/v2/#image-actions) | - | -
+[Images](https://developers.digitalocean.com/v2/#images) | - | -
+[Keys](https://developers.digitalocean.com/v2/#keys) | [√](https://github.com/toin0u/DigitalOceanV2#key) | √
+[Regions](https://developers.digitalocean.com/v2/#regions) | - | -
+[Sizes](https://developers.digitalocean.com/v2/#sizes) | [√](https://github.com/toin0u/DigitalOceanV2#size) | -
 
 Installation
 ------------
@@ -85,8 +81,83 @@ $action  = $digitalOcean->action();
 // return a collection of Action entity
 $actions = $action->getAll();
 
-// return the Action entity
+// return the Action entity 123
 $action123 = $action->getById(123);
+```
+
+Domain
+------
+
+n/a
+
+Domain Record
+-------------
+
+n/a
+
+Droplet
+-------
+
+n/a
+
+Image
+-----
+
+n/a
+
+Key
+---
+
+```php
+// ..
+// return the key api
+$key  = $digitalOcean->key();
+
+// return a collection of Key entity
+$keys = $key->getAll();
+
+// return the Key entity 123
+$key123 = $key->getById(123);
+
+// return the Key entity with the given fingerprint
+$key = $key->getByFingerprint('f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2');
+
+// return the created Key entity
+$createdKey = $key->create('my-key', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPrtBjQaNBwDSV3ePC86zaEWu0....');
+
+// return the updated Key entity
+$updatedKey = $key->update(123, 'new-key-name');
+
+// return void if deleted successfully
+$deletedKey = $key->delete(123);
+```
+
+Region
+------
+
+n/a
+
+Size
+----
+
+```php
+// ..
+// return the size api
+$size  = $digitalOcean->size();
+
+// return a collection of Size entity
+$sizes = $size->getAll();
+```
+
+Specification tests
+-------------------
+
+Install [PHPSpec](http://www.phpspec.net/) [globally](https://getcomposer.org/doc/00-intro.md#globally)
+with composer and run it in the project.
+
+```bash
+$ composer global require phpspec/phpspec:@stable
+$ phpspec run -fpretty
 ```
 
 Contributing

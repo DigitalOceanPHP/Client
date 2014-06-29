@@ -52,7 +52,7 @@ class Size extends AbstractEntity
     public $priceHourly;
 
     /**
-     * @var array
+     * @var string[]
      */
     public $regions;
 }
