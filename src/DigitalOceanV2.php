@@ -18,6 +18,7 @@ use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
+use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 
@@ -106,5 +107,12 @@ class DigitalOceanV2
     public function droplet()
     {
         return new Droplet($this->adapter);
+    }
+
+    /**
+     * @return RateLimit
+     */
+    public function rateLimit(){
+        return new RateLimit($this->adapter);
     }
 }

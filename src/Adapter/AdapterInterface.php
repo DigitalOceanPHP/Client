@@ -52,4 +52,9 @@ interface AdapterInterface
      * @return string
      */
     public function post($url, $headers = array(), $content = '');
+
+    /**
+     * @return array
+     */
+    public function getLatestResponseHeaders();
 }
