@@ -55,4 +55,9 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
     {
         $this->droplet()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Droplet');
     }
+
+    function it_should_return_a_rate_limit_instance()
+    {
+        $this->rateLimit()->shouldBeAnInstanceOf('DigitalOceanV2\Api\RateLimit');
+    }
 }
