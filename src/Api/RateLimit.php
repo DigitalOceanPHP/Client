@@ -1,9 +1,12 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Yassir
- * Date: 30/06/14
- * Time: 23:31
+ * This file is part of the DigitalOceanV2 library.
+ *
+ * (c) Antoine Corcy <contact@sbin.dk>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace DigitalOceanV2\Api;
@@ -12,13 +15,13 @@ use DigitalOceanV2\Entity\RateLimit as RateLimitEntity;
 
 class RateLimit extends AbstractApi
 {
-
     /**
      * @return RateLimitEntity|null
      */
     public function getRateLimit()
     {
         $results = $this->adapter->getLatestResponseHeaders();
-        return $results != null ? new RateLimitEntity($results) : null;
+
+        return null !== $results ? new RateLimitEntity($results) : null;
     }
 }

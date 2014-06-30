@@ -183,7 +183,7 @@ $sizes = $size->getAll();
 ```
 
 RateLimit
-----
+---------
 
 ```php
 // ..

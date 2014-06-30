@@ -93,14 +93,13 @@ class BuzzAdapter implements AdapterInterface
      */
     public function getLatestResponseHeaders()
     {
-        $response = $this->browser->getLastResponse();
-        if($response == null){
+        if(null === $response = $this->browser->getLastResponse()) {
             return null;
         }
 
-        $result["reset"] = intval($response->getHeader("RateLimit-Reset"));
-        $result["remaining"] = intval($response->getHeader("RateLimit-Remaining"));
-        $result["limit"] = intval($response->getHeader("RateLimit-Limit"));
+        $result['reset']     = intval($response->getHeader('RateLimit-Reset'));
+        $result['remaining'] = intval($response->getHeader('RateLimit-Remaining'));
+        $result['limit']     = intval($response->getHeader('RateLimit-Limit'));
 
         return $result;
     }
