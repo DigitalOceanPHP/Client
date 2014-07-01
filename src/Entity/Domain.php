@@ -22,7 +22,7 @@ class Domain extends AbstractEntity
     public $name;
 
     /**
-     * @var string
+     * @var integer
      */
     public $ttl;
 

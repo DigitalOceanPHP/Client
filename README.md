@@ -18,7 +18,7 @@ API | Documentation | Specification tests
 --- | ------------- | -------------------
 [Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
 [Domain records](https://developers.digitalocean.com/v2/#domain-records) | - | -
-[Domains](https://developers.digitalocean.com/v2/#domains) | - | -
+[Domains](https://developers.digitalocean.com/v2/#domains) | [√](https://github.com/toin0u/DigitalOceanV2#domain) | -
 [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
 [Droplets](https://developers.digitalocean.com/v2/#droplets) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
 [Image actions](https://developers.digitalocean.com/v2/#image-actions) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
@@ -89,7 +89,24 @@ $action123 = $action->getById(123);
 Domain
 ------
 
-n/a
+```php
+// ..
+// return the domain api
+$domain = $digitalocean->domain();
+
+// return a collection of Domain entity
+$domains = $domain->getAll();
+
+// return the Domain entity 'foo.dk'
+$domainFooDk = $domain->getByName('foo.dk');
+
+// return the created Domain named 'bar.dk' and pointed to ip '127.0.0.1'
+$created = $domain->create('bar.dk', '127.0.0.1');
+
+// delete the domain named 'baz.dk'
+$domain->delete('baz.dk');
+
+```
 
 Domain Record
 -------------

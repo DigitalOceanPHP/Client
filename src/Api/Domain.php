@@ -62,7 +62,7 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param  integer           $domain
+     * @param  string            $domain
      * @throws \RuntimeException
      */
     public function delete($domain)
