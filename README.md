@@ -19,8 +19,8 @@ API | Documentation | Specification tests
 [Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
 [Domain records](https://developers.digitalocean.com/v2/#domain-records) | - | -
 [Domains](https://developers.digitalocean.com/v2/#domains) | - | -
-[Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | - | -
-[Droplets](https://developers.digitalocean.com/v2/#droplets) | - | -
+[Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
+[Droplets](https://developers.digitalocean.com/v2/#droplets) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
 [Image actions](https://developers.digitalocean.com/v2/#image-actions) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
 [Images](https://developers.digitalocean.com/v2/#images) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
 [Keys](https://developers.digitalocean.com/v2/#keys) | [√](https://github.com/toin0u/DigitalOceanV2#key) | √
@@ -99,7 +99,77 @@ n/a
 Droplet
 -------
 
-n/a
+```php
+// ..
+// return the droplet api
+$droplet = $digitalocean->droplet();
+
+// return a collection of Droplet entity
+$droplets = $droplet->getAll();
+
+// return the Droplet entity 123
+$droplet123 = $droplet->getById(123);
+
+// create and return the created Droplet entity
+$created = $droplet->create('the-name', 'nyc1', '512mb', 449676388);
+
+// delete the droplet 123
+$droplet->delete(123);
+
+// return a collection of Kernel entity
+$kernels = $droplet->getAvailableKernels(123);
+
+// return a collection of Image entity
+$images = $droplet->getSnapshots(123);
+
+// return a collection of Image entity
+$backups = $droplet->getBackups(123);
+
+// return the Action entity 456 of the droplet 123
+$action = $droplet->getActionById(123, 456);
+
+// delete droplet 123 and return the Action entity
+$rebooted = $droplet->reboot(123);
+
+// power cycle droplet 123 and return the Action entity
+$powerCycled = $droplet->powerCycle(123);
+
+// shutdown droplet 123 and return the Action entity
+$shutdown = $droplet->shutdown(123);
+
+// power off droplet 123 and return the Action entity
+$powerOff = $droplet->powerOff(123);
+
+// power on droplet 123 and return the Action entity
+$powerOn = $droplet->powerOn(123);
+
+// reset password droplet 123 and return the Action entity
+$passwordReseted = $droplet->passwordReset(123);
+
+// resize droplet 123 with the image 789 and return the Action entity
+$resized = $droplet->resize(123, 789);
+
+// restore droplet 123 with the image 789 and return the Action entity
+$restored = $droplet->restore(123, 789);
+
+// rebuild droplet 123 with image 789 and return the Action entity
+$rebuilt = $droplet->rebuild(123, 789);
+
+// rename droplet 123 to 'new-name' and return the Action entity
+$renamed = $droplet->rename(123, 'new-name');
+
+// change kernel to droplet 123 with kernel 321 and return the Action entity
+$kernelChanged = $droplet->changeKernel(123, 321);
+
+// enable IPv6 to droplet 123 and return the Action entity
+$ipv6Enabled = $droplet->enableIpv6(123);
+
+// disable backups to droplet 123 and return the Action entity
+$backupsDisabled = $droplet->disableBackups(123);
+
+// enable private networking to droplet 123 and return the Action entity
+$privateNetworkingEnabled = $droplet->enablePrivateNetworking(123);
+```
 
 Image
 -----
@@ -107,7 +177,7 @@ Image
 ```php
 // ..
 // return the image api
-$image  = $digitalOcean->image();
+$image = $digitalOcean->image();
 
 // return a collection of Image entity
 $images = $image->getAll();
@@ -137,7 +207,7 @@ Key
 ```php
 // ..
 // return the key api
-$key  = $digitalOcean->key();
+$key = $digitalOcean->key();
 
 // return a collection of Key entity
 $keys = $key->getAll();
@@ -164,7 +234,7 @@ Region
 ```php
 // ..
 // return the region api
-$region  = $digitalOcean->region();
+$region = $digitalOcean->region();
 
 // return a collection of Region entity
 $regions = $region->getAll();
@@ -176,7 +246,7 @@ Size
 ```php
 // ..
 // return the size api
-$size  = $digitalOcean->size();
+$size = $digitalOcean->size();
 
 // return a collection of Size entity
 $sizes = $size->getAll();
@@ -188,7 +258,7 @@ RateLimit
 ```php
 // ..
 // returns the rate limit api
-$rateLimit  = $digitalOcean->rateLimit();
+$rateLimit = $digitalOcean->rateLimit();
 
 // returns the rate limit returned by the latest request
 $currentLimit = $rateLimit->getRateLimit();
