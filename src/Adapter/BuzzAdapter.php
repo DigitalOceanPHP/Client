@@ -12,12 +12,14 @@
 namespace DigitalOceanV2\Adapter;
 
 use Buzz\Browser;
+use Buzz\Client\ClientInterface;
 use Buzz\Client\Curl;
+use Buzz\Listener\ListenerInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class BuzzAdapter implements AdapterInterface
+class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var Browser
@@ -25,12 +27,14 @@ class BuzzAdapter implements AdapterInterface
     protected $browser;
 
     /**
-     * {@inheritdoc}
+     * @param string            $accessToken
+     * @param ClientInterface   $client (optional)
+     * @param ListenerInterface $listener (optional)
      */
-    public function __construct($accessToken)
+    public function __construct($accessToken, ClientInterface $client = null, ListenerInterface $listener = null)
     {
-        $this->browser = new Browser(new Curl);
-        $this->browser->addListener(new BuzzOAuthListener($accessToken));
+        $this->browser = new Browser($client ?: new Curl);
+        $this->browser->addListener($listener ?: new BuzzOAuthListener($accessToken));
     }
 
     /**
@@ -93,14 +97,14 @@ class BuzzAdapter implements AdapterInterface
      */
     public function getLatestResponseHeaders()
     {
-        if(null === $response = $this->browser->getLastResponse()) {
+        if (null === $response = $this->browser->getLastResponse()) {
             return null;
         }
 
-        $result['reset']     = intval($response->getHeader('RateLimit-Reset'));
-        $result['remaining'] = intval($response->getHeader('RateLimit-Remaining'));
-        $result['limit']     = intval($response->getHeader('RateLimit-Limit'));
-
-        return $result;
+        return array(
+            'reset'     => (integer) $response->getHeader('RateLimit-Reset'),
+            'remaining' => (integer) $response->getHeader('RateLimit-Remaining'),
+            'limit'     => (integer) $response->getHeader('RateLimit-Limit'),
+        );
     }
 }

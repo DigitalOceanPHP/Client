@@ -17,11 +17,6 @@ namespace DigitalOceanV2\Adapter;
 interface AdapterInterface
 {
     /**
-     * @param string $accessToken
-     */
-    public function __construct($accessToken);
-
-    /**
      * @param  string            $url
      * @throws \RuntimeException
      * @return string

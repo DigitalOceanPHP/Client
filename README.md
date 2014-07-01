@@ -51,6 +51,15 @@ Or edit `composer.json` and add:
 }
 ```
 
+Adapter
+-------
+
+We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `ClientInterface`
+and `ListenerInterface`. By default a `Curl` client and a `BuzzOAuthListener` are used.
+
+You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
+
+
 Example
 -------
 
@@ -62,7 +71,8 @@ require 'vendor/autoload.php';
 use DigitalOceanV2\Adapter\BuzzAdapter;
 use DigitalOceanV2\DigitalOceanV2;
 
-// create an adapter with your access token
+// create an adapter with your access token which can be
+// generated at https://cloud.digitalocean.com/settings/applications
 $adapter = new BuzzAdapter('your_access_token');
 
 // create a digital ocean object with the previous adapter
