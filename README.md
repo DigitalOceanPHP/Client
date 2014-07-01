@@ -17,7 +17,7 @@ TODO
 API | Documentation | Specification tests
 --- | ------------- | -------------------
 [Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
-[Domain records](https://developers.digitalocean.com/v2/#domain-records) | - | -
+[Domain records](https://developers.digitalocean.com/v2/#domain-records) | [√](https://github.com/toin0u/DigitalOceanV2#domain-record) | -
 [Domains](https://developers.digitalocean.com/v2/#domains) | [√](https://github.com/toin0u/DigitalOceanV2#domain) | -
 [Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
 [Droplets](https://developers.digitalocean.com/v2/#droplets) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | -
@@ -111,7 +111,26 @@ $domain->delete('baz.dk');
 Domain Record
 -------------
 
-n/a
+```php
+// ..
+// return the domain record api
+$domainRecord = $digitalocean->domainRecord();
+
+// return a collection of DomainRecord entity of the domain 'foo.dk'
+$domainRecords = $domainRecord->getAll('foo.dk');
+
+// return the DomainRecord entity 123 of the domain 'foo.dk'
+$domainRecord123 = $domainRecord->getById('foo.dk', 123);
+
+// return the created DomainRecord entity of the domain 'bar.dk'
+$created = $domainRecord->create('bar.dk', 'AAAA', 'bar-name', '2001:db8::ff00:42:8329');
+
+// return the updated DomainRecord entity 123 of the domain 'baz.dk'
+$updated = $domainRecord->update('baz.dk', 123, 'new-name');
+
+// delete domain record 123 of the domain 'qmx.dk'
+$domainRecord->delete('qmx.dk', 123);
+```
 
 Droplet
 -------
