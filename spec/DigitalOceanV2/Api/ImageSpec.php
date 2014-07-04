@@ -134,7 +134,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/images/678',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willReturn('foo')
+            ->shouldBeCalled()
         ;
 
         $this->delete(678);

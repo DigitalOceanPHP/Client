@@ -60,7 +60,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
 
-    function if_throws_an_runtime_exception_if_requested_action_does_not_exist($adapter)
+    function it_throws_an_runtime_exception_if_requested_action_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/123456789123456789')

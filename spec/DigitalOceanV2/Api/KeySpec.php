@@ -145,7 +145,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/account/keys/678',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willReturn('foo')
+            ->shouldBeCalled()
         ;
 
         $this->delete(678);
