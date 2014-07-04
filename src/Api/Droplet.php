@@ -51,7 +51,7 @@ class Droplet extends AbstractApi
      * @param  string            $name
      * @param  string            $region
      * @param  string            $size
-     * @param  string            $image
+     * @param  string|integer    $image
      * @param  boolean           $backups (optional)
      * @param  boolean           $ipv6 (optional)
      * @param  boolean           $privateNetworking (optional)
@@ -66,11 +66,14 @@ class Droplet extends AbstractApi
 
         $sshIds  = '';
         if (0 < count($sshKeys)) {
-            $sshIds = sprintf(',ssh_keys: [%s]', implode(',', $sshKeys));
+            $sshIds = sprintf(',"ssh_keys":[%s]', implode(',', $sshKeys));
         }
 
+        // image can be either image id or a public image slug
+        $image = is_int($image) ? $image : sprintf('"%s"', $image);
+
         $content = sprintf(
-            '{"name":"%s","region":"%s","size":"%s","image":%d,"backups":%s,"ipv6":%s,"private_networking":%s%s}',
+            '{"name":"%s","region":"%s","size":"%s","image":%s,"backups":%s,"ipv6":%s,"private_networking":%s%s}',
             $name, $region, $size, $image,
             \DigitalOceanV2\bool_to_string($backups),
             \DigitalOceanV2\bool_to_string($ipv6),
