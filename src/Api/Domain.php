@@ -55,7 +55,7 @@ class Domain extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = sprintf('{"name":"%s", "ip_address":"%s"}', $name, $ipAddress);
 
-        $domain = $this->adapter->post(sprintf('%s/domains/', self::ENDPOINT), $headers, $content);
+        $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $headers, $content);
         $domain = json_decode($domain);
 
         return new DomainEntity($domain->domain);
