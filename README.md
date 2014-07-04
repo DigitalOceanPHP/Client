@@ -46,9 +46,19 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "@dev"
+        "toin0u/digitalocean-v2": "@stable"
     }
 }
+```
+
+**Protip:** you should browse the
+[`toin0u/digitalocean-v2`](https://packagist.org/packages/toin0u/digitalocean-v2)
+page to choose a stable version to use, avoid the `@stable` meta constraint.
+
+Finally run:
+
+```bash
+$ php composer.phar require toin0u/digitalocean-v2
 ```
 
 Adapter
@@ -325,6 +335,11 @@ Contributing
 ------------
 
 Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/CONTRIBUTING.md) for details.
+
+Changelog
+---------
+
+Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
 
 Credits
 -------
