@@ -1,7 +1,7 @@
 DigitalOcean V2
 ===============
 
-Let's consume the [DigitalOcean API V2](https://github.com/digitaloceancloud/api-v2-docs) :)
+Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) :)
 
 This libray is in *work in progress* as well as the *API*.
 
@@ -11,8 +11,8 @@ This libray is in *work in progress* as well as the *API*.
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/5b4eac7e-c83b-4913-86e1-72950821757a/mini.png)](https://insight.sensiolabs.com/projects/5b4eac7e-c83b-4913-86e1-72950821757a)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/?branch=master)
 
-TODO
-----
+Status
+------
 
 API | Documentation | Specification tests
 --- | ------------- | -------------------
