@@ -61,7 +61,7 @@ class DomainRecord extends AbstractApi
         $headers = array('Content-Type: application/json');
         $content = '';
 
-        switch (strtoupper($type)) {
+        switch ($type = strtoupper($type)) {
             case 'A':
             case 'AAAA':
             case 'CNAME':
