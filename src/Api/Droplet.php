@@ -231,7 +231,7 @@ class Droplet extends AbstractApi
      */
     public function restore($id, $image)
     {
-        return $this->executeAction($id, array('type' => 'resize', 'image' => $image));
+        return $this->executeAction($id, array('type' => 'restore', 'image' => $image));
     }
 
     /**

@@ -167,4 +167,186 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
         $this->getActionById(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
+
+    function it_returns_the_action_entity_after_reboot($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"reboot"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->reboot(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_power_cycle($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"power_cycle"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->powerCycle(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_shutdown($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"shutdown"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->shutdown(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_power_off($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"power_off"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->powerOff(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_power_on($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"power_on"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->powerOn(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_password_reset($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"password_reset"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->passwordReset(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_resize($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"resize","size":"1024mb"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->resize(123, '1024mb')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_restore($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"restore","image":456}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->restore(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_rebuild($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"rebuild","image":"my-slug"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->rebuild(123, 'my-slug')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_changing_kernel($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"change_kernel","kernel":789}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->changeKernel(123, 789)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_ipv6_enabled($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"enable_ipv6"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->enableIpv6(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_backups_are_disabled($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"disable_backups"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->disableBackups(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
+
+    function it_returns_the_action_entity_after_enabling_private_network($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets/123/actions',
+                array('Content-Type: application/json'),
+                '{"type":"enable_private_networking"}'
+            )
+            ->willReturn('{"action": {}}')
+        ;
+
+        $this->enablePrivateNetworking(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+    }
 }
