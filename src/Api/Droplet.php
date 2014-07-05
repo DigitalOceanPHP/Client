@@ -29,8 +29,13 @@ class Droplet extends AbstractApi
         $droplets = $this->adapter->get(sprintf('%s/droplets', self::ENDPOINT));
         $droplets = json_decode($droplets);
 
-        return array_map(function ($droplet) {
-            return new DropletEntity($droplet);
+        $meta = $this->getMeta($droplets);
+
+        return array_map(function ($droplet) use ($meta) {
+            $droplet = new DropletEntity($droplet);
+            $droplet->meta = $meta;
+
+            return $droplet;
         }, $droplets->droplets);
     }
 
@@ -106,8 +111,13 @@ class Droplet extends AbstractApi
         $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', self::ENDPOINT, $id));
         $kernels = json_decode($kernels);
 
-        return array_map(function ($kernel) {
-            return new KernelEntity($kernel);
+        $meta = $this->getMeta($kernels);
+
+        return array_map(function ($kernel) use ($meta) {
+            $kernel = new KernelEntity($kernel);
+            $kernel->meta = $meta;
+
+            return $kernel;
         }, $kernels->kernels);
     }
 
@@ -120,8 +130,13 @@ class Droplet extends AbstractApi
         $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots', self::ENDPOINT, $id));
         $snapshots = json_decode($snapshots);
 
-        return array_map(function ($snapshot) {
-            return new ImageEntity($snapshot);
+        $meta = $this->getMeta($snapshots);
+
+        return array_map(function ($snapshot) use ($meta) {
+            $snapshot = new ImageEntity($snapshot);
+            $snapshot->meta = $meta;
+
+            return $snapshot;
         }, $snapshots->snapshots);
     }
 
@@ -134,8 +149,13 @@ class Droplet extends AbstractApi
         $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups', self::ENDPOINT, $id));
         $backups = json_decode($backups);
 
-        return array_map(function ($backup) {
-            return new ImageEntity($backup);
+        $meta = $this->getMeta($backups);
+
+        return array_map(function ($backup) use ($meta) {
+            $backup = new ImageEntity($backup);
+            $backup->meta = $meta;
+
+            return $backup;
         }, $backups->backups);
     }
 

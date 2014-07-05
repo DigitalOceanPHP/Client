@@ -55,4 +55,9 @@ class Action extends AbstractEntity
      * @var string
      */
     public $region;
+
+    /**
+     * @var Meta
+     */
+    public $meta;
 }

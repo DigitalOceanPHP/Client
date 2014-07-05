@@ -50,4 +50,9 @@ class DomainRecord extends AbstractEntity
      * @var integer
      */
     public $weight;
+
+    /**
+     * @var Meta
+     */
+    public $meta;
 }

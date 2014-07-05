@@ -50,4 +50,9 @@ class Image extends AbstractEntity
      * @var string[]
      */
     public $regions;
+
+    /**
+     * @var Meta
+     */
+    public $meta;
 }

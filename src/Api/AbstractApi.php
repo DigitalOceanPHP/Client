@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Entity\Meta;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -34,5 +35,18 @@ abstract class AbstractApi
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @param  string    $data
+     * @return Meta|null
+     */
+    protected function getMeta($data)
+    {
+        if (!isset($data->meta)) {
+            return null;
+        }
+
+        return new Meta($data->meta);
     }
 }

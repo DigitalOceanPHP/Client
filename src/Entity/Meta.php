@@ -12,27 +12,12 @@
 namespace DigitalOceanV2\Entity;
 
 /**
- * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Antoine Corcy <contact@sbin.dk>
  */
-class Domain extends AbstractEntity
+class Meta extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $name;
-
     /**
      * @var integer
      */
-    public $ttl;
-
-    /**
-     * @var string
-     */
-    public $zoneFile;
-
-    /**
-     * @var Meta
-     */
-    public $meta;
+    public $total;
 }

@@ -26,8 +26,13 @@ class Action extends AbstractApi
         $actions = $this->adapter->get(sprintf('%s/actions', self::ENDPOINT));
         $actions = json_decode($actions);
 
-        return array_map(function ($action) {
-            return new ActionEntity($action);
+        $meta = $this->getMeta($actions);
+
+        return array_map(function ($action) use ($meta) {
+            $action = new ActionEntity($action);
+            $action->meta = $meta;
+
+            return $action;
         }, $actions->actions);
     }
 

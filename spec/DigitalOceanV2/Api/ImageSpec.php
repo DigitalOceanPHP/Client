@@ -27,14 +27,23 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_image_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images')->willReturn('{"images": [{},{},{}]}');
+        $adapter
+            ->get('https://api.digitalocean.com/v2/images')
+            ->willReturn('{"images": [{},{},{}], "meta": {"total": 3}}')
+        ;
 
         $images = $this->getAll();
         $images->shouldBeArray();
         $images->shouldHaveCount(3);
         $images[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $images[0]->meta->total->shouldBe(3);
         $images[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $images[0]->meta->total->shouldBe(3);
         $images[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $images[0]->meta->total->shouldBe(3);
     }
 
     function it_returns_an_image_entity_get_by_its_id($adapter)

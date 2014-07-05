@@ -26,8 +26,13 @@ class Domain extends AbstractApi
         $domains = $this->adapter->get(sprintf('%s/domains', self::ENDPOINT));
         $domains = json_decode($domains);
 
-        return array_map(function ($domain) {
-            return new DomainEntity($domain);
+        $meta = $this->getMeta($domains);
+
+        return array_map(function ($domain) use ($meta) {
+            $domain = new DomainEntity($domain);
+            $domain->meta = $meta;
+
+            return $domain;
         }, $domains->domains);
     }
 

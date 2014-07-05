@@ -114,4 +114,9 @@ class Droplet extends AbstractEntity
             }
         }
     }
+
+    /**
+     * @var Meta
+     */
+    public $meta;
 }

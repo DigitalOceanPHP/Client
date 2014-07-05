@@ -27,14 +27,23 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_domain_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains')->willReturn('{"domains": [{},{},{}]}');
+        $adapter
+            ->get('https://api.digitalocean.com/v2/domains')
+            ->willReturn('{"domains": [{},{},{}], "meta": {"total": 3}}')
+        ;
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
         $domains->shouldHaveCount(3);
         $domains[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
+        $domains[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domains[0]->meta->total->shouldBe(3);
         $domains[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
+        $domains[1]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domains[1]->meta->total->shouldBe(3);
         $domains[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
+        $domains[2]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domains[2]->meta->total->shouldBe(3);
     }
 
     function it_returns_an_domain_entity_get_by_its_name($adapter)

@@ -27,14 +27,23 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_domain_record_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records')->willReturn('{"domain_records": [{},{},{}]}');
+        $adapter
+            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records')
+            ->willReturn('{"domain_records": [{},{},{}], "meta": {"total": 3}}')
+        ;
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
         $domainRecords->shouldHaveCount(3);
         $domainRecords[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domainRecords[0]->meta->total->shouldBe(3);
         $domainRecords[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domainRecords[0]->meta->total->shouldBe(3);
         $domainRecords[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $domainRecords[0]->meta->total->shouldBe(3);
     }
 
     function it_returns_the_domain_get_by_its_id($adapter)
