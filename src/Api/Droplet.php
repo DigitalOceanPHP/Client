@@ -159,6 +159,21 @@ class Droplet extends AbstractApi
         }, $backups->backups);
     }
 
+    public function getActions($id)
+    {
+        $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $id));
+        $actions = json_decode($actions);
+
+        $meta = $this->getMeta($actions);
+
+        return array_map(function ($action) use ($meta) {
+            $action = new ActionEntity($action);
+            $action->meta = $meta;
+
+            return $action;
+        }, $actions->actions);
+    }
+
     /**
      * @param  integer      $id
      * @param  integer      $actionId
