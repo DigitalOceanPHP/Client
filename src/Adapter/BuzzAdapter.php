@@ -12,9 +12,9 @@
 namespace DigitalOceanV2\Adapter;
 
 use Buzz\Browser;
-use Buzz\Client\ClientInterface;
 use Buzz\Client\Curl;
 use Buzz\Listener\ListenerInterface;
+use Buzz\Message\Response;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -28,12 +28,12 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 
     /**
      * @param string            $accessToken
-     * @param ClientInterface   $client (optional)
+     * @param Browser           $browser (optional)
      * @param ListenerInterface $listener (optional)
      */
-    public function __construct($accessToken, ClientInterface $client = null, ListenerInterface $listener = null)
+    public function __construct($accessToken, Browser $browser = null, ListenerInterface $listener = null)
     {
-        $this->browser = new Browser($client ?: new Curl);
+        $this->browser = $browser ?: new Browser(new Curl);
         $this->browser->addListener($listener ?: new BuzzOAuthListener($accessToken));
     }
 
@@ -45,7 +45,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
         $response = $this->browser->get($url);
 
         if (!$response->isSuccessful()) {
-            throw new \RuntimeException('Request not processed.');
+            $this->handleResponse($response);
         }
 
         return $response->getContent();
@@ -59,19 +59,19 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
         $response = $this->browser->delete($url, $headers);
 
         if (!$response->isSuccessful()) {
-            throw new \RuntimeException('Request not processed.');
+            $this->handleResponse($response);
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function put($url, $headers = array(), $content = "")
+    public function put($url, $headers = array(), $content = '')
     {
         $response = $this->browser->put($url, $headers, $content);
 
         if (!$response->isSuccessful()) {
-            throw new \RuntimeException('Request not processed.');
+            $this->handleResponse($response);
         }
 
         return $response->getContent();
@@ -81,12 +81,12 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, $headers = array(), $content = "")
+    public function post($url, $headers = array(), $content = '')
     {
         $response = $this->browser->post($url, $headers, $content);
 
         if (!$response->isSuccessful()) {
-            throw new \RuntimeException('Request not processed.');
+            $this->handleResponse($response);
         }
 
         return $response->getContent();
@@ -106,5 +106,16 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
             'remaining' => (integer) $response->getHeader('RateLimit-Remaining'),
             'limit'     => (integer) $response->getHeader('RateLimit-Limit'),
         );
+    }
+
+    /**
+     * @param  Response          $response
+     * @throws \RuntimeException
+     */
+    protected function handleResponse(Response $response)
+    {
+        $content = json_decode($response->getContent());
+
+        throw new \RuntimeException(sprintf('[%d] %s', $response->getStatusCode(), $content->message));
     }
 }

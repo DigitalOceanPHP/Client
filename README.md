@@ -64,8 +64,9 @@ $ php composer.phar require toin0u/digitalocean-v2
 Adapter
 -------
 
-We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `ClientInterface`
-and `ListenerInterface`. By default a `Curl` client and a `BuzzOAuthListener` are used.
+We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `Browser`
+and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
+will be used.
 
 You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
