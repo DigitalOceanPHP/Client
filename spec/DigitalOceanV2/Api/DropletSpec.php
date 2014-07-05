@@ -48,9 +48,96 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_droplet_entity_get_by_its_id($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/droplets/123')->willReturn('{"droplet": {}}');
+        $adapter
+            ->get('https://api.digitalocean.com/v2/droplets/123')
+            ->willReturn('
+                {
+                    "droplet": {
+                        "id": 14,
+                        "name": "test.example.com",
+                        "region": {
+                            "slug": "nyc2",
+                            "name": "New York",
+                            "sizes": [
+                                "1024mb",
+                                "512mb"
+                            ],
+                            "available": true
+                        },
+                        "image": {
+                            "id": 119192817,
+                            "name": "Ubuntu 13.04",
+                            "distribution": "ubuntu",
+                            "slug": "ubuntu1304",
+                            "public": true,
+                            "regions": [
+                                "nyc1"
+                            ]
+                        },
+                        "kernel": {
+                            "id": 1001,
+                            "name": "Ubuntu 14.04 x64 vmlinuz-3.13.0-24-generic (1221)",
+                            "version": "3.13.0-24-generic"
+                        },
+                        "size": {
+                            "slug": "512mb",
+                            "memory": 512,
+                            "vcpus": 1,
+                            "disk": 20,
+                            "transfer": null,
+                            "price_monthly": "5.0",
+                            "price_hourly": "0.00744",
+                            "regions": [
+                                "nyc1",
+                                "br1",
+                                "sfo1",
+                                "ams4"
+                            ]
+                        },
+                        "locked": false,
+                        "created_at": "2014-07-02T15:22:06Z",
+                        "status": "active",
+                        "networks": {
+                            "v4": [
+                                {
+                                    "ip_address": "127.0.0.1",
+                                    "netmask": "255.255.255.0",
+                                    "gateway": "127.0.0.2",
+                                    "type": "public"
+                                }
+                            ],
+                            "v6": [
+                                {
+                                    "ip_address": "2400:6180:0000:00D0:0000:0000:0009:7001",
+                                    "cidr": 124,
+                                    "gateway": "2400:6180:0000:00D0:0000:0000:0009:7000",
+                                    "type": "public"
+                                }
+                            ]
+                        },
+                        "backup_ids": [
+                            119192840
+                        ],
+                        "snapshot_ids": [
+                            119192841
+                        ],
+                        "action_ids": []
+                    }
+                }
+            ')
+        ;
 
-        $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $droplet = $this->getById(123);
+        $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $droplet->networks->shouldBeArray();
+        $droplet->networks->shouldHaveCount(2);
+        $droplet->networks[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
+        $droplet->networks[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
+        $droplet->kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
+        $droplet->size->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
+        $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+        $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $droplet->meta->shouldBeNull();
     }
 
     function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)

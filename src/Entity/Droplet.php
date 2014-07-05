@@ -54,6 +54,11 @@ class Droplet extends AbstractEntity
     /**
      * @var string
      */
+    public $createdAt;
+
+    /**
+     * @var string
+     */
     public $status;
 
     /**
