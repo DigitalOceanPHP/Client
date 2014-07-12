@@ -29,12 +29,15 @@ class Image extends AbstractApi
         $meta = null;
         $nextUrl = sprintf('%s/images', self::ENDPOINT);
         $result = array();
-        while($firstPage || count($result) < $meta->total){
+        while($firstPage || (isset($meta->total) && count($result) < $meta->total)){
             $images = $this->adapter->get($nextUrl);
             $images = json_decode($images);
 
             $meta = $this->getMeta($images);
-            $nextUrl = $images->links->pages->next;
+
+            if(isset($images->links)){
+                $nextUrl = $images->links->pages->next;
+            }
             $result = array_merge($result,array_map(function ($image) use ($meta) {
                     $image = new ImageEntity($image);
                     $image->meta = $meta;
