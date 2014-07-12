@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Action as ActionEntity;
+use DigitalOceanV2\Entity\Meta;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -25,6 +26,7 @@ class Image extends AbstractApi
     public function getAll()
     {
         $firstPage = true;
+        $meta = null;
         $nextUrl = sprintf('%s/images', self::ENDPOINT);
         $result = array();
         while($firstPage || count($result) < $meta->total){
