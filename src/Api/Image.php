@@ -13,7 +13,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Action as ActionEntity;
-use DigitalOceanV2\Entity\Meta;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -25,29 +24,16 @@ class Image extends AbstractApi
      */
     public function getAll()
     {
-        $firstPage = true;
-        $meta = null;
-        $nextUrl = sprintf('%s/images', self::ENDPOINT);
-        $result = array();
-        while($firstPage || (isset($meta->total) && count($result) < $meta->total)){
-            $images = $this->adapter->get($nextUrl);
-            $images = json_decode($images);
+        $images = $this->adapter->get(sprintf('%s/images?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+        $images = json_decode($images);
+        $meta = $this->getMeta($images);
 
-            $meta = $this->getMeta($images);
+        return array_map(function ($image) use ($meta) {
+                $image = new ImageEntity($image);
+                $image->meta = $meta;
 
-            if(isset($images->links)){
-                $nextUrl = $images->links->pages->next;
-            }
-            $result = array_merge($result,array_map(function ($image) use ($meta) {
-                    $image = new ImageEntity($image);
-                    $image->meta = $meta;
-
-                    return $image;
-                }, $images->images));
-            $firstPage = false;
-        }
-
-        return $result;
+                return $image;
+            }, $images->images);
     }
 
     /**

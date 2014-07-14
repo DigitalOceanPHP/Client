@@ -18,7 +18,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/account/keys')->willReturn('{"ssh_keys": []}');
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)->willReturn('{"ssh_keys": []}');
 
         $keys = $this->getAll();
         $keys->shouldBeArray();
@@ -27,7 +27,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_key_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/account/keys')->willReturn('{"ssh_keys": [{},{},{}]}');
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)->willReturn('{"ssh_keys": [{},{},{}]}');
 
         $keys = $this->getAll();
         $keys->shouldBeArray();

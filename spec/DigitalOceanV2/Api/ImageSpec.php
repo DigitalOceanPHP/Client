@@ -18,7 +18,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images')->willReturn('{"images": []}');
+        $adapter->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)->willReturn('{"images": []}');
 
         $images = $this->getAll();
         $images->shouldBeArray();
@@ -28,7 +28,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     function it_returns_an_array_of_image_entity($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/images')
+            ->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)
             ->willReturn('{"images": [{},{},{}], "meta": {"total": 3}}')
         ;
 

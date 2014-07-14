@@ -18,7 +18,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records')->willReturn('{"domain_records": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)->willReturn('{"domain_records": []}');
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
@@ -28,7 +28,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     function it_returns_an_array_of_domain_record_entity($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records')
+            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)
             ->willReturn('{"domain_records": [{},{},{}], "meta": {"total": 3}}')
         ;
 

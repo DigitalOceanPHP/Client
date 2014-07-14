@@ -23,7 +23,7 @@ class Action extends AbstractApi
      */
     public function getAll()
     {
-        $actions = $this->adapter->get(sprintf('%s/actions', self::ENDPOINT));
+        $actions = $this->adapter->get(sprintf('%s/actions?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $actions = json_decode($actions);
 
         $meta = $this->getMeta($actions);

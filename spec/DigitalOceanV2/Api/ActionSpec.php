@@ -18,7 +18,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/actions')->willReturn('{"actions": []}');
+        $adapter->get('https://api.digitalocean.com/v2/actions?per_page=' . PHP_INT_MAX)->willReturn('{"actions": []}');
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
@@ -28,7 +28,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     function it_returns_an_array_of_action_entity($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/actions')
+            ->get('https://api.digitalocean.com/v2/actions?per_page=' . PHP_INT_MAX)
             ->willReturn('{"actions": [{},{},{}], "meta": {"total": 3}}')
         ;
 
