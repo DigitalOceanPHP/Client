@@ -288,7 +288,7 @@ class Droplet extends AbstractApi
      */
     public function rename($id, $name)
     {
-        return $this->executeAction($id, array('type' => 'rename', 'image' => $name));
+        return $this->executeAction($id, array('type' => 'rename', 'name' => $name));
     }
 
     /**
