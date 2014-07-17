@@ -332,6 +332,18 @@ class Droplet extends AbstractApi
         return $this->executeAction($id, array('type' => 'enable_private_networking'));
     }
 
+     /**
+     * @param  integer $id
+     * @param  string  $name
+     *
+     * @throws \RuntimeException
+     * @return ActionEntity
+     */
+    public function snapshot($id, $name)
+    {
+        return $this->executeAction($id, array('type' => 'snapshot', 'name' => $name));
+    }
+    
     /**
      * @param  integer           $id
      * @param  array             $options
