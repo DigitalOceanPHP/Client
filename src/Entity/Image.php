@@ -55,4 +55,12 @@ class Image extends AbstractEntity
      * @var Meta
      */
     public $meta;
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $this->convertDateTime($createdAt);
+    }
 }
