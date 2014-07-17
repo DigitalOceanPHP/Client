@@ -91,11 +91,11 @@ class Droplet extends AbstractEntity
                 case 'networks':
                     if(is_object($value)) {
                         if(property_exists($value, 'v4')) {
-                           foreach ($value->v4 as $subProperty => $subValue) {
-                               $this->networks[] = new Network($subValue);
-                           }
+                            foreach ($value->v4 as $subProperty => $subValue) {
+                                $this->networks[] = new Network($subValue);
+                            }
                         }
-                        
+
                         if(property_exists($value, 'v6')) {
                             foreach ($value->v6 as $subProperty => $subValue) {
                                 $this->networks[] = new Network($subValue);
@@ -130,4 +130,12 @@ class Droplet extends AbstractEntity
      * @var Meta
      */
     public $meta;
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $this->convertDateTime($createdAt);
+    }
 }
