@@ -37,6 +37,7 @@ abstract class AbstractEntity
             );
         }
 
+        // TODO: REMOVE - Nothing arrived to here.
         return $this->$property;
     }
 
@@ -53,6 +54,7 @@ abstract class AbstractEntity
             );
         }
 
+        // TODO: REMOVE - Nothing arrived to here.
         $this->$property = $value;
     }
 
@@ -62,7 +64,31 @@ abstract class AbstractEntity
     public function build($parameters)
     {
         foreach ($parameters as $property => $value) {
-            $this->{\DigitalOceanV2\convert_to_camel_case($property)} = $value;
+            $property = \DigitalOceanV2\convert_to_camel_case($property);
+
+            if(method_exists(get_called_class(), 'set' . $property)) {
+                // To complatible with php =< 5.4
+                $property = 'set' . $property;
+                $this->$property($value);
+            }else{
+                $this->$property = $value;
+            }
         }
+    }
+
+    /**
+     * @param string $date DateTime string
+     *
+     * @return null|string DateTime in ISO8601 format
+     */
+    protected function convertDateTime($date) {
+        if (empty($date)) {
+            return null;
+        }
+
+        $date = new \DateTime($date);
+        $date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+
+        return $date->format(\DateTime::ISO8601);
     }
 }
