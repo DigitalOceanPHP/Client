@@ -60,4 +60,20 @@ class Action extends AbstractEntity
      * @var Meta
      */
     public $meta;
+
+    /**
+     * @param string $completedAt
+     */
+    public function setCompletedAt($completedAt)
+    {
+        $this->completedAt = $this->convertDateTime($completedAt);
+    }
+
+    /**
+     * @param string $startedAt
+     */
+    public function setStartedAt($startedAt)
+    {
+        $this->startedAt = $this->convertDateTime($startedAt);
+    }
 }
