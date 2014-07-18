@@ -82,6 +82,11 @@ class Droplet extends AbstractEntity
     public $actionIds;
 
     /**
+     * @var string[]
+     */
+    public $features;
+
+    /**
      * @param \stdClass|array $parameters
      */
     public function build($parameters)
