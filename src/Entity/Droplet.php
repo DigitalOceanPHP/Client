@@ -82,6 +82,11 @@ class Droplet extends AbstractEntity
     public $actionIds;
 
     /**
+     * @var string[]
+     */
+    public $features;
+
+    /**
      * @param \stdClass|array $parameters
      */
     public function build($parameters)
@@ -89,14 +94,17 @@ class Droplet extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'networks':
-                    if($value->v4){
-                        foreach ($value->v4 as $subProperty => $subValue) {
-                            $this->networks[] = new Network($subValue);
+                    if(is_object($value)) {
+                        if(property_exists($value, 'v4')) {
+                            foreach ($value->v4 as $subProperty => $subValue) {
+                                $this->networks[] = new Network($subValue);
+                            }
                         }
-                    }
-                    if($value->v6){
-                        foreach ($value->v6 as $subProperty => $subValue) {
-                            $this->networks[] = new Network($subValue);
+
+                        if(property_exists($value, 'v6')) {
+                            foreach ($value->v6 as $subProperty => $subValue) {
+                                $this->networks[] = new Network($subValue);
+                            }
                         }
                     }
                     break;
@@ -127,4 +135,12 @@ class Droplet extends AbstractEntity
      * @var Meta
      */
     public $meta;
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $this->convertDateTime($createdAt);
+    }
 }
