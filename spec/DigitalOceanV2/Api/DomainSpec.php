@@ -18,7 +18,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains')->willReturn('{"domains": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)->willReturn('{"domains": []}');
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
@@ -28,7 +28,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     function it_returns_an_array_of_domain_entity($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains')
+            ->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)
             ->willReturn('{"domains": [{},{},{}], "meta": {"total": 3}}')
         ;
 

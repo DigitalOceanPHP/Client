@@ -26,7 +26,7 @@ class Droplet extends AbstractApi
      */
     public function getAll()
     {
-        $droplets = $this->adapter->get(sprintf('%s/droplets', self::ENDPOINT));
+        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $droplets = json_decode($droplets);
 
         $meta = $this->getMeta($droplets);

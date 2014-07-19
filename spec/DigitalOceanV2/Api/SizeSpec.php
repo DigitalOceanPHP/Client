@@ -18,7 +18,7 @@ class SizeSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_size_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/sizes')->willReturn('{"sizes": [{},{},{}]}');
+        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page=' . PHP_INT_MAX)->willReturn('{"sizes": [{},{},{}]}');
 
         $sizes = $this->getAll();
         $sizes->shouldBeArray();

@@ -24,17 +24,16 @@ class Image extends AbstractApi
      */
     public function getAll()
     {
-        $images = $this->adapter->get(sprintf('%s/images', self::ENDPOINT));
+        $images = $this->adapter->get(sprintf('%s/images?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $images = json_decode($images);
-
         $meta = $this->getMeta($images);
 
         return array_map(function ($image) use ($meta) {
-            $image = new ImageEntity($image);
-            $image->meta = $meta;
+                $image = new ImageEntity($image);
+                $image->meta = $meta;
 
-            return $image;
-        }, $images->images);
+                return $image;
+            }, $images->images);
     }
 
     /**
