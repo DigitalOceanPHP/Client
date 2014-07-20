@@ -29,13 +29,10 @@ class Droplet extends AbstractApi
         $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $droplets = json_decode($droplets);
 
-        $meta = $this->getMeta($droplets);
+        $this->extractMeta($droplets);
 
-        return array_map(function ($droplet) use ($meta) {
-            $droplet = new DropletEntity($droplet);
-            $droplet->meta = $meta;
-
-            return $droplet;
+        return array_map(function ($droplet) {
+            return new DropletEntity($droplet);
         }, $droplets->droplets);
     }
 
@@ -111,13 +108,10 @@ class Droplet extends AbstractApi
         $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', self::ENDPOINT, $id));
         $kernels = json_decode($kernels);
 
-        $meta = $this->getMeta($kernels);
+        $this->meta = $this->extractMeta($kernels);
 
-        return array_map(function ($kernel) use ($meta) {
-            $kernel = new KernelEntity($kernel);
-            $kernel->meta = $meta;
-
-            return $kernel;
+        return array_map(function ($kernel){
+            return new KernelEntity($kernel);
         }, $kernels->kernels);
     }
 
@@ -130,12 +124,10 @@ class Droplet extends AbstractApi
         $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots', self::ENDPOINT, $id));
         $snapshots = json_decode($snapshots);
 
-        $meta = $this->getMeta($snapshots);
+        $this->meta = $this->extractMeta($snapshots);
 
-        return array_map(function ($snapshot) use ($meta) {
+        return array_map(function ($snapshot){
             $snapshot = new ImageEntity($snapshot);
-            $snapshot->meta = $meta;
-
             return $snapshot;
         }, $snapshots->snapshots);
     }
@@ -149,13 +141,10 @@ class Droplet extends AbstractApi
         $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups', self::ENDPOINT, $id));
         $backups = json_decode($backups);
 
-        $meta = $this->getMeta($backups);
+        $this->meta = $this->extractMeta($backups);
 
-        return array_map(function ($backup) use ($meta) {
-            $backup = new ImageEntity($backup);
-            $backup->meta = $meta;
-
-            return $backup;
+        return array_map(function ($backup){
+            return new ImageEntity($backup);
         }, $backups->backups);
     }
 
@@ -164,13 +153,10 @@ class Droplet extends AbstractApi
         $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $id));
         $actions = json_decode($actions);
 
-        $meta = $this->getMeta($actions);
+        $this->meta = $this->extractMeta($actions);
 
-        return array_map(function ($action) use ($meta) {
-            $action = new ActionEntity($action);
-            $action->meta = $meta;
-
-            return $action;
+        return array_map(function ($action){
+            return new ActionEntity($action);
         }, $actions->actions);
     }
 

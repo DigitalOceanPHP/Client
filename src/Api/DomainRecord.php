@@ -27,13 +27,10 @@ class DomainRecord extends AbstractApi
         $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', self::ENDPOINT, $domainName, PHP_INT_MAX));
         $domainRecords = json_decode($domainRecords);
 
-        $meta = $this->getMeta($domainRecords);
+        $this->extractMeta($domainRecords);
 
-        return array_map(function ($domainRecord) use ($meta){
-            $domainRecord = new DomainRecordEntity($domainRecord);
-            $domainRecord->meta = $meta;
-
-            return $domainRecord;
+        return array_map(function ($domainRecord){
+            return new DomainRecordEntity($domainRecord);
         }, $domainRecords->domain_records);
     }
 

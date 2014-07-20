@@ -18,13 +18,19 @@ class SizeSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_size_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page=' . PHP_INT_MAX)->willReturn('{"sizes": [{},{},{}]}');
+        $total = 3;
+        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page=' . PHP_INT_MAX)
+            ->willReturn(sprintf('{"sizes": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $sizes = $this->getAll();
         $sizes->shouldBeArray();
-        $sizes->shouldHaveCount(3);
-        $sizes[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
-        $sizes[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
-        $sizes[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
+        $sizes->shouldHaveCount($total);
+        foreach($sizes as $size){
+            $size->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
+        }
+
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 }

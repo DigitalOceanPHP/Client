@@ -27,23 +27,21 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_action_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/actions?per_page=' . PHP_INT_MAX)
-            ->willReturn('{"actions": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
-        $actions->shouldHaveCount(3);
-        $actions[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[0]->meta->total->shouldBe(3);
-        $actions[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[1]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[1]->meta->total->shouldBe(3);
-        $actions[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[2]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[2]->meta->total->shouldBe(3);
+        $actions->shouldHaveCount($total);
+        foreach($actions as $action){
+            $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_action_entity_get_by_its_id($adapter)
@@ -67,6 +65,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         ;
 
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+
+        $this->getMeta()->shouldBeNull();
     }
 
     function it_throws_an_runtime_exception_if_requested_action_does_not_exist($adapter)

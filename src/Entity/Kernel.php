@@ -30,9 +30,4 @@ class Kernel extends AbstractEntity
      * @var string
      */
     public $version;
-
-    /**
-     * @var Meta
-     */
-    public $meta;
 }

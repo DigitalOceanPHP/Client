@@ -52,11 +52,6 @@ class Image extends AbstractEntity
     public $regions;
 
     /**
-     * @var Meta
-     */
-    public $meta;
-
-    /**
      * @param string $createdAt
      */
     public function setCreatedAt($createdAt)

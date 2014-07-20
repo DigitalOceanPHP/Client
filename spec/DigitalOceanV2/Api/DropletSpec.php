@@ -27,23 +27,21 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_droplet_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets?per_page=' . PHP_INT_MAX)
-            ->willReturn('{"droplets": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"droplets": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
-        $droplets->shouldHaveCount(3);
-        $droplets[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
-        $droplets[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $droplets[0]->meta->total->shouldBe(3);
-        $droplets[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
-        $droplets[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $droplets[0]->meta->total->shouldBe(3);
-        $droplets[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
-        $droplets[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $droplets[0]->meta->total->shouldBe(3);
+        $droplets->shouldHaveCount($total);
+        foreach($droplets as $droplet){
+            $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_droplet_entity_get_by_its_id($adapter)
@@ -137,7 +135,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->size->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
         $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $droplet->meta->shouldBeNull();
+        $this->getMeta()->shouldBeNull();
     }
 
     function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)
@@ -223,86 +221,77 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_droplets_kernel_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/kernels')
-            ->willReturn('{"kernels": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"kernels": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $kernels = $this->getAvailableKernels(123);
         $kernels->shouldBeArray();
-        $kernels->shouldHaveCount(3);
-        $kernels[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
-        $kernels[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $kernels[0]->meta->total->shouldBe(3);
-        $kernels[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
-        $kernels[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $kernels[0]->meta->total->shouldBe(3);
-        $kernels[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
-        $kernels[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $kernels[0]->meta->total->shouldBe(3);
+        $kernels->shouldHaveCount($total);
+        foreach($kernels as $kernel){
+            $kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_array_of_droplets_snapshots_which_are_image_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/snapshots')
-            ->willReturn('{"snapshots": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"snapshots": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $snapshots = $this->getSnapshots(123);
         $snapshots->shouldBeArray();
-        $snapshots->shouldHaveCount(3);
-        $snapshots[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $snapshots[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $snapshots[0]->meta->total->shouldBe(3);
-        $snapshots[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $snapshots[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $snapshots[0]->meta->total->shouldBe(3);
-        $snapshots[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $snapshots[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $snapshots[0]->meta->total->shouldBe(3);
+        $snapshots->shouldHaveCount($total);
+        foreach($snapshots as $snapshot){
+            $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_array_of_droplets_backup_which_are_image_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/backups')
-            ->willReturn('{"backups": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"backups": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
-
         $backups = $this->getBackups(123);
         $backups->shouldBeArray();
-        $backups->shouldHaveCount(3);
-        $backups[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $backups[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $backups[0]->meta->total->shouldBe(3);
-        $backups[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $backups[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $backups[0]->meta->total->shouldBe(3);
-        $backups[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $backups[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $backups[0]->meta->total->shouldBe(3);
+        $backups->shouldHaveCount($total);
+        foreach($backups as $backup){
+            $backup->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_array_of_droplets_action_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/actions')
-            ->willReturn('{"actions": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $actions = $this->getActions(123);
         $actions->shouldBeArray();
-        $actions->shouldHaveCount(3);
-        $actions[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[0]->meta->total->shouldBe(3);
-        $actions[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[0]->meta->total->shouldBe(3);
-        $actions[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
-        $actions[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $actions[0]->meta->total->shouldBe(3);
+        $actions->shouldHaveCount($total);
+        foreach($actions as $action){
+            $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_the_given_droplets_action_get_by_its_id($adapter)

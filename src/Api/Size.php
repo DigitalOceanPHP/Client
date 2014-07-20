@@ -26,6 +26,8 @@ class Size extends AbstractApi
         $sizes = $this->adapter->get(sprintf('%s/sizes?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $sizes = json_decode($sizes);
 
+        $this->extractMeta($sizes);
+
         return array_map(function ($size) {
             return new SizeEntity($size);
         }, $sizes->sizes);

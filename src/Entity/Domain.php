@@ -30,9 +30,4 @@ class Domain extends AbstractEntity
      * @var string
      */
     public $zoneFile;
-
-    /**
-     * @var Meta
-     */
-    public $meta;
 }
