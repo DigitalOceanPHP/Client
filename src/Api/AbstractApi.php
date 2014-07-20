@@ -30,6 +30,11 @@ abstract class AbstractApi
     protected $adapter;
 
     /**
+     * @var Meta
+     */
+    protected $meta;
+
+    /**
      * @param AdapterInterface $adapter
      */
     public function __construct(AdapterInterface $adapter)
@@ -41,12 +46,21 @@ abstract class AbstractApi
      * @param  string    $data
      * @return Meta|null
      */
-    protected function getMeta($data)
+    protected function extractMeta($data)
     {
         if (!isset($data->meta)) {
-            return null;
+            $this->meta = null;
+        } else {
+            $this->meta = new Meta($data->meta);
         }
+        return $this->meta;
+    }
 
-        return new Meta($data->meta);
+    /**
+     * @return Meta|null
+     */
+    public function getMeta()
+    {
+        return $this->meta;
     }
 }

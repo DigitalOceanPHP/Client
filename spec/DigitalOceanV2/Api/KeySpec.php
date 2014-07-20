@@ -27,14 +27,19 @@ class KeySpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_key_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)->willReturn('{"ssh_keys": [{},{},{}]}');
+        $total = 3;
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)
+            ->willReturn(sprintf('{"ssh_keys": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $keys = $this->getAll();
         $keys->shouldBeArray();
-        $keys->shouldHaveCount(3);
-        $keys[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
-        $keys[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
-        $keys[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
+        $keys->shouldHaveCount($total);
+        foreach($keys as $key){
+            $key->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_a_key_entity_get_by_its_id($adapter)

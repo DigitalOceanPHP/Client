@@ -57,11 +57,6 @@ class Action extends AbstractEntity
     public $region;
 
     /**
-     * @var Meta
-     */
-    public $meta;
-
-    /**
      * @param string $completedAt
      */
     public function setCompletedAt($completedAt)

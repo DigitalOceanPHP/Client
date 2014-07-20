@@ -26,13 +26,10 @@ class Action extends AbstractApi
         $actions = $this->adapter->get(sprintf('%s/actions?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $actions = json_decode($actions);
 
-        $meta = $this->getMeta($actions);
+        $this->extractMeta($actions);
 
-        return array_map(function ($action) use ($meta) {
-            $action = new ActionEntity($action);
-            $action->meta = $meta;
-
-            return $action;
+        return array_map(function ($action) {
+            return new ActionEntity($action);
         }, $actions->actions);
     }
 
@@ -44,6 +41,8 @@ class Action extends AbstractApi
     {
         $action = $this->adapter->get(sprintf('%s/actions/%d', self::ENDPOINT, $id));
         $action = json_decode($action);
+
+        $this->meta = null;
 
         return new ActionEntity($action->action);
     }

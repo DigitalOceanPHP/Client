@@ -27,23 +27,21 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_image_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)
-            ->willReturn('{"images": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $images = $this->getAll();
         $images->shouldBeArray();
-        $images->shouldHaveCount(3);
-        $images[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $images[0]->meta->total->shouldBe(3);
-        $images[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $images[0]->meta->total->shouldBe(3);
-        $images[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
-        $images[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $images[0]->meta->total->shouldBe(3);
+        $images->shouldHaveCount($total);
+        foreach($images as $image){
+            $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_an_image_entity_get_by_its_id($adapter)
@@ -68,6 +66,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         ;
 
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $this->getMeta()->shouldBeNull();
     }
 
     function it_returns_an_image_entity_get_by_its_slug($adapter)

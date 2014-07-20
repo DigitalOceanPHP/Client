@@ -27,23 +27,21 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_domain_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)
-            ->willReturn('{"domains": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"domains": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
-        $domains->shouldHaveCount(3);
-        $domains[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
-        $domains[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domains[0]->meta->total->shouldBe(3);
-        $domains[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
-        $domains[1]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domains[1]->meta->total->shouldBe(3);
-        $domains[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
-        $domains[2]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domains[2]->meta->total->shouldBe(3);
+        $domains->shouldHaveCount($total);
+        foreach($domains as $domain){
+            $domain->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe(3);
     }
 
     function it_returns_an_domain_entity_get_by_its_name($adapter)

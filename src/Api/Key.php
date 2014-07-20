@@ -25,6 +25,7 @@ class Key extends AbstractApi
     {
         $keys = $this->adapter->get(sprintf('%s/account/keys?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
         $keys = json_decode($keys);
+        $this->extractMeta($keys);
 
         return array_map(function ($key) {
             return new KeyEntity($key);

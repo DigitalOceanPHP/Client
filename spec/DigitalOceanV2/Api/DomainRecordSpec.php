@@ -27,23 +27,21 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_domain_record_entity($adapter)
     {
+        $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)
-            ->willReturn('{"domain_records": [{},{},{}], "meta": {"total": 3}}')
+            ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}',$total))
         ;
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
-        $domainRecords->shouldHaveCount(3);
-        $domainRecords[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
-        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domainRecords[0]->meta->total->shouldBe(3);
-        $domainRecords[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
-        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domainRecords[0]->meta->total->shouldBe(3);
-        $domainRecords[2]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
-        $domainRecords[0]->meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
-        $domainRecords[0]->meta->total->shouldBe(3);
+        $domainRecords->shouldHaveCount($total);
+        foreach($domainRecords as $domainRecord){
+            $domainRecord->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 
     function it_returns_the_domain_get_by_its_id($adapter)
@@ -66,6 +64,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
 
         $this->getById('foo.dk', 123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        $this->getMeta()->shouldBeNull();
     }
 
     function it_throws_an_runtime_exception_if_requested_domain_record_does_not_exist($adapter)
