@@ -24,15 +24,7 @@
         "php"                : ">=5.3.3",
         "kriswallsmith/buzz" : "~0.10"
     },
-    
-    "require-dev": {
-        "guzzlehttp/guzzle": "4.*"
-    },
-    
-    "suggest": {
-        "guzzlehttp/guzzle": "To use GuzzlyAdapter, requires 4.*"
-    },
-    
+
     "autoload": {
         "psr-4" : { "DigitalOceanV2\\": "src" },
         "files" : ["src/functions.php"]
