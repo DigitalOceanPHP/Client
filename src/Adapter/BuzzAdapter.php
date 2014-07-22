@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Adapter;
 use Buzz\Browser;
 use Buzz\Client\Curl;
 use Buzz\Listener\ListenerInterface;
-use Buzz\Message\MessageInterface;
+use Buzz\Message\Response;
 use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
@@ -117,11 +117,11 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param MessageInterface $response
+     * @param Response $response
      *
      * @return \Exception
      */
-    protected function handleResponse(MessageInterface $response)
+    protected function handleResponse(Response $response)
     {
         if ($this->exception) {
             return $this->exception->create($response->getContent(), $response->getStatusCode());
