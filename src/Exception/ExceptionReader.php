@@ -54,9 +54,7 @@ class ExceptionReader
 
     /**
      * Error Message
-     *
-     * @param bool $includeCodeId
-     *
+     * @param  bool   $includeCodeId
      * @return string
      */
     public function getMessage($includeCodeId = true)

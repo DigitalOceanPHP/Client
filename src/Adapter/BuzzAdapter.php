@@ -117,8 +117,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param Response $response
-     *
+     * @param Response    $response
      * @return \Exception
      */
     protected function handleResponse(Response $response)

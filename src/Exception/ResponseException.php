@@ -28,8 +28,7 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     }
 
     /**
-     * @param bool $includeCodeId
-     *
+     * @param bool    $includeCodeId
      * @return string
      */
     public function getErrorMessage($includeCodeId = false)
