@@ -25,6 +25,10 @@
         "kriswallsmith/buzz" : "~0.10"
     },
     
+    "require-dev": {
+        "guzzlehttp/guzzle": "4.*"
+    },
+    
     "suggest": {
         "guzzlehttp/guzzle": "To use GuzzlyAdapter, requires 4.*"
     },
