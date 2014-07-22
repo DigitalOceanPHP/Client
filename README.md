@@ -350,6 +350,7 @@ Credits
 
 * [Antoine Corcy](https://twitter.com/toin0u)
 * [Yassir Hannoun](https://twitter.com/yassirh)
+* [Liverbool](https://github.com/liverbool)
 * [All contributors](https://github.com/toin0u/DigitalOceanV2/contributors)
 
 Support
