@@ -17,6 +17,9 @@ use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
 use DigitalOceanV2\Exception\ExceptionInterface;
 
+/**
+ * @author Antoine Corcy <contact@sbin.dk>
+ */
 class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**
