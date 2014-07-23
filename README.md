@@ -218,6 +218,9 @@ $rebuilt = $droplet->rebuild(123, 789);
 // rename droplet 123 to 'new-name' and return the Action entity
 $renamed = $droplet->rename(123, 'new-name');
 
+// take a snapshot of droplet 123 and name it 'my-snapshot'. Returns the an Action entity
+$snapshot = $droplet->snapshot(123, 'my-snapshot');
+
 // change kernel to droplet 123 with kernel 321 and return the Action entity
 $kernelChanged = $droplet->changeKernel(123, 321);
 
