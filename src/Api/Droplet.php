@@ -329,7 +329,7 @@ class Droplet extends AbstractApi
     {
         return $this->executeAction($id, array('type' => 'snapshot', 'name' => $name));
     }
-    
+
     /**
      * @param  integer           $id
      * @param  array             $options
