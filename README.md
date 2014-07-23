@@ -346,7 +346,7 @@ Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/C
 Changelog
 ---------
 
-Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
+Please see [CHANGELOG](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
 
 Credits
 -------
