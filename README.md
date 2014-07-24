@@ -366,3 +366,11 @@ License
 
 DigitalOceanV2 is released under the MIT License. See the bundled
 [LICENSE](https://github.com/toin0u/DigitalOceanV2/blob/master/LICENSE) file for details.
+
+
+Using a framework?
+-------
+
+If you are using a framework and looking for a wrapper for this library. the following projects might interest you.
+
+* [Laravel-DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) a Laraval wrapper By [Graham Campbell](https://github.com/GrahamCampbell)
