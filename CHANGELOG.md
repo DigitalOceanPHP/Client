@@ -12,7 +12,7 @@ CHANGELOG
 - Added Snapshot to the droplet api.
 - Dates are formatted in ISO 8601.
 - Added droplet features to the droplet entity.
-- Better exception handeling.
+- Better exception handling.
 
 0.1.0 (2014-07-05)
 ------------------
