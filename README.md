@@ -51,10 +51,6 @@ Or edit `composer.json` and add:
 }
 ```
 
-**Protip:** you should browse the
-[`toin0u/digitalocean-v2`](https://packagist.org/packages/toin0u/digitalocean-v2)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
-
 Finally run:
 
 ```bash
