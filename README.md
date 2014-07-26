@@ -61,7 +61,7 @@ $ php composer.phar require toin0u/digitalocean-v2
 
 If you are using a framework and looking for a wrapper for this library. the following projects might interest you.
 
-* [Laravel-DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) a Laraval wrapper By [Graham Campbell](https://github.com/GrahamCampbell)
+* [Laravel-DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) a Laravel wrapper By [Graham Campbell](https://github.com/GrahamCampbell) (`"graham-campbell/digitalocean": "0.1.*"`)
 
 
 Adapter
