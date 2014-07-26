@@ -57,12 +57,17 @@ Finally run:
 $ php composer.phar require toin0u/digitalocean-v2
 ```
 
-### Using a framework? ###
+### Using Laravel? ###
 
-If you are using a framework and looking for a wrapper for this library. the following projects might interest you.
+If you are using Laravel, and looking for a wrapper for this library, check out [Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
 
-* [Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is a bridge for Laravel by [Graham Campbell](https://github.com/GrahamCampbell) (`"graham-campbell/digitalocean": "0.1.*"`)
-
+```json
+{
+    "require": {
+        "graham-campbell/digitalocean": "0.1.*"
+    }
+}
+```
 
 Adapter
 -------
