@@ -46,7 +46,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "@stable"
+        "toin0u/digitalocean-v2": "0.1.*"
     }
 }
 ```
