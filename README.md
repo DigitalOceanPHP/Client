@@ -59,7 +59,7 @@ $ php composer.phar require toin0u/digitalocean-v2
 
 ### Using Laravel? ###
 
-If you are using Laravel, and looking for a wrapper for this library, check out [Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
+If you are using Laravel, and looking for a bridging package, check out [Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
 
 ```json
 {
