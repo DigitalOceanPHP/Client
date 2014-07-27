@@ -27,6 +27,21 @@ class Droplet extends AbstractEntity
     public $name;
 
     /**
+     * @var integer
+     */
+    public $memory;
+
+    /**
+     * @var integer
+     */
+    public $vcpus;
+
+    /**
+     * @var integer
+     */
+    public $disk;
+
+    /**
      * @var Region
      */
     public $region;
