@@ -36,7 +36,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $actions = $this->getAll();
         $actions->shouldBeArray();
         $actions->shouldHaveCount($total);
-        foreach($actions as $action){
+        foreach ($actions as $action) {
             $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         }
         $meta = $this->getMeta();

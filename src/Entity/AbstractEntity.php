@@ -66,11 +66,11 @@ abstract class AbstractEntity
         foreach ($parameters as $property => $value) {
             $property = \DigitalOceanV2\convert_to_camel_case($property);
 
-            if(method_exists(get_called_class(), 'set' . $property)) {
+            if (method_exists(get_called_class(), 'set' . $property)) {
                 // To complatible with php =< 5.4
                 $property = 'set' . $property;
                 $this->$property($value);
-            }else{
+            } else {
                 $this->$property = $value;
             }
         }
@@ -81,7 +81,8 @@ abstract class AbstractEntity
      *
      * @return null|string DateTime in ISO8601 format
      */
-    protected function convertDateTime($date) {
+    protected function convertDateTime($date)
+    {
         if (empty($date)) {
             return null;
         }

@@ -36,7 +36,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $images = $this->getAll();
         $images->shouldBeArray();
         $images->shouldHaveCount($total);
-        foreach($images as $image){
+        foreach ($images as $image) {
             $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         }
         $meta = $this->getMeta();

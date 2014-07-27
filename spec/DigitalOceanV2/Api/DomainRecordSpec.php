@@ -36,7 +36,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
         $domainRecords->shouldHaveCount($total);
-        foreach($domainRecords as $domainRecord){
+        foreach ($domainRecords as $domainRecord) {
             $domainRecord->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
         }
         $meta = $this->getMeta();
