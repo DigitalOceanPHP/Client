@@ -34,7 +34,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $keys = $this->getAll();
         $keys->shouldBeArray();
         $keys->shouldHaveCount($total);
-        foreach($keys as $key){
+        foreach ($keys as $key) {
             $key->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
         }
         $meta = $this->getMeta();

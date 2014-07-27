@@ -36,7 +36,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $domains = $this->getAll();
         $domains->shouldBeArray();
         $domains->shouldHaveCount($total);
-        foreach($domains as $domain){
+        foreach ($domains as $domain) {
             $domain->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
         }
         $meta = $this->getMeta();

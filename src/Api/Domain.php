@@ -28,7 +28,7 @@ class Domain extends AbstractApi
 
         $this->extractMeta($domains);
 
-        return array_map(function ($domain){
+        return array_map(function ($domain) {
             return new DomainEntity($domain);
         }, $domains->domains);
     }

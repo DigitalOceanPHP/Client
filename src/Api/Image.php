@@ -28,7 +28,7 @@ class Image extends AbstractApi
         $images = json_decode($images);
         $this->extractMeta($images);
 
-        return array_map(function ($image){
+        return array_map(function ($image) {
                 return new ImageEntity($image);
             }, $images->images);
     }

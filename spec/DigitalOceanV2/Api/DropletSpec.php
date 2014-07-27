@@ -36,7 +36,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
         $droplets->shouldHaveCount($total);
-        foreach($droplets as $droplet){
+        foreach ($droplets as $droplet) {
             $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
         }
         $meta = $this->getMeta();
@@ -230,7 +230,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $kernels = $this->getAvailableKernels(123);
         $kernels->shouldBeArray();
         $kernels->shouldHaveCount($total);
-        foreach($kernels as $kernel){
+        foreach ($kernels as $kernel) {
             $kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
         }
         $meta = $this->getMeta();
@@ -249,7 +249,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $snapshots = $this->getSnapshots(123);
         $snapshots->shouldBeArray();
         $snapshots->shouldHaveCount($total);
-        foreach($snapshots as $snapshot){
+        foreach ($snapshots as $snapshot) {
             $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         }
         $meta = $this->getMeta();
@@ -267,7 +267,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $backups = $this->getBackups(123);
         $backups->shouldBeArray();
         $backups->shouldHaveCount($total);
-        foreach($backups as $backup){
+        foreach ($backups as $backup) {
             $backup->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         }
         $meta = $this->getMeta();
@@ -286,7 +286,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $actions = $this->getActions(123);
         $actions->shouldBeArray();
         $actions->shouldHaveCount($total);
-        foreach($actions as $action){
+        foreach ($actions as $action) {
             $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         }
         $meta = $this->getMeta();

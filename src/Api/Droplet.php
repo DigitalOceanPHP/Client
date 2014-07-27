@@ -110,7 +110,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($kernels);
 
-        return array_map(function ($kernel){
+        return array_map(function ($kernel) {
             return new KernelEntity($kernel);
         }, $kernels->kernels);
     }
@@ -126,7 +126,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($snapshots);
 
-        return array_map(function ($snapshot){
+        return array_map(function ($snapshot) {
             $snapshot = new ImageEntity($snapshot);
             return $snapshot;
         }, $snapshots->snapshots);
@@ -143,7 +143,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($backups);
 
-        return array_map(function ($backup){
+        return array_map(function ($backup) {
             return new ImageEntity($backup);
         }, $backups->backups);
     }
@@ -155,7 +155,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($actions);
 
-        return array_map(function ($action){
+        return array_map(function ($action) {
             return new ActionEntity($action);
         }, $actions->actions);
     }
@@ -336,7 +336,8 @@ class Droplet extends AbstractApi
      * @throws \RuntimeException
      * @return ActionEntity
      */
-    private function executeAction($id, array $options){
+    private function executeAction($id, array $options)
+    {
         $headers = array('Content-Type: application/json');
         $content = json_encode($options);
 

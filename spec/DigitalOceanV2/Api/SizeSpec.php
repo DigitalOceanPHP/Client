@@ -25,7 +25,7 @@ class SizeSpec extends \PhpSpec\ObjectBehavior
         $sizes = $this->getAll();
         $sizes->shouldBeArray();
         $sizes->shouldHaveCount($total);
-        foreach($sizes as $size){
+        foreach ($sizes as $size) {
             $size->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
         }
 
