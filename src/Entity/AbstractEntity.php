@@ -36,9 +36,6 @@ abstract class AbstractEntity
                 'Property "%s::%s" does not exist.', get_class($this), $property)
             );
         }
-
-        // TODO: REMOVE - Nothing arrived to here.
-        return $this->$property;
     }
 
     /**
@@ -53,9 +50,6 @@ abstract class AbstractEntity
                 'Property "%s::%s" should exist.', get_class($this), $property)
             );
         }
-
-        // TODO: REMOVE - Nothing arrived to here.
-        $this->$property = $value;
     }
 
     /**
@@ -77,9 +71,8 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param string $date DateTime string
-     *
-     * @return null|string DateTime in ISO8601 format
+     * @param  string      $date DateTime string
+     * @return null|string       DateTime in ISO8601 format
      */
     protected function convertDateTime($date)
     {
