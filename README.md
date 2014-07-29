@@ -74,7 +74,7 @@ Adapter
 
 We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `Browser`
 and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
-will be used.
+will be used. Please inject your own `ExceptionInterface` if needed (see `ResponseException` for more info).
 
 You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
