@@ -12,6 +12,12 @@
             "email"   : "contact@sbin.dk",
             "homepage": "http://sbin.dk",
             "role"    : "Developer"
+        },
+        {
+            "name"    : "Yassir Hannnoun",
+            "email"   : "yassir.hannoun@gmail.com",
+            "homepage": "https://yassirh.com",
+            "role"    : "Developer"
         }
     ],
 
