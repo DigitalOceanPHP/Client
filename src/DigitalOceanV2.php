@@ -30,7 +30,7 @@ class DigitalOceanV2
     /**
      * @see http://semver.org/
      */
-    const VERSION = '0.1.1-dev';
+    const VERSION = '0.1.2-dev';
 
     /**
      * @var AdapterInterface
