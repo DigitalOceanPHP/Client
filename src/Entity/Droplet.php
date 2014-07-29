@@ -27,6 +27,21 @@ class Droplet extends AbstractEntity
     public $name;
 
     /**
+     * @var integer
+     */
+    public $memory;
+
+    /**
+     * @var integer
+     */
+    public $vcpus;
+
+    /**
+     * @var integer
+     */
+    public $disk;
+
+    /**
      * @var Region
      */
     public $region;
@@ -94,14 +109,14 @@ class Droplet extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'networks':
-                    if(is_object($value)) {
-                        if(property_exists($value, 'v4')) {
+                    if (is_object($value)) {
+                        if (property_exists($value, 'v4')) {
                             foreach ($value->v4 as $subProperty => $subValue) {
                                 $this->networks[] = new Network($subValue);
                             }
                         }
 
-                        if(property_exists($value, 'v6')) {
+                        if (property_exists($value, 'v6')) {
                             foreach ($value->v6 as $subProperty => $subValue) {
                                 $this->networks[] = new Network($subValue);
                             }

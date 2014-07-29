@@ -46,14 +46,10 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "@stable"
+        "toin0u/digitalocean-v2": "0.1.*"
     }
 }
 ```
-
-**Protip:** you should browse the
-[`toin0u/digitalocean-v2`](https://packagist.org/packages/toin0u/digitalocean-v2)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
 
 Finally run:
 
@@ -61,12 +57,24 @@ Finally run:
 $ php composer.phar require toin0u/digitalocean-v2
 ```
 
+### Using Laravel? ###
+
+[Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell) might interest you.
+
+```json
+{
+    "require": {
+        "graham-campbell/digitalocean": "0.1.*"
+    }
+}
+```
+
 Adapter
 -------
 
 We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `Browser`
 and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
-will be used.
+will be used. Please inject your own `ExceptionInterface` if needed (see `ResponseException` for more info).
 
 You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
@@ -218,6 +226,9 @@ $rebuilt = $droplet->rebuild(123, 789);
 // rename droplet 123 to 'new-name' and return the Action entity
 $renamed = $droplet->rename(123, 'new-name');
 
+// take a snapshot of droplet 123 and name it 'my-snapshot'. Returns the an Action entity
+$snapshot = $droplet->snapshot(123, 'my-snapshot');
+
 // change kernel to droplet 123 with kernel 321 and return the Action entity
 $kernelChanged = $droplet->changeKernel(123, 321);
 
@@ -343,13 +354,14 @@ Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/C
 Changelog
 ---------
 
-Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
+Please see [CHANGELOG](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
 
 Credits
 -------
 
 * [Antoine Corcy](https://twitter.com/toin0u)
 * [Yassir Hannoun](https://twitter.com/yassirh)
+* [Liverbool](https://github.com/liverbool)
 * [All contributors](https://github.com/toin0u/DigitalOceanV2/contributors)
 
 Support

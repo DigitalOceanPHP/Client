@@ -22,7 +22,7 @@ function convert_to_camel_case($property)
 {
     return lcfirst(preg_replace_callback(
         '/(^|_)([a-z])/',
-        function($match) {
+        function ($match) {
             return strtoupper($match[2]);
         },
         $property

@@ -112,7 +112,8 @@ class DigitalOceanV2
     /**
      * @return RateLimit
      */
-    public function rateLimit(){
+    public function rateLimit()
+    {
         return new RateLimit($this->adapter);
     }
 }

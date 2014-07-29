@@ -29,7 +29,7 @@ class DomainRecord extends AbstractApi
 
         $this->extractMeta($domainRecords);
 
-        return array_map(function ($domainRecord){
+        return array_map(function ($domainRecord) {
             return new DomainRecordEntity($domainRecord);
         }, $domainRecords->domain_records);
     }
