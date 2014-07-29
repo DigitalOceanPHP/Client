@@ -3,16 +3,17 @@
 namespace spec\DigitalOceanV2\Adapter;
 
 use Buzz\Browser;
+use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
 use DigitalOceanV2\Adapter\BuzzOAuthListener;
 
 class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Browser $browser, Response $response)
+    function let(Browser $browser, Response $response, ListenerInterface $listener)
     {
-        $browser->addListener(new BuzzOAuthListener('my_access_token'))->shouldBeCalled();
+        $browser->addListener($listener)->shouldBeCalled();
 
-        $this->beConstructedWith('my_access_token', $browser);
+        $this->beConstructedWith('my_access_token', $browser, $listener);
     }
 
     function it_is_initializable()
