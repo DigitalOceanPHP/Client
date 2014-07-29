@@ -37,7 +37,7 @@ class BuzzOAuthListener implements \Buzz\Listener\ListenerInterface
      */
     public function preSend(RequestInterface $request)
     {
-        $request->addHeader(sprintf("Authorization: Bearer %s", $this->accessToken));
+        $request->addHeader(sprintf('Authorization: Bearer %s', $this->accessToken));
     }
 
     /**
