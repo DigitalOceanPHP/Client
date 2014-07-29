@@ -1,7 +1,12 @@
 CHANGELOG
 =========
 
-0.1.1 (xxxx-xx-xx)
+0.1.2 (xxxx-xx-xx)
+------------------
+
+n/a
+
+0.1.1 (2014-07-27)
 ------------------
 
 - Fixed getAll methods. now they return all instead of the first 25.
