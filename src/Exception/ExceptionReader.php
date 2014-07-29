@@ -1,6 +1,19 @@
 <?php
+
+/**
+ * This file is part of the DigitalOceanV2 library.
+ *
+ * (c) Antoine Corcy <contact@sbin.dk>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DigitalOceanV2\Exception;
 
+/**
+ * @author liverbool <nukboon@gmail.com>
+ */
 class ExceptionReader
 {
     /**
@@ -14,16 +27,15 @@ class ExceptionReader
     protected $message;
 
     /**
-     * Exception error code
-     * @var int
+     * @var integer Exception error code
      */
     protected $code;
 
     /**
-     * Error message in DO format.
+     * Error message in DigitalOcean format.
      *
-     * @param string $content
-     * @param int    $code
+     * @param string  $content
+     * @param integer $code (optional)
      */
     public function __construct($content, $code = 0)
     {
@@ -44,7 +56,8 @@ class ExceptionReader
     }
 
     /**
-     * Message Id (DO error code)
+     * Message Id (DigitalOcean error code)
+     *
      * @return string
      */
     public function getId()
@@ -53,8 +66,9 @@ class ExceptionReader
     }
 
     /**
-     * Error Message
-     * @param  bool   $includeCodeId
+     * Error message
+     *
+     * @param  boolean $includeCodeId (optional)
      * @return string
      */
     public function getMessage($includeCodeId = true)
@@ -63,12 +77,12 @@ class ExceptionReader
             $message = sprintf('%s (%s)', $this->message, $this->id);
 
             if ($this->code) {
-                $message = sprintf('[%s] %s', $this->code, $message);
+                $message = sprintf('[%d] %s', $this->code, $message);
             }
 
             return $message;
-        } else {
-            return $this->message;
         }
+
+        return $this->message;
     }
 }

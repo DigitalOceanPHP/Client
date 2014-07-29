@@ -40,8 +40,8 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function __construct($accessToken, Browser $browser = null, ListenerInterface $listener = null, ExceptionInterface $exception = null)
     {
-        $this->browser = $browser ? : new Browser(new Curl);
-        $this->browser->addListener($listener ? : new BuzzOAuthListener($accessToken));
+        $this->browser = $browser ?: new Browser(new Curl);
+        $this->browser->addListener($listener ?: new BuzzOAuthListener($accessToken));
         $this->exception = $exception;
     }
 
@@ -117,16 +117,19 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param Response    $response
+     * @param  Response   $response
      * @return \Exception
      */
     protected function handleResponse(Response $response)
     {
         if ($this->exception) {
             return $this->exception->create($response->getContent(), $response->getStatusCode());
-        } else {
-            $content = json_decode($response->getContent());
-            return new \RuntimeException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
         }
+
+        $content = json_decode($response->getContent());
+
+        return new \RuntimeException(
+            sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id)
+        );
     }
 }

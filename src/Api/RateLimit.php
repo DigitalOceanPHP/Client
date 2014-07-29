@@ -13,6 +13,9 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\RateLimit as RateLimitEntity;
 
+/**
+ * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ */
 class RateLimit extends AbstractApi
 {
     /**
