@@ -14,6 +14,7 @@ namespace DigitalOceanV2\Adapter;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use Guzzle\Common\Event;
 use Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
 
 /**
@@ -22,7 +23,7 @@ use Guzzle\Http\Message\Response;
 class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     protected $client;
 
@@ -38,19 +39,19 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 
     /**
      * @param string             $accessToken
+     * @param ClientInterface    $client (optional)
      * @param ExceptionInterface $exception (optional)
      */
-    public function __construct($accessToken, ExceptionInterface $exception = null)
+    public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
-        $that              = $this;
-        $this->client      = new Client;
-        $this->accessToken = $accessToken;
-        $this->exception   = $exception;
+        $that            = $this;
+        $this->client    = $client ?: new Client;
+        $this->exception = $exception;
 
         $this->client
 
             // Set default Bearer header for all request
-            ->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $this->accessToken))
+            ->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $accessToken))
 
             // Subscribe completed request event
             ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
