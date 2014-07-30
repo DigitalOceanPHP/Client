@@ -58,6 +58,7 @@ $ php composer.phar require toin0u/digitalocean-v2
 ```
 
 ### Using Symfony2? ###
+
 For Symfony2 users no need to create separated bundle (But you can if you want) just common install `toin0u/digitalocean-v2` via composer and define it as services. For example:
 
 ```yaml
@@ -81,11 +82,13 @@ services:
 ```
 
 Now you can use in container.
+
 ```php
 $droplet = $this->container->get('do.factory')->droplet();
 ```
 
 Or you can define your service api one by one using class factory.
+
 ```yaml
 parameters:
     ....
@@ -111,11 +114,12 @@ services:
 ```
 
 And now you can use in container as
+
 ```php
 $droplets = $this->container->get('do.droplet')->getAll();
 ```
-> This is helpful for a child of `Symfony\Bundle\FrameworkBundle\Controller\Controller` user to use by `$this->get('do.droplet')->getAll()`
 
+> This is helpful for a child of `Symfony\Bundle\FrameworkBundle\Controller\Controller` user to use by `$this->get('do.droplet')->getAll()`
 
 ### Using Laravel? ###
 
@@ -138,8 +142,9 @@ will be used.
 
 To wrapping your own response message please inject your own `ExceptionInterface` if needed (see `DigitalOceanV2\Exception\ResponseException` for more info).
 
-You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
+If you use Guzzle, you can inject your own client to our `GuzzleAdapter`.
 
+You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
 Example
 -------
