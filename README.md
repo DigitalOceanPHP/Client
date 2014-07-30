@@ -38,7 +38,9 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:@dev
+$ php composer.phar require toin0u/digitalocean-v2:0.2.*@dev
+$ php composer.phar require kriswallsmith/buzz:~0.10
+$ php composer.phar require guzzle/guzzle:~3.7
 ```
 
 Or edit `composer.json` and add:
@@ -46,10 +48,14 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "0.1.*"
+        "toin0u/digitalocean-v2": "0.2.*@dev",
+        "kriswallsmith/buzz": "~0.10",
+        "guzzle/guzzle": "~3.7"
     }
 }
 ```
+
+Please note that installing both guzzle and buzz is not required, but you must choose at least one.
 
 Finally run:
 
