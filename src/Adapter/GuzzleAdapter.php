@@ -106,14 +106,14 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function getLatestResponseHeaders()
     {
-        if (null === $response = $this->response) {
+        if (null === $this->response) {
             return null;
         }
 
         return array(
-            'reset'     => (integer) (string) $response->getHeader('RateLimit-Reset'),
-            'remaining' => (integer) (string) $response->getHeader('RateLimit-Remaining'),
-            'limit'     => (integer) (string) $response->getHeader('RateLimit-Limit'),
+            'reset'     => (integer) (string) $this->response->getHeader('RateLimit-Reset'),
+            'remaining' => (integer) (string) $this->response->getHeader('RateLimit-Remaining'),
+            'limit'     => (integer) (string) $this->response->getHeader('RateLimit-Limit'),
         );
     }
 
