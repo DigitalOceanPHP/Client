@@ -17,39 +17,39 @@ namespace DigitalOceanV2\Adapter;
 interface AdapterInterface
 {
     /**
-     * @param  string            $url
-     * @throws \RuntimeException
+     * @param  string                               $url
+     * @throws \RuntimeException|ExceptionInterface
      * @return string
      */
     public function get($url);
 
     /**
-     * @param  string            $url
-     * @param  array             $headers (optional)
-     * @throws \RuntimeException
+     * @param  string                               $url
+     * @param  array                                $headers (optional)
+     * @throws \RuntimeException|ExceptionInterface
      */
     public function delete($url, $headers = array());
 
     /**
-     * @param  string            $url
-     * @param  array             $headers (optional)
-     * @param  string            $content (optional)
-     * @throws \RuntimeException
+     * @param  string                               $url
+     * @param  array                                $headers (optional)
+     * @param  string                               $content (optional)
+     * @throws \RuntimeException|ExceptionInterface
      * @return string
      */
     public function put($url, $headers = array(), $content = '');
 
     /**
-     * @param string             $url
-     * @param array              $headers (optional)
-     * @param string             $content (optional)
-     * @throws \RuntimeException
+     * @param string                                $url
+     * @param array                                 $headers (optional)
+     * @param string                                $content (optional)
+     * @throws \RuntimeException|ExceptionInterface
      * @return string
      */
     public function post($url, $headers = array(), $content = '');
 
     /**
-     * @return array
+     * @return null|array
      */
     public function getLatestResponseHeaders();
 }

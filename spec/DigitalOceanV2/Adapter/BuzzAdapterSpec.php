@@ -5,7 +5,6 @@ namespace spec\DigitalOceanV2\Adapter;
 use Buzz\Browser;
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
-use DigitalOceanV2\Adapter\BuzzOAuthListener;
 
 class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {

@@ -43,22 +43,20 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function __construct($accessToken, ExceptionInterface $exception = null)
     {
         $that              = $this;
-        $this->client      = new Client();
+        $this->client      = new Client;
         $this->accessToken = $accessToken;
         $this->exception   = $exception;
 
         $this->client
 
             // Set default Bearer header for all request
-            ->setDefaultOption('headers/Authorization', sprintf("Bearer %s", $this->accessToken))
+            ->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $this->accessToken))
 
             // Subscribe completed request event
-            ->setDefaultOption('events/request.complete',
-                function (Event $event) use ($that) {
-                    $that->handleResponse($event);
-                    $event->stopPropagation();
-                }
-            )
+            ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
+                $that->handleResponse($event);
+                $event->stopPropagation();
+            })
         ;
     }
 
@@ -85,7 +83,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, $headers = array(), $content = "")
+    public function put($url, $headers = array(), $content = '')
     {
         $this->response = $this->client->put($url, $headers, json_decode($content, true))->send();
 
@@ -95,7 +93,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, $headers = array(), $content = "")
+    public function post($url, $headers = array(), $content = '')
     {
         $this->response = $this->client->post($url, $headers, json_decode($content, true))->send();
 
@@ -119,9 +117,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param Event $event
-     * @throws \RuntimeException
-     * @throws \DigitalOceanV2\Exception\ExceptionInterface
+     * @param  Event                                $event
+     * @throws \RuntimeException|ExceptionInterface
      */
     protected function handleResponse(Event $event)
     {
@@ -139,6 +136,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         $content = json_decode($body);
+
         throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
 }
