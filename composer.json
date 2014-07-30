@@ -32,7 +32,12 @@
     },
 
     "require-dev": {
-        "phpspec/phpspec": "~2.0"
+        "phpspec/phpspec": "~2.0",
+        "guzzle/guzzle": "~3.9"
+    },
+
+    "suggest": {
+        "guzzle/guzzle": "To use GuzzlyAdapter, require guzzle/guzzle:~3.9"
     },
 
     "autoload": {
