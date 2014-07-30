@@ -57,6 +57,66 @@ Finally run:
 $ php composer.phar require toin0u/digitalocean-v2
 ```
 
+### Using Symfony2? ###
+For Symfony2 users no need to create separated bundle (But you can if you want) just common install `toin0u/digitalocean-v2` via composer and define it as services. For example:
+
+```yaml
+# YourBundle/Resources/config/services.yml
+parameters:
+    do.class.factory: DigitalOceanV2\DigitalOceanV2
+    do.class.adapter: DigitalOceanV2\Adapter\GuzzleAdapter
+    ....
+
+services:
+    do.adapter:
+        class: %do.class.adapter%
+        public: false
+        arguments: [api_secret]
+
+    do.factory:
+        class: %do.class.factory%
+        arguments: [@do.adapter]
+
+    ....
+```
+
+Now you can use in container.
+```php
+$droplet = $this->container->get('do.facotry')->droplet();
+```
+
+Or you can define your service api one by one using class factory.
+```yaml
+parameters:
+    ....
+    do.class.api.droplet: DigitalOceanV2\Api\Droplet
+    do.class.api.action: DigitalOceanV2\Api\Action
+    do.class.api.domain: ...
+
+services:
+    ....
+
+    do.droplet:
+        class: %do.class.api.droplet%
+        factory_service: do.factory
+        factory_method: droplet
+
+    do.action:
+        class: %do.class.api.action%
+        factory_service: do.factory
+        factory_method: action
+
+    do.domain:
+        ....
+```
+
+And now you can use in container as
+```php
+$droplets = $this->container->get('do.droplet')->getAll();
+```
+> This is helpful for a child of `Symfony\Bundle\FrameworkBundle\Controller\Controller` user to use by `$this->get('do.droplet')->getAll()`
+
+
 ### Using Laravel? ###
 
 [Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell) might interest you.
@@ -74,7 +134,9 @@ Adapter
 
 We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `Browser`
 and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
-will be used. Please inject your own `ExceptionInterface` if needed (see `ResponseException` for more info).
+will be used.
+
+To wrapping your own response message please inject your own `ExceptionInterface` if needed (see `DigitalOceanV2\Exception\ResponseException` for more info).
 
 You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
