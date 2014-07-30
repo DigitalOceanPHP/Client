@@ -111,9 +111,9 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         return array(
-            'reset'     => (integer) $response->getHeader('RateLimit-Reset'),
-            'remaining' => (integer) $response->getHeader('RateLimit-Remaining'),
-            'limit'     => (integer) $response->getHeader('RateLimit-Limit'),
+            'reset'     => (integer) (string) $response->getHeader('RateLimit-Reset'),
+            'remaining' => (integer) (string) $response->getHeader('RateLimit-Remaining'),
+            'limit'     => (integer) (string) $response->getHeader('RateLimit-Limit'),
         );
     }
 
