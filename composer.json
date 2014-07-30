@@ -32,8 +32,8 @@
     },
 
     "require-dev": {
-        "phpspec/phpspec": "~2.0",
-        "guzzle/guzzle": "~3.9"
+        "phpspec/phpspec" : "~2.0",
+        "guzzle/guzzle"   : "~3.9"
     },
 
     "suggest": {
