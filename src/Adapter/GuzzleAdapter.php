@@ -74,7 +74,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, $headers = array())
+    public function delete($url, array $headers = array())
     {
         $this->response = $this->client->delete($url, $headers)->send();
 
@@ -84,7 +84,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, $headers = array(), $content = '')
+    public function put($url, array $headers = array(), $content = '')
     {
         $this->response = $this->client->put($url, $headers, json_decode($content, true))->send();
 
@@ -94,7 +94,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, $headers = array(), $content = '')
+    public function post($url, array $headers = array(), $content = '')
     {
         $this->response = $this->client->post($url, $headers, json_decode($content, true))->send();
 
