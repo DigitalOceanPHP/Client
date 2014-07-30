@@ -82,7 +82,7 @@ services:
 
 Now you can use in container.
 ```php
-$droplet = $this->container->get('do.facotry')->droplet();
+$droplet = $this->container->get('do.factory')->droplet();
 ```
 
 Or you can define your service api one by one using class factory.
