@@ -27,17 +27,18 @@
     },
 
     "require": {
-        "php"                : ">=5.3.3",
-        "kriswallsmith/buzz" : "~0.10"
+        "php": ">=5.3.3"
     },
 
     "require-dev": {
-        "phpspec/phpspec" : "~2.0",
-        "guzzle/guzzle"   : "~3.9"
+        "kriswallsmith/buzz": "~0.10",
+        "guzzle/guzzle"     : "~3.7",
+        "phpspec/phpspec"   : "~2.0"
     },
 
     "suggest": {
-        "guzzle/guzzle": "To use GuzzlyAdapter, require guzzle/guzzle:~3.9"
+        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:~0.10.",
+        "guzzle/guzzle"     : "To use GuzzleAdapter, require guzzle/guzzle:~3.7."
     },
 
     "autoload": {
@@ -49,7 +50,7 @@
 
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         }
     }
 }
