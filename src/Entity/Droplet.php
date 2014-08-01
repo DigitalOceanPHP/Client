@@ -102,6 +102,26 @@ class Droplet extends AbstractEntity
     public $features;
 
     /**
+     * @var boolean
+     */
+    public $backupsEnabled;
+
+    /**
+     * @var boolean
+     */
+    public $privateNetworkingEnabled;
+
+    /**
+     * @var boolean
+     */
+    public $ipv6Enabled;
+
+    /**
+     * @var boolean
+     */
+    public $virtIOEnabled;
+
+    /**
      * @param \stdClass|array $parameters
      */
     public function build($parameters)
@@ -143,6 +163,14 @@ class Droplet extends AbstractEntity
                 default:
                     $this->{\DigitalOceanV2\convert_to_camel_case($property)} = $value;
             }
+        }
+
+        if(is_array($this->features) && count($this->features))
+        {
+            $this->backupsEnabled = in_array("backups",$this->features);
+            $this->virtIOEnabled = in_array("virtio",$this->features);
+            $this->privateNetworkingEnabled = in_array("private_networking",$this->features);
+            $this->ipv6Enabled = in_array("ipv6",$this->features);
         }
     }
 

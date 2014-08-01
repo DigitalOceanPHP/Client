@@ -94,6 +94,12 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         },
                         "locked": false,
                         "created_at": "2014-07-02T15:22:06Z",
+                        "features": [
+                            "virtio",
+                            "private_networking",
+                            "backups",
+                            "ipv6"
+                        ],
                         "status": "active",
                         "networks": {
                             "v4": [
@@ -136,6 +142,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         $this->getMeta()->shouldBeNull();
+        $droplet->backupsEnabled->shouldBe(true);
+        $droplet->privateNetworkingEnabled->shouldBe(true);
+        $droplet->ipv6Enabled->shouldBe(true);
+        $droplet->virtIOEnabled->shouldBe(true);
     }
 
     function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)
