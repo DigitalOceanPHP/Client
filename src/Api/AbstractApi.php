@@ -43,16 +43,15 @@ abstract class AbstractApi
     }
 
     /**
-     * @param  string    $data
+     * @param  \stdClass $data
      * @return Meta|null
      */
-    protected function extractMeta($data)
+    protected function extractMeta(\StdClass $data)
     {
-        if (!isset($data->meta)) {
-            $this->meta = null;
-        } else {
+        if (isset($data->meta)) {
             $this->meta = new Meta($data->meta);
         }
+
         return $this->meta;
     }
 
