@@ -68,7 +68,7 @@ class Droplet extends AbstractApi
 
         $sshIds  = '';
         if (0 < count($sshKeys)) {
-            $sshIds = sprintf(',"ssh_keys":[%s]', implode(',', $sshKeys));
+            $sshIds = sprintf(',"ssh_keys":["%s"]', implode('","', $sshKeys));
         }
 
         // image can be either image id or a public image slug
