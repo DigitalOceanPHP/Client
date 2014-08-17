@@ -178,7 +178,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
                 array('Content-Type: application/json'),
-                '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":true,"ipv6":true,"private_networking":true,"ssh_keys":[123,456,789]}'
+                '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":true,"ipv6":true,"private_networking":true,"ssh_keys":["123","456","789"]}'
             )
             ->willReturn('{"droplet": {}}')
         ;
