@@ -252,7 +252,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots')
+            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots?per_page=' . PHP_INT_MAX)
             ->willReturn(sprintf('{"snapshots": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
@@ -271,7 +271,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/backups')
+            ->get('https://api.digitalocean.com/v2/droplets/123/backups?per_page=' . PHP_INT_MAX)
             ->willReturn(sprintf('{"backups": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
         $backups = $this->getBackups(123);
@@ -289,7 +289,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/actions')
+            ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page=' . PHP_INT_MAX)
             ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
