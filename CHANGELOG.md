@@ -1,10 +1,10 @@
 CHANGELOG
 =========
 
-0.1.2 (xxxx-xx-xx)
+0.2.0 (2014-xx-xx)
 ------------------
 
-n/a
+- Allow using either guzzle or buzz
 
 0.1.1 (2014-07-27)
 ------------------
