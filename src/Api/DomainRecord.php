@@ -52,9 +52,9 @@ class DomainRecord extends AbstractApi
      * @param  string             $type
      * @param  string             $name
      * @param  string             $data
-     * @param  integer            $priority (optional)
-     * @param  integer            $port (optional)
-     * @param  integer            $weight (optional)
+     * @param  integer            $priority   (optional)
+     * @param  integer            $port       (optional)
+     * @param  integer            $weight     (optional)
      * @throws \RuntimeException
      * @return DomainRecordEntity
      */

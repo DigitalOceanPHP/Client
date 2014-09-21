@@ -40,9 +40,9 @@ interface AdapterInterface
     public function put($url, array $headers = array(), $content = '');
 
     /**
-     * @param string                                $url
-     * @param array                                 $headers (optional)
-     * @param string                                $content (optional)
+     * @param  string                               $url
+     * @param  array                                $headers (optional)
+     * @param  string                               $content (optional)
      * @throws \RuntimeException|ExceptionInterface
      * @return string
      */

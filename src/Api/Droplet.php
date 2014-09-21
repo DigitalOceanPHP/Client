@@ -54,10 +54,10 @@ class Droplet extends AbstractApi
      * @param  string            $region
      * @param  string            $size
      * @param  string|integer    $image
-     * @param  boolean           $backups (optional)
-     * @param  boolean           $ipv6 (optional)
+     * @param  boolean           $backups           (optional)
+     * @param  boolean           $ipv6              (optional)
      * @param  boolean           $privateNetworking (optional)
-     * @param  integer[]         $sshKeys (optional)
+     * @param  integer[]         $sshKeys           (optional)
      * @throws \RuntimeException
      * @return DropletEntity
      */
@@ -323,8 +323,8 @@ class Droplet extends AbstractApi
     }
 
      /**
-     * @param  integer $id
-     * @param  string  $name
+     * @param integer $id
+     * @param string  $name
      *
      * @throws \RuntimeException
      * @return ActionEntity

@@ -34,7 +34,7 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param  string             $domainName
+     * @param  string            $domainName
      * @throws \RuntimeException
      * @return DomainEntity
      */
@@ -47,8 +47,8 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param string              $name
-     * @param string              $ipAddress
+     * @param  string            $name
+     * @param  string            $ipAddress
      * @throws \RuntimeException
      * @return DomainEntity
      */
