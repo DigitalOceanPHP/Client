@@ -11,8 +11,8 @@
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Action as ActionEntity;
+use DigitalOceanV2\Entity\Image as ImageEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -58,8 +58,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer            $id
-     * @param string             $name
+     * @param  integer           $id
+     * @param  string            $name
      * @throws \RuntimeException
      * @return ImageEntity
      */
