@@ -251,6 +251,9 @@ $droplet123 = $droplet->getById(123);
 // create and return the created Droplet entity
 $created = $droplet->create('the-name', 'nyc1', '512mb', 449676388);
 
+// create and return the created Droplet entity using an image slug
+$created = $droplet->create('the-name', 'nyc1', '512mb', 'ubuntu-14-04-x64');
+
 // delete the droplet 123
 $droplet->delete(123);
 
