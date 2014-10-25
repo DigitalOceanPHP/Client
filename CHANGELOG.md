@@ -4,7 +4,15 @@ CHANGELOG
 0.2.0 (2014-xx-xx)
 ------------------
 
-- Allow using either guzzle or buzz
+- Added minSize for the image entity.
+- Changed the droplet size to sizeSlug.
+
+0.2.0 (2014-09-21)
+------------------
+
+- Allow using either guzzle or buzz.
+- Support creating droplet with ssh fingerprints.
+- Pagination fixes.
 
 0.1.1 (2014-07-27)
 ------------------
