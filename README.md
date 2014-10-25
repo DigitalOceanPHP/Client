@@ -134,7 +134,7 @@ $droplets = $this->container->get('do.droplet')->getAll();
 ```json
 {
     "require": {
-        "graham-campbell/digitalocean": "0.1.*"
+        "graham-campbell/digitalocean": "~1.0"
     }
 }
 ```
