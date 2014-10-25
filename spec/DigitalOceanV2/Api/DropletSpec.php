@@ -77,21 +77,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "name": "Ubuntu 14.04 x64 vmlinuz-3.13.0-24-generic (1221)",
                             "version": "3.13.0-24-generic"
                         },
-                        "size": {
-                            "slug": "512mb",
-                            "memory": 512,
-                            "vcpus": 1,
-                            "disk": 20,
-                            "transfer": null,
-                            "price_monthly": "5.0",
-                            "price_hourly": "0.00744",
-                            "regions": [
-                                "nyc1",
-                                "br1",
-                                "sfo1",
-                                "ams4"
-                            ]
-                        },
+                        "sizeSlug": "512mb",
                         "locked": false,
                         "created_at": "2014-07-02T15:22:06Z",
                         "features": [
@@ -138,10 +124,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->networks[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
         $droplet->networks[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
         $droplet->kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
-        $droplet->size->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Size');
         $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         $this->getMeta()->shouldBeNull();
+        $droplet->sizeSlug->shouldBe('512mb');
         $droplet->backupsEnabled->shouldBe(true);
         $droplet->privateNetworkingEnabled->shouldBe(true);
         $droplet->ipv6Enabled->shouldBe(true);
