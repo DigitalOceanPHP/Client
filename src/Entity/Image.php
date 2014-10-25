@@ -39,6 +39,11 @@ class Image extends AbstractEntity
     /**
      * @var string
      */
+    public $minSize;
+
+    /**
+     * @var string
+     */
     public $createdAt;
 
     /**
