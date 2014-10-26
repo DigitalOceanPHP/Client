@@ -60,8 +60,8 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function delete($url, array $headers = array())
     {
-        $this->response = $this->client->delete($url, $headers);
-
+        $options = array('headers' => $headers);
+        $this->response = $this->client->delete($url, $options);
         return $this->response->getBody();
     }
 
@@ -71,7 +71,8 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = array(), $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request = $this->client->put($url, $headers, $content);
+        $options = array('headers' => $headers, 'body' => $content);
+        $request = $this->client->put($url, $options);
         $this->response = $request;
 
         return $this->response->getBody();
@@ -83,7 +84,8 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = array(), $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request = $this->client->post($url, $headers, $content);
+        $options = array('headers' => $headers, 'body' => $content);
+        $request = $this->client->post($url, $options);
         $this->response = $request;
 
         return $this->response->getBody();
@@ -113,7 +115,7 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     {
         $this->response = $event->getResponse();
 
-        if ($this->response->getStatusCode() === '200') {
+        if ($this->response->getStatusCode() >= 200 && $this->response->getStatusCode() <= 299) {
             return;
         }
 
