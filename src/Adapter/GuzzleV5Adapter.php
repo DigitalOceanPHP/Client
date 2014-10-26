@@ -16,7 +16,7 @@ class GuzzleV5Adapter extends AbstractAdapter implements AdapterInterface
     protected $client;
 
     /**
-     * @var Response
+     * @var ResponseInterface
      */
     protected $response;
 
@@ -111,7 +111,6 @@ class GuzzleV5Adapter extends AbstractAdapter implements AdapterInterface
      */
     protected function handleResponse(CompleteEvent $event)
     {
-        /** @var \GuzzleHttp\Message\Response response */
         $this->response = $event->getResponse();
 
         if ($this->response->getStatusCode() === '200') {
