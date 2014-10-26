@@ -2,16 +2,13 @@
 
 namespace DigitalOceanV2\Adapter;
 
-use DigitalOceanV2\Adapter\AbstractAdapter;
-use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\Response;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Event\CompleteEvent;
+use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
 
-class GuzzleV4Adapter extends AbstractAdapter implements AdapterInterface
+class GuzzleV5Adapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface
@@ -114,9 +111,10 @@ class GuzzleV4Adapter extends AbstractAdapter implements AdapterInterface
      */
     protected function handleResponse(CompleteEvent $event)
     {
+        /** @var \GuzzleHttp\Message\Response response */
         $this->response = $event->getResponse();
 
-        if ($this->response->getStatusCode() == '200') {
+        if ($this->response->getStatusCode() === '200') {
             return;
         }
 
@@ -127,7 +125,7 @@ class GuzzleV4Adapter extends AbstractAdapter implements AdapterInterface
             throw $this->exception->create($body, $code);
         }
 
-        $content = json_decode($body);
+        $content = $this->response->json();
 
         throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
