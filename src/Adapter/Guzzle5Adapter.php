@@ -8,7 +8,7 @@ use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
 
-class GuzzleV5Adapter extends AbstractAdapter implements AdapterInterface
+class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface
