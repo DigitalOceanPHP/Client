@@ -51,7 +51,6 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     public function get($url)
     {
         $this->response = $this->client->get($url);
-
         return $this->response->getBody();
     }
 
@@ -74,7 +73,6 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
         $options = array('headers' => $headers, 'body' => $content);
         $request = $this->client->put($url, $options);
         $this->response = $request;
-
         return $this->response->getBody();
     }
 
@@ -87,7 +85,6 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
         $options = array('headers' => $headers, 'body' => $content);
         $request = $this->client->post($url, $options);
         $this->response = $request;
-
         return $this->response->getBody();
     }
 
@@ -108,7 +105,7 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param  CompleteEvent                                $event
+     * @param  CompleteEvent $event
      * @throws \RuntimeException|ExceptionInterface
      */
     protected function handleResponse(CompleteEvent $event)

@@ -32,14 +32,15 @@
 
     "require-dev": {
         "kriswallsmith/buzz": "~0.10",
-        "guzzlehttp/guzzle": "~5.0",
+        "guzzle/guzzle"     : "~3.7",
+        "guzzlehttp/guzzle" : "~5.0",
         "phpspec/phpspec"   : "~2.0"
     },
 
     "suggest": {
         "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:~0.10.",
         "guzzle/guzzle"     : "To use GuzzleAdapter, require guzzle/guzzle:~3.7.",
-        "guzzlehttp/guzzle"     : "To use GuzzleV5Adapter, require guzzlehttp/guzzle:~5.0."
+        "guzzlehttp/guzzle" : "To use GuzzleV5Adapter, require guzzlehttp/guzzle:~5.0."
     },
 
     "autoload": {
