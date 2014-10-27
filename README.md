@@ -62,6 +62,8 @@ Finally run:
 ```bash
 $ php composer.phar require toin0u/digitalocean-v2
 ```
+### Using PHP < 5.4 ###
+If you are using PHP 5.3 you can still use this library but Guzzle5Adapter won't work so you can chose between GuzzleAdapter or BuzzAdapter.
 
 ### Using Symfony2? ###
 

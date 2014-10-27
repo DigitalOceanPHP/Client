@@ -1,11 +1,12 @@
 CHANGELOG
 =========
 
-0.2.1 (2014-xx-xx)
+0.3.0 (2014-xx-xx)
 ------------------
 
 - Added minSize for the image entity.
 - Changed the droplet size to sizeSlug.
+- Added Support for Guzzle 5.0.
 
 0.2.0 (2014-09-21)
 ------------------
