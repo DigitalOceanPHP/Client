@@ -50,7 +50,8 @@ Or edit `composer.json` and add:
     "require": {
         "toin0u/digitalocean-v2": "0.2.*@dev",
         "kriswallsmith/buzz": "~0.10",
-        "guzzle/guzzle": "~3.7"
+        "guzzle/guzzle": "~3.7",
+        "guzzlehttp/guzzle" : "~5.0"
     }
 }
 ```
