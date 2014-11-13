@@ -1,10 +1,11 @@
 CHANGELOG
 =========
 
-0.3.0 (2014-xx-xx)
+0.3.0 (2014-11-14)
 ------------------
 
-- Added minSize for the image entity.
+- Added updateData to DomainRecord Api
+- Added minDiskSize for the image entity.
 - Changed the droplet size to sizeSlug.
 - Added Support for Guzzle 5.
 
