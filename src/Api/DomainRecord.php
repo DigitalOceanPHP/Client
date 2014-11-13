@@ -115,6 +115,24 @@ class DomainRecord extends AbstractApi
     }
 
     /**
+     * @param  string             $domainName
+     * @param  integer            $recordId
+     * @param  string             $data
+     * @throws \RuntimeException
+     * @return DomainRecordEntity
+     */
+    public function updateData($domainName, $recordId, $data)
+    {
+        $headers = array('Content-Type: application/json');
+        $content = sprintf('{"data":"%s"}', $data);
+
+        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
+        $domainRecord = json_decode($domainRecord);
+
+        return new DomainRecordEntity($domainRecord->domain_record);
+    }
+
+    /**
      * @param string  $domainName
      * @param integer $recordId
      */
