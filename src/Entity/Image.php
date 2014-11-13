@@ -37,11 +37,6 @@ class Image extends AbstractEntity
     public $slug;
 
     /**
-     * @var string
-     */
-    public $minSize;
-
-    /**
      * @var integer
      */
     public $minDiskSize;
