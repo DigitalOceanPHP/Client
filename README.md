@@ -48,7 +48,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "0.2.*@dev",
+        "toin0u/digitalocean-v2": "0.3.*@dev",
         "kriswallsmith/buzz": "~0.10",
         "guzzle/guzzle": "~3.7",
         "guzzlehttp/guzzle" : "~5.0"
