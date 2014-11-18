@@ -38,7 +38,7 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:0.2.*@dev
+$ php composer.phar require toin0u/digitalocean-v2:0.3.*@dev
 $ php composer.phar require kriswallsmith/buzz:~0.10
 $ php composer.phar require guzzle/guzzle:~3.7
 ```
