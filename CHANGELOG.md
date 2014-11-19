@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.4.0 (2014-XX-XX)
+------------------
+
+- Added the ability to set userdata when creating a droplet.
+
 0.3.0 (2014-11-14)
 ------------------
 
