@@ -3,7 +3,7 @@ DigitalOcean V2
 
 Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) :)
 
-This library is a *work in progress* like the *API*.
+This library is a *work in progress* as well as the *API*.
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
@@ -66,7 +66,7 @@ $ php composer.phar require toin0u/digitalocean-v2
 
 ### Using Symfony2? ###
 
-For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to) just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
+For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to).Just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
 
 ```yaml
 # YourBundle/Resources/config/services.yml
