@@ -3,7 +3,7 @@ DigitalOcean V2
 
 Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) :)
 
-This libray is in *work in progress* as well as the *API*.
+This library is a *work in progress* as well as the *API*.
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
@@ -66,7 +66,7 @@ $ php composer.phar require toin0u/digitalocean-v2
 
 ### Using Symfony2? ###
 
-For Symfony2 users no need to create separated bundle (But you can if you want) just common install `toin0u/digitalocean-v2` via composer and define it as services. For example:
+For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to).Just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
 
 ```yaml
 # YourBundle/Resources/config/services.yml
@@ -94,7 +94,7 @@ Now you can use in container.
 $droplet = $this->container->get('do.factory')->droplet();
 ```
 
-Or you can define your service api one by one using class factory.
+Or you could define your service api one by one using a class factory.
 
 ```yaml
 parameters:
@@ -120,7 +120,7 @@ services:
         ....
 ```
 
-And now you can use in container as
+And now you can use it in the container as
 
 ```php
 $droplets = $this->container->get('do.droplet')->getAll();
@@ -143,15 +143,15 @@ $droplets = $this->container->get('do.droplet')->getAll();
 Adapter
 -------
 
-We provide a simple `BuzzAdapter` at the moment which can be tweekable by injecting your own `Browser`
+We provide a simple `BuzzAdapter`  which (at the moment) can be tweaked by injecting your own `Browser`
 and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
 will be used.
 
-To wrapping your own response message please inject your own `ExceptionInterface` if needed (see `DigitalOceanV2\Exception\ResponseException` for more info).
+To wrap your own response message, please inject your own `ExceptionInterface` if needed (see `DigitalOceanV2\Exception\ResponseException` for more info).
 
 If you use Guzzle, you can inject your own client to our `GuzzleAdapter`.
 
-You can also make your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
+You can also build your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
 Example
 -------
@@ -444,7 +444,7 @@ Credits
 Support
 -------
 
-[Please open an issues in github](https://github.com/toin0u/DigitalOceanV2/issues)
+[Please open an issue in github](https://github.com/toin0u/DigitalOceanV2/issues)
 
 License
 -------
