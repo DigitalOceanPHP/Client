@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class DomainRecord extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -37,17 +37,17 @@ class DomainRecord extends AbstractEntity
     public $data;
 
     /**
-     * @var integer
+     * @var int
      */
     public $priority;
 
     /**
-     * @var integer
+     * @var int
      */
     public $port;
 
     /**
-     * @var integer
+     * @var int
      */
     public $weight;
 }

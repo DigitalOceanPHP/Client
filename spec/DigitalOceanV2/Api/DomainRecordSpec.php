@@ -6,31 +6,31 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\DomainRecord');
     }
 
-    function it_returns_an_empty_array($adapter)
+    public function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)->willReturn('{"domain_records": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page='.PHP_INT_MAX)->willReturn('{"domain_records": []}');
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
         $domainRecords->shouldHaveCount(0);
     }
 
-    function it_returns_an_array_of_domain_record_entity($adapter)
+    public function it_returns_an_array_of_domain_record_entity($adapter)
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}',$total))
+            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
         $domainRecords = $this->getAll('foo.dk');
@@ -44,7 +44,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_the_domain_get_by_its_id($adapter)
+    public function it_returns_the_domain_get_by_its_id($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
@@ -67,7 +67,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    function it_throws_an_runtime_exception_if_requested_domain_record_does_not_exist($adapter)
+    public function it_throws_an_runtime_exception_if_requested_domain_record_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
@@ -77,7 +77,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById('foo.dk', 123456789);
     }
 
-    function it_returns_the_created_domain_record_type_a($adapter)
+    public function it_returns_the_created_domain_record_type_a($adapter)
     {
         $adapter
             ->post(
@@ -103,7 +103,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->create('foo.dk', 'a', '@', '8.8.8.8')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
-    function it_returns_the_created_domain_record_type_aaaa($adapter)
+    public function it_returns_the_created_domain_record_type_aaaa($adapter)
     {
         $adapter
             ->post(
@@ -132,7 +132,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_domain_record_type_cname($adapter)
+    public function it_returns_the_created_domain_record_type_cname($adapter)
     {
         $adapter
             ->post(
@@ -161,7 +161,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_domain_record_type_txt($adapter)
+    public function it_returns_the_created_domain_record_type_txt($adapter)
     {
         $adapter
             ->post(
@@ -190,7 +190,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_domain_record_type_ns($adapter)
+    public function it_returns_the_created_domain_record_type_ns($adapter)
     {
         $adapter
             ->post(
@@ -219,7 +219,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_domain_record_type_srv($adapter)
+    public function it_returns_the_created_domain_record_type_srv($adapter)
     {
         $adapter
             ->post(
@@ -248,7 +248,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_domain_record_type_mx($adapter)
+    public function it_returns_the_created_domain_record_type_mx($adapter)
     {
         $adapter
             ->post(
@@ -277,7 +277,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_throws_an_runtime_exception_if_unknown_type($adapter)
+    public function it_throws_an_runtime_exception_if_unknown_type($adapter)
     {
         $this
             ->shouldThrow(new \RuntimeException('Domain record type is invalid.'))
@@ -285,7 +285,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_updated_domain_record($adapter)
+    public function it_returns_updated_domain_record($adapter)
     {
         $adapter
             ->put(
@@ -314,7 +314,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
+    public function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
     {
         $adapter
             ->put(
@@ -328,7 +328,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
     }
 
-    function it_deletes_given_domain_record_and_returns_nothing($adapter)
+    public function it_deletes_given_domain_record_and_returns_nothing($adapter)
     {
         $adapter
             ->delete(
@@ -341,7 +341,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->delete('foo.dk', 123);
     }
 
-    function it_thorws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
+    public function it_thorws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
     {
         $adapter
             ->delete(

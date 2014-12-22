@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -45,6 +45,7 @@ function convert_to_snake_case($property)
  * Returns a string representation of a boolean.
  *
  * @param  boolean $value
+ *
  * @return string
  */
 function bool_to_string($value)

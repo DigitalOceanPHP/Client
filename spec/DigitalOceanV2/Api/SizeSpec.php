@@ -6,20 +6,20 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class SizeSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Size');
     }
 
-    function it_returns_an_array_of_size_entity($adapter)
+    public function it_returns_an_array_of_size_entity($adapter)
     {
         $total = 3;
-        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page=' . PHP_INT_MAX)
+        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page='.PHP_INT_MAX)
             ->willReturn(sprintf('{"sizes": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $sizes = $this->getAll();

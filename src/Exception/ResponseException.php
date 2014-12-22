@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -40,7 +40,8 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     }
 
     /**
-     * @param  boolean $includeCodeId (optional)
+     * @param bool $includeCodeId (optional)
+     *
      * @return string
      */
     public function getErrorMessage($includeCodeId = false)

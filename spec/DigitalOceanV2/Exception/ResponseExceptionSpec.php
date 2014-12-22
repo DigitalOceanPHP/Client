@@ -4,12 +4,12 @@ namespace spec\DigitalOceanV2\Exception;
 
 class ResponseExceptionSpec extends \PhpSpec\ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Exception\ResponseException');
     }
 
-    function it_returns_created_an_exception()
+    public function it_returns_created_an_exception()
     {
         $this->create('foo')->shouldReturnAnInstanceOf('DigitalOceanV2\Exception\ResponseException');
 

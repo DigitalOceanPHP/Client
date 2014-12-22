@@ -6,30 +6,30 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class ImageSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Image');
     }
 
-    function it_returns_an_empty_array($adapter)
+    public function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)->willReturn('{"images": []}');
+        $adapter->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)->willReturn('{"images": []}');
 
         $images = $this->getAll();
         $images->shouldBeArray();
         $images->shouldHaveCount(0);
     }
 
-    function it_returns_an_array_of_image_entity($adapter)
+    public function it_returns_an_array_of_image_entity($adapter)
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
@@ -44,7 +44,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_an_image_entity_get_by_its_id($adapter)
+    public function it_returns_an_image_entity_get_by_its_id($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/123')
@@ -69,7 +69,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    function it_returns_an_image_entity_get_by_its_slug($adapter)
+    public function it_returns_an_image_entity_get_by_its_slug($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/foo-bar')
@@ -93,7 +93,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->getBySlug('foo-bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
 
-    function it_returns_the_updated_image($adapter)
+    public function it_returns_the_updated_image($adapter)
     {
         $adapter
             ->put(
@@ -121,7 +121,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->update(123, 'bar-baz')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_image($adapter)
+    public function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_image($adapter)
     {
         $adapter
             ->put(
@@ -135,7 +135,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz-baz'));
     }
 
-    function it_deletes_the_image_and_returns_nothing($adapter)
+    public function it_deletes_the_image_and_returns_nothing($adapter)
     {
         $adapter
             ->delete(
@@ -148,7 +148,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_image($adapter)
+    public function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_image($adapter)
     {
         $adapter
             ->delete(
@@ -161,7 +161,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', array(0));
     }
 
-    function it_transfer_the_image_to_an_other_region_and_returns_its_image($adapter)
+    public function it_transfer_the_image_to_an_other_region_and_returns_its_image($adapter)
     {
         $adapter
             ->post(
@@ -188,7 +188,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->transfer(123, 'nyc2')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
 
-    function it_throws_an_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
+    public function it_throws_an_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
     {
         $adapter
             ->post(
@@ -202,7 +202,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', array(0, 'foo'));
     }
 
-    function it_returns_the_requested_action_entity_of_the_given_image($adapter)
+    public function it_returns_the_requested_action_entity_of_the_given_image($adapter)
     {
         $adapter
             ->get(
@@ -227,7 +227,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->getAction(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
 
-    function it_throws_an_runtime_exception_when_retreiving_non_existing_image_action($adapter)
+    public function it_throws_an_runtime_exception_when_retreiving_non_existing_image_action($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')

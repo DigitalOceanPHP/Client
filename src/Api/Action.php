@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -34,7 +34,8 @@ class Action extends AbstractApi
     }
 
     /**
-     * @param  integer      $id
+     * @param int $id
+     *
      * @return ActionEntity
      */
     public function getById($id)
