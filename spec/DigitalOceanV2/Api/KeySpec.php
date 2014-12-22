@@ -6,29 +6,29 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class KeySpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Key');
     }
 
-    function it_returns_an_empty_array($adapter)
+    public function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)->willReturn('{"ssh_keys": []}');
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page='.PHP_INT_MAX)->willReturn('{"ssh_keys": []}');
 
         $keys = $this->getAll();
         $keys->shouldBeArray();
         $keys->shouldHaveCount(0);
     }
 
-    function it_returns_an_array_of_key_entity($adapter)
+    public function it_returns_an_array_of_key_entity($adapter)
     {
         $total = 3;
-        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page='.PHP_INT_MAX)
             ->willReturn(sprintf('{"ssh_keys": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $keys = $this->getAll();
@@ -42,7 +42,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_a_key_entity_get_by_its_id($adapter)
+    public function it_returns_a_key_entity_get_by_its_id($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/account/keys/123')
@@ -61,7 +61,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
-    function it_returns_a_key_entity_get_by_its_fingerprint($adapter)
+    public function it_returns_a_key_entity_get_by_its_fingerprint($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/account/keys/f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2')
@@ -83,7 +83,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         ;
     }
 
-    function it_returns_the_created_key($adapter)
+    public function it_returns_the_created_key($adapter)
     {
         $adapter
             ->post(
@@ -106,7 +106,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->create('foo', 'ssh-rsa foobarbaz...')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
-    function it_returns_the_updated_key($adapter)
+    public function it_returns_the_updated_key($adapter)
     {
         $adapter
             ->put(
@@ -129,7 +129,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->update(456, 'bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_key($adapter)
+    public function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_key($adapter)
     {
         $adapter
             ->put(
@@ -143,7 +143,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz'));
     }
 
-    function it_deletes_the_key_and_returns_nothing($adapter)
+    public function it_deletes_the_key_and_returns_nothing($adapter)
     {
         $adapter
             ->delete(
@@ -156,7 +156,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_key($adapter)
+    public function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_key($adapter)
     {
         $adapter
             ->delete(

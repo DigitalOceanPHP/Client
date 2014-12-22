@@ -4,13 +4,13 @@ namespace spec\DigitalOceanV2\Exception;
 
 class ExceptionReaderSpec extends \PhpSpec\ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->beConstructedWith('foo', 123);
         $this->shouldHaveType('DigitalOceanV2\Exception\ExceptionReader');
     }
 
-    function it_cannot_read_the_given_exception()
+    public function it_cannot_read_the_given_exception()
     {
         $this->beConstructedWith('{}');
 
@@ -19,7 +19,7 @@ class ExceptionReaderSpec extends \PhpSpec\ObjectBehavior
         $this->getMessage(false)->shouldReturn('Request not processed.');
     }
 
-    function it_can_read_the_exception()
+    public function it_can_read_the_exception()
     {
         $this->beConstructedWith('{"id":"not_found", "message":"The resource you were accessing could not be found."}', 404);
 

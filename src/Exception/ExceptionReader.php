@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -27,15 +27,15 @@ class ExceptionReader
     protected $message;
 
     /**
-     * @var integer Exception error code
+     * @var int Exception error code
      */
     protected $code;
 
     /**
      * Error message in DigitalOcean format.
      *
-     * @param string  $content
-     * @param integer $code    (optional)
+     * @param string $content
+     * @param int    $code    (optional)
      */
     public function __construct($content, $code = 0)
     {
@@ -56,7 +56,7 @@ class ExceptionReader
     }
 
     /**
-     * Message Id (DigitalOcean error code)
+     * Message Id (DigitalOcean error code).
      *
      * @return string
      */
@@ -66,9 +66,10 @@ class ExceptionReader
     }
 
     /**
-     * Error message
+     * Error message.
      *
-     * @param  boolean $includeCodeId (optional)
+     * @param bool $includeCodeId (optional)
+     *
      * @return string
      */
     public function getMessage($includeCodeId = true)

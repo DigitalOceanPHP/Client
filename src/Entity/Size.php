@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -22,22 +22,22 @@ class Size extends AbstractEntity
     public $slug;
 
     /**
-     * @var integer
+     * @var int
      */
     public $memory;
 
     /**
-     * @var integer
+     * @var int
      */
     public $vcpus;
 
     /**
-     * @var integer
+     * @var int
      */
     public $disk;
 
     /**
-     * @var integer
+     * @var int
      */
     public $transfer;
 

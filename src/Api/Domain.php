@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -34,8 +34,10 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param  string            $domainName
+     * @param string $domainName
+     *
      * @throws \RuntimeException
+     *
      * @return DomainEntity
      */
     public function getByName($domainName)
@@ -47,9 +49,11 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param  string            $name
-     * @param  string            $ipAddress
+     * @param string $name
+     * @param string $ipAddress
+     *
      * @throws \RuntimeException
+     *
      * @return DomainEntity
      */
     public function create($name, $ipAddress)
@@ -64,7 +68,8 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param  string            $domain
+     * @param string $domain
+     *
      * @throws \RuntimeException
      */
     public function delete($domain)

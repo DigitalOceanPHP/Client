@@ -6,24 +6,24 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class RateLimitSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\RateLimit');
     }
 
-    function it_retuns_null_if_there_is_no_previous_request($adapter)
+    public function it_retuns_null_if_there_is_no_previous_request($adapter)
     {
         $adapter->getLatestResponseHeaders()->willReturn(null);
 
         $this->getRateLimit()->shouldBeNull();
     }
 
-    function it_returns_rate_limit_entity($adapter)
+    public function it_returns_rate_limit_entity($adapter)
     {
         $adapter->getLatestResponseHeaders()->willReturn(array(
             'limit'     => 1200,

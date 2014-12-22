@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -19,7 +19,8 @@ use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
 class DomainRecord extends AbstractApi
 {
     /**
-     * @param  string               $domainName
+     * @param string $domainName
+     *
      * @return DomainRecordEntity[]
      */
     public function getAll($domainName)
@@ -35,8 +36,9 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param  string             $domainName
-     * @param  integer            $id
+     * @param string $domainName
+     * @param int    $id
+     *
      * @return DomainRecordEntity
      */
     public function getById($domainName, $id)
@@ -48,14 +50,16 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param  string             $domainName
-     * @param  string             $type
-     * @param  string             $name
-     * @param  string             $data
-     * @param  integer            $priority   (optional)
-     * @param  integer            $port       (optional)
-     * @param  integer            $weight     (optional)
+     * @param string $domainName
+     * @param string $type
+     * @param string $name
+     * @param string $data
+     * @param int    $priority   (optional)
+     * @param int    $port       (optional)
+     * @param int    $weight     (optional)
+     *
      * @throws \RuntimeException
+     *
      * @return DomainRecordEntity
      */
     public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null)
@@ -97,10 +101,12 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param  string             $domainName
-     * @param  integer            $recordId
-     * @param  string             $name
+     * @param string $domainName
+     * @param int    $recordId
+     * @param string $name
+     *
      * @throws \RuntimeException
+     *
      * @return DomainRecordEntity
      */
     public function update($domainName, $recordId, $name)
@@ -115,10 +121,12 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param  string             $domainName
-     * @param  integer            $recordId
-     * @param  string             $data
+     * @param string $domainName
+     * @param int    $recordId
+     * @param string $data
+     *
      * @throws \RuntimeException
+     *
      * @return DomainRecordEntity
      */
     public function updateData($domainName, $recordId, $data)
@@ -133,8 +141,8 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param string  $domainName
-     * @param integer $recordId
+     * @param string $domainName
+     * @param int    $recordId
      */
     public function delete($domainName, $recordId)
     {

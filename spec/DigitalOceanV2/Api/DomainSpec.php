@@ -6,30 +6,30 @@ use DigitalOceanV2\Adapter\AdapterInterface;
 
 class DomainSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Domain');
     }
 
-    function it_returns_an_empty_array($adapter)
+    public function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)->willReturn('{"domains": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains?per_page='.PHP_INT_MAX)->willReturn('{"domains": []}');
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
         $domains->shouldHaveCount(0);
     }
 
-    function it_returns_an_array_of_domain_entity($adapter)
+    public function it_returns_an_array_of_domain_entity($adapter)
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/domains?per_page='.PHP_INT_MAX)
             ->willReturn(sprintf('{"domains": [{},{},{}], "meta": {"total": %d}}', $total))
         ;
 
@@ -44,7 +44,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe(3);
     }
 
-    function it_returns_an_domain_entity_get_by_its_name($adapter)
+    public function it_returns_an_domain_entity_get_by_its_name($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.com')
@@ -62,7 +62,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->getByName('foo.com')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
     }
 
-    function it_throws_an_runtime_exception_if_requested_domain_does_not_exist($adapter)
+    public function it_throws_an_runtime_exception_if_requested_domain_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
@@ -72,7 +72,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetByName('foo.bar');
     }
 
-    function it_returns_the_created_domain_entity($adapter)
+    public function it_returns_the_created_domain_entity($adapter)
     {
         $adapter
             ->post(
@@ -94,7 +94,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->create('bar.dk', '127.0.0.1')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
     }
 
-    function it_throws_a_runtime_exception_if_ip_address_is_invalid($adapter)
+    public function it_throws_a_runtime_exception_if_ip_address_is_invalid($adapter)
     {
         $adapter
             ->post(
@@ -108,7 +108,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', 123456);
     }
 
-    function it_deletes_the_domain_and_returns_nothing($adapter)
+    public function it_deletes_the_domain_and_returns_nothing($adapter)
     {
         $adapter
             ->delete(
@@ -121,7 +121,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->delete('qmx.fr');
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_domain($adapter)
+    public function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_domain($adapter)
     {
         $adapter
             ->delete(
