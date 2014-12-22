@@ -17,7 +17,7 @@ Status
 
 API | Documentation | Specification tests
 --- | ------------- | -------------------
-[Account](https://developers.digitalocean.com/v2/#account) | - | -
+[Account](https://developers.digitalocean.com/v2/#account) | [√](https://github.com/toin0u/DigitalOceanV2#account) | √
 [Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
 [Domain records](https://developers.digitalocean.com/v2/#domain-records) | [√](https://github.com/toin0u/DigitalOceanV2#domain-record) | √
 [Domains](https://developers.digitalocean.com/v2/#domains) | [√](https://github.com/toin0u/DigitalOceanV2#domain) | √
@@ -175,6 +175,18 @@ $digitalOcean = new DigitalOceanV2($adapter);
 
 // ...
 ```
+
+Account
+-------
+
+```php
+// ...
+// return the account api
+$account = $digitalocean->account();
+
+// return the Account entity
+$userInformation = $account->getUserInformation();
+````
 
 Action
 ------
