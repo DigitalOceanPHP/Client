@@ -12,6 +12,7 @@
 namespace DigitalOceanV2;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
@@ -43,6 +44,14 @@ class DigitalOceanV2
     public function __construct(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
+    }
+
+    /**
+     * @return Account
+     */
+    public function account()
+    {
+        return new Account($this->adapter);
     }
 
     /**
