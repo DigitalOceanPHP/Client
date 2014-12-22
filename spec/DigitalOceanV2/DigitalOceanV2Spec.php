@@ -16,6 +16,11 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\DigitalOceanV2');
     }
 
+    function it_should_return_an_account_instance()
+    {
+        $this->account()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Account');
+    }
+
     function it_should_return_an_action_instance()
     {
         $this->action()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Action');
