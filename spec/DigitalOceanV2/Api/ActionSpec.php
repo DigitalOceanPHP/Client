@@ -18,7 +18,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/actions?per_page=' . PHP_INT_MAX)->willReturn('{"actions": []}');
+        $adapter->get('https://api.digitalocean.com/v2/actions?per_page='.PHP_INT_MAX)->willReturn('{"actions": []}');
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
@@ -29,9 +29,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/actions?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/actions?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
@@ -61,8 +60,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
                         "region": "nyc2"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
 
@@ -73,8 +71,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/123456789123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById(123456789123456789);
     }

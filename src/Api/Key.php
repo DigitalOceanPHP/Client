@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -33,7 +33,8 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param  integer   $id
+     * @param integer $id
+     *
      * @return KeyEntity
      */
     public function getById($id)
@@ -45,7 +46,8 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param  string    $fingerprint
+     * @param string $fingerprint
+     *
      * @return KeyEntity
      */
     public function getByFingerprint($fingerprint)
@@ -57,9 +59,11 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param  string            $name
-     * @param  string            $publicKey
+     * @param string $name
+     * @param string $publicKey
+     *
      * @throws \RuntimeException
+     *
      * @return KeyEntity
      */
     public function create($name, $publicKey)
@@ -74,9 +78,11 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  string            $name
+     * @param integer $id
+     * @param string  $name
+     *
      * @throws \RuntimeException
+     *
      * @return KeyEntity
      */
     public function update($id, $name)
@@ -91,7 +97,8 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
      */
     public function delete($id)

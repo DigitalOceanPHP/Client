@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,17 +17,17 @@ namespace DigitalOceanV2\Entity;
 class RateLimit extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      */
     public $limit;
 
     /**
-     * @var integer
+     * @var int
      */
     public $remaining;
 
     /**
-     * @var integer
+     * @var int
      */
     public $reset;
 }

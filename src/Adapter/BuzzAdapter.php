@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -105,7 +105,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $response = $this->browser->getLastResponse()) {
-            return null;
+            return;
         }
 
         return array(
@@ -116,7 +116,8 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param  Response   $response
+     * @param Response $response
+     *
      * @return \Exception
      */
     protected function handleResponse(Response $response)
