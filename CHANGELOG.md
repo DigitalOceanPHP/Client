@@ -1,10 +1,13 @@
 CHANGELOG
 =========
 
-0.4.0 (2014-XX-XX)
+0.4.0 (2014-12-23)
 ------------------
 
 - Added the ability to set userdata when creating a droplet.
+- Added Account api
+- Fixed CS to be PSR-2 complient
+- Added Code of Conduct
 
 0.3.0 (2014-11-14)
 ------------------
