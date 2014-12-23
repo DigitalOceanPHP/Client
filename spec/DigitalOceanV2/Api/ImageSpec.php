@@ -18,7 +18,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)->willReturn('{"images": []}');
+        $adapter->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)->willReturn('{"images": []}');
 
         $images = $this->getAll();
         $images->shouldBeArray();
@@ -29,9 +29,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll();
         $images->shouldBeArray();
@@ -62,8 +61,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "2014-06-27T21:10:28Z"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
         $this->getMeta()->shouldBeNull();
@@ -87,8 +85,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "2014-06-27T21:10:28Z"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getBySlug('foo-bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
@@ -115,8 +112,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "2014-06-27T21:10:28Z"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->update(123, 'bar-baz')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
@@ -129,8 +125,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"baz-baz"}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz-baz'));
     }
@@ -142,8 +137,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/images/678',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         $this->delete(678);
     }
@@ -155,8 +149,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/images/0',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', array(0));
     }
@@ -182,8 +175,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "region": "nyc2"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->transfer(123, 'nyc2')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -196,8 +188,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"transfer","region":"foo"}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', array(0, 'foo'));
     }
@@ -221,8 +212,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "region": "nyc2"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getAction(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -231,8 +221,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('getAction', array(0, 0));
     }

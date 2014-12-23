@@ -18,7 +18,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)->willReturn('{"ssh_keys": []}');
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page='.PHP_INT_MAX)->willReturn('{"ssh_keys": []}');
 
         $keys = $this->getAll();
         $keys->shouldBeArray();
@@ -28,7 +28,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     function it_returns_an_array_of_key_entity($adapter)
     {
         $total = 3;
-        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=' . PHP_INT_MAX)
+        $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page='.PHP_INT_MAX)
             ->willReturn(sprintf('{"ssh_keys": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $keys = $this->getAll();
@@ -55,8 +55,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                         "name": "qmx"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
@@ -74,13 +73,11 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                         "name": "qmx"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->getByFingerprint('f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
     function it_returns_the_created_key($adapter)
@@ -100,8 +97,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                         "name": "foo"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->create('foo', 'ssh-rsa foobarbaz...')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
@@ -123,8 +119,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                         "name": "bar"
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->update(456, 'bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
@@ -137,8 +132,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"baz"}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz'));
     }
@@ -150,8 +144,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/account/keys/678',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         $this->delete(678);
     }
@@ -163,8 +156,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/account/keys/0',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', array(0));
     }

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,11 +17,12 @@ namespace DigitalOceanV2\Exception;
 interface ExceptionInterface
 {
     /**
-     * Create an exception
+     * Create an exception.
      *
-     * @param  string             $message
-     * @param  integer            $code     (optional)
-     * @param  \Exception         $previous (optional)
+     * @param string     $message
+     * @param integer    $code     (optional)
+     * @param \Exception $previous (optional)
+     *
      * @return ExceptionInterface
      */
     public static function create($message, $code = 0, \Exception $previous = null);

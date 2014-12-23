@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class Droplet extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -27,17 +27,17 @@ class Droplet extends AbstractEntity
     public $name;
 
     /**
-     * @var integer
+     * @var int
      */
     public $memory;
 
     /**
-     * @var integer
+     * @var int
      */
     public $vcpus;
 
     /**
-     * @var integer
+     * @var int
      */
     public $disk;
 
@@ -62,7 +62,7 @@ class Droplet extends AbstractEntity
     public $sizeSlug;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $locked;
 
@@ -102,22 +102,22 @@ class Droplet extends AbstractEntity
     public $features;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $backupsEnabled;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $privateNetworkingEnabled;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $ipv6Enabled;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $virtIOEnabled;
 
@@ -166,10 +166,10 @@ class Droplet extends AbstractEntity
         }
 
         if (is_array($this->features) && count($this->features)) {
-            $this->backupsEnabled = in_array("backups",$this->features);
-            $this->virtIOEnabled = in_array("virtio",$this->features);
-            $this->privateNetworkingEnabled = in_array("private_networking",$this->features);
-            $this->ipv6Enabled = in_array("ipv6",$this->features);
+            $this->backupsEnabled = in_array("backups", $this->features);
+            $this->virtIOEnabled = in_array("virtio", $this->features);
+            $this->privateNetworkingEnabled = in_array("private_networking", $this->features);
+            $this->ipv6Enabled = in_array("ipv6", $this->features);
         }
     }
 

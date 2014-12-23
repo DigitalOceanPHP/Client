@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class Image extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      */
     public $id;
 
@@ -37,7 +37,7 @@ class Image extends AbstractEntity
     public $slug;
 
     /**
-     * @var integer
+     * @var int
      */
     public $minDiskSize;
 
@@ -47,7 +47,7 @@ class Image extends AbstractEntity
     public $createdAt;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $public;
 

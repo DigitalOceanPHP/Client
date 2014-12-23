@@ -18,7 +18,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)->willReturn('{"domains": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains?per_page='.PHP_INT_MAX)->willReturn('{"domains": []}');
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
@@ -29,9 +29,8 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"domains": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/domains?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"domains": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
@@ -56,8 +55,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
                         "zone_file": "Example zone file text..."
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getByName('foo.com')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
     }
@@ -66,8 +64,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetByName('foo.bar');
     }
@@ -88,8 +85,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
                         "zone_file": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->create('bar.dk', '127.0.0.1')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
     }
@@ -102,8 +98,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"boo.dk", "ip_address":"123456"}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', 123456);
     }
@@ -115,8 +110,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/domains/qmx.fr',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         $this->delete('qmx.fr');
     }
@@ -128,8 +122,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/domains/qmx.bar',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('qmx.bar');
     }

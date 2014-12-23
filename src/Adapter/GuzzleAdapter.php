@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -57,8 +57,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
                 $that->handleResponse($event);
                 $event->stopPropagation();
-            })
-        ;
+            });
     }
 
     /**
@@ -111,7 +110,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $this->response) {
-            return null;
+            return;
         }
 
         return array(
@@ -122,7 +121,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param  Event                                $event
+     * @param Event $event
+     *
      * @throws \RuntimeException|ExceptionInterface
      */
     protected function handleResponse(Event $event)
