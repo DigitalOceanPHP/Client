@@ -57,6 +57,11 @@ class Droplet extends AbstractEntity
     public $kernel;
 
     /**
+     * @var Size
+     */
+    public $size;
+
+    /**
      * @var String
      */
     public $sizeSlug;
