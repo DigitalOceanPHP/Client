@@ -29,8 +29,7 @@ class AccountSpec extends \PhpSpec\ObjectBehavior
                         "email_verified": true
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getUserInformation()->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Account');
     }
