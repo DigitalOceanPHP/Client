@@ -261,7 +261,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
-    function it_throws_an_runtime_exception_if_unknown_type($adapter)
+    function it_throws_an_runtime_exception_if_unknown_type()
     {
         $this
             ->shouldThrow(new \RuntimeException('Domain record type is invalid.'))
