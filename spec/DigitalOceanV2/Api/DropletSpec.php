@@ -18,7 +18,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page=' . PHP_INT_MAX)->willReturn('{"droplets": []}');
+        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page='.PHP_INT_MAX)->willReturn('{"droplets": []}');
 
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
@@ -29,9 +29,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"droplets": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/droplets?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"droplets": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
@@ -114,8 +113,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "action_ids": []
                     }
                 }
-            ')
-        ;
+            ');
 
         $droplet = $this->getById(123);
         $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
@@ -138,8 +136,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123456789123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById(123456789123456789);
     }
@@ -152,8 +149,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":false,"ipv6":false,"private_networking":false}'
             )
-            ->willReturn('{"droplet": {}}')
-        ;
+            ->willReturn('{"droplet": {}}');
 
         $this->create('foo', 'nyc1', '512mb', 123456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
@@ -166,13 +162,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":true,"ipv6":true,"private_networking":true,"ssh_keys":["123","456","789"]}'
             )
-            ->willReturn('{"droplet": {}}')
-        ;
+            ->willReturn('{"droplet": {}}');
 
         $this
             ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array(123, 456, 789))
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
     function it_thows_an_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
@@ -183,8 +177,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":false,"ipv6":false,"private_networking":false}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('foo', 'nyc1', '512mb', 123456);
     }
@@ -196,8 +189,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/droplets/123',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         $this->delete(123);
     }
@@ -209,8 +201,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/droplets/123',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete(123);
     }
@@ -220,8 +211,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/kernels')
-            ->willReturn(sprintf('{"kernels": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->willReturn(sprintf('{"kernels": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $kernels = $this->getAvailableKernels(123);
         $kernels->shouldBeArray();
@@ -238,9 +228,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"snapshots": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"snapshots": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $snapshots = $this->getSnapshots(123);
         $snapshots->shouldBeArray();
@@ -257,9 +246,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/backups?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"backups": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/droplets/123/backups?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"backups": [{},{},{}], "meta": {"total": %d}}', $total));
         $backups = $this->getBackups(123);
         $backups->shouldBeArray();
         $backups->shouldHaveCount($total);
@@ -275,9 +263,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total))
-        ;
+            ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $actions = $this->getActions(123);
         $actions->shouldBeArray();
@@ -305,8 +292,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"reboot"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->reboot(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -319,8 +305,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_cycle"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->powerCycle(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -333,8 +318,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"shutdown"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->shutdown(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -347,8 +331,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_off"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->powerOff(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -361,8 +344,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_on"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->powerOn(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -375,8 +357,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"password_reset"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->passwordReset(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -389,8 +370,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"resize","size":"1024mb"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->resize(123, '1024mb')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -403,8 +383,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"restore","image":456}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->restore(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -417,8 +396,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"rebuild","image":"my-slug"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->rebuild(123, 'my-slug')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -431,8 +409,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"change_kernel","kernel":789}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->changeKernel(123, 789)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -445,8 +422,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"enable_ipv6"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->enableIpv6(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -459,8 +435,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"disable_backups"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->disableBackups(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }
@@ -473,8 +448,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"enable_private_networking"}'
             )
-            ->willReturn('{"action": {}}')
-        ;
+            ->willReturn('{"action": {}}');
 
         $this->enablePrivateNetworking(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
     }

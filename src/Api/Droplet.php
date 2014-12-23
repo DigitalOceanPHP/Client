@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -37,8 +37,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return DropletEntity
      */
     public function getById($id)
@@ -50,16 +52,18 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  string            $name
-     * @param  string            $region
-     * @param  string            $size
-     * @param  string|integer    $image
-     * @param  boolean           $backups           (optional)
-     * @param  boolean           $ipv6              (optional)
-     * @param  boolean           $privateNetworking (optional)
-     * @param  integer[]         $sshKeys           (optional)
-     * @param  string            $userData          (optional)
+     * @param string         $name
+     * @param string         $region
+     * @param string         $size
+     * @param string|integer $image
+     * @param boolean        $backups           (optional)
+     * @param boolean        $ipv6              (optional)
+     * @param boolean        $privateNetworking (optional)
+     * @param integer[]      $sshKeys           (optional)
+     * @param string         $userData          (optional)
+     *
      * @throws \RuntimeException
+     *
      * @return DropletEntity
      */
     public function create($name, $region, $size, $image, $backups = false, $ipv6 = false,
@@ -75,7 +79,7 @@ class Droplet extends AbstractApi
         // image can be either image id or a public image slug
         $image = is_int($image) ? $image : sprintf('"%s"', $image);
 
-        if(!empty($userData)){
+        if (!empty($userData)) {
             $userData = sprintf(',"user_data":"%s"', $userData);
         }
 
@@ -94,7 +98,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
      */
     public function delete($id)
@@ -104,8 +109,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return KernelEntity[]
      */
     public function getAvailableKernels($id)
@@ -121,7 +128,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer       $id
+     * @param integer $id
+     *
      * @return ImageEntity[]
      */
     public function getSnapshots($id)
@@ -133,12 +141,14 @@ class Droplet extends AbstractApi
 
         return array_map(function ($snapshot) {
             $snapshot = new ImageEntity($snapshot);
+
             return $snapshot;
         }, $snapshots->snapshots);
     }
 
     /**
-     * @param  integer       $id
+     * @param integer $id
+     *
      * @return ImageEntity[]
      */
     public function getBackups($id)
@@ -154,7 +164,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer        $id
+     * @param integer $id
+     *
      * @return ActionEntity[]
      */
     public function getActions($id)
@@ -170,8 +181,9 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer      $id
-     * @param  integer      $actionId
+     * @param integer $id
+     * @param integer $actionId
+     *
      * @return ActionEntity
      */
     public function getActionById($id, $actionId)
@@ -183,8 +195,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function reboot($id)
@@ -193,8 +207,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function powerCycle($id)
@@ -203,8 +219,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function shutdown($id)
@@ -213,8 +231,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function powerOff($id)
@@ -223,8 +243,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function powerOn($id)
@@ -233,8 +255,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function passwordReset($id)
@@ -243,9 +267,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  string            $size
+     * @param integer $id
+     * @param string  $size
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function resize($id, $size)
@@ -254,9 +280,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  integer           $image
+     * @param integer $id
+     * @param integer $image
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function restore($id, $image)
@@ -265,9 +293,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  integer|string    $image
+     * @param integer        $id
+     * @param integer|string $image
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function rebuild($id, $image)
@@ -276,9 +306,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  string            $name
+     * @param integer $id
+     * @param string  $name
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function rename($id, $name)
@@ -287,9 +319,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  integer           $kernel
+     * @param integer $id
+     * @param integer $kernel
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function changeKernel($id, $kernel)
@@ -298,8 +332,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function enableIpv6($id)
@@ -308,8 +344,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function disableBackups($id)
@@ -318,8 +356,10 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function enablePrivateNetworking($id)
@@ -327,11 +367,12 @@ class Droplet extends AbstractApi
         return $this->executeAction($id, array('type' => 'enable_private_networking'));
     }
 
-     /**
-     * @param integer $id
-     * @param string  $name
+    /**
+     * @param int    $id
+     * @param string $name
      *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function snapshot($id, $name)
@@ -340,9 +381,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  array             $options
+     * @param integer $id
+     * @param array   $options
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     private function executeAction($id, array $options)

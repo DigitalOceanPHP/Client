@@ -18,7 +18,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)->willReturn('{"domain_records": []}');
+        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page='.PHP_INT_MAX)->willReturn('{"domain_records": []}');
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
@@ -29,9 +29,8 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=' . PHP_INT_MAX)
-            ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}',$total))
-        ;
+            ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page='.PHP_INT_MAX)
+            ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
@@ -60,8 +59,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->getById('foo.dk', 123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
         $this->getMeta()->shouldBeNull();
@@ -71,8 +69,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById('foo.dk', 123456789);
     }
@@ -97,8 +94,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this->create('foo.dk', 'a', '@', '8.8.8.8')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
@@ -123,13 +119,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'aaaa', 'ipv6host', '2001:db8::ff00:42:8329')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_returns_the_created_domain_record_type_cname($adapter)
@@ -152,13 +146,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'cname', 'newalias', 'hosttarget')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_returns_the_created_domain_record_type_txt($adapter)
@@ -181,13 +173,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'txt', 'recordname', 'whatever')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_returns_the_created_domain_record_type_ns($adapter)
@@ -210,13 +200,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'ns', 'not_used', 'ns1.digitalocean.com.')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_returns_the_created_domain_record_type_srv($adapter)
@@ -239,13 +227,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": 2
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'srv', 'servicename', 'targethost', 0, 1, 2)
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_returns_the_created_domain_record_type_mx($adapter)
@@ -268,21 +254,18 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->create('foo.dk', 'mx', 'not_used', '127.0.0.1', 0)
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_throws_an_runtime_exception_if_unknown_type($adapter)
     {
         $this
             ->shouldThrow(new \RuntimeException('Domain record type is invalid.'))
-            ->duringCreate('foo.dk', 'foo_bar', 'name', 'data')
-        ;
+            ->duringCreate('foo.dk', 'foo_bar', 'name', 'data');
     }
 
     function it_returns_updated_domain_record($adapter)
@@ -305,13 +288,11 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "weight": null
                     }
                 }
-            ')
-        ;
+            ');
 
         $this
             ->update('foo.dk', 456, 'new-name')
-            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord')
-        ;
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
     function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
@@ -322,8 +303,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"name":"new-name"}'
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
     }
@@ -335,8 +315,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->shouldBeCalled()
-        ;
+            ->shouldBeCalled();
 
         $this->delete('foo.dk', 123);
     }
@@ -348,8 +327,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
                 array('Content-Type: application/x-www-form-urlencoded')
             )
-            ->willThrow(new \RuntimeException('Request not processed.'))
-        ;
+            ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('foo.dk', 123);
     }

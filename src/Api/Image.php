@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -34,7 +34,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  integer     $id
+     * @param integer $id
+     *
      * @return ImageEntity
      */
     public function getById($id)
@@ -46,7 +47,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  string      $slug
+     * @param string $slug
+     *
      * @return ImageEntity
      */
     public function getBySlug($slug)
@@ -58,9 +60,11 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  string            $name
+     * @param integer $id
+     * @param string  $name
+     *
      * @throws \RuntimeException
+     *
      * @return ImageEntity
      */
     public function update($id, $name)
@@ -75,7 +79,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
+     * @param integer $id
+     *
      * @throws \RuntimeException
      */
     public function delete($id)
@@ -85,9 +90,11 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  integer           $id
-     * @param  string            $regionSlug
+     * @param integer $id
+     * @param string  $regionSlug
+     *
      * @throws \RuntimeException
+     *
      * @return ActionEntity
      */
     public function transfer($id, $regionSlug)
@@ -102,8 +109,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param  integer      $id
-     * @param  integer      $actionId
+     * @param integer $id
+     * @param integer $actionId
+     *
      * @return ActionEntity
      */
     public function getAction($id, $actionId)

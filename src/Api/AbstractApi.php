@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -20,7 +20,7 @@ use DigitalOceanV2\Entity\Meta;
 abstract class AbstractApi
 {
     /**
-     * API v2
+     * API v2.
      */
     const ENDPOINT = 'https://api.digitalocean.com/v2';
 
@@ -43,7 +43,8 @@ abstract class AbstractApi
     }
 
     /**
-     * @param  \stdClass $data
+     * @param \stdClass $data
+     *
      * @return Meta|null
      */
     protected function extractMeta(\StdClass $data)

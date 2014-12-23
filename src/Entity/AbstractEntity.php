@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -25,8 +25,10 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param  string                    $property
+     * @param string $property
+     *
      * @throws \InvalidArgumentException
+     *
      * @return mixed
      */
     public function __get($property)
@@ -39,8 +41,9 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param  string                    $property
-     * @param  mixed                     $value
+     * @param string $property
+     * @param mixed  $value
+     *
      * @throws \InvalidArgumentException
      */
     public function __set($property, $value)
@@ -60,9 +63,9 @@ abstract class AbstractEntity
         foreach ($parameters as $property => $value) {
             $property = \DigitalOceanV2\convert_to_camel_case($property);
 
-            if (method_exists(get_called_class(), 'set' . $property)) {
+            if (method_exists(get_called_class(), 'set'.$property)) {
                 // To complatible with php =< 5.4
-                $property = 'set' . $property;
+                $property = 'set'.$property;
                 $this->$property($value);
             } else {
                 $this->$property = $value;
@@ -71,13 +74,14 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param  string      $date DateTime string
-     * @return null|string       DateTime in ISO8601 format
+     * @param string $date DateTime string
+     *
+     * @return null|string DateTime in ISO8601 format
      */
     protected function convertDateTime($date)
     {
         if (empty($date)) {
-            return null;
+            return;
         }
 
         $date = new \DateTime($date);

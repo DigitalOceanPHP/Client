@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -27,7 +27,7 @@ class Region extends AbstractEntity
     public $name;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $available;
 
