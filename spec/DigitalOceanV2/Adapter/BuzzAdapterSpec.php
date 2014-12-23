@@ -8,7 +8,7 @@ use Buzz\Message\Response;
 
 class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Browser $browser, Response $response, ListenerInterface $listener)
+    function let(Browser $browser, ListenerInterface $listener)
     {
         $browser->addListener($listener)->shouldBeCalled();
 
@@ -20,7 +20,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\BuzzAdapter');
     }
 
-    function it_returns_json_content($browser, $response)
+    function it_returns_json_content($browser, Response $response)
     {
         $browser->get('http://sbin.dk')->willReturn($response);
 
@@ -30,7 +30,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_runtime_exception($browser, $response)
+    function it_throws_an_runtime_exception($browser, Response $response)
     {
         $browser->get('http://sbin.dk')->willReturn($response);
 
@@ -41,7 +41,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[404] error message (error id)'))->duringGet('http://sbin.dk');
     }
 
-    function it_can_delete($browser, $response)
+    function it_can_delete($browser, Response $response)
     {
         $browser->delete('http://sbin.dk/123', array('foo' => 'bar'))->willReturn($response);
 
@@ -50,7 +50,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->delete('http://sbin.dk/123', array('foo' => 'bar'));
     }
 
-    function it_throws_an_runtime_exception_if_cannot_delete($browser, $response)
+    function it_throws_an_runtime_exception_if_cannot_delete($browser, Response $response)
     {
         $browser->delete('http://sbin.dk/123', array())->willReturn($response);
 
@@ -61,7 +61,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringDelete('http://sbin.dk/123');
     }
 
-    function it_can_put($browser, $response)
+    function it_can_put($browser, Response $response)
     {
         $browser->put('http://sbin.dk/456', array('foo' => 'bar'), '{"foo":"bar"}')->willReturn($response);
 
@@ -71,7 +71,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456', array('foo' => 'bar'), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_runtime_exception_if_cannot_update($browser, $response)
+    function it_throws_an_runtime_exception_if_cannot_update($browser, Response $response)
     {
         $browser->put('http://sbin.dk', array(), '{"foo":"bar"}')->willReturn($response);
 
@@ -82,7 +82,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringPut('http://sbin.dk', array(), '{"foo":"bar"}');
     }
 
-    function it_can_post($browser, $response)
+    function it_can_post($browser, Response $response)
     {
         $browser->post('http://sbin.dk', array('foo' => 'bar'), '{"foo":"bar"}')->willReturn($response);
 
@@ -92,7 +92,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk', array('foo' => 'bar'), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_runtime_exception_if_cannot_create($browser, $response)
+    function it_throws_an_runtime_exception_if_cannot_create($browser, Response $response)
     {
         $browser->post('http://sbin.dk', array(), '{"foo":"bar"}')->willReturn($response);
 
@@ -103,7 +103,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringPost('http://sbin.dk', array(), '{"foo":"bar"}');
     }
 
-    function it_returns_last_response_header($browser, $response)
+    function it_returns_last_response_header($browser, Response $response)
     {
         $browser->getLastResponse()->willReturn($response);
 

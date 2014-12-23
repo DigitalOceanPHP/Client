@@ -9,7 +9,7 @@ use Prophecy\Argument;
 
 class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Client $client, Request $request, Response $response)
+    function let(Client $client)
     {
         $client->setDefaultOption('headers/Authorization', 'Bearer my_access_token')->willReturn($client);
         $client->setDefaultOption('events/request.complete', Argument::type('closure'))->shouldBeCalled();
@@ -22,7 +22,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleAdapter');
     }
 
-    function it_returns_json_content($client, $request, $response)
+    function it_returns_json_content($client, Request $request, Response $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);
@@ -33,7 +33,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_delete($client, $request, $response)
+    function it_can_delete($client, Request $request, Response $response)
     {
         $client->delete('http://sbin.dk/123', array('foo' => 'bar'))->willReturn($request);
         $request->send()->willReturn($response);
@@ -44,7 +44,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->delete('http://sbin.dk/123', array('foo' => 'bar'));
     }
 
-    function it_can_put($client, $request, $response)
+    function it_can_put($client, Request $request, Response $response)
     {
         $client->put('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->willReturn($request);
         $request->send()->willReturn($response);
@@ -55,7 +55,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post($client, $request, $response)
+    function it_can_post($client, Request $request, Response $response)
     {
         $client->post('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->willReturn($request);
         $request->send()->willReturn($response);
@@ -66,7 +66,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_returns_last_response_header($client, $request, $response)
+    function it_returns_last_response_header($client, Request $request, Response $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);
