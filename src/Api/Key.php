@@ -78,8 +78,8 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param string  $name
+     * @param int    $id
+     * @param string $name
      *
      * @throws \RuntimeException
      *

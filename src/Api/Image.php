@@ -60,8 +60,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int     $id
-     * @param string  $name
+     * @param int    $id
+     * @param string $name
      *
      * @throws \RuntimeException
      *
@@ -90,8 +90,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int     $id
-     * @param string  $regionSlug
+     * @param int    $id
+     * @param string $regionSlug
      *
      * @throws \RuntimeException
      *
