@@ -37,7 +37,7 @@ class DomainRecord extends AbstractApi
 
     /**
      * @param string  $domainName
-     * @param integer $id
+     * @param int     $id
      *
      * @return DomainRecordEntity
      */
@@ -54,9 +54,9 @@ class DomainRecord extends AbstractApi
      * @param string  $type
      * @param string  $name
      * @param string  $data
-     * @param integer $priority   (optional)
-     * @param integer $port       (optional)
-     * @param integer $weight     (optional)
+     * @param int     $priority   (optional)
+     * @param int     $port       (optional)
+     * @param int     $weight     (optional)
      *
      * @throws \RuntimeException
      *
@@ -102,7 +102,7 @@ class DomainRecord extends AbstractApi
 
     /**
      * @param string  $domainName
-     * @param integer $recordId
+     * @param int     $recordId
      * @param string  $name
      *
      * @throws \RuntimeException
@@ -122,7 +122,7 @@ class DomainRecord extends AbstractApi
 
     /**
      * @param string  $domainName
-     * @param integer $recordId
+     * @param int     $recordId
      * @param string  $data
      *
      * @throws \RuntimeException

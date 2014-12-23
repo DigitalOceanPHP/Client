@@ -20,7 +20,7 @@ interface ExceptionInterface
      * Create an exception.
      *
      * @param string     $message
-     * @param integer    $code     (optional)
+     * @param int        $code     (optional)
      * @param \Exception $previous (optional)
      *
      * @return ExceptionInterface

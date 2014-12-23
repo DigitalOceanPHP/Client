@@ -34,7 +34,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return ImageEntity
      */
@@ -60,7 +60,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int     $id
      * @param string  $name
      *
      * @throws \RuntimeException
@@ -79,7 +79,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      */
@@ -90,7 +90,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int     $id
      * @param string  $regionSlug
      *
      * @throws \RuntimeException
@@ -109,8 +109,8 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     * @param integer $actionId
+     * @param int $id
+     * @param int $actionId
      *
      * @return ActionEntity
      */

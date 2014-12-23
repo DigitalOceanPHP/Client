@@ -68,7 +68,7 @@ class ExceptionReader
     /**
      * Error message.
      *
-     * @param boolean $includeCodeId (optional)
+     * @param bool $includeCodeId (optional)
      *
      * @return string
      */

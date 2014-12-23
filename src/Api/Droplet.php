@@ -37,7 +37,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -52,15 +52,15 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param string         $name
-     * @param string         $region
-     * @param string         $size
-     * @param string|integer $image
-     * @param boolean        $backups           (optional)
-     * @param boolean        $ipv6              (optional)
-     * @param boolean        $privateNetworking (optional)
-     * @param integer[]      $sshKeys           (optional)
-     * @param string         $userData          (optional)
+     * @param string     $name
+     * @param string     $region
+     * @param string     $size
+     * @param string|int $image
+     * @param bool       $backups           (optional)
+     * @param bool       $ipv6              (optional)
+     * @param bool       $privateNetworking (optional)
+     * @param int[]      $sshKeys           (optional)
+     * @param string     $userData          (optional)
      *
      * @throws \RuntimeException
      *
@@ -98,7 +98,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      */
@@ -109,7 +109,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -128,7 +128,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return ImageEntity[]
      */
@@ -147,7 +147,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return ImageEntity[]
      */
@@ -164,7 +164,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return ActionEntity[]
      */
@@ -181,8 +181,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     * @param integer $actionId
+     * @param int $id
+     * @param int $actionId
      *
      * @return ActionEntity
      */
@@ -195,7 +195,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -207,7 +207,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -219,7 +219,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -231,7 +231,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -243,7 +243,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -255,7 +255,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -267,7 +267,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @param string  $size
      *
      * @throws \RuntimeException
@@ -280,8 +280,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     * @param integer $image
+     * @param int $id
+     * @param int $image
      *
      * @throws \RuntimeException
      *
@@ -293,8 +293,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer        $id
-     * @param integer|string $image
+     * @param int        $id
+     * @param int|string $image
      *
      * @throws \RuntimeException
      *
@@ -306,7 +306,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @param string  $name
      *
      * @throws \RuntimeException
@@ -319,8 +319,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
-     * @param integer $kernel
+     * @param int $id
+     * @param int $kernel
      *
      * @throws \RuntimeException
      *
@@ -332,7 +332,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -344,7 +344,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -356,7 +356,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      *
@@ -381,7 +381,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @param array   $options
      *
      * @throws \RuntimeException

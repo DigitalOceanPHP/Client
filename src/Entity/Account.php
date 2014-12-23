@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the DigitalOceanV2 library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
@@ -17,7 +17,7 @@ namespace DigitalOceanV2\Entity;
 class Account extends AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      */
     public $dropletLimit;
 
@@ -32,7 +32,7 @@ class Account extends AbstractEntity
     public $uuid;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $emailVerified;
 }

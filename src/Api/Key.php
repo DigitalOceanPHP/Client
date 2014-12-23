@@ -33,7 +33,7 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return KeyEntity
      */
@@ -78,7 +78,7 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @param string  $name
      *
      * @throws \RuntimeException
@@ -97,7 +97,7 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @throws \RuntimeException
      */

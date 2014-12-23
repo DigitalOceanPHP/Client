@@ -44,7 +44,7 @@ function convert_to_snake_case($property)
 /**
  * Returns a string representation of a boolean.
  *
- * @param  boolean $value
+ * @param bool $value
  *
  * @return string
  */

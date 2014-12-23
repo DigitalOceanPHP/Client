@@ -34,7 +34,7 @@ class Action extends AbstractApi
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      *
      * @return ActionEntity
      */

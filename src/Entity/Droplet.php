@@ -82,17 +82,17 @@ class Droplet extends AbstractEntity
     public $networks;
 
     /**
-     * @var integer[]
+     * @var int[]
      */
     public $backupIds;
 
     /**
-     * @var integer[]
+     * @var int[]
      */
     public $snapshotIds;
 
     /**
-     * @var integer[]
+     * @var int[]
      */
     public $actionIds;
 
