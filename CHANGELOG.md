@@ -1,10 +1,11 @@
 CHANGELOG
 =========
 
-0.5.0 (2015-XX-XX)
+0.4.1 (2015-12-23)
 ------------------
 
-- n/a
+- Use travis docker
+- Small cosmetic changes to please scutinizer-ci
 
 0.4.0 (2014-12-23)
 ------------------
