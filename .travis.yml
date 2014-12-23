@@ -8,17 +8,6 @@ php:
 
 sudo: false
 
-cache:
-   directories:
-    - $HOME/.composer/cache
+install: travis_retry composer install --no-interaction --prefer-source
 
-matrix:
-  allow_failures:
-    - php: hhvm
-
-before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source --dev
-
-script:
-  - php vendor/bin/phpspec run -fpretty
+script: php vendor/bin/phpspec run -fpretty
