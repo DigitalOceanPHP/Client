@@ -38,8 +38,6 @@ abstract class AbstractEntity
                 'Property "%s::%s" does not exist.', get_class($this), $property)
             );
         }
-
-        return $this->$property;
     }
 
     /**
@@ -55,8 +53,6 @@ abstract class AbstractEntity
                 'Property "%s::%s" should exist.', get_class($this), $property)
             );
         }
-
-        $this->$property = $value;
     }
 
     /**
