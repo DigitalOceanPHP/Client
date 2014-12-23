@@ -267,8 +267,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param string  $size
+     * @param int    $id
+     * @param string $size
      *
      * @throws \RuntimeException
      *
@@ -306,8 +306,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param string  $name
+     * @param int    $id
+     * @param string $name
      *
      * @throws \RuntimeException
      *
@@ -381,8 +381,8 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param array   $options
+     * @param int   $id
+     * @param array $options
      *
      * @throws \RuntimeException
      *
