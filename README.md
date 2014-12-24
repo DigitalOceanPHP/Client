@@ -171,7 +171,7 @@ use DigitalOceanV2\DigitalOceanV2;
 $adapter = new BuzzAdapter('your_access_token');
 
 // create a digital ocean object with the previous adapter
-$digitalOcean = new DigitalOceanV2($adapter);
+$digitalocean = new DigitalOceanV2($adapter);
 
 // ...
 ```
@@ -194,7 +194,7 @@ Action
 ```php
 // ..
 // return the action api
-$action  = $digitalOcean->action();
+$action  = $digitalocean->action();
 
 // return a collection of Action entity
 $actions = $action->getAll();
@@ -339,7 +339,7 @@ Image
 ```php
 // ..
 // return the image api
-$image = $digitalOcean->image();
+$image = $digitalocean->image();
 
 // return a collection of Image entity
 $images = $image->getAll();
@@ -369,7 +369,7 @@ Key
 ```php
 // ..
 // return the key api
-$key = $digitalOcean->key();
+$key = $digitalocean->key();
 
 // return a collection of Key entity
 $keys = $key->getAll();
@@ -396,7 +396,7 @@ Region
 ```php
 // ..
 // return the region api
-$region = $digitalOcean->region();
+$region = $digitalocean->region();
 
 // return a collection of Region entity
 $regions = $region->getAll();
@@ -408,7 +408,7 @@ Size
 ```php
 // ..
 // return the size api
-$size = $digitalOcean->size();
+$size = $digitalocean->size();
 
 // return a collection of Size entity
 $sizes = $size->getAll();
@@ -420,7 +420,7 @@ RateLimit
 ```php
 // ..
 // returns the rate limit api
-$rateLimit = $digitalOcean->rateLimit();
+$rateLimit = $digitalocean->rateLimit();
 
 // returns the rate limit returned by the latest request
 $currentLimit = $rateLimit->getRateLimit();
