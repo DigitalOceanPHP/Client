@@ -83,13 +83,15 @@ class Droplet extends AbstractApi
             $userData = sprintf(',"user_data":"%s"', $userData);
         }
 
-        $content = sprintf(
-            '{"name":"%s","region":"%s","size":"%s","image":%s,"backups":%s,"ipv6":%s,"private_networking":%s%s%s}',
-            $name, $region, $size, $image,
-            \DigitalOceanV2\bool_to_string($backups),
-            \DigitalOceanV2\bool_to_string($ipv6),
-            \DigitalOceanV2\bool_to_string($privateNetworking), $sshIds, $userData
-        );
+        $content = json_encode(array(
+            'name' => $name,
+            'region' => $region,
+            'size' => $size,
+            'image' => $image,
+            'backups' => \DigitalOceanV2\bool_to_string($backups),
+            'ipv6' => \DigitalOceanV2\bool_to_string($ipv6),
+            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking) . $sshIds . $userData
+        ));
 
         $droplet = $this->adapter->post(sprintf('%s/droplets', self::ENDPOINT), $headers, $content);
         $droplet = json_decode($droplet);

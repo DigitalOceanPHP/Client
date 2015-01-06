@@ -70,7 +70,7 @@ class Image extends AbstractApi
     public function update($id, $name)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"name":"%s"}', $name);
+        $content = json_encode(array('name' => $name));
 
         $image = $this->adapter->put(sprintf('%s/images/%d', self::ENDPOINT, $id), $headers, $content);
         $image = json_decode($image);
@@ -100,7 +100,7 @@ class Image extends AbstractApi
     public function transfer($id, $regionSlug)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"type":"transfer","region":"%s"}', $regionSlug);
+        $content = json_encode(array('type' => 'transfer', 'region' => $regionSlug));
 
         $action = $this->adapter->post(sprintf('%s/images/%d/actions', self::ENDPOINT, $id), $headers, $content);
         $action = json_decode($action);

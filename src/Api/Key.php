@@ -69,7 +69,7 @@ class Key extends AbstractApi
     public function create($name, $publicKey)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"name":"%s", "public_key":"%s"}', $name, $publicKey);
+        $content = json_encode(array('name' => $name, 'public_key' => $publicKey));
 
         $key = $this->adapter->post(sprintf('%s/account/keys', self::ENDPOINT), $headers, $content);
         $key = json_decode($key);
@@ -88,7 +88,7 @@ class Key extends AbstractApi
     public function update($id, $name)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"name":"%s"}', $name);
+        $content = json_encode(array('name' => $name));
 
         $key = $this->adapter->put(sprintf('%s/account/keys/%d', self::ENDPOINT, $id), $headers, $content);
         $key = json_decode($key);

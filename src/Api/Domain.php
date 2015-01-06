@@ -59,7 +59,7 @@ class Domain extends AbstractApi
     public function create($name, $ipAddress)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"name":"%s", "ip_address":"%s"}', $name, $ipAddress);
+        $content = json_encode(array('name' => $name, 'ip_address' => $ipAddress));
 
         $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $headers, $content);
         $domain = json_decode($domain);
