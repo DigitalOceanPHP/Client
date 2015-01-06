@@ -72,22 +72,26 @@ class DomainRecord extends AbstractApi
             case 'AAAA':
             case 'CNAME':
             case 'TXT':
-                $content .= sprintf('{"name":"%s", "type":"%s", "data":"%s"}', $name, $type, $data);
+                $content .= json_encode(array('name' => $name, 'type' => $type, 'data' => $data));
                 break;
 
             case 'NS':
-                $content .= sprintf('{"type":"%s", "data":"%s"}', $type, $data);
+                $content .= json_encode(array('type' => $type, 'data' => $data));
                 break;
 
             case 'SRV':
-                $content .= sprintf(
-                    '{"name":"%s", "type":"%s", "data":"%s", "priority":%d, "port":%d, "weight":%d}',
-                    $name, $type, $data, $priority, $port, $weight
-                );
+                $content .= json_encode(array(
+                    'name' => $name,
+                    'type' => $type,
+                    'data' => $data,
+                    'priority' => (int) $priority,
+                    'port' => (int) $port,
+                    'weight' => (int) $weight
+                ));
                 break;
 
             case 'MX':
-                $content .= sprintf('{"type":"%s", "data":"%s", "priority":%d}', $type, $data, $priority);
+                $content .= json_encode(array('type' => $type, 'data' => $data, 'priority' => $priority));
                 break;
 
             default:
@@ -112,7 +116,7 @@ class DomainRecord extends AbstractApi
     public function update($domainName, $recordId, $name)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"name":"%s"}', $name);
+        $content = json_encode(array('name' => $name));
 
         $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
         $domainRecord = json_decode($domainRecord);
@@ -132,7 +136,7 @@ class DomainRecord extends AbstractApi
     public function updateData($domainName, $recordId, $data)
     {
         $headers = array('Content-Type: application/json');
-        $content = sprintf('{"data":"%s"}', $data);
+        $content = json_encode(array('data' => $data));
 
         $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
         $domainRecord = json_decode($domainRecord);
