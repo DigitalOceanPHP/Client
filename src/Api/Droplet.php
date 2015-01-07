@@ -71,7 +71,7 @@ class Droplet extends AbstractApi
     ) {
         $headers = array('Content-Type: application/json');
 
-        $data  = array(
+        $data = array(
             'name' => $name,
             'region' => $region,
             'size' => $size,

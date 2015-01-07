@@ -175,7 +175,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
                 array('Content-Type: application/json'),
-                '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":false,"ipv6":false,"private_networking":false}'
+                '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":"false","ipv6":"false","private_networking":"false"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
