@@ -86,7 +86,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/account/keys',
                 array('Content-Type: application/json'),
-                '{"name":"foo", "public_key":"ssh-rsa foobarbaz..."}'
+                '{"name":"foo","public_key":"ssh-rsa foobarbaz..."}'
             )
             ->willReturn('
                 {

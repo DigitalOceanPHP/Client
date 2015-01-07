@@ -71,27 +71,25 @@ class Droplet extends AbstractApi
     ) {
         $headers = array('Content-Type: application/json');
 
-        $sshIds  = '';
-        if (0 < count($sshKeys)) {
-            $sshIds = sprintf(',"ssh_keys":["%s"]', implode('","', $sshKeys));
-        }
-
-        // image can be either image id or a public image slug
-        $image = is_int($image) ? $image : sprintf('"%s"', $image);
-
-        if (!empty($userData)) {
-            $userData = sprintf(',"user_data":"%s"', $userData);
-        }
-
-        $content = json_encode(array(
+        $data  = array(
             'name' => $name,
             'region' => $region,
             'size' => $size,
             'image' => $image,
             'backups' => \DigitalOceanV2\bool_to_string($backups),
             'ipv6' => \DigitalOceanV2\bool_to_string($ipv6),
-            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking) . $sshIds . $userData
-        ));
+            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking)
+        );
+
+        if (0 < count($sshKeys)) {
+            $data["ssh_keys"] = $sshKeys;
+        }
+
+        if (!empty($userData)) {
+            $data["user_data"] = $userData;
+        }
+
+        $content = json_encode($data);
 
         $droplet = $this->adapter->post(sprintf('%s/droplets', self::ENDPOINT), $headers, $content);
         $droplet = json_decode($droplet);

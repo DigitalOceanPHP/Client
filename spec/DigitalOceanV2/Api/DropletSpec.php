@@ -147,7 +147,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
                 array('Content-Type: application/json'),
-                '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":false,"ipv6":false,"private_networking":false}'
+                '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":"false","ipv6":"false","private_networking":"false"}'
             )
             ->willReturn('{"droplet": {}}');
 
@@ -160,12 +160,12 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
                 array('Content-Type: application/json'),
-                '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":true,"ipv6":true,"private_networking":true,"ssh_keys":["123","456","789"]}'
+                '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":"true","ipv6":"true","private_networking":"true","ssh_keys":["123","456","789"]}'
             )
-            ->willReturn('{"droplet": {}}');
+            ->willReturn('{"droplet":{}}');
 
         $this
-            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array(123, 456, 789))
+            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array("123", "456", "789"))
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 

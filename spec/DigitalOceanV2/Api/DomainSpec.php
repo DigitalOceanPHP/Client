@@ -75,7 +75,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/domains',
                 array('Content-Type: application/json'),
-                '{"name":"bar.dk", "ip_address":"127.0.0.1"}'
+                '{"name":"bar.dk","ip_address":"127.0.0.1"}'
             )
             ->willReturn('
                 {
@@ -96,7 +96,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/domains',
                 array('Content-Type: application/json'),
-                '{"name":"boo.dk", "ip_address":"123456"}'
+                '{"name":"boo.dk","ip_address":"123456"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
