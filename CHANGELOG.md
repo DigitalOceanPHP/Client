@@ -1,10 +1,11 @@
 CHANGELOG
 =========
 
-0.5.0 (XXXX-XX-XX)
+0.4.2 (2015-02-12)
 ------------------
 
-- n/a
+- Added nextBackupWindow property to Droplet entity.
+- Improved specs.
 
 0.4.1 (2014-12-23)
 ------------------
