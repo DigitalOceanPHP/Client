@@ -110,7 +110,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "snapshot_ids": [
                             119192841
                         ],
-                        "action_ids": []
+                        "action_ids": [],
+                        "next_backup_window": {
+                            "start": "2015-02-16T19:00:00Z",
+                            "end": "2015-02-17T18:00:00Z"
+                        }
                     }
                 }
             ');
@@ -130,6 +134,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->privateNetworkingEnabled->shouldBe(true);
         $droplet->ipv6Enabled->shouldBe(true);
         $droplet->virtIOEnabled->shouldBe(true);
+        $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
     function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)

@@ -127,6 +127,11 @@ class Droplet extends AbstractEntity
     public $virtIOEnabled;
 
     /**
+     * @var NextBackupWindow
+     */
+    public $nextBackupWindow;
+
+    /**
      * @param \stdClass|array $parameters
      */
     public function build($parameters)
@@ -163,6 +168,10 @@ class Droplet extends AbstractEntity
 
                 case 'image':
                     $this->image = new Image($value);
+                    break;
+
+                case 'next_backup_window':
+                    $this->nextBackupWindow = new NextBackupWindow($value);
                     break;
 
                 default:
