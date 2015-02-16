@@ -1,10 +1,12 @@
 CHANGELOG
 =========
 
-0.5.0 (xxxx-xx-xx)
+0.5.0 (2015-02-17)
 ------------------
 
-- n/a
+- Added dynamic properties for all entities.
+- Added specs.
+- Updated doc.
 
 0.4.2 (2015-02-12)
 ------------------
