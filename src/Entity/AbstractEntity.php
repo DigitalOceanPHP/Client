@@ -16,6 +16,8 @@ namespace DigitalOceanV2\Entity;
  */
 abstract class AbstractEntity
 {
+    protected $unknownProperties = array();
+    
     /**
      * @param \stdClass|array $parameters
      */
@@ -34,6 +36,9 @@ abstract class AbstractEntity
     public function __get($property)
     {
         if (!property_exists($this, $property)) {
+            if (array_key_exists($property, $this->unknownProperties)) {
+                 return $this->unknownProperties[$property];
+            }
             throw new \InvalidArgumentException(sprintf(
                 'Property "%s::%s" does not exist.', get_class($this), $property)
             );
@@ -49,9 +54,8 @@ abstract class AbstractEntity
     public function __set($property, $value)
     {
         if (!property_exists($this, $property)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Property "%s::%s" should exist.', get_class($this), $property)
-            );
+            // TODO: Show warning for debug
+            $this->unknownProperties[$property] = $value;
         }
     }
 
