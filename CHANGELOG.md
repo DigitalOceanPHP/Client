@@ -1,10 +1,11 @@
 CHANGELOG
 =========
 
-0.5.1 (xxxx-xx-xx)
+0.5.1 (2015-02-23)
 ------------------
 
-- n/a
+- Fixed droplet could not be created when the backup function was disabled (next_backup_window was null)
+- Added specs
 
 0.5.0 (2015-02-17)
 ------------------
