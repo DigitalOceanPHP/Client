@@ -25,4 +25,18 @@ class NextBackupWindow extends AbstractEntity
      * @var string
      */
     public $end;
+
+    /**
+     * Build a new backup window instance
+     *
+     * @param \stdClass|array|null $parameters
+     */
+    public function build($parameters)
+    {
+        if (is_null($parameters)) {
+            return;
+        }
+
+        parent::build($parameters);
+    }
 }
