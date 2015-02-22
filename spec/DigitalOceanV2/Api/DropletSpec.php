@@ -137,6 +137,50 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
+    function it_returns_an_droplet_entity_even_if_backup_is_disabled($adapter)
+    {
+        $adapter
+            ->get('https://api.digitalocean.com/v2/droplets/1234')
+            ->willReturn('
+                {
+                    "droplet": {
+                        "id": 14,
+                        "name": "test.example.com",
+                        "region": {},
+                        "image": {},
+                        "kernel": {},
+                        "sizeSlug": "512mb",
+                        "locked": false,
+                        "created_at": "",
+                        "features": ["virtio", "private_networking", "backups", "ipv6"],
+                        "status": "active",
+                        "networks": {"v4": [{}], "v6": [{}]},
+                        "backup_ids": [],
+                        "snapshot_ids": [],
+                        "action_ids": [],
+                        "next_backup_window": null
+                    }
+                }
+            ');
+
+        $droplet = $this->getById(1234);
+        $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $droplet->networks->shouldBeArray();
+        $droplet->networks->shouldHaveCount(2);
+        $droplet->networks[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
+        $droplet->networks[1]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
+        $droplet->kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
+        $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+        $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $this->getMeta()->shouldBeNull();
+        $droplet->sizeSlug->shouldBe('512mb');
+        $droplet->backupsEnabled->shouldBe(true);
+        $droplet->privateNetworkingEnabled->shouldBe(true);
+        $droplet->ipv6Enabled->shouldBe(true);
+        $droplet->virtIOEnabled->shouldBe(true);
+        $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
+    }
+
     function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)
     {
         $adapter
