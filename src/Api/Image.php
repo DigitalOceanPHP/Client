@@ -20,17 +20,29 @@ use DigitalOceanV2\Entity\Image as ImageEntity;
 class Image extends AbstractApi
 {
     /**
+     * @param array $criteria
+     *
      * @return ImageEntity[]
      */
-    public function getAll()
+    public function getAll(array $criteria = [])
     {
-        $images = $this->adapter->get(sprintf('%s/images?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+        $query = sprintf('%s/images?per_page=%d', self::ENDPOINT, PHP_INT_MAX);
+
+        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'])) {
+            $query = sprintf('%s&type=%s', $query, $criteria['type']);
+        }
+
+        if (isset($criteria['private']) && true === (boolean) $criteria['private']) {
+            $query = sprintf('%s&private=true', $query);
+        }
+
+        $images = $this->adapter->get($query);
         $images = json_decode($images);
         $this->extractMeta($images);
 
         return array_map(function ($image) {
-                return new ImageEntity($image);
-            }, $images->images);
+            return new ImageEntity($image);
+        }, $images->images);
     }
 
     /**

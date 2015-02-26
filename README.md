@@ -352,6 +352,18 @@ $image = $digitalocean->image();
 // return a collection of Image entity
 $images = $image->getAll();
 
+// return a collection of distribution Image entity
+$images = $image->getAll(['type' => 'distribution']);
+
+// return a collection of application Image entity
+$images = $image->getAll(['type' => 'application']);
+
+// return a collection of private Image entity
+$images = $image->getAll(['private' => true]);
+
+// return a collection of private application Image entity
+$images = $image->getAll(['type' => 'application', 'private' => true]);
+
 // return the Image entity 123
 $image123 = $image->getById(123);
 

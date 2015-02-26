@@ -43,6 +43,78 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
+    function it_returns_an_array_of_distribution_image_entity($adapter)
+    {
+        $total = 3;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=distribution')
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
+
+        $images = $this->getAll(['type' => 'distribution']);
+        $images->shouldBeArray();
+        $images->shouldHaveCount($total);
+        foreach ($images as $image) {
+            $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
+
+    function it_returns_an_array_of_application_image_entity($adapter)
+    {
+        $total = 3;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=application')
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
+
+        $images = $this->getAll(['type' => 'application']);
+        $images->shouldBeArray();
+        $images->shouldHaveCount($total);
+        foreach ($images as $image) {
+            $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
+
+    function it_returns_an_array_of_private_application_image_entity($adapter)
+    {
+        $total = 3;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=application&private=true')
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
+
+        $images = $this->getAll(['type' => 'application', 'private' => true]);
+        $images->shouldBeArray();
+        $images->shouldHaveCount($total);
+        foreach ($images as $image) {
+            $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
+
+    function it_returns_an_array_of_private_image_entity($adapter)
+    {
+        $total = 3;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&private=true')
+            ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
+
+        $images = $this->getAll(['private' => true]);
+        $images->shouldBeArray();
+        $images->shouldHaveCount($total);
+        foreach ($images as $image) {
+            $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
+
     function it_returns_an_image_entity_get_by_its_id($adapter)
     {
         $adapter
