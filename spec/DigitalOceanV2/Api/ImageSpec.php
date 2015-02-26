@@ -130,7 +130,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "regions": [
                           "nyc1"
                         ],
-                        "created_at": "2014-06-27T21:10:28Z"
+                        "created_at": "2014-06-27T21:10:28Z",
+                        "min_disk_size": 20
                     }
                 }
             ');
@@ -154,7 +155,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "regions": [
                           "nyc1"
                         ],
-                        "created_at": "2014-06-27T21:10:28Z"
+                        "created_at": "2014-06-27T21:10:28Z",
+                        "min_disk_size": 20
                     }
                 }
             ');
@@ -181,7 +183,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "regions": [
                           "nyc1"
                         ],
-                        "created_at": "2014-06-27T21:10:28Z"
+                        "created_at": "2014-06-27T21:10:28Z",
+                        "min_disk_size": 20
                     }
                 }
             ');
