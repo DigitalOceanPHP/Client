@@ -110,7 +110,6 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "snapshot_ids": [
                             119192841
                         ],
-                        "action_ids": [],
                         "next_backup_window": {
                             "start": "2015-02-16T19:00:00Z",
                             "end": "2015-02-17T18:00:00Z"
@@ -157,7 +156,6 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "networks": {"v4": [{}], "v6": [{}]},
                         "backup_ids": [],
                         "snapshot_ids": [],
-                        "action_ids": [],
                         "next_backup_window": null
                     }
                 }

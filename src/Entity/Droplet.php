@@ -97,11 +97,6 @@ class Droplet extends AbstractEntity
     public $snapshotIds;
 
     /**
-     * @var int[]
-     */
-    public $actionIds;
-
-    /**
      * @var string[]
      */
     public $features;

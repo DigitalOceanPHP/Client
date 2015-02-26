@@ -57,11 +57,6 @@ class Image extends AbstractEntity
     public $regions;
 
     /**
-     * @var int[]
-     */
-    public $actionIds;
-
-    /**
      * @param string $createdAt
      */
     public function setCreatedAt($createdAt)
