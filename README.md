@@ -3,7 +3,8 @@ DigitalOcean V2
 
 Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) :)
 
-This library is a *work in progress* as well as the *API*.
+This library is a **work in progress** as well as the **API** ([issues](https://github.com/digitalocean/api-v2/issues),
+[changelog](https://developers.digitalocean.com/documentation/changelog/))
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
