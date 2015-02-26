@@ -76,7 +76,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "name": "Ubuntu 14.04 x64 vmlinuz-3.13.0-24-generic (1221)",
                             "version": "3.13.0-24-generic"
                         },
-                        "sizeSlug": "512mb",
+                        "size_slug": "512mb",
                         "locked": false,
                         "created_at": "2014-07-02T15:22:06Z",
                         "features": [
@@ -149,7 +149,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "region": {},
                         "image": {},
                         "kernel": {},
-                        "sizeSlug": "512mb",
+                        "size_slug": "512mb",
                         "locked": false,
                         "created_at": "",
                         "features": ["virtio", "private_networking", "backups", "ipv6"],
