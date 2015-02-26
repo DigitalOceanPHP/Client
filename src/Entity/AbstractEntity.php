@@ -76,13 +76,7 @@ abstract class AbstractEntity
         foreach ($parameters as $property => $value) {
             $property = \DigitalOceanV2\convert_to_camel_case($property);
 
-            if (method_exists(get_called_class(), 'set'.$property)) {
-                // To complatible with php =< 5.4
-                $property = 'set'.$property;
-                $this->$property($value);
-            } else {
-                $this->$property = $value;
-            }
+            $this->$property = $value;
         }
     }
 
