@@ -29,6 +29,11 @@ class Image extends AbstractEntity
     /**
      * @var string
      */
+    public $type;
+
+    /**
+     * @var string
+     */
     public $distribution;
 
     /**
