@@ -52,9 +52,30 @@ class Action extends AbstractEntity
     public $resourceType;
 
     /**
-     * @var string
+     * @var Region
      */
     public $region;
+
+    /**
+     * @var string
+     */
+    public $regionSlug;
+
+    /**
+     * @param \stdClass|array $parameters
+     */
+    public function build($parameters)
+    {
+        parent::build($parameters);
+
+        foreach ($parameters as $property => $value) {
+            if ('region' === $property) {
+                $this->region = new Region($value);
+
+                continue;
+            }
+        }
+    }
 
     /**
      * @param string $completedAt

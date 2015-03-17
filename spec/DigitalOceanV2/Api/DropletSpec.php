@@ -311,13 +311,14 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page='.PHP_INT_MAX)
-            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total));
+            ->willReturn(sprintf('{"actions": [{"region": {}}, {"region": {}}, {"region": {}}], "meta": {"total": %d}}', $total));
 
         $actions = $this->getActions(123);
         $actions->shouldBeArray();
         $actions->shouldHaveCount($total);
         foreach ($actions as $action) {
             $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+            $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         }
         $meta = $this->getMeta();
         $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
@@ -326,9 +327,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_the_given_droplets_action_get_by_its_id($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/droplets/123/actions/456')->willReturn('{"action": {}}');
+        $adapter->get('https://api.digitalocean.com/v2/droplets/123/actions/456')->willReturn('{"action": {"region": {}}}');
 
-        $this->getActionById(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->getActionById(123, 456);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_reboot($adapter)
@@ -339,9 +342,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"reboot"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->reboot(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->reboot(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_power_cycle($adapter)
@@ -352,9 +357,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_cycle"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->powerCycle(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->powerCycle(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_shutdown($adapter)
@@ -365,9 +372,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"shutdown"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->shutdown(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->shutdown(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_power_off($adapter)
@@ -378,9 +387,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_off"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->powerOff(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->powerOff(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_power_on($adapter)
@@ -391,9 +402,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"power_on"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->powerOn(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->powerOn(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_password_reset($adapter)
@@ -404,9 +417,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"password_reset"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->passwordReset(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->passwordReset(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_resize($adapter)
@@ -417,9 +432,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"resize","size":"1024mb"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->resize(123, '1024mb')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->resize(123, '1024mb');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_restore($adapter)
@@ -430,9 +447,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"restore","image":456}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->restore(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->restore(123, 456);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_rebuild($adapter)
@@ -443,9 +462,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"rebuild","image":"my-slug"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->rebuild(123, 'my-slug')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->rebuild(123, 'my-slug');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_changing_kernel($adapter)
@@ -456,9 +477,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"change_kernel","kernel":789}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->changeKernel(123, 789)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->changeKernel(123, 789);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_ipv6_enabled($adapter)
@@ -469,9 +492,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"enable_ipv6"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->enableIpv6(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->enableIpv6(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_backups_are_disabled($adapter)
@@ -482,9 +507,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"disable_backups"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->disableBackups(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->disableBackups(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_returns_the_action_entity_after_enabling_private_network($adapter)
@@ -495,8 +522,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 array('Content-Type: application/json'),
                 '{"type":"enable_private_networking"}'
             )
-            ->willReturn('{"action": {}}');
+            ->willReturn('{"action": {"region": {}}}');
 
-        $this->enablePrivateNetworking(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->enablePrivateNetworking(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 }

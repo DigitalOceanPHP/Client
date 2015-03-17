@@ -30,13 +30,74 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/actions?per_page='.PHP_INT_MAX)
-            ->willReturn(sprintf('{"actions": [{},{},{}], "meta": {"total": %d}}', $total));
+            ->willReturn(sprintf('
+                {
+                    "actions": [
+                        {
+                            "id": 1,
+                            "status": "completed",
+                            "type": "rename",
+                            "started_at": "2014-06-10T22:25:14Z",
+                            "completed_at": "2014-06-10T23:25:14Z",
+                            "resource_id": 1,
+                            "resource_type": "droplet",
+                            "region": {
+                                "name": "New York 3",
+                                "slug": "nyc3",
+                                "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                                "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                                "available": true
+                            },
+                            "region_slug": "nyc2"
+                        },
+                        {
+                            "id": 2,
+                            "status": "completed",
+                            "type": "rename",
+                            "started_at": "2014-06-10T22:25:14Z",
+                            "completed_at": "2014-06-10T23:25:14Z",
+                            "resource_id": 2,
+                            "resource_type": "droplet",
+                            "region": {
+                                "name": "New York 3",
+                                "slug": "nyc3",
+                                "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                                "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                                "available": true
+                            },
+                            "region_slug": "nyc2"
+                        },
+                        {
+                            "id": 3,
+                            "status": "completed",
+                            "type": "rename",
+                            "started_at": "2014-06-10T22:25:14Z",
+                            "completed_at": "2014-06-10T23:25:14Z",
+                            "resource_id": 3,
+                            "resource_type": "droplet",
+                            "region": {
+                                "name": "New York 3",
+                                "slug": "nyc3",
+                                "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                                "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                                "available": true
+                            },
+                            "region_slug": "nyc2"
+                        }
+                    ],
+                    "meta": {
+                        "total": %d
+                    }
+                }
+            ',
+        $total));
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
         $actions->shouldHaveCount($total);
         foreach ($actions as $action) {
             $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+            $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         }
         $meta = $this->getMeta();
         $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
@@ -57,12 +118,22 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
                         "completed_at": "2014-06-10T23:25:14Z",
                         "resource_id": 123,
                         "resource_type": "droplet",
-                        "region": "nyc2"
+                        "region": {
+                            "name": "New York 3",
+                            "slug": "nyc3",
+                            "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                            "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                            "available": true
+                        },
+                        "region_slug": "nyc2"
                     }
                 }
             ');
 
-        $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->getById(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+        $action->regionSlug->shouldReturn('nyc2');
 
         $this->getMeta()->shouldBeNull();
     }

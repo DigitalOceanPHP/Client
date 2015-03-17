@@ -247,12 +247,21 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "completed_at": null,
                         "resource_id": 449676390,
                         "resource_type": "image",
-                        "region": "nyc2"
+                        "region": {
+                            "name": "New York 3",
+                            "slug": "nyc3",
+                            "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                            "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                            "available": true
+                        },
+                        "region_slug": "nyc2"
                     }
                 }
             ');
 
-        $this->transfer(123, 'nyc2')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $image = $this->transfer(123, 'nyc2');
+        $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $image->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_throws_an_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
@@ -284,12 +293,21 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
                         "completed_at": null,
                         "resource_id": 449676390,
                         "resource_type": "image",
-                        "region": "nyc2"
+                        "region": {
+                            "name": "New York 3",
+                            "slug": "nyc3",
+                            "sizes": [ "32gb", "16gb", "2gb", "1gb", "4gb", "8gb", "512mb", "64gb", "48gb" ],
+                            "features": [ "virtio", "private_networking", "backups", "ipv6", "metadata" ],
+                            "available": true
+                        },
+                        "region_slug": "nyc2"
                     }
                 }
             ');
 
-        $this->getAction(123, 456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action = $this->getAction(123, 456);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
     function it_throws_an_runtime_exception_when_retreiving_non_existing_image_action($adapter)
