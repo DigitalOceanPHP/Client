@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Droplet as DropletEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Kernel as KernelEntity;
+use DigitalOceanV2\Entity\Upgrade as UpgradeEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -62,6 +63,19 @@ class Droplet extends AbstractApi
         return array_map(function ($neighbor) {
             return new DropletEntity($neighbor);
         }, $neighbors->neighbors);
+    }
+
+    /**
+     * @return UpgradeEntity[]
+     */
+    public function getUpgrades()
+    {
+        $upgrades = $this->adapter->get(sprintf('%s/droplet_upgrades', self::ENDPOINT));
+        $upgrades = json_decode($upgrades);
+
+        return array_map(function ($upgrade) {
+            return new UpgradeEntity($upgrade);
+        }, $upgrades);
     }
 
     /**
