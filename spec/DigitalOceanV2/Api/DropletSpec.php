@@ -43,6 +43,34 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
+    function it_returns_an_array_of_droplet_neighbors_for_a_given_droplet_id($adapter)
+    {
+        $adapter
+            ->get('https://api.digitalocean.com/v2/droplets/123/neighbors')
+            ->willReturn('{"droplets" : [{},{},{}]}');
+
+        $droplets = $this->getNeighborsById(123);
+        $droplets->shouldBeArray();
+        $droplets->shouldHaveCount(3);
+        foreach ($droplets as $droplet) {
+            $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        }
+    }
+
+    function it_returns_an_array_of_droplet_that_are_running_on_the_same_physical_hardware($adapter)
+    {
+        $adapter
+            ->get('https://api.digitalocean.com/v2/reports/droplet_neighbors')
+            ->willReturn('{"neighbors" : [{},{},{}]}');
+
+        $neighbors = $this->getAllNeighbors(123);
+        $neighbors->shouldBeArray();
+        $neighbors->shouldHaveCount(3);
+        foreach ($neighbors as $neighbor) {
+            $neighbor->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        }
+    }
+
     function it_returns_an_droplet_entity_get_by_its_id($adapter)
     {
         $adapter

@@ -269,6 +269,12 @@ $droplet = $digitalocean->droplet();
 // return a collection of Droplet entity
 $droplets = $droplet->getAll();
 
+// return a collection of Droplet neighbor to Droplet entity 123
+$droplets = $droplet->getNeighborsById(123);
+
+// return a collection of Droplet that are running on the same physical hardware
+$neighbors = $droplet->getAllNeighbors();
+
 // return the Droplet entity 123
 $droplet123 = $droplet->getById(123);
 

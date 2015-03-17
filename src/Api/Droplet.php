@@ -39,6 +39,34 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
+     * @return DropletEntity[]
+     */
+    public function getNeighborsById($id)
+    {
+        $droplets = $this->adapter->get(sprintf('%s/droplets/%d/neighbors', self::ENDPOINT, $id));
+        $droplets = json_decode($droplets);
+
+        return array_map(function ($droplet) {
+            return new DropletEntity($droplet);
+        }, $droplets->droplets);
+    }
+
+    /**
+     * @return DropletEntity[]
+     */
+    public function getAllNeighbors()
+    {
+        $neighbors = $this->adapter->get(sprintf('%s/reports/droplet_neighbors', self::ENDPOINT));
+        $neighbors = json_decode($neighbors);
+
+        return array_map(function ($neighbor) {
+            return new DropletEntity($neighbor);
+        }, $neighbors->neighbors);
+    }
+
+    /**
+     * @param int $id
+     *
      * @throws \RuntimeException
      *
      * @return DropletEntity
