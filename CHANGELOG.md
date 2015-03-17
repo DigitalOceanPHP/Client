@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.6.0 (2015-03-17)
+------------------
+
+- Added available property to size entity - fix #93
+- Added type property to image entity - fix #94
+- Added [BC break] fix action object embed a region object - fix #89
+- Added droplet neighbors report - fix #80
+- Added list of droplets that are scheduled to be upgraded - fix #81
+
 0.5.2 (2015-02-26)
 ------------------
 
