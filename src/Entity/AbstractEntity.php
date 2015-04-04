@@ -44,8 +44,8 @@ abstract class AbstractEntity
             }
 
             throw new \InvalidArgumentException(sprintf(
-                'Property "%s::%s" does not exist.', get_class($this), $property)
-            );
+                'Property "%s::%s" does not exist.', get_class($this), $property
+            ));
         }
     }
 

@@ -310,7 +310,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    function it_throws_an_runtime_exception_when_retreiving_non_existing_image_action($adapter)
+    function it_throws_an_runtime_exception_when_retrieving_non_existing_image_action($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
