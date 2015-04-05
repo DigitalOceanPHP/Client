@@ -258,7 +258,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
-    function it_thows_an_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
+    function it_throws_an_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
     {
         $adapter
             ->post(

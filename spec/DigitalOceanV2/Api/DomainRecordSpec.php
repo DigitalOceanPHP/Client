@@ -320,7 +320,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->delete('foo.dk', 123);
     }
 
-    function it_thorws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
+    function it_throws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
     {
         $adapter
             ->delete(

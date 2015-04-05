@@ -15,7 +15,7 @@ CHANGELOG
 
 - Added images filtering and its specs
 - Added user image filtering and its specs
-- Tests againt PHP 7
+- Tests against PHP 7
 - Updated specs and doc
 
 0.5.1 (2015-02-23)
@@ -41,14 +41,14 @@ CHANGELOG
 ------------------
 
 - Use travis docker
-- Small cosmetic changes to please scutinizer-ci
+- Small cosmetic changes to please scrutinizer-ci
 
 0.4.0 (2014-12-23)
 ------------------
 
 - Added the ability to set userdata when creating a droplet.
 - Added Account api
-- Fixed CS to be PSR-2 complient
+- Fixed CS to be PSR-2 compliant
 - Added Code of Conduct
 
 0.3.0 (2014-11-14)
@@ -82,4 +82,4 @@ CHANGELOG
 0.1.0 (2014-07-05)
 ------------------
 
-- Inital stable release (all API classes are tested)
+- Initial stable release (all API classes are tested)

@@ -16,7 +16,7 @@ class RateLimitSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\RateLimit');
     }
 
-    function it_retuns_null_if_there_is_no_previous_request($adapter)
+    function it_returns_null_if_there_is_no_previous_request($adapter)
     {
         $adapter->getLatestResponseHeaders()->willReturn(null);
 

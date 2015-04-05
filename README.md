@@ -388,8 +388,8 @@ $updatedImage = $image->update(123, 'new-name');
 // delete the image 123
 $image->delete(123);
 
-// return the Action entity of the transfered image 123 to the given region slug
-$transferedImage = $image->transfer(123, 'region-slug');
+// return the Action entity of the transferred image 123 to the given region slug
+$transferredImage = $image->transfer(123, 'region-slug');
 
 // return the Action entity 456 of the image 123
 $actionImage = $image->getAction(123, 456);
