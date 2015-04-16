@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.0.0 (2015-04-16)
+------------------
+
+- The API is now stable! https://www.digitalocean.com/company/blog/apiv2-officially-leaves-beta/
+- Fixed typo
+
 0.6.0 (2015-03-17)
 ------------------
 

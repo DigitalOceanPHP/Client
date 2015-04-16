@@ -1,12 +1,8 @@
 DigitalOcean V2
 ===============
 
-**Please UPGRADE to `~0.6` at 00:01 March 20, 2015 UTC because of this [BC break](https://developers.digitalocean.com/documentation/changelog/api-v2/actions-breaking-changes-upgrade-path/)**
-
-Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) :)
-
-This library is a **work in progress** as well as the **API** ([issues](https://github.com/digitalocean/api-v2/issues),
-[changelog](https://developers.digitalocean.com/documentation/changelog/))
+Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) ([issues](https://github.com/digitalocean/api-v2/issues) /
+[changelog](https://developers.digitalocean.com/documentation/changelog/)) :)
 
 [![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
