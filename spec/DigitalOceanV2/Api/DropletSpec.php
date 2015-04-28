@@ -472,11 +472,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
                 array('Content-Type: application/json'),
-                '{"type":"resize","size":"1024mb"}'
+                '{"type":"resize","size":"1024mb","disk":true}'
             )
             ->willReturn('{"action": {"region": {}}}');
 
-        $action = $this->resize(123, '1024mb');
+        $action = $this->resize(123, '1024mb', true);
         $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
