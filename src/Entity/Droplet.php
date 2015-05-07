@@ -158,7 +158,9 @@ class Droplet extends AbstractEntity
                     break;
 
                 case 'region':
-                    $this->region = new Region($value);
+                    if(is_object($value)) {
+                        $this->region = new Region($value);
+                    }
                     break;
 
                 case 'image':
