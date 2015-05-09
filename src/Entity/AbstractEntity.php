@@ -73,7 +73,7 @@ abstract class AbstractEntity
      */
     public function build($parameters)
     {
-        foreach ($parameters as $property => $value) {
+        foreach ((array) $parameters as $property => $value) {
             $property = \DigitalOceanV2\convert_to_camel_case($property);
 
             $this->$property = $value;
