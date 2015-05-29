@@ -174,9 +174,7 @@ class Droplet extends AbstractEntity
                     break;
 
                 case 'next_backup_window':
-                    if (is_object($value)) {
-                        $this->nextBackupWindow = new NextBackupWindow($value);
-                    }
+                    $this->nextBackupWindow = new NextBackupWindow($value);
                     break;
 
                 default:
