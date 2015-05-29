@@ -150,11 +150,15 @@ class Droplet extends AbstractEntity
                     break;
 
                 case 'kernel':
-                    $this->kernel = new Kernel($value);
+                    if (is_object($value)) {
+                        $this->kernel = new Kernel($value);
+                    }
                     break;
 
                 case 'size':
-                    $this->size = new Size($value);
+                    if (is_object($value)) {
+                        $this->size = new Size($value);
+                    }
                     break;
 
                 case 'region':
@@ -164,11 +168,15 @@ class Droplet extends AbstractEntity
                     break;
 
                 case 'image':
-                    $this->image = new Image($value);
+                    if (is_object($value)) {
+                        $this->image = new Image($value);
+                    }
                     break;
 
                 case 'next_backup_window':
-                    $this->nextBackupWindow = new NextBackupWindow($value);
+                    if (is_object($value)) {
+                        $this->nextBackupWindow = new NextBackupWindow($value);
+                    }
                     break;
 
                 default:
