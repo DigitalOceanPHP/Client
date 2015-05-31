@@ -71,8 +71,6 @@ class Action extends AbstractEntity
         foreach ($parameters as $property => $value) {
             if ('region' === $property && is_object($value)) {
                 $this->region = new Region($value);
-
-                continue;
             }
         }
     }
