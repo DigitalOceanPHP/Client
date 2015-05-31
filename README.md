@@ -39,9 +39,14 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:0.3.*@dev
+$ php composer.phar require toin0u/digitalocean-v2:~1.0
+```
+
+You then need to install **one** of the following:
+```bash
 $ php composer.phar require kriswallsmith/buzz:~0.10
 $ php composer.phar require guzzle/guzzle:~3.7
+$ php composer.phar require guzzlehttp/guzzle:~5.0
 ```
 
 Or edit `composer.json` and add:
@@ -49,7 +54,16 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "0.3.*@dev",
+        "toin0u/digitalocean-v2": "~1.0"
+    }
+}
+```
+
+And then add **one** of the following:
+
+```json
+{
+    "require": {
         "kriswallsmith/buzz": "~0.10",
         "guzzle/guzzle": "~3.7",
         "guzzlehttp/guzzle" : "~5.0"
@@ -57,12 +71,16 @@ Or edit `composer.json` and add:
 }
 ```
 
-Please note that installing both guzzle and buzz is not required, but you must choose at least one.
+### Using Laravel? ###
 
-Finally run:
+[Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell) might interest you.
 
-```bash
-$ php composer.phar require toin0u/digitalocean-v2
+```json
+{
+    "require": {
+        "graham-campbell/digitalocean": "~1.0"
+    }
+}
 ```
 
 ### Using Symfony2? ###
@@ -128,18 +146,6 @@ $droplets = $this->container->get('do.droplet')->getAll();
 ```
 
 > This is helpful for a child of `Symfony\Bundle\FrameworkBundle\Controller\Controller` user to use by `$this->get('do.droplet')->getAll()`
-
-### Using Laravel? ###
-
-[Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell) might interest you.
-
-```json
-{
-    "require": {
-        "graham-campbell/digitalocean": "0.1.*"
-    }
-}
-```
 
 Adapter
 -------
