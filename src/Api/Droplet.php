@@ -311,14 +311,15 @@ class Droplet extends AbstractApi
     /**
      * @param int    $id
      * @param string $size
+     * @param bool   $disk  (optional)
      *
      * @throws \RuntimeException
      *
      * @return ActionEntity
      */
-    public function resize($id, $size)
+    public function resize($id, $size, $disk = true)
     {
-        return $this->executeAction($id, array('type' => 'resize', 'size' => $size));
+        return $this->executeAction($id, array('type' => 'resize', 'size' => $size, 'disk' => $disk));
     }
 
     /**
