@@ -50,6 +50,10 @@
         "files": ["src/functions.php"]
     },
 
+    "config": {
+        "preferred-install": "dist"
+    },
+
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
