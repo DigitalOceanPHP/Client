@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.0.1 (2015-06-25)
+------------------
+
+- Fixed issues with null values
+- Minor code cleanup
+
 1.0.0 (2015-04-16)
 ------------------
 
@@ -21,7 +27,6 @@ CHANGELOG
 
 - Added images filtering and its specs
 - Added user image filtering and its specs
-- Tests against PHP 7
 - Updated specs and doc
 
 0.5.1 (2015-02-23)
