@@ -85,7 +85,6 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function put($url, array $headers = array(), $content = '')
     {
-        $headers['content-type'] = 'application/json';
         $request = $this->client->put($url, $headers, $content);
         $this->response = $request->send();
 
@@ -97,7 +96,6 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function post($url, array $headers = array(), $content = '')
     {
-        $headers['content-type'] = 'application/json';
         $request = $this->client->post($url, $headers, $content);
         $this->response = $request->send();
 
