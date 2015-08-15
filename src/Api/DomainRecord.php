@@ -115,13 +115,7 @@ class DomainRecord extends AbstractApi
      */
     public function update($domainName, $recordId, $name)
     {
-        $headers = array('Content-Type: application/json');
-        $content = json_encode(array('name' => $name));
-
-        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
-        $domainRecord = json_decode($domainRecord);
-
-        return new DomainRecordEntity($domainRecord->domain_record);
+        return $this->updateFields($domainName, $recordId, array('name' => $name));
     }
 
     /**
@@ -135,8 +129,22 @@ class DomainRecord extends AbstractApi
      */
     public function updateData($domainName, $recordId, $data)
     {
+        return $this->updateFields($domainName, $recordId, array('data' => $data));
+    }
+
+    /**
+     * @param string $domainName
+     * @param int    $recordId
+     * @param array  $fields
+     *
+     * @throws \RuntimeException
+     *
+     * @return DomainRecordEntity
+     */
+    public function updateFields($domainName, $recordId, $fields)
+    {
         $headers = array('Content-Type: application/json');
-        $content = json_encode(array('data' => $data));
+        $content = json_encode($fields);
 
         $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
         $domainRecord = json_decode($domainRecord);
