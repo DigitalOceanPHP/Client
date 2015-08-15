@@ -295,6 +295,33 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    function it_updates_domain_record_fields($adapter)
+    {
+        $adapter
+            ->put(
+                'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
+                array('Content-Type: application/json'),
+                '{"name":"servicename","data":"targethost","port":1,"weight":2}'
+            )
+            ->willReturn('
+                {
+                    "domain_record": {
+                        "id": 123,
+                        "type": "SRV",
+                        "name": "servicename",
+                        "data": "targethost",
+                        "priority": 0,
+                        "port": 1,
+                        "weight": 2
+                    }
+                }
+            ');
+
+        $this
+            ->updateFields('foo.dk', 123, array('name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2))
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+    }
+
     function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
     {
         $adapter
