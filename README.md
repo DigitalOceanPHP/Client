@@ -78,7 +78,7 @@ And then add **one** of the following:
 ```json
 {
     "require": {
-        "graham-campbell/digitalocean": "~1.0"
+        "graham-campbell/digitalocean": "~2.0"
     }
 }
 ```
