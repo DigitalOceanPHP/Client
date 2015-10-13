@@ -2,9 +2,12 @@
 
 require_once './vendor/autoload.php';
 
-$finder = \Symfony\CS\Finder\DefaultFinder::create()
+use Symfony\CS\Finder\DefaultFinder;
+use Symfony\CS\Config\Config;
+
+$finder = DefaultFinder::create()
     ->in('src/');
 
-return \Symfony\CS\Config\Config::create()
+return Config::create()
     ->setUsingCache(true)
     ->finder($finder);
