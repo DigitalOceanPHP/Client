@@ -5,4 +5,4 @@ tools:
     php_mess_detector: true
     php_pdepend: true
     external_code_coverage:
-        timeout: '6000'
+        timeout: '3600'
