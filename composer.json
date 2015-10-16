@@ -34,7 +34,8 @@
         "kriswallsmith/buzz": "~0.10",
         "guzzle/guzzle"     : "~3.7",
         "guzzlehttp/guzzle" : "~5.0",
-        "phpspec/phpspec"   : "~2.0"
+        "phpspec/phpspec"   : "~2.0",
+        "fabpot/php-cs-fixer": "~1.10"
     },
 
     "suggest": {
