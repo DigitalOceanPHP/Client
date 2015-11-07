@@ -137,12 +137,16 @@ class Droplet extends AbstractEntity
                     if (is_object($value)) {
                         if (property_exists($value, 'v4')) {
                             foreach ($value->v4 as $subProperty => $subValue) {
+                                $subValue->version = 4;
                                 $this->networks[] = new Network($subValue);
                             }
                         }
 
                         if (property_exists($value, 'v6')) {
                             foreach ($value->v6 as $subProperty => $subValue) {
+                                $subValue->version = 6;
+                                $subValue->cidr = $subValue->netmask;
+                                $subValue->netmask = null;
                                 $this->networks[] = new Network($subValue);
                             }
                         }
