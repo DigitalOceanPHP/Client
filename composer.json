@@ -1,9 +1,9 @@
 {
-    "name"       : "toin0u/digitalocean-v2",
+    "name"       : "cagataygurturk/digitalocean-v2",
     "type"       : "library",
     "description": "DigitalOcean API v2 PHP 5.4+ library",
     "keywords"   : ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
-    "homepage"   : "https://github.com/toin0u/DigitalOceanV2",
+    "homepage"   : "https://github.com/cagataygurturk/DigitalOceanV2",
     "license"    : "MIT",
 
     "authors": [
