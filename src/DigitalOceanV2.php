@@ -22,6 +22,7 @@ use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
+use DigitalOceanV2\Api\FloatingIp;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -125,4 +126,13 @@ class DigitalOceanV2
     {
         return new RateLimit($this->adapter);
     }
+
+    /**
+     * @return FloatingIp
+     */
+    public function floatingIp()
+    {
+        return new FloatingIp($this->adapter);
+    }
+
 }
