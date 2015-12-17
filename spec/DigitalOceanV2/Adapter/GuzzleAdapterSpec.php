@@ -7,7 +7,7 @@ use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use Prophecy\Argument;
 
-class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
+class Guzzle6AdapterSpec extends \PhpSpec\ObjectBehavior
 {
     function let(Client $client)
     {
@@ -19,7 +19,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleAdapter');
+        $this->shouldHaveType('DigitalOceanV2\Adapter\Guzzle6Adapter');
     }
 
     function it_returns_json_content($client, Request $request, Response $response)

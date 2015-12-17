@@ -1,7 +1,7 @@
 {
     "name"       : "toin0u/digitalocean-v2",
     "type"       : "library",
-    "description": "DigitalOcean API v2 PHP 5.4+ library",
+    "description": "DigitalOcean API v2 PHP 5.5+ library",
     "keywords"   : ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
     "homepage"   : "https://github.com/toin0u/DigitalOceanV2",
     "license"    : "MIT",
@@ -27,13 +27,13 @@
     },
 
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.5.0"
     },
 
     "require-dev": {
         "kriswallsmith/buzz": "~0.10",
         "guzzle/guzzle"     : "~3.7",
-        "guzzlehttp/guzzle" : "~5.0",
+        "guzzlehttp/guzzle" : "~6.0",
         "phpspec/phpspec"   : "~2.0",
         "fabpot/php-cs-fixer": "~1.10"
     },
@@ -41,7 +41,7 @@
     "suggest": {
         "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:~0.10.",
         "guzzle/guzzle"     : "To use GuzzleAdapter, require guzzle/guzzle:~3.7.",
-        "guzzlehttp/guzzle" : "To use GuzzleV5Adapter, require guzzlehttp/guzzle:~5.0."
+        "guzzlehttp/guzzle" : "To use GuzzleV6Adapter, require guzzlehttp/guzzle:~6.0."
     },
 
     "autoload": {
