@@ -67,7 +67,7 @@ And then add **one** of the following:
     "require": {
         "kriswallsmith/buzz": "~0.10",
         "guzzle/guzzle": "~3.7",
-        "guzzlehttp/guzzle" : "~5.0"
+        "guzzlehttp/guzzle" : "~5.0",
         "guzzlehttp/guzzle" : "~6.0"
     }
 }
