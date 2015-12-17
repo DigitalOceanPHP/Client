@@ -3,12 +3,11 @@
 namespace DigitalOceanV2\Adapter;
 
 use DigitalOceanV2\Exception\ExceptionInterface;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Event\CompleteEvent;
-use GuzzleHttp\Message\Response;
-use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 
-class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
+class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface
@@ -32,16 +31,10 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
-        $that            = $this;
-        $this->client    = $client ?: new \GuzzleHttp\Client();
+        $this->client    = $client ?: new \GuzzleHttp\Client(['headers' => [
+           'Authorization' =>  sprintf('Bearer %s', $accessToken)
+        ]]);
         $this->exception = $exception;
-
-        $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $accessToken));
-
-        $this->client->getEmitter()->on('complete', function (CompleteEvent $e) use ($that) {
-            $that->handleResponse($e);
-            $e->stopPropagation();
-        });
     }
 
     /**
@@ -49,7 +42,11 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function get($url)
     {
-        $this->response = $this->client->get($url);
+        try {
+            $this->response = $this->client->get($url);
+        } catch (RequestException $e) {
+            throw $this->handleResponse( $e->getResponse() );
+        }
 
         return $this->response->getBody();
     }
@@ -59,8 +56,12 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function delete($url, array $headers = array())
     {
-        $options = array('headers' => $headers);
-        $this->response = $this->client->delete($url, $options);
+        try {
+            $options = array('headers' => $headers);
+            $this->response = $this->client->delete($url, $options);
+        } catch (RequestException $e) {
+            throw $this->handleResponse( $e->getResponse() );
+        }
 
         return $this->response->getBody();
     }
@@ -70,9 +71,12 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function put($url, array $headers = array(), $content = '')
     {
-        $options = array('headers' => $headers, 'body' => $content);
-        $request = $this->client->put($url, $options);
-        $this->response = $request;
+        try {
+            $options = array('headers' => $headers, 'body' => $content);
+            $this->response = $this->client->put($url, $options);
+        } catch (RequestException $e) {
+            throw $this->handleResponse( $e->getResponse() );
+        }
 
         return $this->response->getBody();
     }
@@ -82,9 +86,12 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function post($url, array $headers = array(), $content = '')
     {
-        $options = array('headers' => $headers, 'body' => $content);
-        $request = $this->client->post($url, $options);
-        $this->response = $request;
+        try {
+            $options = array('headers' => $headers, 'body' => $content);
+            $this->response = $this->client->post($url, $options);
+        } catch (RequestException $e) {
+            throw $this->handleResponse( $e->getResponse() );
+        }
 
         return $this->response->getBody();
     }
@@ -106,27 +113,20 @@ class Guzzle5Adapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param CompleteEvent $event
-     *
-     * @throws \RuntimeException|ExceptionInterface
+     * @param Response $response
+     * @return ExceptionInterface|\RuntimeException
      */
-    protected function handleResponse(CompleteEvent $event)
+    protected function handleResponse(Response $response)
     {
-        $this->response = $event->getResponse();
-
-        if ($this->response->getStatusCode() >= 200 && $this->response->getStatusCode() <= 299) {
-            return;
-        }
-
         $body = $this->response->getBody();
         $code = $this->response->getStatusCode();
 
         if ($this->exception) {
-            throw $this->exception->create($body, $code);
+            return $this->exception->create($body, $code);
         }
 
         $content = $this->response->json();
 
-        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        return new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
 }
