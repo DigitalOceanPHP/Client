@@ -32,7 +32,7 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
         $this->client    = $client ?: new \GuzzleHttp\Client(['headers' => [
-           'Authorization' =>  sprintf('Bearer %s', $accessToken)
+            'Authorization' =>  sprintf('Bearer %s', $accessToken)
         ]]);
         $this->exception = $exception;
     }
@@ -72,7 +72,10 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = array(), $content = '')
     {
         try {
-            $options = array('headers' => $headers, 'body' => $content);
+            $options = ($json = json_decode($content, true)) ?
+                array('headers' => $headers, 'json' => $json) :
+                array('headers' => $headers, 'body' => $content);
+
             $this->response = $this->client->put($url, $options);
         } catch (RequestException $e) {
             throw $this->handleResponse( $e->getResponse() );
@@ -87,7 +90,10 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = array(), $content = '')
     {
         try {
-            $options = array('headers' => $headers, 'body' => $content);
+            $options = ($json = json_decode($content, true)) ?
+                array('headers' => $headers, 'json' => $json) :
+                array('headers' => $headers, 'body' => $content);
+
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
             throw $this->handleResponse( $e->getResponse() );
@@ -118,14 +124,14 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
      */
     protected function handleResponse(Response $response)
     {
-        $body = $this->response->getBody();
-        $code = $this->response->getStatusCode();
+        $body = (string)$response->getBody();
+        $code = $response->getStatusCode();
 
         if ($this->exception) {
             return $this->exception->create($body, $code);
         }
 
-        $content = $this->response->json();
+        $content = json_decode($body);
 
         return new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
