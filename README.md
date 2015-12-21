@@ -36,7 +36,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "~3.0"
+        "toin0u/digitalocean-v2": "~2.0"
     }
 }
 ```
@@ -60,7 +60,7 @@ And then add **one** of the following:
 ```json
 {
     "require": {
-        "graham-campbell/digitalocean": "~2.0"
+        "graham-campbell/digitalocean": "~3.0"
     }
 }
 ```
