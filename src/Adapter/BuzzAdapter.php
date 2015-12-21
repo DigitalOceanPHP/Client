@@ -100,7 +100,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
         $response = $this->browser->post($url, $headers, $content);
 
         if (!$response->isSuccessful()) {
-            throw $this->handleResponse($response);
+            $this->handleResponse($response);
         }
 
         return $response->getContent();
