@@ -111,7 +111,7 @@ class Droplet extends AbstractApi
     public function create($name, $region, $size, $image, $backups = false, $ipv6 = false,
         $privateNetworking = false, array $sshKeys = [], $userData = ''
     ) {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
 
         $data = [
             'name' => $name,
@@ -433,7 +433,7 @@ class Droplet extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
         $content = json_encode($options);
 
         $action = $this->adapter->post(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $id), $headers, $content);

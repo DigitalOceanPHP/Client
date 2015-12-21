@@ -64,7 +64,7 @@ class DomainRecord extends AbstractApi
      */
     public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
         $content = '';
 
         switch ($type = strtoupper($type)) {
@@ -143,7 +143,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
         $content = json_encode($fields);
 
         $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
@@ -158,7 +158,7 @@ class DomainRecord extends AbstractApi
      */
     public function delete($domainName, $recordId)
     {
-        $headers = ['Content-Type: application/x-www-form-urlencoded'];
+        $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
         $this->adapter->delete(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers);
     }
 }

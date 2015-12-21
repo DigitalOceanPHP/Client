@@ -81,7 +81,7 @@ class Image extends AbstractApi
      */
     public function update($id, $name)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
         $content = json_encode(['name' => $name]);
 
         $image = $this->adapter->put(sprintf('%s/images/%d', self::ENDPOINT, $id), $headers, $content);
@@ -97,7 +97,7 @@ class Image extends AbstractApi
      */
     public function delete($id)
     {
-        $headers = ['Content-Type: application/x-www-form-urlencoded'];
+        $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
         $this->adapter->delete(sprintf('%s/images/%d', self::ENDPOINT, $id), $headers);
     }
 
@@ -111,7 +111,7 @@ class Image extends AbstractApi
      */
     public function transfer($id, $regionSlug)
     {
-        $headers = ['Content-Type: application/json'];
+        $headers = ['Content-Type' => 'application/json'];
         $content = json_encode(['type' => 'transfer', 'region' => $regionSlug]);
 
         $action = $this->adapter->post(sprintf('%s/images/%d/actions', self::ENDPOINT, $id), $headers, $content);
