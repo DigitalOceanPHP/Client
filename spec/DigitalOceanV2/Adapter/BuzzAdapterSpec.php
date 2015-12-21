@@ -37,9 +37,9 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 
         $response->isSuccessful()->willReturn(false);
         $response->getStatusCode()->willReturn(404);
-        $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
+        $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('[404] error message (error id)'))->duringGet('http://sbin.dk');
+        $this->shouldThrow(new HttpException('Error message.', 404))->duringGet('http://sbin.dk');
     }
 
     function it_can_delete($browser, Response $response)
@@ -57,9 +57,9 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 
         $response->isSuccessful()->willReturn(false);
         $response->getStatusCode()->willReturn(500);
-        $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
+        $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringDelete('http://sbin.dk/123');
+        $this->shouldThrow(new HttpException('Error message.', 500))->duringDelete('http://sbin.dk/123');
     }
 
     function it_can_put_basic($browser, Response $response)
@@ -88,9 +88,9 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 
         $response->isSuccessful()->willReturn(false);
         $response->getStatusCode()->willReturn(500);
-        $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
+        $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringPut('http://sbin.dk', ['foo' => 'bar']);
+        $this->shouldThrow(new HttpException('Error message.', 500))->duringPut('http://sbin.dk', ['foo' => 'bar']);
     }
 
     function it_can_post_basic($browser, Response $response)
@@ -119,9 +119,9 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 
         $response->isSuccessful()->willReturn(false);
         $response->getStatusCode()->willReturn(500);
-        $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
+        $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringPost('http://sbin.dk', ['foo' => 'bar']);
+        $this->shouldThrow(new HttpException('Error message.', 500))->duringPost('http://sbin.dk', ['foo' => 'bar']);
     }
 
     function it_returns_last_response_header($browser, Response $response)

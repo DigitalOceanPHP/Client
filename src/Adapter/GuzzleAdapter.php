@@ -134,11 +134,11 @@ class GuzzleAdapter implements AdapterInterface
             return;
         }
 
-        $body = $this->response->getBody(true);
-        $code = $this->response->getStatusCode();
+        $body = (string) $this->response->getBody(true);
+        $code = (int) $this->response->getStatusCode();
 
         $content = json_decode($body);
 
-        throw new HttpException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        throw new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
 }
