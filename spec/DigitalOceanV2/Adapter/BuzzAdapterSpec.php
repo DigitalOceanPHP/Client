@@ -61,7 +61,17 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringDelete('http://sbin.dk/123');
     }
 
-    function it_can_put($browser, Response $response)
+    function it_can_put_basic($browser, Response $response)
+    {
+        $browser->put('http://sbin.dk/456', [], '')->willReturn($response);
+
+        $response->isSuccessful()->willReturn(true);
+        $response->getContent()->willReturn('foo');
+
+        $this->put('http://sbin.dk/456')->shouldBe('foo');
+    }
+
+    function it_can_put_array($browser, Response $response)
     {
         $browser->put('http://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 
@@ -71,7 +81,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_runtime_exception_if_cannot_update($browser, Response $response)
+    function it_throws_an_runtime_exception_if_cannot_put($browser, Response $response)
     {
         $browser->put('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 
@@ -82,7 +92,17 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringPut('http://sbin.dk', ['foo' => 'bar']);
     }
 
-    function it_can_post($browser, Response $response)
+    function it_can_post_basic($browser, Response $response)
+    {
+        $browser->post('http://sbin.dk', [], '')->willReturn($response);
+
+        $response->isSuccessful()->willReturn(true);
+        $response->getContent()->willReturn('foo');
+
+        $this->post('http://sbin.dk')->shouldBe('foo');
+    }
+
+    function it_can_post_array($browser, Response $response)
     {
         $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 
@@ -92,7 +112,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_runtime_exception_if_cannot_create($browser, Response $response)
+    function it_throws_an_runtime_exception_if_cannot_post($browser, Response $response)
     {
         $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 
