@@ -46,24 +46,24 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_put($client, Request $request, Response $response)
     {
-        $client->put('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->willReturn($request);
+        $client->put('http://sbin.dk/456', array('content-type' => 'application/json'), '{"foo":"bar"}')->willReturn($request);
         $request->send()->willReturn($response);
 
         $response->isSuccessful()->willReturn(true);
         $response->getBody(true)->willReturn('{"foo":"bar"}');
 
-        $this->put('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
+        $this->put('http://sbin.dk/456', array('content-type' => 'application/json'), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
     function it_can_post($client, Request $request, Response $response)
     {
-        $client->post('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->willReturn($request);
+        $client->post('http://sbin.dk/456', array('content-type' => 'application/json'), '{"foo":"bar"}')->willReturn($request);
         $request->send()->willReturn($response);
 
         $response->isSuccessful()->willReturn(true);
         $response->getBody(true)->willReturn('{"foo":"bar"}');
 
-        $this->post('http://sbin.dk/456', array("content-type" => "application/json"), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
+        $this->post('http://sbin.dk/456', array('content-type' => 'application/json'), '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
     }
 
     function it_returns_last_response_header($client, Request $request, Response $response)

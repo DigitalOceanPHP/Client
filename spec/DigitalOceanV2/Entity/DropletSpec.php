@@ -9,7 +9,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->beConstructedWith([
             'foo_bar' => 'bar_baz',
             'baz_qmx' => 123,
-            'barFoo'  => [5, '5'],
+            'barFoo' => [5, '5'],
         ]);
     }
 

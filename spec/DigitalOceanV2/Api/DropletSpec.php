@@ -254,7 +254,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->willReturn('{"droplet":{}}');
 
         $this
-            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array("123", "456", "789"))
+            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array('123', '456', '789'))
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 

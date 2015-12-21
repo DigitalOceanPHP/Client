@@ -100,7 +100,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', "123456");
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', '123456');
     }
 
     function it_deletes_the_domain_and_returns_nothing($adapter)
