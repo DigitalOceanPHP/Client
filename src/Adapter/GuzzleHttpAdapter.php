@@ -59,7 +59,8 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
         try {
             $this->response = $this->client->get($url);
         } catch (RequestException $e) {
-            throw $this->handleResponse($e->getResponse());
+            $this->response = $e->getResponse();
+            $this->handleException();
         }
 
         return $this->response->getBody();
@@ -74,7 +75,8 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
             $options = array('headers' => $headers);
             $this->response = $this->client->delete($url, $options);
         } catch (RequestException $e) {
-            throw $this->handleResponse($e->getResponse());
+            $this->response = $e->getResponse();
+            $this->handleException();
         }
 
         return $this->response->getBody();
@@ -90,10 +92,10 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
                 array('headers' => $headers, 'json' => $json) :
                 array('headers' => $headers, 'body' => $content);
 
-            $request = $this->client->put($url, $options);
-            $this->response = $request;
+            $this->response = $this->client->put($url, $options);;
         } catch (RequestException $e) {
-            throw $this->handleResponse($e->getResponse());
+            $this->response = $e->getResponse();
+            $this->handleException();
         }
 
         return $this->response->getBody();
@@ -111,7 +113,8 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
 
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
-            throw $this->handleResponse($e->getResponse());
+            $this->response = $e->getResponse();
+            $this->handleException();
         }
 
         return $this->response->getBody();
@@ -146,27 +149,16 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
             return;
         }
 
-        $body = $this->response->getBody();
-        $code = $this->response->getStatusCode();
-
-        if ($this->exception) {
-            throw $this->exception->create($body, $code);
-        }
-
-        $content = $this->response->json();
-
-        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        $this->handleException();
     }
 
     /**
-     * @param Response $response
-     *
      * @throws \RuntimeException|ExceptionInterface
      */
-    protected function handleException(Response $response)
+    protected function handleException()
     {
-        $body = (string) $response->getBody();
-        $code = $response->getStatusCode();
+        $body = (string) $this->response->getBody();
+        $code = (int) $this->response->getStatusCode();
 
         if ($this->exception) {
             return $this->exception->create($body, $code);
