@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-2.0.0 (2015-12-xx)
+2.0.0 (2015-12-21)
 ------------------
 
 - Added guzzle 6 support (watch out for the adapter rename)
