@@ -27,7 +27,7 @@ interface AdapterInterface
 
     /**
      * @param string $url
-     * @param array  $headers (optional)
+     * @param array  $headers
      *
      * @throws \RuntimeException|ExceptionInterface
      */
@@ -35,8 +35,8 @@ interface AdapterInterface
 
     /**
      * @param string $url
-     * @param array  $headers (optional)
-     * @param string $content (optional)
+     * @param array  $headers
+     * @param string $content
      *
      * @throws \RuntimeException|ExceptionInterface
      *
@@ -46,8 +46,8 @@ interface AdapterInterface
 
     /**
      * @param string $url
-     * @param array  $headers (optional)
-     * @param string $content (optional)
+     * @param array  $headers
+     * @param string $content
      *
      * @throws \RuntimeException|ExceptionInterface
      *

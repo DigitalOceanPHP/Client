@@ -35,7 +35,7 @@ class ExceptionReader
      * Error message in DigitalOcean format.
      *
      * @param string $content
-     * @param int    $code    (optional)
+     * @param int    $code
      */
     public function __construct($content, $code = 0)
     {
@@ -68,7 +68,7 @@ class ExceptionReader
     /**
      * Error message.
      *
-     * @param bool $includeCodeId (optional)
+     * @param bool $includeCodeId
      *
      * @return string
      */

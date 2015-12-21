@@ -54,9 +54,9 @@ class DomainRecord extends AbstractApi
      * @param string $type
      * @param string $name
      * @param string $data
-     * @param int    $priority   (optional)
-     * @param int    $port       (optional)
-     * @param int    $weight     (optional)
+     * @param int    $priority
+     * @param int    $port
+     * @param int    $weight
      *
      * @throws \RuntimeException
      *

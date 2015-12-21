@@ -98,11 +98,11 @@ class Droplet extends AbstractApi
      * @param string     $region
      * @param string     $size
      * @param string|int $image
-     * @param bool       $backups           (optional)
-     * @param bool       $ipv6              (optional)
-     * @param bool       $privateNetworking (optional)
-     * @param int[]      $sshKeys           (optional)
-     * @param string     $userData          (optional)
+     * @param bool       $backups
+     * @param bool       $ipv6
+     * @param bool       $privateNetworking
+     * @param int[]      $sshKeys
+     * @param string     $userData
      *
      * @throws \RuntimeException
      *
@@ -311,7 +311,7 @@ class Droplet extends AbstractApi
     /**
      * @param int    $id
      * @param string $size
-     * @param bool   $disk (optional)
+     * @param bool   $disk
      *
      * @throws \RuntimeException
      *

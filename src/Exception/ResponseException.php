@@ -40,7 +40,7 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     }
 
     /**
-     * @param bool $includeCodeId (optional)
+     * @param bool $includeCodeId
      *
      * @return string
      */

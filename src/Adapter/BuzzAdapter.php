@@ -34,9 +34,9 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 
     /**
      * @param string             $accessToken
-     * @param Browser            $browser     (optional)
-     * @param ListenerInterface  $listener    (optional)
-     * @param ExceptionInterface $exception   (optional)
+     * @param Browser            $browser
+     * @param ListenerInterface  $listener
+     * @param ExceptionInterface $exception
      */
     public function __construct($accessToken, Browser $browser = null, ListenerInterface $listener = null, ExceptionInterface $exception = null)
     {

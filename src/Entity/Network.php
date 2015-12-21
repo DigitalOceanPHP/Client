@@ -41,14 +41,14 @@ class Network extends AbstractEntity
     /**
      * IPv6 specific.
      *
-     * @var string
+     * @var string|null
      */
     public $cidr;
 
     /**
      * IPv4 specific.
      *
-     * @var string
+     * @var string|null
      */
     public $netmask;
 }

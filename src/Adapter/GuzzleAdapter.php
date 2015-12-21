@@ -39,8 +39,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 
     /**
      * @param string             $accessToken
-     * @param ClientInterface    $client      (optional)
-     * @param ExceptionInterface $exception   (optional)
+     * @param ClientInterface    $client
+     * @param ExceptionInterface $exception
      */
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
