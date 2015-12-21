@@ -79,8 +79,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"name":"@","type":"A","data":"8.8.8.8"}'
+                ['name' => '@', 'type' => 'A', 'data' => '8.8.8.8']
             )
             ->willReturn('
                 {
@@ -104,8 +103,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"name":"ipv6host","type":"AAAA","data":"2001:db8::ff00:42:8329"}'
+                ['name' => 'ipv6host', 'type' => 'AAAA', 'data' => '2001:db8::ff00:42:8329']
             )
             ->willReturn('
                 {
@@ -131,8 +129,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"name":"newalias","type":"CNAME","data":"hosttarget"}'
+                ['name' => 'newalias', 'type' => 'CNAME', 'data' => 'hosttarget']
             )
             ->willReturn('
                 {
@@ -158,8 +155,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"name":"recordname","type":"TXT","data":"whatever"}'
+                ['name' => 'recordname', 'type' => 'TXT', 'data' => 'whatever']
             )
             ->willReturn('
                 {
@@ -185,8 +181,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"type":"NS","data":"ns1.digitalocean.com."}'
+                ['type' => 'NS', 'data' => 'ns1.digitalocean.com.']
             )
             ->willReturn('
                 {
@@ -212,8 +207,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"name":"servicename","type":"SRV","data":"targethost","priority":0,"port":1,"weight":2}'
+                ['type' => 'SRV', 'name' => 'servicename', 'data' => 'targethost', 'priority' => 0, 'port' => 1, 'weight' => 2]
             )
             ->willReturn('
                 {
@@ -239,8 +233,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['Content-Type: application/json'],
-                '{"type":"MX","data":"127.0.0.1","priority":0}'
+                ['type' => 'MX', 'data' => '127.0.0.1', 'priority' => 0]
             )
             ->willReturn('
                 {
@@ -273,8 +266,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/456',
-                ['Content-Type: application/json'],
-                '{"name":"new-name"}'
+                ['name' => 'new-name']
             )
             ->willReturn('
                 {
@@ -300,8 +292,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
-                ['Content-Type: application/json'],
-                '{"name":"servicename","data":"targethost","port":1,"weight":2}'
+                ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2]
             )
             ->willReturn('
                 {
@@ -325,11 +316,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
     {
         $adapter
-            ->put(
-                'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
-                ['Content-Type: application/json'],
-                '{"name":"new-name"}'
-            )
+            ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
@@ -338,10 +325,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     function it_deletes_given_domain_record_and_returns_nothing($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->shouldBeCalled();
 
         $this->delete('foo.dk', 123);
@@ -350,10 +334,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     function it_throws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('foo.dk', 123);

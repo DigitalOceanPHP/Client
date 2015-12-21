@@ -72,11 +72,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     function it_returns_the_created_domain_entity($adapter)
     {
         $adapter
-            ->post(
-                'https://api.digitalocean.com/v2/domains',
-                ['Content-Type: application/json'],
-                '{"name":"bar.dk","ip_address":"127.0.0.1"}'
-            )
+            ->post('https://api.digitalocean.com/v2/domains', ['name' => 'bar.dk', 'ip_address' => '127.0.0.1'])
             ->willReturn('
                 {
                     "domain": {
@@ -93,11 +89,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     function it_throws_a_runtime_exception_if_ip_address_is_invalid($adapter)
     {
         $adapter
-            ->post(
-                'https://api.digitalocean.com/v2/domains',
-                ['Content-Type: application/json'],
-                '{"name":"boo.dk","ip_address":"123456"}'
-            )
+            ->post('https://api.digitalocean.com/v2/domains', ['name' => 'boo.dk', 'ip_address' => '123456'])
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', '123456');
@@ -106,10 +98,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     function it_deletes_the_domain_and_returns_nothing($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/domains/qmx.fr',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/domains/qmx.fr')
             ->shouldBeCalled();
 
         $this->delete('qmx.fr');
@@ -118,10 +107,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_domain($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/domains/qmx.bar',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/domains/qmx.bar')
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('qmx.bar');

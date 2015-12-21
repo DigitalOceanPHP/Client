@@ -85,8 +85,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/account/keys',
-                ['Content-Type: application/json'],
-                '{"name":"foo","public_key":"ssh-rsa foobarbaz..."}'
+                ['name' => 'foo', 'public_key' => 'ssh-rsa foobarbaz...']
             )
             ->willReturn('
                 {
@@ -105,11 +104,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     function it_returns_the_updated_key($adapter)
     {
         $adapter
-            ->put(
-                'https://api.digitalocean.com/v2/account/keys/456',
-                ['Content-Type: application/json'],
-                '{"name":"bar"}'
-            )
+            ->put('https://api.digitalocean.com/v2/account/keys/456', ['name' => 'bar'])
             ->willReturn('
                 {
                     "ssh_key": {
@@ -127,11 +122,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_key($adapter)
     {
         $adapter
-            ->put(
-                'https://api.digitalocean.com/v2/account/keys/0',
-                ['Content-Type: application/json'],
-                '{"name":"baz"}'
-            )
+            ->put('https://api.digitalocean.com/v2/account/keys/0', ['name' => 'baz'])
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', [0, 'baz']);
@@ -140,10 +131,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     function it_deletes_the_key_and_returns_nothing($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/account/keys/678',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/account/keys/678')
             ->shouldBeCalled();
 
         $this->delete(678);
@@ -152,10 +140,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_key($adapter)
     {
         $adapter
-            ->delete(
-                'https://api.digitalocean.com/v2/account/keys/0',
-                ['Content-Type: application/x-www-form-urlencoded']
-            )
+            ->delete('https://api.digitalocean.com/v2/account/keys/0')
             ->willThrow(new \RuntimeException('Request not processed.'));
 
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', [0]);
