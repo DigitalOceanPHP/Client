@@ -7,7 +7,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\Response;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
 
@@ -19,7 +18,7 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     protected $client;
 
     /**
-     * @var ResponseInterface
+     * @var Response|ResponseInterface
      */
     protected $response;
 
@@ -36,7 +35,7 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
         if (version_compare(ClientInterface::VERSION, '6') === 1) {
-            $this->client = $client ?: new Client(['headers' => ['Authorization' =>  sprintf('Bearer %s', $accessToken)]]);
+            $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $accessToken)]]);
         } else {
             $this->client = $client ?: new Client();
 
@@ -69,10 +68,10 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, array $headers = array())
+    public function delete($url, array $headers = [])
     {
         try {
-            $options = array('headers' => $headers);
+            $options = ['headers' => $headers];
             $this->response = $this->client->delete($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
@@ -85,14 +84,14 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, array $headers = array(), $content = '')
+    public function put($url, array $headers = [], $content = '')
     {
         try {
             $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
-                array('headers' => $headers, 'json' => $json) :
-                array('headers' => $headers, 'body' => $content);
+                ['headers' => $headers, 'json' => $json] :
+                ['headers' => $headers, 'body' => $content];
 
-            $this->response = $this->client->put($url, $options);;
+            $this->response = $this->client->put($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
             $this->handleException();
@@ -104,12 +103,12 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, array $headers = array(), $content = '')
+    public function post($url, array $headers = [], $content = '')
     {
         try {
             $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
-                array('headers' => $headers, 'json' => $json) :
-                array('headers' => $headers, 'body' => $content);
+                ['headers' => $headers, 'json' => $json] :
+                ['headers' => $headers, 'body' => $content];
 
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
@@ -129,11 +128,11 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
             return;
         }
 
-        return array(
-            'reset'     => (int) (string) $this->response->getHeader('RateLimit-Reset'),
+        return [
+            'reset' => (int) (string) $this->response->getHeader('RateLimit-Reset'),
             'remaining' => (int) (string) $this->response->getHeader('RateLimit-Remaining'),
-            'limit'     => (int) (string) $this->response->getHeader('RateLimit-Limit'),
-        );
+            'limit' => (int) (string) $this->response->getHeader('RateLimit-Limit'),
+        ];
     }
 
     /**
