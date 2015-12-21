@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Adapter;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 interface AdapterInterface
 {

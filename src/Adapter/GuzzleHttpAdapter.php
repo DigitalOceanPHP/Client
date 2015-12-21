@@ -10,6 +10,11 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
 
+/**
+ * @author Marcos Sigueros <alrik11es@gmail.com>
+ * @author Chris Fidao <fideloper@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
+ */
 class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**

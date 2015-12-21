@@ -485,8 +485,11 @@ Credits
 -------
 
 * [Antoine Corcy](https://twitter.com/toin0u)
+* [Graham Campbell](https://twitter.com/GrahamCampbell)
 * [Yassir Hannoun](https://twitter.com/yassirh)
 * [Liverbool](https://github.com/liverbool)
+* [Marcos Sigueros](https://github.com/alrik11es)
+* [Chris Fidao](https://github.com/fideloper)
 * [All contributors](https://github.com/toin0u/DigitalOceanV2/contributors)
 
 Support

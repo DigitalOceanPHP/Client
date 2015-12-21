@@ -17,6 +17,7 @@ use Buzz\Message\RequestInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class BuzzOAuthListener implements ListenerInterface
 {
@@ -46,5 +47,6 @@ class BuzzOAuthListener implements ListenerInterface
      */
     public function postSend(RequestInterface $request, MessageInterface $response)
     {
+        //
     }
 }

@@ -12,7 +12,7 @@
 namespace DigitalOceanV2\Exception;
 
 /**
- * @author liverbool <nukboon@gmail.com>
+ * @author Liverbool <nukboon@gmail.com>
  */
 class ResponseException extends \RuntimeException implements ExceptionInterface
 {

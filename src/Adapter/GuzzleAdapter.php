@@ -18,7 +18,8 @@ use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
 
 /**
- * @author liverbool <nukboon@gmail.com>
+ * @author Liverbool <nukboon@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 {

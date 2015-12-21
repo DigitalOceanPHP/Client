@@ -19,6 +19,7 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 {
