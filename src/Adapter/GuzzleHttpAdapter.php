@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Response;
  * @author Chris Fidao <fideloper@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
+class GuzzleHttpAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface

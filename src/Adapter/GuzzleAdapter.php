@@ -20,7 +20,7 @@ use Guzzle\Http\Message\Response;
  * @author Liverbool <nukboon@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
+class GuzzleAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface

@@ -20,7 +20,7 @@ use Buzz\Message\Response;
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BuzzAdapter extends AbstractAdapter implements AdapterInterface
+class BuzzAdapter implements AdapterInterface
 {
     /**
      * @var Browser
