@@ -18,7 +18,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)->willReturn('{"images": []}');
+        $adapter->get('https://api.digitalocean.com/v2/images?per_page=200')->willReturn('{"images": []}');
 
         $images = $this->getAll();
         $images->shouldBeArray();
@@ -29,7 +29,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/images?per_page=200')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll();
@@ -47,7 +47,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=distribution')
+            ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=distribution')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll(['type' => 'distribution']);
@@ -65,7 +65,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=application')
+            ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=application')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll(['type' => 'application']);
@@ -83,7 +83,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&type=application&private=true')
+            ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=application&private=true')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll(['type' => 'application', 'private' => true]);
@@ -101,7 +101,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/images?per_page='.PHP_INT_MAX.'&private=true')
+            ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&private=true')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $images = $this->getAll(['private' => true]);

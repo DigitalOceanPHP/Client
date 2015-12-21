@@ -18,7 +18,7 @@ class RegionSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_array_of_region_entity($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/regions?per_page='.PHP_INT_MAX)->willReturn('{"regions": [{},{},{}]}');
+        $adapter->get('https://api.digitalocean.com/v2/regions?per_page=200')->willReturn('{"regions": [{},{},{}]}');
 
         $regions = $this->getAll();
         $regions->shouldBeArray();

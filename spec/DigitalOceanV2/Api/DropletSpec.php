@@ -18,7 +18,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page='.PHP_INT_MAX)->willReturn('{"droplets": []}');
+        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page=200')->willReturn('{"droplets": []}');
 
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
@@ -29,7 +29,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets?per_page='.PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/droplets?per_page=200')
             ->willReturn(sprintf('{"droplets": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $droplets = $this->getAll();
@@ -334,7 +334,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots?per_page='.PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/droplets/123/snapshots?per_page=200')
             ->willReturn(sprintf('{"snapshots": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $snapshots = $this->getSnapshots(123);
@@ -352,7 +352,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/backups?per_page='.PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/droplets/123/backups?per_page=200')
             ->willReturn(sprintf('{"backups": [{},{},{}], "meta": {"total": %d}}', $total));
         $backups = $this->getBackups(123);
         $backups->shouldBeArray();
@@ -369,7 +369,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page='.PHP_INT_MAX)
+            ->get('https://api.digitalocean.com/v2/droplets/123/actions?per_page=200')
             ->willReturn(sprintf('{"actions": [{"region": {}}, {"region": {}}, {"region": {}}], "meta": {"total": %d}}', $total));
 
         $actions = $this->getActions(123);
