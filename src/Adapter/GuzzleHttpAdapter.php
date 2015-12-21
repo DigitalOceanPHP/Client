@@ -3,11 +3,15 @@
 namespace DigitalOceanV2\Adapter;
 
 use DigitalOceanV2\Exception\ExceptionInterface;
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Message\Response;
+use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Psr7\Response;
 
-class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
+class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface
@@ -31,9 +35,19 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
      */
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
-        $this->client    = $client ?: new \GuzzleHttp\Client(['headers' => [
-            'Authorization' =>  sprintf('Bearer %s', $accessToken)
-        ]]);
+        if (version_compare(ClientInterface::VERSION, '6') === 1) {
+            $this->client = $client ?: new Client(['headers' => ['Authorization' =>  sprintf('Bearer %s', $accessToken)]]);
+        } else {
+            $this->client = $client ?: new Client();
+
+            $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $accessToken));
+
+            $this->client->getEmitter()->on('complete', function (CompleteEvent $e) {
+                $this->handleResponse($e);
+                $e->stopPropagation();
+            });
+        }
+
         $this->exception = $exception;
     }
 
@@ -45,7 +59,7 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
         try {
             $this->response = $this->client->get($url);
         } catch (RequestException $e) {
-            throw $this->handleResponse( $e->getResponse() );
+            throw $this->handleResponse($e->getResponse());
         }
 
         return $this->response->getBody();
@@ -60,7 +74,7 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
             $options = array('headers' => $headers);
             $this->response = $this->client->delete($url, $options);
         } catch (RequestException $e) {
-            throw $this->handleResponse( $e->getResponse() );
+            throw $this->handleResponse($e->getResponse());
         }
 
         return $this->response->getBody();
@@ -72,13 +86,14 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = array(), $content = '')
     {
         try {
-            $options = ($json = json_decode($content, true)) ?
+            $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
                 array('headers' => $headers, 'json' => $json) :
                 array('headers' => $headers, 'body' => $content);
 
-            $this->response = $this->client->put($url, $options);
+            $request = $this->client->put($url, $options);
+            $this->response = $request;
         } catch (RequestException $e) {
-            throw $this->handleResponse( $e->getResponse() );
+            throw $this->handleResponse($e->getResponse());
         }
 
         return $this->response->getBody();
@@ -90,13 +105,13 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = array(), $content = '')
     {
         try {
-            $options = ($json = json_decode($content, true)) ?
+            $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
                 array('headers' => $headers, 'json' => $json) :
                 array('headers' => $headers, 'body' => $content);
 
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
-            throw $this->handleResponse( $e->getResponse() );
+            throw $this->handleResponse($e->getResponse());
         }
 
         return $this->response->getBody();
@@ -119,12 +134,38 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param Response $response
-     * @return ExceptionInterface|\RuntimeException
+     * @param CompleteEvent $event
+     *
+     * @throws \RuntimeException|ExceptionInterface
      */
-    protected function handleResponse(Response $response)
+    protected function handleResponse(CompleteEvent $event)
     {
-        $body = (string)$response->getBody();
+        $this->response = $event->getResponse();
+
+        if ($this->response->getStatusCode() >= 200 && $this->response->getStatusCode() <= 299) {
+            return;
+        }
+
+        $body = $this->response->getBody();
+        $code = $this->response->getStatusCode();
+
+        if ($this->exception) {
+            throw $this->exception->create($body, $code);
+        }
+
+        $content = $this->response->json();
+
+        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @throws \RuntimeException|ExceptionInterface
+     */
+    protected function handleException(Response $response)
+    {
+        $body = (string) $response->getBody();
         $code = $response->getStatusCode();
 
         if ($this->exception) {
@@ -133,6 +174,6 @@ class Guzzle6Adapter extends AbstractAdapter implements AdapterInterface
 
         $content = json_decode($body);
 
-        return new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
 }
