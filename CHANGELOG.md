@@ -17,6 +17,7 @@ CHANGELOG
 - Support converting images to snapshots
 - Support the ability to enable droplet backups
 - Added full floating ip support
+- Improved exceptions
 - Minor code cleanup
 
 1.0.1 (2015-06-25)
