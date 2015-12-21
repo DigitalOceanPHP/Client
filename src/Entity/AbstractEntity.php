@@ -39,9 +39,7 @@ abstract class AbstractEntity
     public function build(array $parameters)
     {
         foreach ($parameters as $property => $value) {
-            $property = lcfirst(preg_replace_callback('/(^|_)([a-z])/', function ($match) {
-                return strtoupper($match[2]);
-            }, $property));
+            $property = static::convertToCamelCase($property);
 
             if (property_exists($this, $property)) {
                 $this->$property = $value;
@@ -50,13 +48,13 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param string $date DateTime string
+     * @param string|null $date DateTime string
      *
      * @return string|null DateTime in ISO8601 format
      */
-    protected function convertDateTime($date)
+    protected static function convertDateTime($date)
     {
-        if (empty($date)) {
+        if (!$date) {
             return;
         }
 
@@ -64,5 +62,19 @@ abstract class AbstractEntity
         $date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 
         return $date->format(\DateTime::ISO8601);
+    }
+
+    /**
+     * @param string $str Snake case string
+     *
+     * @return string Camel case string
+     */
+    protected static function convertToCamelCase($str)
+    {
+        $callback = function ($match) {
+            return strtoupper($match[2]);
+        };
+
+        return lcfirst(preg_replace_callback('/(^|_)([a-z])/', $callback, $str));
     }
 }

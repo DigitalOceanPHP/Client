@@ -81,7 +81,7 @@ final class Action extends AbstractEntity
      */
     public function setCompletedAt($completedAt)
     {
-        $this->completedAt = $this->convertDateTime($completedAt);
+        $this->completedAt = static::convertDateTime($completedAt);
     }
 
     /**
@@ -89,6 +89,6 @@ final class Action extends AbstractEntity
      */
     public function setStartedAt($startedAt)
     {
-        $this->startedAt = $this->convertDateTime($startedAt);
+        $this->startedAt = static::convertDateTime($startedAt);
     }
 }

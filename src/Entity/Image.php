@@ -67,6 +67,6 @@ final class Image extends AbstractEntity
      */
     public function setCreatedAt($createdAt)
     {
-        $this->createdAt = $this->convertDateTime($createdAt);
+        $this->createdAt = static::convertDateTime($createdAt);
     }
 }
