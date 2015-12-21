@@ -65,7 +65,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    function it_throws_an_runtime_exception_if_requested_domain_record_does_not_exist($adapter)
+    function it_throws_a_runtime_exception_if_requested_domain_record_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
@@ -254,7 +254,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
-    function it_throws_an_runtime_exception_if_unknown_type()
+    function it_throws_a_runtime_exception_if_unknown_type()
     {
         $this
             ->shouldThrow(new \RuntimeException('Domain record type is invalid.'))
@@ -313,7 +313,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
-    function it_throws_an_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
+    function it_throws_a_runtime_exception_when_trying_to_update_inexisting_domain_record($adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
@@ -331,7 +331,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->delete('foo.dk', 123);
     }
 
-    function it_throws_an_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
+    function it_throws_a_runtime_exception_when_trying_to_delete_inexisting_domain_record($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')

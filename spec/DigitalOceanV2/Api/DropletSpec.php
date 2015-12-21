@@ -85,7 +85,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         }
     }
 
-    function it_returns_an_droplet_entity_get_by_its_id($adapter)
+    function it_returns_a_droplet_entity_get_by_its_id($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123')
@@ -98,8 +98,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "slug": "nyc2",
                             "name": "New York",
                             "sizes": [
-                                "1024mb",
                                 "512mb"
+                                "1gb",
                             ],
                             "available": true
                         },
@@ -178,7 +178,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
-    function it_returns_an_droplet_entity_even_if_backup_is_disabled($adapter)
+    function it_returns_a_droplet_entity_even_if_backup_is_disabled($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/1234')
@@ -238,7 +238,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
-    function it_throws_an_runtime_exception_if_requested_droplet_does_not_exist($adapter)
+    function it_throws_a_runtime_exception_if_requested_droplet_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123456789123456789')
@@ -285,7 +285,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456)->shouldReturn(null);
     }
 
-    function it_throws_an_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
+    function it_throws_a_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
     {
         $adapter
             ->post(
@@ -467,11 +467,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                ['type' => 'resize', 'size' => '1024mb', 'disk' => 'true']
+                ['type' => 'resize', 'size' => '1gb', 'disk' => 'true']
             )
             ->willReturn('{"action": {"region": {}}}');
 
-        $action = $this->resize(123, '1024mb', true);
+        $action = $this->resize(123, '1gb', true);
         $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }

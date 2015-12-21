@@ -246,7 +246,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $image->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    function it_throws_an_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
+    function it_throws_a_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
@@ -311,7 +311,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    function it_throws_an_runtime_exception_when_retrieving_non_existing_image_action($adapter)
+    function it_throws_a_runtime_exception_when_retrieving_non_existing_image_action($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')

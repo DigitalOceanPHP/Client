@@ -43,7 +43,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe(3);
     }
 
-    function it_returns_an_domain_entity_get_by_its_name($adapter)
+    function it_returns_a_domain_entity_get_by_its_name($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.com')
@@ -60,7 +60,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $this->getByName('foo.com')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Domain');
     }
 
-    function it_throws_an_runtime_exception_if_requested_domain_does_not_exist($adapter)
+    function it_throws_a_runtime_exception_if_requested_domain_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
