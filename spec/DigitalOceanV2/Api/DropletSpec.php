@@ -529,6 +529,17 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
+    function it_returns_the_action_entity_after_backups_are_enabled($adapter)
+    {
+        $adapter
+            ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'enable_backups'])
+            ->willReturn('{"action": {"region": {}}}');
+
+        $action = $this->enableBackups(123);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
+
     function it_returns_the_action_entity_after_backups_are_disabled($adapter)
     {
         $adapter

@@ -404,6 +404,18 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
+    public function enableBackups($id)
+    {
+        return $this->executeAction($id, ['type' => 'enable_backups']);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @throws \RuntimeException
+     *
+     * @return ActionEntity
+     */
     public function disableBackups($id)
     {
         return $this->executeAction($id, ['type' => 'disable_backups']);
