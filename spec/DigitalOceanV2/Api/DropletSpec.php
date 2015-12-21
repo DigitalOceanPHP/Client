@@ -239,7 +239,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
-    function it_throws_a_runtime_exception_if_requested_droplet_does_not_exist($adapter)
+    function it_throws_an_http_exception_if_requested_droplet_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123456789123456789')
@@ -286,7 +286,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456)->shouldReturn(null);
     }
 
-    function it_throws_a_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
+    function it_throws_an_http_exception_if_not_possible_to_create_a_droplet($adapter)
     {
         $adapter
             ->post(
@@ -307,7 +307,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->delete(123);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_inexisting_droplet($adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_inexisting_droplet($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/droplets/123')

@@ -189,7 +189,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->update(123, 'bar-baz')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_image($adapter)
+    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_image($adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/images/0', ['name' => 'baz-baz'])
@@ -207,7 +207,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_image($adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_image($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/images/0')
@@ -247,7 +247,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $image->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    function it_throws_a_runtime_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
+    function it_throws_an_http_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
@@ -312,7 +312,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    function it_throws_a_runtime_exception_when_retrieving_non_existing_image_action($adapter)
+    function it_throws_an_http_exception_when_retrieving_non_existing_image_action($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')

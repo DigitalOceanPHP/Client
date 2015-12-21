@@ -120,7 +120,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->update(456, 'bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_update_an_inexisting_key($adapter)
+    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_key($adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/account/keys/0', ['name' => 'baz'])
@@ -138,7 +138,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_an_inexisting_key($adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_key($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/account/keys/0')

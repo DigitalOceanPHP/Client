@@ -31,7 +31,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_a_runtime_exception($browser, Response $response)
+    function it_throws_an_http_exception($browser, Response $response)
     {
         $browser->get('http://sbin.dk')->willReturn($response);
 
@@ -51,7 +51,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->delete('http://sbin.dk/123');
     }
 
-    function it_throws_a_runtime_exception_if_cannot_delete($browser, Response $response)
+    function it_throws_an_http_exception_if_cannot_delete($browser, Response $response)
     {
         $browser->delete('http://sbin.dk/123')->willReturn($response);
 
@@ -82,7 +82,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_a_runtime_exception_if_cannot_put($browser, Response $response)
+    function it_throws_an_http_exception_if_cannot_put($browser, Response $response)
     {
         $browser->put('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 
@@ -113,7 +113,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_a_runtime_exception_if_cannot_post($browser, Response $response)
+    function it_throws_an_http_exception_if_cannot_post($browser, Response $response)
     {
         $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')->willReturn($response);
 

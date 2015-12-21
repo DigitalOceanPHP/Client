@@ -87,7 +87,7 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    function it_throws_a_runtime_exception_if_requested_floating_id_does_not_exist($adapter)
+    function it_throws_an_http_exception_if_requested_floating_id_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/floating_ips/123456789123456789')
@@ -123,7 +123,7 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->delete(123);
     }
 
-    function it_throws_a_runtime_exception_when_trying_to_delete_inexisting_floating_ip($adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_inexisting_floating_ip($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/floating_ips/123')
