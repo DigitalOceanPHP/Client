@@ -33,7 +33,7 @@ class Image extends AbstractApi
             $query = sprintf('%s&type=%s', $query, $criteria['type']);
         }
 
-        if (isset($criteria['private']) && true === (boolean) $criteria['private']) {
+        if (isset($criteria['private']) && true === (bool) $criteria['private']) {
             $query = sprintf('%s&private=true', $query);
         }
 

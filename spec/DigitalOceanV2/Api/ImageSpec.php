@@ -261,17 +261,17 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
             ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'convert'])
             ->willReturn('
                 {
-                  "action": {
-                    "id": 22,
-                    "status": "completed",
-                    "type": "convert_to_snapshot",
-                    "started_at": "2015-03-24T19:02:47Z",
-                    "completed_at": "2015-03-24T19:02:47Z",
-                    "resource_id": 449676390,
-                    "resource_type": "image",
-                    "region": null,
-                    "region_slug": null
-                  }
+                    "action": {
+                        "id": 22,
+                        "status": "completed",
+                        "type": "convert_to_snapshot",
+                        "started_at": "2015-03-24T19:02:47Z",
+                        "completed_at": "2015-03-24T19:02:47Z",
+                        "resource_id": 449676390,
+                        "resource_type": "image",
+                        "region": null,
+                        "region_slug": null
+                    }
                 }
             ');
 
