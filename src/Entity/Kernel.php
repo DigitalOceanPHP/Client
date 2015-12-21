@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Kernel extends AbstractEntity
+final class Kernel extends AbstractEntity
 {
     /**
      * @var int

@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Region extends AbstractEntity
+final class Region extends AbstractEntity
 {
     /**
      * @var string

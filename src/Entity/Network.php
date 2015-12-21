@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Network extends AbstractEntity
+final class Network extends AbstractEntity
 {
     /**
      * @var string

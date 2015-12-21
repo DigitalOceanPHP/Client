@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Meta extends AbstractEntity
+final class Meta extends AbstractEntity
 {
     /**
      * @var int

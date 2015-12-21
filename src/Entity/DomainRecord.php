@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class DomainRecord extends AbstractEntity
+final class DomainRecord extends AbstractEntity
 {
     /**
      * @var int

@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Droplet extends AbstractEntity
+final class Droplet extends AbstractEntity
 {
     /**
      * @var int

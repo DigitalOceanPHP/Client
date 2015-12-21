@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class NextBackupWindow extends AbstractEntity
+final class NextBackupWindow extends AbstractEntity
 {
     /**
      * @var string

@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class RateLimit extends AbstractEntity
+final class RateLimit extends AbstractEntity
 {
     /**
      * @var int

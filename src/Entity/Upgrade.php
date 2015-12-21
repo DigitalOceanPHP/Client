@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Upgrade extends AbstractEntity
+final class Upgrade extends AbstractEntity
 {
     /**
      * @var int

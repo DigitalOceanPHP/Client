@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Key extends AbstractEntity
+final class Key extends AbstractEntity
 {
     /**
      * @var int

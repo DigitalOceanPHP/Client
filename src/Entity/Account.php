@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class Account extends AbstractEntity
+final class Account extends AbstractEntity
 {
     /**
      * @var int

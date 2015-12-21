@@ -14,7 +14,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
  */
-class Image extends AbstractEntity
+final class Image extends AbstractEntity
 {
     /**
      * @var int
