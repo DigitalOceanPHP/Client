@@ -23,7 +23,7 @@ class Key extends AbstractApi
      */
     public function getAll()
     {
-        $keys = $this->adapter->get(sprintf('%s/account/keys?per_page=%d', $this->endpoint, PHP_INT_MAX));
+        $keys = $this->adapter->get(sprintf('%s/account/keys?per_page=%d', $this->endpoint, 200));
 
         $keys = json_decode($keys);
 

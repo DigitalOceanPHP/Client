@@ -23,7 +23,7 @@ class Domain extends AbstractApi
      */
     public function getAll()
     {
-        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', $this->endpoint, PHP_INT_MAX));
+        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', $this->endpoint, 200));
 
         $domains = json_decode($domains);
 

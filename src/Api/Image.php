@@ -26,7 +26,7 @@ class Image extends AbstractApi
      */
     public function getAll(array $criteria = [])
     {
-        $query = sprintf('%s/images?per_page=%d', $this->endpoint, PHP_INT_MAX);
+        $query = sprintf('%s/images?per_page=%d', $this->endpoint, 200);
 
         if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'])) {
             $query = sprintf('%s&type=%s', $query, $criteria['type']);

@@ -27,7 +27,7 @@ class Droplet extends AbstractApi
      */
     public function getAll()
     {
-        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', $this->endpoint, PHP_INT_MAX));
+        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', $this->endpoint, 200));
 
         $droplets = json_decode($droplets);
 
@@ -177,7 +177,7 @@ class Droplet extends AbstractApi
      */
     public function getSnapshots($id)
     {
-        $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
+        $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', $this->endpoint, $id, 200));
 
         $snapshots = json_decode($snapshots);
 
@@ -197,7 +197,7 @@ class Droplet extends AbstractApi
      */
     public function getBackups($id)
     {
-        $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
+        $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups?per_page=%d', $this->endpoint, $id, 200));
 
         $backups = json_decode($backups);
 
@@ -215,7 +215,7 @@ class Droplet extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
+        $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions?per_page=%d', $this->endpoint, $id, 200));
 
         $actions = json_decode($actions);
 

@@ -25,7 +25,7 @@ class DomainRecord extends AbstractApi
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, PHP_INT_MAX));
+        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, 200));
 
         $domainRecords = json_decode($domainRecords);
 
