@@ -83,12 +83,7 @@ class GuzzleHttpAdapter implements AdapterInterface
     {
         $options = [];
 
-        if (is_array($content)) {
-            $options['headers']['Content-Type'] = 'application/json';
-            $options[version_compare(ClientInterface::VERSION, '6') ? 'json' : 'body'] = json_encode($content);
-        } else {
-            $options['body'] = $content;
-        }
+        $options[is_array($content) ? 'json' : 'body'] = $content;
 
         try {
             $this->response = $this->client->put($url, $options);
@@ -107,12 +102,7 @@ class GuzzleHttpAdapter implements AdapterInterface
     {
         $options = [];
 
-        if (is_array($content)) {
-            $options['headers']['Content-Type'] = 'application/json';
-            $options[version_compare(ClientInterface::VERSION, '6') ? 'json' : 'body'] = json_encode($content);
-        } else {
-            $options['body'] = $content;
-        }
+        $options[is_array($content) ? 'json' : 'body'] = $content;
 
         try {
             $this->response = $this->client->post($url, $options);
