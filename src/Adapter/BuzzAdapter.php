@@ -131,6 +131,6 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     {
         $content = json_decode($response->getContent());
 
-        return new \RuntimeException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
+        throw new \RuntimeException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
     }
 }
