@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Key as KeyEntity;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Key extends AbstractApi
 {

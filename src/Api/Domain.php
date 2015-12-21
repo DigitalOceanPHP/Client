@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Domain as DomainEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Domain extends AbstractApi
 {

@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Account as AccountEntity;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Account extends AbstractApi
 {

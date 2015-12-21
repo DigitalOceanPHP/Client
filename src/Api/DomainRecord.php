@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class DomainRecord extends AbstractApi
 {

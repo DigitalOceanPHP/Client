@@ -16,6 +16,7 @@ use DigitalOceanV2\Entity\Image as ImageEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Image extends AbstractApi
 {

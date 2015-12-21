@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Entity;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 final class NextBackupWindow extends AbstractEntity
 {

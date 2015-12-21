@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\RateLimit as RateLimitEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class RateLimit extends AbstractApi
 {

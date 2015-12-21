@@ -19,6 +19,7 @@ use DigitalOceanV2\Entity\Upgrade as UpgradeEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Droplet extends AbstractApi
 {

@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Action extends AbstractApi
 {

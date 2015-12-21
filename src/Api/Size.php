@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Size as SizeEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Size extends AbstractApi
 {

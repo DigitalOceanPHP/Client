@@ -16,6 +16,7 @@ use DigitalOceanV2\Entity\Meta;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 abstract class AbstractApi
 {

@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\Region as RegionEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class Region extends AbstractApi
 {
