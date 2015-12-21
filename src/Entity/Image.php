@@ -59,7 +59,7 @@ class Image extends AbstractEntity
     /**
      * @var string[]
      */
-    public $regions;
+    public $regions = [];
 
     /**
      * @param string $createdAt

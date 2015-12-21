@@ -59,5 +59,5 @@ class Size extends AbstractEntity
     /**
      * @var string[]
      */
-    public $regions;
+    public $regions = [];
 }

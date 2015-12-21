@@ -34,10 +34,10 @@ class Region extends AbstractEntity
     /**
      * @var string[]
      */
-    public $sizes;
+    public $sizes = [];
 
     /**
      * @var string[]
      */
-    public $features;
+    public $features = [];
 }
