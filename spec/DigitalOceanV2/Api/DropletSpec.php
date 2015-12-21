@@ -195,7 +195,24 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "",
                         "features": ["virtio", "private_networking", "backups", "ipv6"],
                         "status": "active",
-                        "networks": {"v4": [], "v6": []},
+                        "networks": {
+                            "v4": [
+                                {
+                                    "ip_address": "127.0.0.1",
+                                    "netmask": "255.255.255.0",
+                                    "gateway": "127.0.0.2",
+                                    "type": "public"
+                                }
+                            ],
+                            "v6": [
+                                {
+                                    "ip_address": "2400:6180:0000:00D0:0000:0000:0009:7001",
+                                    "netmask": 64,
+                                    "gateway": "2400:6180:0000:00D0:0000:0000:0009:7000",
+                                    "type": "public"
+                                }
+                            ]
+                        },
                         "backup_ids": [],
                         "snapshot_ids": [],
                         "next_backup_window": null
