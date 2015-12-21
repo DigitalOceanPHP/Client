@@ -88,7 +88,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     function it_returns_a_droplet_entity_get_by_its_id($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123')
+            ->get('https://api.digitalocean.com/v2/droplets/14')
             ->willReturn('
                 {
                     "droplet": {
@@ -98,8 +98,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "slug": "nyc2",
                             "name": "New York",
                             "sizes": [
-                                "512mb"
-                                "1gb",
+                                "512mb",
+                                "1gb"
                             ],
                             "available": true
                         },
@@ -160,7 +160,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 }
             ');
 
-        $droplet = $this->getById(123);
+        $droplet = $this->getById(14);
         $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
         $droplet->networks->shouldBeArray();
         $droplet->networks->shouldHaveCount(2);
