@@ -29,11 +29,6 @@ use DigitalOceanV2\Api\Size;
 class DigitalOceanV2
 {
     /**
-     * @see http://semver.org/
-     */
-    const VERSION = '2.0.0-dev';
-
-    /**
      * @var AdapterInterface
      */
     protected $adapter;
