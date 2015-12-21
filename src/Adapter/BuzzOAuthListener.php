@@ -11,13 +11,14 @@
 
 namespace DigitalOceanV2\Adapter;
 
+use Buzz\Listener\ListenerInterface;
 use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  */
-class BuzzOAuthListener implements \Buzz\Listener\ListenerInterface
+class BuzzOAuthListener implements ListenerInterface
 {
     /**
      * @var string
