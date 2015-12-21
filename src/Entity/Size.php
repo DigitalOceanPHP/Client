@@ -22,7 +22,7 @@ class Size extends AbstractEntity
     public $slug;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $available;
 

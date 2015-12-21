@@ -44,8 +44,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
     {
-        $that            = $this;
-        $this->client    = $client ?: new Client();
+        $that = $this;
+        $this->client = $client ?: new Client();
         $this->exception = $exception;
 
         $this->client
@@ -112,9 +112,9 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         return array(
-            'reset'     => (int) (string) $this->response->getHeader('RateLimit-Reset'),
+            'reset' => (int) (string) $this->response->getHeader('RateLimit-Reset'),
             'remaining' => (int) (string) $this->response->getHeader('RateLimit-Remaining'),
-            'limit'     => (int) (string) $this->response->getHeader('RateLimit-Limit'),
+            'limit' => (int) (string) $this->response->getHeader('RateLimit-Limit'),
         );
     }
 

@@ -86,7 +86,7 @@ class DomainRecord extends AbstractApi
                     'data' => $data,
                     'priority' => (int) $priority,
                     'port' => (int) $port,
-                    'weight' => (int) $weight
+                    'weight' => (int) $weight,
                 ));
                 break;
 

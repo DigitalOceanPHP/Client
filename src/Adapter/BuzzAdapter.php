@@ -109,9 +109,9 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         return array(
-            'reset'     => (int) $response->getHeader('RateLimit-Reset'),
+            'reset' => (int) $response->getHeader('RateLimit-Reset'),
             'remaining' => (int) $response->getHeader('RateLimit-Remaining'),
-            'limit'     => (int) $response->getHeader('RateLimit-Limit'),
+            'limit' => (int) $response->getHeader('RateLimit-Limit'),
         );
     }
 

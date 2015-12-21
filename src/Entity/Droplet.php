@@ -62,7 +62,7 @@ class Droplet extends AbstractEntity
     public $size;
 
     /**
-     * @var String
+     * @var string
      */
     public $sizeSlug;
 
@@ -183,10 +183,10 @@ class Droplet extends AbstractEntity
         }
 
         if (is_array($this->features) && count($this->features)) {
-            $this->backupsEnabled = in_array("backups", $this->features);
-            $this->virtIOEnabled = in_array("virtio", $this->features);
-            $this->privateNetworkingEnabled = in_array("private_networking", $this->features);
-            $this->ipv6Enabled = in_array("ipv6", $this->features);
+            $this->backupsEnabled = in_array('backups', $this->features);
+            $this->virtIOEnabled = in_array('virtio', $this->features);
+            $this->privateNetworkingEnabled = in_array('private_networking', $this->features);
+            $this->ipv6Enabled = in_array('ipv6', $this->features);
         }
     }
 

@@ -109,7 +109,7 @@ class Droplet extends AbstractApi
      * @return DropletEntity
      */
     public function create($name, $region, $size, $image, $backups = false, $ipv6 = false,
-        $privateNetworking = false, array $sshKeys = array(), $userData = ""
+        $privateNetworking = false, array $sshKeys = array(), $userData = ''
     ) {
         $headers = array('Content-Type: application/json');
 
@@ -120,15 +120,15 @@ class Droplet extends AbstractApi
             'image' => $image,
             'backups' => \DigitalOceanV2\bool_to_string($backups),
             'ipv6' => \DigitalOceanV2\bool_to_string($ipv6),
-            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking)
+            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking),
         );
 
         if (0 < count($sshKeys)) {
-            $data["ssh_keys"] = $sshKeys;
+            $data['ssh_keys'] = $sshKeys;
         }
 
         if (!empty($userData)) {
-            $data["user_data"] = $userData;
+            $data['user_data'] = $userData;
         }
 
         $content = json_encode($data);
@@ -311,7 +311,7 @@ class Droplet extends AbstractApi
     /**
      * @param int    $id
      * @param string $size
-     * @param bool   $disk  (optional)
+     * @param bool   $disk (optional)
      *
      * @throws \RuntimeException
      *

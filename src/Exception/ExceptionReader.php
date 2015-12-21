@@ -40,7 +40,7 @@ class ExceptionReader
     public function __construct($content, $code = 0)
     {
         $content = json_decode($content, true);
-        $codeId  = empty($content['id']) ? null : $content['id'];
+        $codeId = empty($content['id']) ? null : $content['id'];
         $message = empty($content['message']) ? 'Request not processed.' : $content['message'];
 
         // just example to modify message
@@ -50,8 +50,8 @@ class ExceptionReader
             $message
         );
 
-        $this->id      = $codeId;
-        $this->code    = $code;
+        $this->id = $codeId;
+        $this->code = $code;
         $this->message = $message;
     }
 

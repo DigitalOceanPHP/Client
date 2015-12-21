@@ -40,7 +40,7 @@ abstract class AbstractEntity
     {
         if (!property_exists($this, $property)) {
             if (array_key_exists($property, $this->unknownProperties)) {
-                 return $this->unknownProperties[$property];
+                return $this->unknownProperties[$property];
             }
 
             throw new \InvalidArgumentException(sprintf(

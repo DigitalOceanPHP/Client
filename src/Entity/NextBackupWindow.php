@@ -27,7 +27,7 @@ class NextBackupWindow extends AbstractEntity
     public $end;
 
     /**
-     * Build a new backup window instance
+     * Build a new backup window instance.
      *
      * @param \stdClass|array|null $parameters
      */
