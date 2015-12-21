@@ -11,24 +11,6 @@ Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/?branch=master)
 [![License](https://poser.pugx.org/toin0u/digitalocean-v2/license.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
 
-Status
-------
-
-API | Documentation | Specification tests
---- | ------------- | -------------------
-[Account](https://developers.digitalocean.com/v2/#account) | [√](https://github.com/toin0u/DigitalOceanV2#account) | √
-[Actions](https://developers.digitalocean.com/v2/#actions) | [√](https://github.com/toin0u/DigitalOceanV2#action) | √
-[Domain records](https://developers.digitalocean.com/v2/#domain-records) | [√](https://github.com/toin0u/DigitalOceanV2#domain-record) | √
-[Domains](https://developers.digitalocean.com/v2/#domains) | [√](https://github.com/toin0u/DigitalOceanV2#domain) | √
-[Droplet actions](https://developers.digitalocean.com/v2/#droplet-actions) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | √
-[Droplets](https://developers.digitalocean.com/v2/#droplets) | [√](https://github.com/toin0u/DigitalOceanV2#droplet) | √
-[Image actions](https://developers.digitalocean.com/v2/#image-actions) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
-[Images](https://developers.digitalocean.com/v2/#images) | [√](https://github.com/toin0u/DigitalOceanV2#image) | √
-[Keys](https://developers.digitalocean.com/v2/#keys) | [√](https://github.com/toin0u/DigitalOceanV2#key) | √
-[Regions](https://developers.digitalocean.com/v2/#regions) | [√](https://github.com/toin0u/DigitalOceanV2#region) | √
-[Rate Limit](https://developers.digitalocean.com/#rate-limit) | [√](https://github.com/toin0u/DigitalOceanV2#rate-limit) | √
-[Sizes](https://developers.digitalocean.com/v2/#sizes) | [√](https://github.com/toin0u/DigitalOceanV2#size) | √
-
 Installation
 ------------
 
