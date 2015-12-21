@@ -140,7 +140,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "v6": [
                                 {
                                     "ip_address": "2400:6180:0000:00D0:0000:0000:0009:7001",
-                                    "cidr": 124,
+                                    "netmask": 64,
                                     "gateway": "2400:6180:0000:00D0:0000:0000:0009:7000",
                                     "type": "public"
                                 }
