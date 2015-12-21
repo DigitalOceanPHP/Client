@@ -195,7 +195,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "",
                         "features": ["virtio", "private_networking", "backups", "ipv6"],
                         "status": "active",
-                        "networks": {"v4": [{}], "v6": [{}]},
+                        "networks": {"v4": [], "v6": []},
                         "backup_ids": [],
                         "snapshot_ids": [],
                         "next_backup_window": null
