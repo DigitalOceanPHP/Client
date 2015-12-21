@@ -62,9 +62,9 @@ class Action extends AbstractEntity
     public $regionSlug;
 
     /**
-     * @param \stdClass|array $parameters
+     * @param array $parameters
      */
-    public function build($parameters)
+    public function build(array $parameters)
     {
         parent::build($parameters);
 

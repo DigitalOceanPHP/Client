@@ -455,7 +455,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                ['type' => 'resize', 'size' => '1024mb', 'disk' => true]
+                ['type' => 'resize', 'size' => '1024mb', 'disk' => 'true']
             )
             ->willReturn('{"action": {"region": {}}}');
 

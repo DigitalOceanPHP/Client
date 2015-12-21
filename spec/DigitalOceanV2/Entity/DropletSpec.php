@@ -17,29 +17,4 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $this->shouldHaveType('DigitalOceanV2\Entity\Droplet');
     }
-
-    function it_can_be_build_with_unknown_properties()
-    {
-        $this->shouldHaveType('DigitalOceanV2\Entity\Droplet');
-        $this->fooBar->shouldBe('bar_baz');
-        $this->bazQmx->shouldBe(123);
-        $this->barFoo->shouldBeArray();
-        $this->barFoo->shouldHaveCount(2);
-        $this->barFoo[0]->shouldBe(5);
-        $this->barFoo[1]->shouldBe('5');
-    }
-
-    function it_can_expose_unknown_properties()
-    {
-        $this->shouldHaveType('DigitalOceanV2\Entity\Droplet');
-        $unknownProperties = $this->getUnknownProperties();
-        $unknownProperties->shouldBeArray();
-        $unknownProperties->shouldHaveCount(3);
-        $unknownProperties['fooBar']->shouldBe('bar_baz');
-        $unknownProperties['bazQmx']->shouldBe(123);
-        $unknownProperties['barFoo']->shouldBeArray();
-        $unknownProperties['barFoo']->shouldHaveCount(2);
-        $unknownProperties['barFoo'][0]->shouldBe(5);
-        $unknownProperties['barFoo'][1]->shouldBe('5');
-    }
 }

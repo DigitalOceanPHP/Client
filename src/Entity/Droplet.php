@@ -127,9 +127,9 @@ class Droplet extends AbstractEntity
     public $nextBackupWindow;
 
     /**
-     * @param \stdClass|array $parameters
+     * @param array $parameters
      */
-    public function build($parameters)
+    public function build(array $parameters)
     {
         foreach ($parameters as $property => $value) {
             switch ($property) {
@@ -151,40 +151,45 @@ class Droplet extends AbstractEntity
                             }
                         }
                     }
+                    unset($parameters[$property]);
                     break;
 
                 case 'kernel':
                     if (is_object($value)) {
                         $this->kernel = new Kernel($value);
                     }
+                    unset($parameters[$property]);
                     break;
 
                 case 'size':
                     if (is_object($value)) {
                         $this->size = new Size($value);
                     }
+                    unset($parameters[$property]);
                     break;
 
                 case 'region':
                     if (is_object($value)) {
                         $this->region = new Region($value);
                     }
+                    unset($parameters[$property]);
                     break;
 
                 case 'image':
                     if (is_object($value)) {
                         $this->image = new Image($value);
                     }
+                    unset($parameters[$property]);
                     break;
 
                 case 'next_backup_window':
                     $this->nextBackupWindow = new NextBackupWindow($value);
+                    unset($parameters[$property]);
                     break;
-
-                default:
-                    $this->{\DigitalOceanV2\convert_to_camel_case($property)} = $value;
             }
         }
+
+        parent::build($parameters);
 
         if (is_array($this->features) && count($this->features)) {
             $this->backupsEnabled = in_array('backups', $this->features);

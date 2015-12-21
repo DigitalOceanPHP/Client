@@ -120,9 +120,9 @@ class Droplet extends AbstractApi
             'region' => $region,
             'size' => $size,
             'image' => $image,
-            'backups' => \DigitalOceanV2\bool_to_string($backups),
-            'ipv6' => \DigitalOceanV2\bool_to_string($ipv6),
-            'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking),
+            'backups' => $backups ? 'true' : 'false',
+            'ipv6' => $ipv6 ? 'true' : 'false',
+            'private_networking' => $privateNetworking ? 'true' : 'false',
         ];
 
         if (0 < count($sshKeys)) {
@@ -324,7 +324,7 @@ class Droplet extends AbstractApi
      */
     public function resize($id, $size, $disk = true)
     {
-        return $this->executeAction($id, ['type' => 'resize', 'size' => $size, 'disk' => $disk]);
+        return $this->executeAction($id, ['type' => 'resize', 'size' => $size, 'disk' => $disk ? 'true' : 'false']);
     }
 
     /**

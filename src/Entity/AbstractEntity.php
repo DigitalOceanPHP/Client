@@ -17,73 +17,41 @@ namespace DigitalOceanV2\Entity;
 abstract class AbstractEntity
 {
     /**
-     * @var array
+     * @param \stdClass|array|null $parameters
      */
-    protected $unknownProperties = [];
-
-    /**
-     * @param \stdClass|array $parameters
-     */
-    public function __construct($parameters)
+    public function __construct($parameters = null)
     {
+        if (!$parameters) {
+            return;
+        }
+
+        if ($parameters instanceof \stdClass) {
+            $parameters = get_object_vars($parameters);
+        }
+
         $this->build($parameters);
     }
 
     /**
-     * @param string $property
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return mixed
+     * @param array $parameters
      */
-    public function __get($property)
+    public function build(array $parameters)
     {
-        if (!property_exists($this, $property)) {
-            if (array_key_exists($property, $this->unknownProperties)) {
-                return $this->unknownProperties[$property];
+        foreach ($parameters as $property => $value) {
+            $property = lcfirst(preg_replace_callback('/(^|_)([a-z])/', function ($match) {
+                return strtoupper($match[2]);
+            }, $property));
+
+            if (property_exists($this, $property)) {
+                $this->$property = $value;
             }
-
-            throw new \InvalidArgumentException(sprintf(
-                'Property "%s::%s" does not exist.', get_class($this), $property
-            ));
-        }
-    }
-
-    /**
-     * @param string $property
-     * @param mixed  $value
-     */
-    public function __set($property, $value)
-    {
-        if (!property_exists($this, $property)) {
-            $this->unknownProperties[$property] = $value;
-        }
-    }
-
-    /**
-     * @return array
-     */
-    public function getUnknownProperties()
-    {
-        return $this->unknownProperties;
-    }
-
-    /**
-     * @param \stdClass|array $parameters
-     */
-    public function build($parameters)
-    {
-        foreach ((array) $parameters as $property => $value) {
-            $property = \DigitalOceanV2\convert_to_camel_case($property);
-
-            $this->$property = $value;
         }
     }
 
     /**
      * @param string $date DateTime string
      *
-     * @return null|string DateTime in ISO8601 format
+     * @return string|null DateTime in ISO8601 format
      */
     protected function convertDateTime($date)
     {

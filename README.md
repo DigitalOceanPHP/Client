@@ -181,14 +181,6 @@ $digitalocean = new DigitalOceanV2($adapter);
 // ...
 ```
 
-Entities
---------
-
-Every entity has the `getUnknownProperties` method which will return an `array` of properties set with unknown
-properties by the entity. This will prevent the library to
-[fail](https://github.com/toin0u/DigitalOceanV2/pull/79#issuecomment-74075046). This should be removed when the API
-will be released as stable.
-
 Account
 -------
 
