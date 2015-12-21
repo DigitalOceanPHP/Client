@@ -2,7 +2,6 @@
 
 namespace DigitalOceanV2\Adapter;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Event\CompleteEvent;
@@ -28,31 +27,23 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     protected $response;
 
     /**
-     * @var ExceptionInterface
+     * @param string               $token
+     * @param ClientInterface|null $client
      */
-    protected $exception;
-
-    /**
-     * @param string             $accessToken
-     * @param ClientInterface    $client
-     * @param ExceptionInterface $exception
-     */
-    public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
+    public function __construct($token, ClientInterface $client = null)
     {
         if (version_compare(ClientInterface::VERSION, '6') === 1) {
-            $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $accessToken)]]);
+            $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
         } else {
             $this->client = $client ?: new Client();
 
-            $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $accessToken));
+            $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
 
-            $this->client->getEmitter()->on('complete', function (CompleteEvent $e) {
-                $this->handleResponse($e);
-                $e->stopPropagation();
+            $this->client->getEmitter()->on('complete', function (CompleteEvent $event) {
+                $this->handleResponse($event);
+                $event->stopPropagation();
             });
         }
-
-        $this->exception = $exception;
     }
 
     /**
@@ -152,7 +143,7 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * @param CompleteEvent $event
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      */
     protected function handleResponse(CompleteEvent $event)
     {
@@ -166,16 +157,12 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      */
     protected function handleException()
     {
         $body = (string) $this->response->getBody();
         $code = (int) $this->response->getStatusCode();
-
-        if ($this->exception) {
-            return $this->exception->create($body, $code);
-        }
 
         $content = json_decode($body);
 

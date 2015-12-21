@@ -11,7 +11,6 @@
 
 namespace DigitalOceanV2\Adapter;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use Guzzle\Common\Event;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
@@ -34,31 +33,19 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     protected $response;
 
     /**
-     * @var ExceptionInterface
+     * @param string               $token
+     * @param ClientInterface|null $client
      */
-    protected $exception;
-
-    /**
-     * @param string             $accessToken
-     * @param ClientInterface    $client
-     * @param ExceptionInterface $exception
-     */
-    public function __construct($accessToken, ClientInterface $client = null, ExceptionInterface $exception = null)
+    public function __construct($token, ClientInterface $client = null)
     {
-        $that = $this;
         $this->client = $client ?: new Client();
-        $this->exception = $exception;
 
-        $this->client
+        $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
 
-            // Set default Bearer header for all request
-            ->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $accessToken))
-
-            // Subscribe completed request event
-            ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
-                $that->handleResponse($event);
-                $event->stopPropagation();
-            });
+        $this->client->setDefaultOption('events/request.complete', function (Event $event) {
+            $this->handleResponse($event);
+            $event->stopPropagation();
+        });
     }
 
     /**
@@ -136,7 +123,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * @param Event $event
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      */
     protected function handleResponse(Event $event)
     {
@@ -148,10 +135,6 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 
         $body = $this->response->getBody(true);
         $code = $this->response->getStatusCode();
-
-        if ($this->exception) {
-            throw $this->exception->create($body, $code);
-        }
 
         $content = json_decode($body);
 

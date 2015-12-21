@@ -20,7 +20,7 @@ interface AdapterInterface
     /**
      * @param string $url
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      *
      * @return string
      */
@@ -29,7 +29,7 @@ interface AdapterInterface
     /**
      * @param string $url
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      */
     public function delete($url);
 
@@ -37,7 +37,7 @@ interface AdapterInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      *
      * @return string
      */
@@ -47,7 +47,7 @@ interface AdapterInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws \RuntimeException
      *
      * @return string
      */
