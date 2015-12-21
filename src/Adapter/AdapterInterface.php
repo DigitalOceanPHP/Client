@@ -27,36 +27,33 @@ interface AdapterInterface
 
     /**
      * @param string $url
-     * @param array  $headers
      *
      * @throws \RuntimeException|ExceptionInterface
      */
-    public function delete($url, array $headers = []);
+    public function delete($url);
 
     /**
-     * @param string $url
-     * @param array  $headers
-     * @param string $content
+     * @param string       $url
+     * @param array|string $content
      *
      * @throws \RuntimeException|ExceptionInterface
      *
      * @return string
      */
-    public function put($url, array $headers = [], $content = '');
+    public function put($url, $content = '');
 
     /**
-     * @param string $url
-     * @param array  $headers
-     * @param string $content
+     * @param string       $url
+     * @param array|string $content
      *
      * @throws \RuntimeException|ExceptionInterface
      *
      * @return string
      */
-    public function post($url, array $headers = [], $content = '');
+    public function post($url, $content = '');
 
     /**
-     * @return null|array
+     * @return array|null
      */
     public function getLatestResponseHeaders();
 }

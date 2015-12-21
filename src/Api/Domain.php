@@ -24,6 +24,7 @@ class Domain extends AbstractApi
     public function getAll()
     {
         $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+
         $domains = json_decode($domains);
 
         $this->extractMeta($domains);
@@ -43,6 +44,7 @@ class Domain extends AbstractApi
     public function getByName($domainName)
     {
         $domain = $this->adapter->get(sprintf('%s/domains/%s', self::ENDPOINT, $domainName));
+
         $domain = json_decode($domain);
 
         return new DomainEntity($domain->domain);
@@ -58,10 +60,10 @@ class Domain extends AbstractApi
      */
     public function create($name, $ipAddress)
     {
-        $headers = ['Content-Type' => 'application/json'];
-        $content = json_encode(['name' => $name, 'ip_address' => $ipAddress]);
+        $content = ['name' => $name, 'ip_address' => $ipAddress];
 
-        $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $headers, $content);
+        $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $content);
+
         $domain = json_decode($domain);
 
         return new DomainEntity($domain->domain);
@@ -74,7 +76,6 @@ class Domain extends AbstractApi
      */
     public function delete($domain)
     {
-        $headers = ['Content-Type: application/x-www-form-urlencoded'];
-        $this->adapter->delete(sprintf('%s/domains/%s', self::ENDPOINT, $domain), $headers);
+        $this->adapter->delete(sprintf('%s/domains/%s', self::ENDPOINT, $domain));
     }
 }

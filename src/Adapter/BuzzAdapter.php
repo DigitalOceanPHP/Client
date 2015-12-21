@@ -62,9 +62,9 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, array $headers = [])
+    public function delete($url)
     {
-        $response = $this->browser->delete($url, $headers);
+        $response = $this->browser->delete($url);
 
         if (!$response->isSuccessful()) {
             throw $this->handleResponse($response);
@@ -74,8 +74,15 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, array $headers = [], $content = '')
+    public function put($url, $content = '')
     {
+        $headers = [];
+
+        if (is_array($content)) {
+            $content = json_encode($content);
+            $headers[] = 'Content-Type: application/json';
+        }
+
         $response = $this->browser->put($url, $headers, $content);
 
         if (!$response->isSuccessful()) {
@@ -88,8 +95,15 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, array $headers = [], $content = '')
+    public function post($url, $content = '')
     {
+        $headers = [];
+
+        if (is_array($content)) {
+            $content = json_encode($content);
+            $headers[] = 'Content-Type: application/json';
+        }
+
         $response = $this->browser->post($url, $headers, $content);
 
         if (!$response->isSuccessful()) {
@@ -128,8 +142,6 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
 
         $content = json_decode($response->getContent());
 
-        return new \RuntimeException(
-            sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id)
-        );
+        return new \RuntimeException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
     }
 }

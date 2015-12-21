@@ -68,11 +68,10 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, array $headers = [])
+    public function delete($url)
     {
         try {
-            $options = ['headers' => $headers];
-            $this->response = $this->client->delete($url, $options);
+            $this->response = $this->client->delete($url);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
             $this->handleException();
@@ -84,13 +83,18 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, array $headers = [], $content = '')
+    public function put($url, $content = '')
     {
-        try {
-            $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
-                ['headers' => $headers, 'json' => $json] :
-                ['headers' => $headers, 'body' => $content];
+        $options = [];
 
+        if (is_array($content)) {
+            $options['headers']['Content-Type'] = 'application/json';
+            $options[version_compare(ClientInterface::VERSION, '6') ? 'json' : 'body'] = json_encode($content);
+        } else {
+            $options['body'] = $content;
+        }
+
+        try {
             $this->response = $this->client->put($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
@@ -103,13 +107,18 @@ class GuzzleHttpAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, array $headers = [], $content = '')
+    public function post($url, $content = '')
     {
-        try {
-            $options = version_compare(ClientInterface::VERSION, '6') === 1 && ($json = json_decode($content, true)) ?
-                ['headers' => $headers, 'json' => $json] :
-                ['headers' => $headers, 'body' => $content];
+        $options = [];
 
+        if (is_array($content)) {
+            $options['headers']['Content-Type'] = 'application/json';
+            $options[version_compare(ClientInterface::VERSION, '6') ? 'json' : 'body'] = json_encode($content);
+        } else {
+            $options['body'] = $content;
+        }
+
+        try {
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
