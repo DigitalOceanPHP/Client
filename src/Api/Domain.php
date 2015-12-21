@@ -23,7 +23,7 @@ class Domain extends AbstractApi
      */
     public function getAll()
     {
-        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', $this->endpoint, PHP_INT_MAX));
 
         $domains = json_decode($domains);
 
@@ -43,7 +43,7 @@ class Domain extends AbstractApi
      */
     public function getByName($domainName)
     {
-        $domain = $this->adapter->get(sprintf('%s/domains/%s', self::ENDPOINT, $domainName));
+        $domain = $this->adapter->get(sprintf('%s/domains/%s', $this->endpoint, $domainName));
 
         $domain = json_decode($domain);
 
@@ -62,7 +62,7 @@ class Domain extends AbstractApi
     {
         $content = ['name' => $name, 'ip_address' => $ipAddress];
 
-        $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $content);
+        $domain = $this->adapter->post(sprintf('%s/domains', $this->endpoint), $content);
 
         $domain = json_decode($domain);
 
@@ -76,6 +76,6 @@ class Domain extends AbstractApi
      */
     public function delete($domain)
     {
-        $this->adapter->delete(sprintf('%s/domains/%s', self::ENDPOINT, $domain));
+        $this->adapter->delete(sprintf('%s/domains/%s', $this->endpoint, $domain));
     }
 }

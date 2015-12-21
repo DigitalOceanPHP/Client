@@ -27,7 +27,7 @@ class Droplet extends AbstractApi
      */
     public function getAll()
     {
-        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d', $this->endpoint, PHP_INT_MAX));
 
         $droplets = json_decode($droplets);
 
@@ -45,7 +45,7 @@ class Droplet extends AbstractApi
      */
     public function getNeighborsById($id)
     {
-        $droplets = $this->adapter->get(sprintf('%s/droplets/%d/neighbors', self::ENDPOINT, $id));
+        $droplets = $this->adapter->get(sprintf('%s/droplets/%d/neighbors', $this->endpoint, $id));
 
         $droplets = json_decode($droplets);
 
@@ -59,7 +59,7 @@ class Droplet extends AbstractApi
      */
     public function getAllNeighbors()
     {
-        $neighbors = $this->adapter->get(sprintf('%s/reports/droplet_neighbors', self::ENDPOINT));
+        $neighbors = $this->adapter->get(sprintf('%s/reports/droplet_neighbors', $this->endpoint));
 
         $neighbors = json_decode($neighbors);
 
@@ -73,7 +73,7 @@ class Droplet extends AbstractApi
      */
     public function getUpgrades()
     {
-        $upgrades = $this->adapter->get(sprintf('%s/droplet_upgrades', self::ENDPOINT));
+        $upgrades = $this->adapter->get(sprintf('%s/droplet_upgrades', $this->endpoint));
 
         $upgrades = json_decode($upgrades);
 
@@ -91,7 +91,7 @@ class Droplet extends AbstractApi
      */
     public function getById($id)
     {
-        $droplet = $this->adapter->get(sprintf('%s/droplets/%d', self::ENDPOINT, $id));
+        $droplet = $this->adapter->get(sprintf('%s/droplets/%d', $this->endpoint, $id));
 
         $droplet = json_decode($droplet);
 
@@ -133,7 +133,7 @@ class Droplet extends AbstractApi
             $data['user_data'] = $userData;
         }
 
-        $droplet = $this->adapter->post(sprintf('%s/droplets', self::ENDPOINT), $data);
+        $droplet = $this->adapter->post(sprintf('%s/droplets', $this->endpoint), $data);
 
         $droplet = json_decode($droplet);
 
@@ -147,7 +147,7 @@ class Droplet extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/droplets/%d', self::ENDPOINT, $id));
+        $this->adapter->delete(sprintf('%s/droplets/%d', $this->endpoint, $id));
     }
 
     /**
@@ -159,7 +159,7 @@ class Droplet extends AbstractApi
      */
     public function getAvailableKernels($id)
     {
-        $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', self::ENDPOINT, $id));
+        $kernels = $this->adapter->get(sprintf('%s/droplets/%d/kernels', $this->endpoint, $id));
 
         $kernels = json_decode($kernels);
 
@@ -177,7 +177,7 @@ class Droplet extends AbstractApi
      */
     public function getSnapshots($id)
     {
-        $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', self::ENDPOINT, $id, PHP_INT_MAX));
+        $snapshots = $this->adapter->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
 
         $snapshots = json_decode($snapshots);
 
@@ -197,7 +197,7 @@ class Droplet extends AbstractApi
      */
     public function getBackups($id)
     {
-        $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups?per_page=%d', self::ENDPOINT, $id, PHP_INT_MAX));
+        $backups = $this->adapter->get(sprintf('%s/droplets/%d/backups?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
 
         $backups = json_decode($backups);
 
@@ -215,7 +215,7 @@ class Droplet extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions?per_page=%d', self::ENDPOINT, $id, PHP_INT_MAX));
+        $actions = $this->adapter->get(sprintf('%s/droplets/%d/actions?per_page=%d', $this->endpoint, $id, PHP_INT_MAX));
 
         $actions = json_decode($actions);
 
@@ -234,7 +234,7 @@ class Droplet extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->adapter->get(sprintf('%s/droplets/%d/actions/%d', self::ENDPOINT, $id, $actionId));
+        $action = $this->adapter->get(sprintf('%s/droplets/%d/actions/%d', $this->endpoint, $id, $actionId));
 
         $action = json_decode($action);
 
@@ -438,7 +438,7 @@ class Droplet extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $action = $this->adapter->post(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $id), $options);
+        $action = $this->adapter->post(sprintf('%s/droplets/%d/actions', $this->endpoint, $id), $options);
 
         $action = json_decode($action);
 

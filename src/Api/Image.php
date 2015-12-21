@@ -26,7 +26,7 @@ class Image extends AbstractApi
      */
     public function getAll(array $criteria = [])
     {
-        $query = sprintf('%s/images?per_page=%d', self::ENDPOINT, PHP_INT_MAX);
+        $query = sprintf('%s/images?per_page=%d', $this->endpoint, PHP_INT_MAX);
 
         if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'])) {
             $query = sprintf('%s&type=%s', $query, $criteria['type']);
@@ -54,7 +54,7 @@ class Image extends AbstractApi
      */
     public function getById($id)
     {
-        $image = $this->adapter->get(sprintf('%s/images/%d', self::ENDPOINT, $id));
+        $image = $this->adapter->get(sprintf('%s/images/%d', $this->endpoint, $id));
 
         $image = json_decode($image);
 
@@ -68,7 +68,7 @@ class Image extends AbstractApi
      */
     public function getBySlug($slug)
     {
-        $image = $this->adapter->get(sprintf('%s/images/%s', self::ENDPOINT, $slug));
+        $image = $this->adapter->get(sprintf('%s/images/%s', $this->endpoint, $slug));
 
         $image = json_decode($image);
 
@@ -85,7 +85,7 @@ class Image extends AbstractApi
      */
     public function update($id, $name)
     {
-        $image = $this->adapter->put(sprintf('%s/images/%d', self::ENDPOINT, $id), ['name' => $name]);
+        $image = $this->adapter->put(sprintf('%s/images/%d', $this->endpoint, $id), ['name' => $name]);
 
         $image = json_decode($image);
 
@@ -99,7 +99,7 @@ class Image extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/images/%d', self::ENDPOINT, $id));
+        $this->adapter->delete(sprintf('%s/images/%d', $this->endpoint, $id));
     }
 
     /**
@@ -112,7 +112,7 @@ class Image extends AbstractApi
      */
     public function transfer($id, $regionSlug)
     {
-        $action = $this->adapter->post(sprintf('%s/images/%d/actions', self::ENDPOINT, $id), ['type' => 'transfer', 'region' => $regionSlug]);
+        $action = $this->adapter->post(sprintf('%s/images/%d/actions', $this->endpoint, $id), ['type' => 'transfer', 'region' => $regionSlug]);
 
         $action = json_decode($action);
 
@@ -127,7 +127,7 @@ class Image extends AbstractApi
      */
     public function getAction($id, $actionId)
     {
-        $action = $this->adapter->get(sprintf('%s/images/%d/actions/%d', self::ENDPOINT, $id, $actionId));
+        $action = $this->adapter->get(sprintf('%s/images/%d/actions/%d', $this->endpoint, $id, $actionId));
 
         $action = json_decode($action);
 

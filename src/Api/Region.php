@@ -23,7 +23,7 @@ class Region extends AbstractApi
      */
     public function getAll()
     {
-        $regions = $this->adapter->get(sprintf('%s/regions?per_page=%d', self::ENDPOINT, PHP_INT_MAX));
+        $regions = $this->adapter->get(sprintf('%s/regions?per_page=%d', $this->endpoint, PHP_INT_MAX));
 
         $regions = json_decode($regions);
 

@@ -25,7 +25,7 @@ class DomainRecord extends AbstractApi
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', self::ENDPOINT, $domainName, PHP_INT_MAX));
+        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, PHP_INT_MAX));
 
         $domainRecords = json_decode($domainRecords);
 
@@ -44,7 +44,7 @@ class DomainRecord extends AbstractApi
      */
     public function getById($domainName, $id)
     {
-        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $id));
+        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $id));
 
         $domainRecords = json_decode($domainRecords);
 
@@ -97,7 +97,7 @@ class DomainRecord extends AbstractApi
                 throw new \RuntimeException('Domain record type is invalid.');
         }
 
-        $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', self::ENDPOINT, $domainName), $content);
+        $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
 
         $domainRecord = json_decode($domainRecord);
 
@@ -143,7 +143,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $fields);
+        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId), $fields);
 
         $domainRecord = json_decode($domainRecord);
 
@@ -156,6 +156,6 @@ class DomainRecord extends AbstractApi
      */
     public function delete($domainName, $recordId)
     {
-        $this->adapter->delete(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId));
+        $this->adapter->delete(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId));
     }
 }
