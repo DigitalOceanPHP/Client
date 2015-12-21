@@ -25,6 +25,7 @@ use DigitalOceanV2\Api\Size;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class DigitalOceanV2
 {

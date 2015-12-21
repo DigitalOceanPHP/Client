@@ -3,8 +3,8 @@
 namespace spec\DigitalOceanV2\Adapter;
 
 use Guzzle\Http\Client;
-use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\EntityEnclosingRequest;
+use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
 use Prophecy\Argument;
 
