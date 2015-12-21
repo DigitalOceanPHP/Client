@@ -4,6 +4,7 @@ namespace spec\DigitalOceanV2\Adapter;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Response;
 use Prophecy\Argument;
 
@@ -33,40 +34,66 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_delete($client, Request $request, Response $response)
+    function it_can_delete($client, EntityEnclosingRequest $request, Response $response)
     {
-        $client->delete('http://sbin.dk/123', ['foo' => 'bar'])->willReturn($request);
+        $client->delete('http://sbin.dk/123')->willReturn($request);
         $request->send()->willReturn($response);
 
         $response->isSuccessful()->willReturn(false);
         $response->getBody(true)->willReturn('{"foo":"bar"}');
 
-        $this->delete('http://sbin.dk/123', ['foo' => 'bar']);
+        $this->delete('http://sbin.dk/123');
     }
 
-    function it_can_put($client, Request $request, Response $response)
+    function it_can_put_basic($client, EntityEnclosingRequest $request, Response $response)
     {
-        $client->put('http://sbin.dk/456', ['content-type' => 'application/json'], '{"foo":"bar"}')->willReturn($request);
+        $client->put('http://sbin.dk/456')->willReturn($request);
+        $request->setBody('')->willReturn($request);
+        $request->send()->willReturn($response);
+
+        $response->isSuccessful()->willReturn(true);
+        $response->getBody(true)->willReturn('foo');
+
+        $this->put('http://sbin.dk/456')->shouldBe('foo');
+    }
+
+    function it_can_put_array($client, EntityEnclosingRequest $request, Response $response)
+    {
+        $client->put('http://sbin.dk/456')->willReturn($request);
+        $request->setBody('{"foo":"bar"}', 'application/json')->willReturn($request);
         $request->send()->willReturn($response);
 
         $response->isSuccessful()->willReturn(true);
         $response->getBody(true)->willReturn('{"foo":"bar"}');
 
-        $this->put('http://sbin.dk/456', ['content-type' => 'application/json'], '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
+        $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post($client, Request $request, Response $response)
+    function it_can_post_basic($client, EntityEnclosingRequest $request, Response $response)
     {
-        $client->post('http://sbin.dk/456', ['content-type' => 'application/json'], '{"foo":"bar"}')->willReturn($request);
+        $client->post('http://sbin.dk/456')->willReturn($request);
+        $request->setBody('')->willReturn($request);
         $request->send()->willReturn($response);
 
         $response->isSuccessful()->willReturn(true);
         $response->getBody(true)->willReturn('{"foo":"bar"}');
 
-        $this->post('http://sbin.dk/456', ['content-type' => 'application/json'], '{"foo":"bar"}')->shouldBe('{"foo":"bar"}');
+        $this->post('http://sbin.dk/456')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_returns_last_response_header($client, Request $request, Response $response)
+    function it_can_post_array($client, EntityEnclosingRequest $request, Response $response)
+    {
+        $client->post('http://sbin.dk/456')->willReturn($request);
+        $request->setBody('{"foo":"bar"}', 'application/json')->willReturn($request);
+        $request->send()->willReturn($response);
+
+        $response->isSuccessful()->willReturn(true);
+        $response->getBody(true)->willReturn('{"foo":"bar"}');
+
+        $this->post('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
+    }
+
+    function it_returns_last_response_header($client, EntityEnclosingRequest $request, Response $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);
