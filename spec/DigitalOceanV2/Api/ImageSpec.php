@@ -3,6 +3,7 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
 
 class ImageSpec extends \PhpSpec\ObjectBehavior
 {
@@ -192,9 +193,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/images/0', ['name' => 'baz-baz'])
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', [0, 'baz-baz']);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('update', [0, 'baz-baz']);
     }
 
     function it_deletes_the_image_and_returns_nothing($adapter)
@@ -210,9 +211,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/images/0')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', [0]);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [0]);
     }
 
     function it_transfer_the_image_to_an_other_region_and_returns_its_image($adapter)
@@ -250,9 +251,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', [0, 'foo']);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('transfer', [0, 'foo']);
     }
 
     function it_can_convert_the_image_to_a_snapshot($adapter)
@@ -315,8 +316,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('getAction', [0, 0]);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('getAction', [0, 0]);
     }
 }

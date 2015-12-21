@@ -15,6 +15,7 @@ use Buzz\Browser;
 use Buzz\Client\Curl;
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -131,6 +132,6 @@ class BuzzAdapter implements AdapterInterface
     {
         $content = json_decode($response->getContent());
 
-        throw new \RuntimeException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
+        throw new HttpException(sprintf('[%d] %s (%s)', $response->getStatusCode(), $content->message, $content->id));
     }
 }

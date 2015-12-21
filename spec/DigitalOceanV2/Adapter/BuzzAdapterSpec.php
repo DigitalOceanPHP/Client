@@ -5,6 +5,7 @@ namespace spec\DigitalOceanV2\Adapter;
 use Buzz\Browser;
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
+use DigitalOceanV2\Exception\HttpException;
 
 class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {
@@ -38,7 +39,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(404);
         $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
 
-        $this->shouldThrow(new \RuntimeException('[404] error message (error id)'))->duringGet('http://sbin.dk');
+        $this->shouldThrow(new HttpException('[404] error message (error id)'))->duringGet('http://sbin.dk');
     }
 
     function it_can_delete($browser, Response $response)
@@ -58,7 +59,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
 
-        $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringDelete('http://sbin.dk/123');
+        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringDelete('http://sbin.dk/123');
     }
 
     function it_can_put_basic($browser, Response $response)
@@ -89,7 +90,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
 
-        $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringPut('http://sbin.dk', ['foo' => 'bar']);
+        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringPut('http://sbin.dk', ['foo' => 'bar']);
     }
 
     function it_can_post_basic($browser, Response $response)
@@ -120,7 +121,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error id", "message":"error message"}');
 
-        $this->shouldThrow(new \RuntimeException('[500] error message (error id)'))->duringPost('http://sbin.dk', ['foo' => 'bar']);
+        $this->shouldThrow(new HttpException('[500] error message (error id)'))->duringPost('http://sbin.dk', ['foo' => 'bar']);
     }
 
     function it_returns_last_response_header($browser, Response $response)

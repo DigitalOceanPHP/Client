@@ -12,6 +12,8 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
+use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\InvalidRecordException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -61,7 +63,7 @@ class DomainRecord extends AbstractApi
      * @param int    $port
      * @param int    $weight
      *
-     * @throws \RuntimeException
+     * @throws HttpException|InvalidRecordException
      *
      * @return DomainRecordEntity
      */
@@ -95,7 +97,7 @@ class DomainRecord extends AbstractApi
                 break;
 
             default:
-                throw new \RuntimeException('Domain record type is invalid.');
+                throw new InvalidRecordException('The domain record type is invalid.');
         }
 
         $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
@@ -110,7 +112,7 @@ class DomainRecord extends AbstractApi
      * @param int    $recordId
      * @param string $name
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DomainRecordEntity
      */
@@ -124,7 +126,7 @@ class DomainRecord extends AbstractApi
      * @param int    $recordId
      * @param string $data
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DomainRecordEntity
      */
@@ -138,7 +140,7 @@ class DomainRecord extends AbstractApi
      * @param int    $recordId
      * @param array  $fields
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DomainRecordEntity
      */

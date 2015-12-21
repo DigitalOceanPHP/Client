@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Domain as DomainEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -38,7 +39,7 @@ class Domain extends AbstractApi
     /**
      * @param string $domainName
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DomainEntity
      */
@@ -55,7 +56,7 @@ class Domain extends AbstractApi
      * @param string $name
      * @param string $ipAddress
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DomainEntity
      */
@@ -73,7 +74,7 @@ class Domain extends AbstractApi
     /**
      * @param string $domain
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($domain)
     {

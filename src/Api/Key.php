@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Key as KeyEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -67,7 +68,7 @@ class Key extends AbstractApi
      * @param string $name
      * @param string $publicKey
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return KeyEntity
      */
@@ -84,7 +85,7 @@ class Key extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return KeyEntity
      */
@@ -100,7 +101,7 @@ class Key extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($id)
     {

@@ -3,6 +3,7 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
 
 class FloatingIpSpec extends \PhpSpec\ObjectBehavior
 {
@@ -90,9 +91,9 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/floating_ips/123456789123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById(123456789123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(123456789123456789);
     }
 
     function it_returns_the_created_floating_id_entity_assigned_to_droplet($adapter)
@@ -126,9 +127,9 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/floating_ips/123')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete(123);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete(123);
     }
 
     function it_returns_an_array_of_floating_ips_action_entity($adapter)

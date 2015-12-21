@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -80,7 +81,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ImageEntity
      */
@@ -96,7 +97,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($id)
     {
@@ -107,7 +108,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $regionSlug
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -123,7 +124,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */

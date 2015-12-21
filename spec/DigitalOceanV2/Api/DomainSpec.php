@@ -3,6 +3,7 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
 
 class DomainSpec extends \PhpSpec\ObjectBehavior
 {
@@ -64,9 +65,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetByName('foo.bar');
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetByName('foo.bar');
     }
 
     function it_returns_the_created_domain_entity($adapter)
@@ -90,9 +91,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/domains', ['name' => 'boo.dk', 'ip_address' => '123456'])
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('boo.dk', '123456');
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringCreate('boo.dk', '123456');
     }
 
     function it_deletes_the_domain_and_returns_nothing($adapter)
@@ -108,8 +109,8 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/domains/qmx.bar')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('qmx.bar');
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete('qmx.bar');
     }
 }

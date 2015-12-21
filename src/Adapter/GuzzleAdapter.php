@@ -11,6 +11,7 @@
 
 namespace DigitalOceanV2\Adapter;
 
+use DigitalOceanV2\Exception\HttpException;
 use Guzzle\Common\Event;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
@@ -123,7 +124,7 @@ class GuzzleAdapter implements AdapterInterface
     /**
      * @param Event $event
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     protected function handleResponse(Event $event)
     {
@@ -138,6 +139,6 @@ class GuzzleAdapter implements AdapterInterface
 
         $content = json_decode($body);
 
-        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        throw new HttpException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
     }
 }

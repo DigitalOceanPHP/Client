@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\FloatingIp as FloatingIpEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -54,7 +55,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $dropletId
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return FloatingIpEntity
      */
@@ -70,7 +71,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param string $regionSlug
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return FloatingIpEntity
      */
@@ -86,7 +87,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($id)
     {
@@ -130,7 +131,7 @@ class FloatingIp extends AbstractApi
      * @param int $id
      * @param int $dropletId
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -142,7 +143,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -155,7 +156,7 @@ class FloatingIp extends AbstractApi
      * @param int   $id
      * @param array $options
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */

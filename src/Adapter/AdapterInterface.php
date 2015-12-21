@@ -11,6 +11,8 @@
 
 namespace DigitalOceanV2\Adapter;
 
+use DigitalOceanV2\Exception\HttpException;
+
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
@@ -20,7 +22,7 @@ interface AdapterInterface
     /**
      * @param string $url
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return string
      */
@@ -29,7 +31,7 @@ interface AdapterInterface
     /**
      * @param string $url
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($url);
 
@@ -37,7 +39,7 @@ interface AdapterInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return string
      */
@@ -47,7 +49,7 @@ interface AdapterInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return string
      */

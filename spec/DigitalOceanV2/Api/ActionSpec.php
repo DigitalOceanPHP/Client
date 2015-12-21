@@ -3,6 +3,7 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
 
 class ActionSpec extends \PhpSpec\ObjectBehavior
 {
@@ -142,8 +143,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/123456789123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById(123456789123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(123456789123456789);
     }
 }

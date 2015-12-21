@@ -16,6 +16,7 @@ use DigitalOceanV2\Entity\Droplet as DropletEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Kernel as KernelEntity;
 use DigitalOceanV2\Entity\Upgrade as UpgradeEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -86,7 +87,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DropletEntity
      */
@@ -110,7 +111,7 @@ class Droplet extends AbstractApi
      * @param int[]        $sshKeys
      * @param string       $userData
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return DropletEntity|null
      */
@@ -149,7 +150,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      */
     public function delete($id)
     {
@@ -159,7 +160,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return KernelEntity[]
      */
@@ -250,7 +251,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -262,7 +263,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -274,7 +275,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -286,7 +287,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -298,7 +299,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -310,7 +311,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -324,7 +325,7 @@ class Droplet extends AbstractApi
      * @param string $size
      * @param bool   $disk
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -337,7 +338,7 @@ class Droplet extends AbstractApi
      * @param int $id
      * @param int $image
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -350,7 +351,7 @@ class Droplet extends AbstractApi
      * @param int        $id
      * @param int|string $image
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -363,7 +364,7 @@ class Droplet extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -376,7 +377,7 @@ class Droplet extends AbstractApi
      * @param int $id
      * @param int $kernel
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -388,7 +389,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -400,7 +401,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -412,7 +413,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -424,7 +425,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -437,7 +438,7 @@ class Droplet extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */
@@ -450,7 +451,7 @@ class Droplet extends AbstractApi
      * @param int   $id
      * @param array $options
      *
-     * @throws \RuntimeException
+     * @throws HttpException
      *
      * @return ActionEntity
      */

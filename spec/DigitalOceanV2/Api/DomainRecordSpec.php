@@ -3,6 +3,8 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\InvalidRecordException;
 
 class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 {
@@ -69,9 +71,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById('foo.dk', 123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById('foo.dk', 123456789);
     }
 
     function it_returns_the_created_domain_record_type_a($adapter)
@@ -257,7 +259,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     function it_throws_a_runtime_exception_if_unknown_type()
     {
         $this
-            ->shouldThrow(new \RuntimeException('Domain record type is invalid.'))
+            ->shouldThrow(new InvalidRecordException('Tye domain record type is invalid.'))
             ->duringCreate('foo.dk', 'foo_bar', 'name', 'data');
     }
 
@@ -317,9 +319,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
     }
 
     function it_deletes_given_domain_record_and_returns_nothing($adapter)
@@ -335,8 +337,8 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete('foo.dk', 123);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete('foo.dk', 123);
     }
 }

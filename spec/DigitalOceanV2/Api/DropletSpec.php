@@ -3,6 +3,7 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\Exception\HttpException;
 
 class DropletSpec extends \PhpSpec\ObjectBehavior
 {
@@ -242,9 +243,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123456789123456789')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringGetById(123456789123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(123456789123456789);
     }
 
     function it_returns_the_created_droplet_entity_without_ssh_keys($adapter)
@@ -292,9 +293,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/droplets',
                 ['name' => 'foo', 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false']
             )
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringCreate('foo', 'nyc1', '512mb', 123456);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringCreate('foo', 'nyc1', '512mb', 123456);
     }
 
     function it_deletes_the_droplet_and_returns_nothing($adapter)
@@ -310,9 +311,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/droplets/123')
-            ->willThrow(new \RuntimeException('Request not processed.'));
+            ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->duringDelete(123);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete(123);
     }
 
     function it_returns_an_array_of_droplets_kernel_entity($adapter)
