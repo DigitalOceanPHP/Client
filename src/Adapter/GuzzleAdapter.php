@@ -73,7 +73,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, array $headers = array())
+    public function delete($url, array $headers = [])
     {
         $this->response = $this->client->delete($url, $headers)->send();
 
@@ -83,7 +83,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, array $headers = array(), $content = '')
+    public function put($url, array $headers = [], $content = '')
     {
         $request = $this->client->put($url, $headers, $content);
         $this->response = $request->send();
@@ -94,7 +94,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, array $headers = array(), $content = '')
+    public function post($url, array $headers = [], $content = '')
     {
         $request = $this->client->post($url, $headers, $content);
         $this->response = $request->send();
@@ -111,11 +111,11 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             return;
         }
 
-        return array(
+        return [
             'reset' => (int) (string) $this->response->getHeader('RateLimit-Reset'),
             'remaining' => (int) (string) $this->response->getHeader('RateLimit-Remaining'),
             'limit' => (int) (string) $this->response->getHeader('RateLimit-Limit'),
-        );
+        ];
     }
 
     /**

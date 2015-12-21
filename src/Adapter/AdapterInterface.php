@@ -31,7 +31,7 @@ interface AdapterInterface
      *
      * @throws \RuntimeException|ExceptionInterface
      */
-    public function delete($url, array $headers = array());
+    public function delete($url, array $headers = []);
 
     /**
      * @param string $url
@@ -42,7 +42,7 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function put($url, array $headers = array(), $content = '');
+    public function put($url, array $headers = [], $content = '');
 
     /**
      * @param string $url
@@ -53,7 +53,7 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function post($url, array $headers = array(), $content = '');
+    public function post($url, array $headers = [], $content = '');
 
     /**
      * @return null|array

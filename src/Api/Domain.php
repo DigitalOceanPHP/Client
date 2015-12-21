@@ -58,8 +58,8 @@ class Domain extends AbstractApi
      */
     public function create($name, $ipAddress)
     {
-        $headers = array('Content-Type: application/json');
-        $content = json_encode(array('name' => $name, 'ip_address' => $ipAddress));
+        $headers = ['Content-Type: application/json'];
+        $content = json_encode(['name' => $name, 'ip_address' => $ipAddress]);
 
         $domain = $this->adapter->post(sprintf('%s/domains', self::ENDPOINT), $headers, $content);
         $domain = json_decode($domain);
@@ -74,7 +74,7 @@ class Domain extends AbstractApi
      */
     public function delete($domain)
     {
-        $headers = array('Content-Type: application/x-www-form-urlencoded');
+        $headers = ['Content-Type: application/x-www-form-urlencoded'];
         $this->adapter->delete(sprintf('%s/domains/%s', self::ENDPOINT, $domain), $headers);
     }
 }

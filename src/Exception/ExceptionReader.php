@@ -45,8 +45,8 @@ class ExceptionReader
 
         // just example to modify message
         $message = str_replace(
-            array('Droplet', 'droplet'),
-            array('Machine', 'machine'),
+            ['Droplet', 'droplet'],
+            ['Machine', 'machine'],
             $message
         );
 

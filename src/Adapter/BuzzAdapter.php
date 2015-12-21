@@ -62,7 +62,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url, array $headers = array())
+    public function delete($url, array $headers = [])
     {
         $response = $this->browser->delete($url, $headers);
 
@@ -74,7 +74,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function put($url, array $headers = array(), $content = '')
+    public function put($url, array $headers = [], $content = '')
     {
         $response = $this->browser->put($url, $headers, $content);
 
@@ -88,7 +88,7 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, array $headers = array(), $content = '')
+    public function post($url, array $headers = [], $content = '')
     {
         $response = $this->browser->post($url, $headers, $content);
 
@@ -108,11 +108,11 @@ class BuzzAdapter extends AbstractAdapter implements AdapterInterface
             return;
         }
 
-        return array(
+        return [
             'reset' => (int) $response->getHeader('RateLimit-Reset'),
             'remaining' => (int) $response->getHeader('RateLimit-Remaining'),
             'limit' => (int) $response->getHeader('RateLimit-Limit'),
-        );
+        ];
     }
 
     /**

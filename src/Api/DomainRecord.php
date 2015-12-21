@@ -64,7 +64,7 @@ class DomainRecord extends AbstractApi
      */
     public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null)
     {
-        $headers = array('Content-Type: application/json');
+        $headers = ['Content-Type: application/json'];
         $content = '';
 
         switch ($type = strtoupper($type)) {
@@ -72,26 +72,26 @@ class DomainRecord extends AbstractApi
             case 'AAAA':
             case 'CNAME':
             case 'TXT':
-                $content .= json_encode(array('name' => $name, 'type' => $type, 'data' => $data));
+                $content .= json_encode(['name' => $name, 'type' => $type, 'data' => $data]);
                 break;
 
             case 'NS':
-                $content .= json_encode(array('type' => $type, 'data' => $data));
+                $content .= json_encode(['type' => $type, 'data' => $data]);
                 break;
 
             case 'SRV':
-                $content .= json_encode(array(
+                $content .= json_encode([
                     'name' => $name,
                     'type' => $type,
                     'data' => $data,
                     'priority' => (int) $priority,
                     'port' => (int) $port,
                     'weight' => (int) $weight,
-                ));
+                ]);
                 break;
 
             case 'MX':
-                $content .= json_encode(array('type' => $type, 'data' => $data, 'priority' => $priority));
+                $content .= json_encode(['type' => $type, 'data' => $data, 'priority' => $priority]);
                 break;
 
             default:
@@ -115,7 +115,7 @@ class DomainRecord extends AbstractApi
      */
     public function update($domainName, $recordId, $name)
     {
-        return $this->updateFields($domainName, $recordId, array('name' => $name));
+        return $this->updateFields($domainName, $recordId, ['name' => $name]);
     }
 
     /**
@@ -129,7 +129,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateData($domainName, $recordId, $data)
     {
-        return $this->updateFields($domainName, $recordId, array('data' => $data));
+        return $this->updateFields($domainName, $recordId, ['data' => $data]);
     }
 
     /**
@@ -143,7 +143,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $headers = array('Content-Type: application/json');
+        $headers = ['Content-Type: application/json'];
         $content = json_encode($fields);
 
         $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers, $content);
@@ -158,7 +158,7 @@ class DomainRecord extends AbstractApi
      */
     public function delete($domainName, $recordId)
     {
-        $headers = array('Content-Type: application/x-www-form-urlencoded');
+        $headers = ['Content-Type: application/x-www-form-urlencoded'];
         $this->adapter->delete(sprintf('%s/domains/%s/records/%d', self::ENDPOINT, $domainName, $recordId), $headers);
     }
 }

@@ -109,11 +109,11 @@ class Droplet extends AbstractApi
      * @return DropletEntity
      */
     public function create($name, $region, $size, $image, $backups = false, $ipv6 = false,
-        $privateNetworking = false, array $sshKeys = array(), $userData = ''
+        $privateNetworking = false, array $sshKeys = [], $userData = ''
     ) {
-        $headers = array('Content-Type: application/json');
+        $headers = ['Content-Type: application/json'];
 
-        $data = array(
+        $data = [
             'name' => $name,
             'region' => $region,
             'size' => $size,
@@ -121,7 +121,7 @@ class Droplet extends AbstractApi
             'backups' => \DigitalOceanV2\bool_to_string($backups),
             'ipv6' => \DigitalOceanV2\bool_to_string($ipv6),
             'private_networking' => \DigitalOceanV2\bool_to_string($privateNetworking),
-        );
+        ];
 
         if (0 < count($sshKeys)) {
             $data['ssh_keys'] = $sshKeys;
@@ -146,7 +146,7 @@ class Droplet extends AbstractApi
      */
     public function delete($id)
     {
-        $headers = array('Content-Type: application/x-www-form-urlencoded');
+        $headers = ['Content-Type: application/x-www-form-urlencoded'];
         $this->adapter->delete(sprintf('%s/droplets/%d', self::ENDPOINT, $id), $headers);
     }
 
@@ -245,7 +245,7 @@ class Droplet extends AbstractApi
      */
     public function reboot($id)
     {
-        return $this->executeAction($id, array('type' => 'reboot'));
+        return $this->executeAction($id, ['type' => 'reboot']);
     }
 
     /**
@@ -257,7 +257,7 @@ class Droplet extends AbstractApi
      */
     public function powerCycle($id)
     {
-        return $this->executeAction($id, array('type' => 'power_cycle'));
+        return $this->executeAction($id, ['type' => 'power_cycle']);
     }
 
     /**
@@ -269,7 +269,7 @@ class Droplet extends AbstractApi
      */
     public function shutdown($id)
     {
-        return $this->executeAction($id, array('type' => 'shutdown'));
+        return $this->executeAction($id, ['type' => 'shutdown']);
     }
 
     /**
@@ -281,7 +281,7 @@ class Droplet extends AbstractApi
      */
     public function powerOff($id)
     {
-        return $this->executeAction($id, array('type' => 'power_off'));
+        return $this->executeAction($id, ['type' => 'power_off']);
     }
 
     /**
@@ -293,7 +293,7 @@ class Droplet extends AbstractApi
      */
     public function powerOn($id)
     {
-        return $this->executeAction($id, array('type' => 'power_on'));
+        return $this->executeAction($id, ['type' => 'power_on']);
     }
 
     /**
@@ -305,7 +305,7 @@ class Droplet extends AbstractApi
      */
     public function passwordReset($id)
     {
-        return $this->executeAction($id, array('type' => 'password_reset'));
+        return $this->executeAction($id, ['type' => 'password_reset']);
     }
 
     /**
@@ -319,7 +319,7 @@ class Droplet extends AbstractApi
      */
     public function resize($id, $size, $disk = true)
     {
-        return $this->executeAction($id, array('type' => 'resize', 'size' => $size, 'disk' => $disk));
+        return $this->executeAction($id, ['type' => 'resize', 'size' => $size, 'disk' => $disk]);
     }
 
     /**
@@ -332,7 +332,7 @@ class Droplet extends AbstractApi
      */
     public function restore($id, $image)
     {
-        return $this->executeAction($id, array('type' => 'restore', 'image' => $image));
+        return $this->executeAction($id, ['type' => 'restore', 'image' => $image]);
     }
 
     /**
@@ -345,7 +345,7 @@ class Droplet extends AbstractApi
      */
     public function rebuild($id, $image)
     {
-        return $this->executeAction($id, array('type' => 'rebuild', 'image' => $image));
+        return $this->executeAction($id, ['type' => 'rebuild', 'image' => $image]);
     }
 
     /**
@@ -358,7 +358,7 @@ class Droplet extends AbstractApi
      */
     public function rename($id, $name)
     {
-        return $this->executeAction($id, array('type' => 'rename', 'name' => $name));
+        return $this->executeAction($id, ['type' => 'rename', 'name' => $name]);
     }
 
     /**
@@ -371,7 +371,7 @@ class Droplet extends AbstractApi
      */
     public function changeKernel($id, $kernel)
     {
-        return $this->executeAction($id, array('type' => 'change_kernel', 'kernel' => $kernel));
+        return $this->executeAction($id, ['type' => 'change_kernel', 'kernel' => $kernel]);
     }
 
     /**
@@ -383,7 +383,7 @@ class Droplet extends AbstractApi
      */
     public function enableIpv6($id)
     {
-        return $this->executeAction($id, array('type' => 'enable_ipv6'));
+        return $this->executeAction($id, ['type' => 'enable_ipv6']);
     }
 
     /**
@@ -395,7 +395,7 @@ class Droplet extends AbstractApi
      */
     public function disableBackups($id)
     {
-        return $this->executeAction($id, array('type' => 'disable_backups'));
+        return $this->executeAction($id, ['type' => 'disable_backups']);
     }
 
     /**
@@ -407,7 +407,7 @@ class Droplet extends AbstractApi
      */
     public function enablePrivateNetworking($id)
     {
-        return $this->executeAction($id, array('type' => 'enable_private_networking'));
+        return $this->executeAction($id, ['type' => 'enable_private_networking']);
     }
 
     /**
@@ -420,7 +420,7 @@ class Droplet extends AbstractApi
      */
     public function snapshot($id, $name)
     {
-        return $this->executeAction($id, array('type' => 'snapshot', 'name' => $name));
+        return $this->executeAction($id, ['type' => 'snapshot', 'name' => $name]);
     }
 
     /**
@@ -433,7 +433,7 @@ class Droplet extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $headers = array('Content-Type: application/json');
+        $headers = ['Content-Type: application/json'];
         $content = json_encode($options);
 
         $action = $this->adapter->post(sprintf('%s/droplets/%d/actions', self::ENDPOINT, $id), $headers, $content);
