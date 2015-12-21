@@ -235,7 +235,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":"false","ipv6":"false","private_networking":"false"}'
             )
             ->willReturn('{"droplet": {}}');
@@ -248,13 +248,13 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"bar","region":"nyc2","size":"512mb","image":"ubuntu","backups":"true","ipv6":"true","private_networking":"true","ssh_keys":["123","456","789"]}'
             )
             ->willReturn('{"droplet":{}}');
 
         $this
-            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, array('123', '456', '789'))
+            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, ['123', '456', '789'])
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
@@ -263,7 +263,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"foo","region":"nyc1","size":"512mb","image":123456,"backups":"false","ipv6":"false","private_networking":"false"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
@@ -276,7 +276,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/droplets/123',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->shouldBeCalled();
 
@@ -288,7 +288,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/droplets/123',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
@@ -381,7 +381,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"reboot"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -396,7 +396,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"power_cycle"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -411,7 +411,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"shutdown"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -426,7 +426,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"power_off"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -441,7 +441,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"power_on"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -456,7 +456,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"password_reset"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -471,7 +471,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"resize","size":"1024mb","disk":true}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -486,7 +486,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"restore","image":456}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -501,7 +501,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"rebuild","image":"my-slug"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -516,7 +516,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"change_kernel","kernel":789}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -531,7 +531,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"enable_ipv6"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -546,7 +546,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"disable_backups"}'
             )
             ->willReturn('{"action": {"region": {}}}');
@@ -561,7 +561,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"enable_private_networking"}'
             )
             ->willReturn('{"action": {"region": {}}}');

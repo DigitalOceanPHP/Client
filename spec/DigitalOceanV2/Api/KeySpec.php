@@ -85,7 +85,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/account/keys',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"foo","public_key":"ssh-rsa foobarbaz..."}'
             )
             ->willReturn('
@@ -107,7 +107,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/account/keys/456',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"bar"}'
             )
             ->willReturn('
@@ -129,12 +129,12 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/account/keys/0',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"baz"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz'));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', [0, 'baz']);
     }
 
     function it_deletes_the_key_and_returns_nothing($adapter)
@@ -142,7 +142,7 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/account/keys/678',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->shouldBeCalled();
 
@@ -154,10 +154,10 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/account/keys/0',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', array(0));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', [0]);
     }
 }

@@ -74,7 +74,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"bar.dk","ip_address":"127.0.0.1"}'
             )
             ->willReturn('
@@ -95,7 +95,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"boo.dk","ip_address":"123456"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
@@ -108,7 +108,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/domains/qmx.fr',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->shouldBeCalled();
 
@@ -120,7 +120,7 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/domains/qmx.bar',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 

@@ -25,11 +25,11 @@ class RateLimitSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_rate_limit_entity($adapter)
     {
-        $adapter->getLatestResponseHeaders()->willReturn(array(
+        $adapter->getLatestResponseHeaders()->willReturn([
             'limit' => 1200,
             'remaining' => 1000,
             'reset' => time(),
-        ));
+        ]);
 
         $this->getRateLimit()->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\RateLimit');
     }

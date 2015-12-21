@@ -169,7 +169,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/images/123',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"bar-baz"}'
             )
             ->willReturn('
@@ -197,12 +197,12 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/images/0',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"name":"baz-baz"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', array(0, 'baz-baz'));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('update', [0, 'baz-baz']);
     }
 
     function it_deletes_the_image_and_returns_nothing($adapter)
@@ -210,7 +210,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/images/678',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->shouldBeCalled();
 
@@ -222,11 +222,11 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->delete(
                 'https://api.digitalocean.com/v2/images/0',
-                array('Content-Type: application/x-www-form-urlencoded')
+                ['Content-Type: application/x-www-form-urlencoded']
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', array(0));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('delete', [0]);
     }
 
     function it_transfer_the_image_to_an_other_region_and_returns_its_image($adapter)
@@ -234,7 +234,7 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/images/123/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"transfer","region":"nyc2"}'
             )
             ->willReturn('
@@ -269,12 +269,12 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/images/0/actions',
-                array('Content-Type: application/json'),
+                ['Content-Type: application/json'],
                 '{"type":"transfer","region":"foo"}'
             )
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', array(0, 'foo'));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', [0, 'foo']);
     }
 
     function it_returns_the_requested_action_entity_of_the_given_image($adapter)
@@ -316,6 +316,6 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
             ->willThrow(new \RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('getAction', array(0, 0));
+        $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('getAction', [0, 0]);
     }
 }
