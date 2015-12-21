@@ -23,6 +23,11 @@ final class Account extends AbstractEntity
     public $dropletLimit;
 
     /**
+     * @var int
+     */
+    public $floatingIpLimit;
+
+    /**
      * @var string
      */
     public $email;
@@ -36,4 +41,14 @@ final class Account extends AbstractEntity
      * @var bool
      */
     public $emailVerified;
+
+    /**
+     * @var string
+     */
+    public $status;
+
+    /**
+     * @var string
+     */
+    public $statusMessage;
 }
