@@ -122,6 +122,22 @@ class Image extends AbstractApi
 
     /**
      * @param int $id
+     *
+     * @throws \RuntimeException
+     *
+     * @return ActionEntity
+     */
+    public function convert($id)
+    {
+        $action = $this->adapter->post(sprintf('%s/images/%d/actions', $this->endpoint, $id), ['type' => 'convert']);
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param int $id
      * @param int $actionId
      *
      * @return ActionEntity

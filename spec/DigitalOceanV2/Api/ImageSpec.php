@@ -255,6 +255,31 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new \RuntimeException('Request not processed.'))->during('transfer', [0, 'foo']);
     }
 
+    function it_can_convert_the_image_to_a_snapshot($adapter)
+    {
+        $adapter
+            ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'convert'])
+            ->willReturn('
+                {
+                  "action": {
+                    "id": 22,
+                    "status": "completed",
+                    "type": "convert_to_snapshot",
+                    "started_at": "2015-03-24T19:02:47Z",
+                    "completed_at": "2015-03-24T19:02:47Z",
+                    "resource_id": 449676390,
+                    "resource_type": "image",
+                    "region": null,
+                    "region_slug": null
+                  }
+                }
+            ');
+
+        $image = $this->convert(123);
+        $image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $image->region->shouldReturn(null);
+    }
+
     function it_returns_the_requested_action_entity_of_the_given_image($adapter)
     {
         $adapter
