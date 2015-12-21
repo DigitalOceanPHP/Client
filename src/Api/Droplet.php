@@ -100,31 +100,32 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param string     $name
-     * @param string     $region
-     * @param string     $size
-     * @param string|int $image
-     * @param bool       $backups
-     * @param bool       $ipv6
-     * @param bool       $privateNetworking
-     * @param int[]      $sshKeys
-     * @param string     $userData
+     * @param array|string $names
+     * @param string       $region
+     * @param string       $size
+     * @param string|int   $image
+     * @param bool         $backups
+     * @param bool         $ipv6
+     * @param bool         $privateNetworking
+     * @param int[]        $sshKeys
+     * @param string       $userData
      *
      * @throws \RuntimeException
      *
-     * @return DropletEntity
+     * @return DropletEntity|null
      */
-    public function create($name, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '')
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '')
     {
-        $data = [
-            'name' => $name,
+        $data = is_array($names) ? ['names' => $names] : ['name' => $names];
+
+        $data = array_merge($data, [
             'region' => $region,
             'size' => $size,
             'image' => $image,
             'backups' => $backups ? 'true' : 'false',
             'ipv6' => $ipv6 ? 'true' : 'false',
             'private_networking' => $privateNetworking ? 'true' : 'false',
-        ];
+        ]);
 
         if (0 < count($sshKeys)) {
             $data['ssh_keys'] = $sshKeys;
@@ -135,6 +136,10 @@ class Droplet extends AbstractApi
         }
 
         $droplet = $this->adapter->post(sprintf('%s/droplets', $this->endpoint), $data);
+
+        if (is_array($names)) {
+            return;
+        }
 
         $droplet = json_decode($droplet);
 

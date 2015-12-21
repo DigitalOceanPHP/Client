@@ -273,6 +273,18 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
+    function can_create_multiple_droplets_at_the_same_time($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/droplets',
+                ['names' => ['foo', 'bar'], 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false']
+            )
+            ->willReturn('{"droplet": {}}');
+
+        $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456)->shouldReturn(null);
+    }
+
     function it_throws_an_runtime_exception_if_not_possible_to_create_a_droplet($adapter)
     {
         $adapter
