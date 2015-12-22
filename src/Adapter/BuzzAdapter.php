@@ -13,6 +13,7 @@ namespace DigitalOceanV2\Adapter;
 
 use Buzz\Browser;
 use Buzz\Client\Curl;
+use Buzz\Client\FileGetContents;
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
 use DigitalOceanV2\Exception\HttpException;
@@ -35,7 +36,7 @@ class BuzzAdapter implements AdapterInterface
      */
     public function __construct($token, Browser $browser = null, ListenerInterface $listener = null)
     {
-        $this->browser = $browser ?: new Browser(new Curl());
+        $this->browser = $browser ?: new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
         $this->browser->addListener($listener ?: new BuzzOAuthListener($token));
     }
 
