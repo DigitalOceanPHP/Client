@@ -17,6 +17,7 @@ use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
+use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\RateLimit;
@@ -59,14 +60,6 @@ class DigitalOceanV2
     }
 
     /**
-     * @return Image
-     */
-    public function image()
-    {
-        return new Image($this->adapter);
-    }
-
-    /**
      * @return Domain
      */
     public function domain()
@@ -83,19 +76,27 @@ class DigitalOceanV2
     }
 
     /**
-     * @return Size
+     * @return Droplet
      */
-    public function size()
+    public function droplet()
     {
-        return new Size($this->adapter);
+        return new Droplet($this->adapter);
     }
 
     /**
-     * @return Region
+     * @return FloatingIp
      */
-    public function region()
+    public function floatingIp()
     {
-        return new Region($this->adapter);
+        return new FloatingIp($this->adapter);
+    }
+
+    /**
+     * @return Image
+     */
+    public function image()
+    {
+        return new Image($this->adapter);
     }
 
     /**
@@ -107,18 +108,26 @@ class DigitalOceanV2
     }
 
     /**
-     * @return Droplet
-     */
-    public function droplet()
-    {
-        return new Droplet($this->adapter);
-    }
-
-    /**
      * @return RateLimit
      */
     public function rateLimit()
     {
         return new RateLimit($this->adapter);
+    }
+
+    /**
+     * @return Region
+     */
+    public function region()
+    {
+        return new Region($this->adapter);
+    }
+
+    /**
+     * @return Size
+     */
+    public function size()
+    {
+        return new Size($this->adapter);
     }
 }
