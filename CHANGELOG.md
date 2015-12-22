@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.1.0 (2015-12-22)
+------------------
+
+- Unified exception handling in adapters
+- Support using buzz without curl
+- Added missing floatingIp method
+
 2.0.0 (2015-12-21)
 ------------------
 
