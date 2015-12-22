@@ -39,11 +39,6 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->client = $client ?: new Client();
 
             $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
-
-            $this->client->getEmitter()->on('complete', function (CompleteEvent $event) {
-                $this->handleResponse($event);
-                $event->stopPropagation();
-            });
         }
     }
 
@@ -56,7 +51,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->get($url);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleException();
+            $this->handleError();
         }
 
         return $this->response->getBody();
@@ -71,7 +66,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->delete($url);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleException();
+            $this->handleError();
         }
 
         return $this->response->getBody();
@@ -90,7 +85,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->put($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleException();
+            $this->handleError();
         }
 
         return $this->response->getBody();
@@ -109,7 +104,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->post($url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleException();
+            $this->handleError();
         }
 
         return $this->response->getBody();
@@ -132,25 +127,9 @@ class GuzzleHttpAdapter implements AdapterInterface
     }
 
     /**
-     * @param CompleteEvent $event
-     *
      * @throws HttpException
      */
-    protected function handleResponse(CompleteEvent $event)
-    {
-        $this->response = $event->getResponse();
-
-        if ($this->response->getStatusCode() >= 200 && $this->response->getStatusCode() <= 299) {
-            return;
-        }
-
-        $this->handleException();
-    }
-
-    /**
-     * @throws HttpException
-     */
-    protected function handleException()
+    protected function handleError()
     {
         $body = (string) $this->response->getBody();
         $code = (int) $this->response->getStatusCode();

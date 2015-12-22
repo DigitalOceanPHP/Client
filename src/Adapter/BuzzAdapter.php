@@ -47,9 +47,7 @@ class BuzzAdapter implements AdapterInterface
     {
         $response = $this->browser->get($url);
 
-        if (!$response->isSuccessful()) {
-            $this->handleResponse($response);
-        }
+        $this->handleResponse($response);
 
         return $response->getContent();
     }
@@ -61,9 +59,7 @@ class BuzzAdapter implements AdapterInterface
     {
         $response = $this->browser->delete($url);
 
-        if (!$response->isSuccessful()) {
-            $this->handleResponse($response);
-        }
+        $this->handleResponse($response);
     }
 
     /**
@@ -80,9 +76,7 @@ class BuzzAdapter implements AdapterInterface
 
         $response = $this->browser->put($url, $headers, $content);
 
-        if (!$response->isSuccessful()) {
-            $this->handleResponse($response);
-        }
+        $this->handleResponse($response);
 
         return $response->getContent();
     }
@@ -101,9 +95,7 @@ class BuzzAdapter implements AdapterInterface
 
         $response = $this->browser->post($url, $headers, $content);
 
-        if (!$response->isSuccessful()) {
-            $this->handleResponse($response);
-        }
+        $this->handleResponse($response);
 
         return $response->getContent();
     }
@@ -127,9 +119,23 @@ class BuzzAdapter implements AdapterInterface
     /**
      * @param Response $response
      *
-     * @return \Exception
+     * @throws HttpException
      */
     protected function handleResponse(Response $response)
+    {
+        if ($response->isSuccessful()) {
+            return;
+        }
+
+        $this->handleError($response);
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @throws HttpException
+     */
+    protected function handleError(Response $response)
     {
         $body = (string) $response->getContent();
         $code = (int) $response->getStatusCode();

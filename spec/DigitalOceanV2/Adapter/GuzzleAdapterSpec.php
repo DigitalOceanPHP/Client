@@ -13,7 +13,6 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
     function let(Client $client)
     {
         $client->setDefaultOption('headers/Authorization', 'Bearer my_access_token')->willReturn($client);
-        $client->setDefaultOption('events/request.complete', Argument::type('closure'))->shouldBeCalled();
 
         $this->beConstructedWith('my_access_token', $client);
     }
