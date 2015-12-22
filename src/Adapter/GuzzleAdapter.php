@@ -12,9 +12,9 @@
 namespace DigitalOceanV2\Adapter;
 
 use DigitalOceanV2\Exception\HttpException;
-use Guzzle\Common\Event;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
+use Guzzle\Http\Exception\RequestException;
 use Guzzle\Http\Message\Response;
 
 /**
@@ -42,11 +42,6 @@ class GuzzleAdapter implements AdapterInterface
         $this->client = $client ?: new Client();
 
         $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
-
-        $this->client->setDefaultOption('events/request.complete', function (Event $event) {
-            $this->handleResponse($event);
-            $event->stopPropagation();
-        });
     }
 
     /**
@@ -54,7 +49,12 @@ class GuzzleAdapter implements AdapterInterface
      */
     public function get($url)
     {
-        $this->response = $this->client->get($url)->send();
+        try {
+            $this->response = $this->client->get($url)->send();
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
 
         return $this->response->getBody(true);
     }
@@ -64,7 +64,12 @@ class GuzzleAdapter implements AdapterInterface
      */
     public function delete($url)
     {
-        $this->response = $this->client->delete($url)->send();
+        try {
+            $this->response = $this->client->delete($url)->send();
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
 
         return $this->response->getBody(true);
     }
@@ -82,7 +87,12 @@ class GuzzleAdapter implements AdapterInterface
             $request->setBody($content);
         }
 
-        $this->response = $request->send();
+        try {
+            $this->response = $request->send();
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
 
         return $this->response->getBody(true);
     }
@@ -100,7 +110,12 @@ class GuzzleAdapter implements AdapterInterface
             $request->setBody($content);
         }
 
-        $this->response = $request->send();
+        try {
+            $this->response = $request->send();
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
 
         return $this->response->getBody(true);
     }
@@ -122,18 +137,10 @@ class GuzzleAdapter implements AdapterInterface
     }
 
     /**
-     * @param Event $event
-     *
      * @throws HttpException
      */
-    protected function handleResponse(Event $event)
+    protected function handleError()
     {
-        $this->response = $event['response'];
-
-        if ($this->response->isSuccessful()) {
-            return;
-        }
-
         $body = (string) $this->response->getBody(true);
         $code = (int) $this->response->getStatusCode();
 
