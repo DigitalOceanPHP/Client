@@ -140,7 +140,7 @@ class BuzzAdapter implements AdapterInterface
         $body = (string) $response->getContent();
         $code = (int) $response->getStatusCode();
 
-        $content = json_decode($response->getContent());
+        $content = json_decode($body);
 
         throw new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
