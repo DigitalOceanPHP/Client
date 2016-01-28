@@ -6,7 +6,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequest;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
-use Prophecy\Argument;
 
 class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
 {

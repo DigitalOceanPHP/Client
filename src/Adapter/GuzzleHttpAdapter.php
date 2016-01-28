@@ -5,7 +5,6 @@ namespace DigitalOceanV2\Adapter;
 use DigitalOceanV2\Exception\HttpException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Event\CompleteEvent;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
