@@ -281,7 +281,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/droplets',
                 ['names' => ['foo', 'bar'], 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false']
             )
-            ->willReturn('{"droplet": {}}');
+            ->willReturn('{"droplets": {}}');
 
         $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456)->shouldReturn(null);
     }
