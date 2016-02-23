@@ -138,11 +138,13 @@ class Droplet extends AbstractApi
 
         $droplet = $this->adapter->post(sprintf('%s/droplets', $this->endpoint), $data);
 
-        if (is_array($names)) {
-            return;
-        }
-
         $droplet = json_decode($droplet);
+
+        if (is_array($names)) {
+            return array_map(function ($droplet) {
+                return new DropletEntity($droplet);
+            }, $droplet->droplets);
+        }
 
         return new DropletEntity($droplet->droplet);
     }
