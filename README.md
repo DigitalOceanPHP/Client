@@ -28,7 +28,7 @@ You then need to install **one** of the following:
 ```bash
 $ php composer.phar require kriswallsmith/buzz:~0.10
 $ php composer.phar require guzzle/guzzle:~3.7
-$ php composer.phar require guzzlehttp/guzzle:~5.0|~6.0
+$ php composer.phar require guzzlehttp/guzzle:~5.0\|~6.0
 ```
 
 Or edit `composer.json` and add:
