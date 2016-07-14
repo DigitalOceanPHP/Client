@@ -466,17 +466,6 @@ $volume->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
 $volume->delete('example', 'nyc1');
 ```
 
-Specification tests
--------------------
-
-Install [PHPSpec](http://www.phpspec.net/) [globally](https://getcomposer.org/doc/00-intro.md#globally)
-with composer and run it in the project.
-
-```bash
-$ composer global require phpspec/phpspec:@stable
-$ phpspec run -fpretty
-```
-
 Contributing
 ------------
 
