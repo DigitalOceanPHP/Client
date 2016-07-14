@@ -153,6 +153,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "snapshot_ids": [
                             119192841
                         ],
+                        "volume_ids": [
+                            "123321123",
+                            "789987789"
+                        ],
                         "next_backup_window": {
                             "start": "2015-02-16T19:00:00Z",
                             "end": "2015-02-17T18:00:00Z"
@@ -170,6 +174,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->kernel->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Kernel');
         $droplet->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
         $droplet->image->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+        $droplet->volumeIds[0]->shouldBe("123321123");
+        $droplet->volumeIds[1]->shouldBe("789987789");
         $this->getMeta()->shouldBeNull();
         $droplet->sizeSlug->shouldBe('512mb');
         $droplet->backupsEnabled->shouldBe(true);
