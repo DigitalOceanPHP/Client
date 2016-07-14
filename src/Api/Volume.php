@@ -20,6 +20,7 @@ class Volume extends AbstractApi
 {
     /**
      * @param string $regionSlug restricts results to volumes available in a specific region.
+     *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available.
      */
     public function getAll($regionSlug = NULL)
@@ -39,6 +40,7 @@ class Volume extends AbstractApi
     /**
      * @param string $driveName restricts results to volumes with the specified name.
      * @param string $regionSlug restricts results to volumes available in a specific region.
+     *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available.
      */
     public function getByNameAndRegion($driveName, $regionSlug)
@@ -56,11 +58,38 @@ class Volume extends AbstractApi
 
     /**
      * @param string $id
+     *
      * @return VolumeEntity the Block Storage volume with the specified id.
      */
     public function getById($id)
     {
         $volume = $this->adapter->get(sprintf('%s/volumes/%s?per_page=%d', $this->endpoint, $id, 200));
+
+        $volume = json_decode($volume);
+
+        return new VolumeEntity($volume->volume);
+    }
+
+    /**
+     * @param string $name A human-readable name for the Block Storage volume.
+     * @param string $description Free-form text field to describe a Block Storage volume.
+     * @param string $sizeInGigabytes The size of the Block Storage volume in GiB.
+     * @param string $regionSlug The region where the Block Storage volume will be created.
+     *
+     * @throws HttpException
+     * 
+     * @return VolumeEntity the Block Storage volume that was created.
+     */
+    public function create($name, $description, $sizeInGigabytes, $regionSlug)
+    {
+        $data = [
+            'size_gigabytes' => $sizeInGigabytes,
+            'name' => $name,
+            'description' => $description,
+            'region' => $regionSlug
+        ];
+
+        $volume = $this->adapter->post(sprintf('%s/volumes', $this->endpoint), $data);
 
         $volume = json_decode($volume);
 
