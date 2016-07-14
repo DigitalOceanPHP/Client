@@ -19,7 +19,8 @@ use DigitalOceanV2\Entity\Volume as VolumeEntity;
 class Volume extends AbstractApi
 {
     /**
-     * @return VolumeEntity[]
+     * @param string $regionSlug restricts results to volumes available in a specific region.
+     * @return VolumeEntity[] Lists all of the Block Storage volumes available.
      */
     public function getAll($regionSlug = NULL)
     {
