@@ -93,6 +93,11 @@ final class Droplet extends AbstractEntity
     public $backupIds = [];
 
     /**
+     * @var string[]
+     */
+    public $volumeIds = [];
+
+    /**
      * @var int[]
      */
     public $snapshotIds = [];
