@@ -436,6 +436,36 @@ $rateLimit = $digitalocean->rateLimit();
 $currentLimit = $rateLimit->getRateLimit();
 ```
 
+Volume
+---------
+
+```php
+// ..
+// return the volume api
+$volume = $digitalocean->volume();
+
+// returns the all volumes
+$volumes = $volume->getAll();
+
+// returns the all volumes by region
+$volumes = $volume->getAll('nyc1');
+
+// returns volumes by name and region
+$volumes = $volume->getByNameAndRegion('example', 'nyc1');
+
+// returns a volume by id
+$myvolume = $volume->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
+// creates a volume
+$myvolume = $volume->create('example', 'Block store for examples', 10, 'nyc1');
+
+// deletes a volume by id
+$volume->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
+// deletes a volume by name and region
+$volume->delete('example', 'nyc1');
+```
+
 Specification tests
 -------------------
 

@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.1.1 (Not released yet)
+------------------
+
+- Added support for Volumes (Block Storage)
+
 2.1.0 (2015-12-22)
 ------------------
 
