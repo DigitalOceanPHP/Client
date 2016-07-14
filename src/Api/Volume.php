@@ -53,4 +53,17 @@ class Volume extends AbstractApi
             return new VolumeEntity($volume);
         }, $volumes->volumes);
     }
+
+    /**
+     * @param string $id
+     * @return VolumeEntity the Block Storage volume with the specified id.
+     */
+    public function getById($id)
+    {
+        $volume = $this->adapter->get(sprintf('%s/volumes/%s?per_page=%d', $this->endpoint, $id, 200));
+
+        $volume = json_decode($volume);
+
+        return new VolumeEntity($volume->volume);
+    }
 }
