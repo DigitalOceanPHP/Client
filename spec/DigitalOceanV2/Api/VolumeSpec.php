@@ -330,4 +330,40 @@ EOT;
 
         $this->shouldThrow(new HttpException('Request not processed.'))->duringCreate('example', 'Block store for examples', 10, 'nyc1');
     }
+
+    function it_deletes_the_volume_with_id_and_returns_nothing($adapter)
+    {
+        $adapter
+            ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
+            ->shouldBeCalled();
+
+        $this->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
+    }
+
+    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume($adapter)
+    {
+        $adapter
+            ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
+            ->willThrow(new HttpException('Request not processed.'));
+
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete('506f78a4-e098-11e5-ad9f-000f53306ae1');
+    }
+
+    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing($adapter)
+    {
+        $adapter
+            ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
+            ->shouldBeCalled();
+
+        $this->deleteWithNameAndRegion('example', 'ams1');
+    }
+
+    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume($adapter)
+    {
+        $adapter
+            ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
+            ->willThrow(new HttpException('Request not processed.'));
+
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringDeleteWithNameAndRegion('example', 'ams1');
+    }
 }

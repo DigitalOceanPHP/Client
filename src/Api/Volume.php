@@ -95,4 +95,25 @@ class Volume extends AbstractApi
 
         return new VolumeEntity($volume->volume);
     }
+
+    /**
+     * @param string $id
+     *
+     * @throws HttpException
+     */
+    public function delete($id)
+    {
+        $this->adapter->delete(sprintf('%s/volumes/%s', $this->endpoint, $id));
+    }
+
+    /**
+     * @param string $driveName  restricts the search to volumes with the specified name.
+     * @param string $regionSlug restricts the search to volumes available in a specific region.
+     *
+     * @throws HttpException
+     */
+    public function deleteWithNameAndRegion($driveName, $regionSlug)
+    {
+        $this->adapter->delete(sprintf('%s/volumes?name=%s&region=%s', $this->endpoint, $driveName, $regionSlug));
+    }
 }
