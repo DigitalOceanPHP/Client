@@ -21,9 +21,10 @@ class Volume extends AbstractApi
     /**
      * @return VolumeEntity[]
      */
-    public function getAll()
+    public function getAll($regionSlug = NULL)
     {
-        $volumes = $this->adapter->get(sprintf('%s/volumes?per_page=%d', $this->endpoint, 200));
+        $regionQueryParameter = is_null($regionSlug) ? "" : sprintf("&region=%s", $regionSlug);
+        $volumes = $this->adapter->get(sprintf('%s/volumes?per_page=%d%s', $this->endpoint, 200, $regionQueryParameter));
 
         $volumes = json_decode($volumes);
 
