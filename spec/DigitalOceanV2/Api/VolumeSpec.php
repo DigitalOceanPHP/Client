@@ -78,10 +78,10 @@ EOT;
         $volumes = $this->getAll();
         $volumes->shouldBeArray();
         $volumes->shouldHaveCount($total);
-                
+
         $volumes[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Volume');
         $volumes[0]->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
-        
+
         $meta = $this->getMeta();
         $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
         $meta->total->shouldBe($total);
@@ -136,14 +136,14 @@ EOT;
         $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1')
             ->willReturn($response);
 
-        $volumes = $this->getAll("nyc1");
+        $volumes = $this->getAll('nyc1');
         $volumes->shouldBeArray();
         $volumes->shouldHaveCount($total);
-                
+
         $volumes[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Volume');
         $volumes[0]->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
-        $volumes[0]->region->slug->shouldBeEqualTo("nyc1");
-        
+        $volumes[0]->region->slug->shouldBeEqualTo('nyc1');
+
         $meta = $this->getMeta();
         $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
         $meta->total->shouldBe($total);
@@ -198,15 +198,15 @@ EOT;
         $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1&name=example')
             ->willReturn($response);
 
-        $volumes = $this->getByNameAndRegion("example", "nyc1");
+        $volumes = $this->getByNameAndRegion('example', 'nyc1');
         $volumes->shouldBeArray();
         $volumes->shouldHaveCount($total);
-                
+
         $volumes[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Volume');
-        $volumes[0]->name->shouldBeEqualTo("example");
+        $volumes[0]->name->shouldBeEqualTo('example');
         $volumes[0]->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
-        $volumes[0]->region->slug->shouldBeEqualTo("nyc1");
-        
+        $volumes[0]->region->slug->shouldBeEqualTo('nyc1');
+
         $meta = $this->getMeta();
         $meta->shouldHaveType('DigitalOceanV2\Entity\Meta');
         $meta->total->shouldBe($total);
@@ -254,13 +254,13 @@ EOT;
         $adapter->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1?per_page=200')
             ->willReturn($response);
 
-        $volume = $this->getById("506f78a4-e098-11e5-ad9f-000f53306ae1");
-                
+        $volume = $this->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
         $volume->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Volume');
-        $volume->id->shouldBeEqualTo("506f78a4-e098-11e5-ad9f-000f53306ae1");
-        $volume->name->shouldBeEqualTo("example");
+        $volume->id->shouldBeEqualTo('506f78a4-e098-11e5-ad9f-000f53306ae1');
+        $volume->name->shouldBeEqualTo('example');
         $volume->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
-        $volume->region->slug->shouldBeEqualTo("nyc1");
+        $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
     function it_returns_the_created_volume_entity($adapter)
@@ -312,12 +312,12 @@ EOT;
         $volume = $this->create('example', 'Block store for examples', 10, 'nyc1');
 
         $volume->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Volume');
-        $volume->id->shouldBeEqualTo("506f78a4-e098-11e5-ad9f-000f53306ae1");
-        $volume->name->shouldBeEqualTo("example");
-        $volume->description->shouldBeEqualTo("Block store for examples");
-        $volume->description->shouldBeEqualTo("Block store for examples");
+        $volume->id->shouldBeEqualTo('506f78a4-e098-11e5-ad9f-000f53306ae1');
+        $volume->name->shouldBeEqualTo('example');
+        $volume->description->shouldBeEqualTo('Block store for examples');
+        $volume->description->shouldBeEqualTo('Block store for examples');
         $volume->sizeGigabytes->shouldBeEqualTo(10);
-        $volume->region->slug->shouldBeEqualTo("nyc1");
+        $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
     function it_throws_an_http_exception_if_not_possible_to_create_a_volume($adapter)

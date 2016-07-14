@@ -51,14 +51,13 @@ final class Volume extends AbstractEntity
      */
     public $createdAt;
 
-
     /**
      * @param array $parameters
      */
     public function build(array $parameters)
     {
         parent::build($parameters);
-        
+
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'region':

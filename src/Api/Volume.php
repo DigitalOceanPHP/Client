@@ -23,9 +23,9 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available.
      */
-    public function getAll($regionSlug = NULL)
+    public function getAll($regionSlug = null)
     {
-        $regionQueryParameter = is_null($regionSlug) ? "" : sprintf("&region=%s", $regionSlug);
+        $regionQueryParameter = is_null($regionSlug) ? '' : sprintf('&region=%s', $regionSlug);
         $volumes = $this->adapter->get(sprintf('%s/volumes?per_page=%d%s', $this->endpoint, 200, $regionQueryParameter));
 
         $volumes = json_decode($volumes);
@@ -38,7 +38,7 @@ class Volume extends AbstractApi
     }
 
     /**
-     * @param string $driveName restricts results to volumes with the specified name.
+     * @param string $driveName  restricts results to volumes with the specified name.
      * @param string $regionSlug restricts results to volumes available in a specific region.
      *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available.
@@ -71,10 +71,10 @@ class Volume extends AbstractApi
     }
 
     /**
-     * @param string $name A human-readable name for the Block Storage volume.
-     * @param string $description Free-form text field to describe a Block Storage volume.
+     * @param string $name            A human-readable name for the Block Storage volume.
+     * @param string $description     Free-form text field to describe a Block Storage volume.
      * @param string $sizeInGigabytes The size of the Block Storage volume in GiB.
-     * @param string $regionSlug The region where the Block Storage volume will be created.
+     * @param string $regionSlug      The region where the Block Storage volume will be created.
      *
      * @throws HttpException
      * 
@@ -86,7 +86,7 @@ class Volume extends AbstractApi
             'size_gigabytes' => $sizeInGigabytes,
             'name' => $name,
             'description' => $description,
-            'region' => $regionSlug
+            'region' => $regionSlug,
         ];
 
         $volume = $this->adapter->post(sprintf('%s/volumes', $this->endpoint), $data);
