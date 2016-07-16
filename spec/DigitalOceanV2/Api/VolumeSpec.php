@@ -7,17 +7,17 @@ use DigitalOceanV2\Exception\HttpException;
 
 class VolumeSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    public function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Volume');
     }
 
-    function it_returns_an_empty_array($adapter)
+    public function it_returns_an_empty_array($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200')->willReturn('{"volumes": []}');
 
@@ -26,7 +26,7 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
         $volumes->shouldHaveCount(0);
     }
 
-    function it_returns_an_array_of_volume_entity($adapter)
+    public function it_returns_an_array_of_volume_entity($adapter)
     {
         $total = 1;
         $response = <<<EOT
@@ -87,7 +87,7 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_an_array_of_volume_entity_with_region($adapter)
+    public function it_returns_an_array_of_volume_entity_with_region($adapter)
     {
         $total = 1;
         $response = <<<EOT
@@ -149,7 +149,7 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_an_array_of_volume_entity_with_region_and_name($adapter)
+    public function it_returns_an_array_of_volume_entity_with_region_and_name($adapter)
     {
         $total = 1;
         $response = <<<EOT
@@ -212,7 +212,7 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    function it_returns_a_volume_entity_with_id($adapter)
+    public function it_returns_a_volume_entity_with_id($adapter)
     {
         $response = <<<EOT
             {
@@ -263,7 +263,7 @@ EOT;
         $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
-    function it_returns_the_created_volume_entity($adapter)
+    public function it_returns_the_created_volume_entity($adapter)
     {
         $response = <<<EOT
             {
@@ -320,7 +320,7 @@ EOT;
         $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
-    function it_throws_an_http_exception_if_not_possible_to_create_a_volume($adapter)
+    public function it_throws_an_http_exception_if_not_possible_to_create_a_volume($adapter)
     {
         $adapter
             ->post(
@@ -331,7 +331,7 @@ EOT;
         $this->shouldThrow(new HttpException('Request not processed.'))->duringCreate('example', 'Block store for examples', 10, 'nyc1');
     }
 
-    function it_deletes_the_volume_with_id_and_returns_nothing($adapter)
+    public function it_deletes_the_volume_with_id_and_returns_nothing($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
@@ -340,7 +340,7 @@ EOT;
         $this->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
     }
 
-    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume($adapter)
+    public function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
@@ -349,7 +349,7 @@ EOT;
         $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete('506f78a4-e098-11e5-ad9f-000f53306ae1');
     }
 
-    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing($adapter)
+    public function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
@@ -358,12 +358,272 @@ EOT;
         $this->deleteWithNameAndRegion('example', 'ams1');
     }
 
-    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume($adapter)
+    public function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
             ->willThrow(new HttpException('Request not processed.'));
 
         $this->shouldThrow(new HttpException('Request not processed.'))->duringDeleteWithNameAndRegion('example', 'ams1');
+    }
+
+    public function it_returns_the_action_entity_after_attaching($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 72531856,
+                "status": "completed",
+                "type": "attach_volume",
+                "started_at": "2015-11-12T17:51:03Z",
+                "completed_at": "2015-11-12T17:51:14Z",
+                "resource_id": null,
+                "resource_type": "volume",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "32gb",
+                        "64gb",
+                        "512mb",
+                        "48gb",
+                        "16gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
+                ['type' => 'attach', 'droplet_id' => 123456, 'region' => 'nyc']
+            )
+            ->willReturn($response);
+
+        $action = $this->attach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123456, 'nyc');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
+
+    public function it_returns_the_action_entity_after_detaching($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 68212773,
+                "status": "in-progress",
+                "type": "detach_volume",
+                "started_at": "2015-10-15T17:46:15Z",
+                "completed_at": null,
+                "resource_id": null,
+                "resource_type": "backend",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "512mb",
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "16gb",
+                        "32gb",
+                        "48gb",
+                        "64gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
+                ['type' => 'detach', 'droplet_id' => 123456, 'region' => 'nyc']
+            )
+            ->willReturn($response);
+
+        $action = $this->detach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123456, 'nyc');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
+
+    public function it_returns_the_action_entity_after_resizing($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 72531856,
+                "status": "in-progress",
+                "type": "resize",
+                "started_at": "2015-11-12T17:51:03Z",
+                "completed_at": "2015-11-12T17:51:14Z",
+                "resource_id": null,
+                "resource_type": "volume",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "32gb",
+                        "64gb",
+                        "512mb",
+                        "48gb",
+                        "16gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
+                ['type' => 'resize', 'size_gigabytes' => 20, 'region' => 'nyc']
+            )
+            ->willReturn($response);
+
+        $action = $this->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
+
+    public function it_returns_the_action_entity_when_retrieving_action($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 72531856,
+                "status": "completed",
+                "type": "attach_volume",
+                "started_at": "2015-11-12T17:51:03Z",
+                "completed_at": "2015-11-12T17:51:14Z",
+                "resource_id": null,
+                "resource_type": "volume",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "32gb",
+                        "64gb",
+                        "512mb",
+                        "48gb",
+                        "16gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions/72531856')
+            ->willReturn($response);
+
+        $action = $this->getActionById('506f78a4-e098-11e5-ad9f-000f53306ae1', 72531856);
+        $action->id->shouldEqual(72531856);
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
+
+    public function it_returns_an_array_of_action_entity($adapter)
+    {
+        $total = 1;
+
+        $response = <<<EOT
+        {
+        "actions": [
+            {
+            "id": 72531856,
+            "status": "completed",
+            "type": "attach_volume",
+            "started_at": "2015-11-21T21:51:09Z",
+            "completed_at": "2015-11-21T21:51:09Z",
+            "resource_id": null,
+            "resource_type": "volume",
+            "region": {
+                "name": "New York 1",
+                "slug": "nyc1",
+                "sizes": [
+                    "512mb",
+                    "1gb",
+                    "2gb",
+                    "4gb",
+                    "8gb",
+                    "16gb",
+                    "32gb",
+                    "48gb",
+                    "64gb"
+                ],
+                "features": [
+                    "private_networking",
+                    "backups",
+                    "ipv6",
+                    "metadata"
+                ],
+                "available": true
+            },
+            "region_slug": "nyc1"
+            }
+        ],
+        "links": {
+        },
+        "meta": {
+            "total": 1
+        }
+    }
+EOT;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions?per_page=200')
+            ->willReturn($response);
+
+        $actions = $this->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
+        $actions->shouldBeArray();
+        $actions->shouldHaveCount($total);
+        $actions[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $actions[0]->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
     }
 }

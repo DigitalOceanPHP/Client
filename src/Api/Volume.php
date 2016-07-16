@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
+use DigitalOceanV2\Entity\Action as ActionEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -115,5 +116,104 @@ class Volume extends AbstractApi
     public function deleteWithNameAndRegion($driveName, $regionSlug)
     {
         $this->adapter->delete(sprintf('%s/volumes?name=%s&region=%s', $this->endpoint, $driveName, $regionSlug));
+    }
+
+    /**
+     * @param string $id         the id of the volume
+     * @param int    $dropletId  the unique identifier for the Droplet the volume will be attached to.
+     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     *
+     * @return ActionEntity
+     */
+    public function attach($id, $dropletId, $regionSlug)
+    {
+        $data = [
+            'type' => 'attach',
+            'droplet_id' => $dropletId,
+            'region' => $regionSlug,
+        ];
+
+        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param string $id         the id of the volume
+     * @param int    $dropletId  the unique identifier for the Droplet the volume will detach from.
+     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     *
+     * @return ActionEntity
+     */
+    public function detach($id, $dropletId, $regionSlug)
+    {
+        $data = [
+            'type' => 'detach',
+            'droplet_id' => $dropletId,
+            'region' => $regionSlug,
+        ];
+
+        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param string $id         the id of the volume
+     * @param int    $newSize    the new size of the Block Storage volume in GiB.
+     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     *
+     * @return ActionEntity
+     */
+    public function resize($id, $newSize, $regionSlug)
+    {
+        $data = [
+            'type' => 'resize',
+            'size_gigabytes' => $newSize,
+            'region' => $regionSlug,
+        ];
+
+        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param string $id
+     * @param int    $actionId
+     *
+     * @return ActionEntity
+     */
+    public function getActionById($id, $actionId)
+    {
+        $action = $this->adapter->get(sprintf('%s/volumes/%s/actions/%d', $this->endpoint, $id, $actionId));
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return ActionEntity[]
+     */
+    public function getActions($id)
+    {
+        $actions = $this->adapter->get(sprintf('%s/volumes/%s/actions?per_page=%d', $this->endpoint, $id, 200));
+
+        $actions = json_decode($actions);
+
+        $this->meta = $this->extractMeta($actions);
+
+        return array_map(function ($action) {
+            return new ActionEntity($action);
+        }, $actions->actions);
     }
 }
