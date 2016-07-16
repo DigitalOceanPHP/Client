@@ -416,4 +416,54 @@ EOT;
         $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
+
+    public function it_returns_the_action_entity_after_detaching($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 68212773,
+                "status": "in-progress",
+                "type": "detach_volume",
+                "started_at": "2015-10-15T17:46:15Z",
+                "completed_at": null,
+                "resource_id": null,
+                "resource_type": "backend",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "512mb",
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "16gb",
+                        "32gb",
+                        "48gb",
+                        "64gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
+                ['type' => 'detach', 'droplet_id' => 123456, 'region' => 'nyc']
+            )
+            ->willReturn($response);
+
+        $action = $this->detach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123456, 'nyc');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
 }
