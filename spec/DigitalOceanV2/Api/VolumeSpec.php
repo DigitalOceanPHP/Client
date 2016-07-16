@@ -466,4 +466,54 @@ EOT;
         $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
+
+    public function it_returns_the_action_entity_after_resizing($adapter)
+    {
+        $response = <<<EOT
+        {
+            "action": {
+                "id": 72531856,
+                "status": "in-progress",
+                "type": "resize",
+                "started_at": "2015-11-12T17:51:03Z",
+                "completed_at": "2015-11-12T17:51:14Z",
+                "resource_id": null,
+                "resource_type": "volume",
+                "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "32gb",
+                        "64gb",
+                        "512mb",
+                        "48gb",
+                        "16gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                },
+                "region_slug": "nyc1"
+            }
+        }
+EOT;
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
+                ['type' => 'resize', 'size_gigabytes' => 20, 'region' => 'nyc']
+            )
+            ->willReturn($response);
+
+        $action = $this->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc');
+        $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+    }
 }

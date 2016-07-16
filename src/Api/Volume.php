@@ -161,4 +161,26 @@ class Volume extends AbstractApi
 
         return new ActionEntity($action->action);
     }
+
+    /**
+     * @param string $id         the id of the volume
+     * @param int    $newSize    the new size of the Block Storage volume in GiB.
+     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     *
+     * @return ActionEntity
+     */
+    public function resize($id, $newSize, $regionSlug)
+    {
+        $data = [
+            'type' => 'resize',
+            'size_gigabytes' => $newSize,
+            'region' => $regionSlug,
+        ];
+
+        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
 }
