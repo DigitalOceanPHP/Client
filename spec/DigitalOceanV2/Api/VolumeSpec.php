@@ -564,4 +564,66 @@ EOT;
         $action->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
+
+    public function it_returns_an_array_of_action_entity($adapter)
+    {
+        $total = 1;
+
+        $response = <<<EOT
+        {
+        "actions": [
+            {
+            "id": 72531856,
+            "status": "completed",
+            "type": "attach_volume",
+            "started_at": "2015-11-21T21:51:09Z",
+            "completed_at": "2015-11-21T21:51:09Z",
+            "resource_id": null,
+            "resource_type": "volume",
+            "region": {
+                "name": "New York 1",
+                "slug": "nyc1",
+                "sizes": [
+                    "512mb",
+                    "1gb",
+                    "2gb",
+                    "4gb",
+                    "8gb",
+                    "16gb",
+                    "32gb",
+                    "48gb",
+                    "64gb"
+                ],
+                "features": [
+                    "private_networking",
+                    "backups",
+                    "ipv6",
+                    "metadata"
+                ],
+                "available": true
+            },
+            "region_slug": "nyc1"
+            }
+        ],
+        "links": {
+        },
+        "meta": {
+            "total": 1
+        }
+    }
+EOT;
+        $adapter
+            ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions?per_page=200')
+            ->willReturn($response);
+
+        $actions = $this->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
+        $actions->shouldBeArray();
+        $actions->shouldHaveCount($total);
+        $actions[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Action');
+        $actions[0]->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
+
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
 }
