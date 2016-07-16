@@ -464,6 +464,22 @@ $volume->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 // deletes a volume by name and region
 $volume->delete('example', 'nyc1');
+
+// attach a volume to a Droplet 
+$volume->attach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
+
+// detach a volume from a Droplet 
+$volume->detach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
+
+// resize a volume 
+$volume->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc1');
+
+// get a volume action by its id 
+$volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
+
+// get all actions related to a volume
+$volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
 ```
 
 Contributing
