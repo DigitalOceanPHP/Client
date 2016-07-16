@@ -183,4 +183,19 @@ class Volume extends AbstractApi
 
         return new ActionEntity($action->action);
     }
+
+    /**
+     * @param string $id
+     * @param int    $actionId
+     *
+     * @return ActionEntity
+     */
+    public function getActionById($id, $actionId)
+    {
+        $action = $this->adapter->get(sprintf('%s/volumes/%s/actions/%d', $this->endpoint, $id, $actionId));
+
+        $action = json_decode($action);
+
+        return new ActionEntity($action->action);
+    }
 }
