@@ -70,4 +70,9 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
     {
         $this->size()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Size');
     }
+
+    function it_should_return_a_volume_instance()
+    {
+        $this->volume()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Volume');
+    }
 }
