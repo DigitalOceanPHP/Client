@@ -5,6 +5,7 @@ CHANGELOG
 ------------------
 
 - Added support for Volumes (Block Storage)
+- Added the size_gigabytes attribute to images
 
 2.1.0 (2015-12-22)
 ------------------
