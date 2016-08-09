@@ -19,7 +19,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_an_empty_array($adapter)
     {
-        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page=200')->willReturn('{"droplets": []}');
+        $adapter->get('https://api.digitalocean.com/v2/droplets?per_page=200&page=1')->willReturn('{"droplets": []}');
 
         $droplets = $this->getAll();
         $droplets->shouldBeArray();
@@ -30,7 +30,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $total = 3;
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets?per_page=200')
+            ->get('https://api.digitalocean.com/v2/droplets?per_page=200&page=1')
             ->willReturn(sprintf('{"droplets": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $droplets = $this->getAll();
