@@ -142,9 +142,9 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     function it_throws_an_http_exception_if_requested_action_does_not_exist($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/actions/123456789123456789')
+            ->get('https://api.digitalocean.com/v2/actions/1234567')
             ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(123456789123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(1234567);
     }
 }
