@@ -248,10 +248,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     function it_throws_an_http_exception_if_requested_droplet_does_not_exist($adapter)
     {
         $adapter
-            ->get('https://api.digitalocean.com/v2/droplets/123456789123456789')
+            ->get('https://api.digitalocean.com/v2/droplets/1234567')
             ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(123456789123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById(1234567);
     }
 
     function it_returns_the_created_droplet_entity_without_ssh_keys($adapter)
