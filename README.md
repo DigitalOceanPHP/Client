@@ -232,7 +232,7 @@ $domainRecord123 = $domainRecord->getById('foo.dk', 123);
 $created = $domainRecord->create('bar.dk', 'AAAA', 'bar-name', '2001:db8::ff00:42:8329');
 
 // return the updated DomainRecord entity 123 of the domain 'baz.dk'
-$updated = $domainRecord->update('baz.dk', 123, 'new-name');
+$updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', (int)'new-priority', (int)'new-port', (int)'new-weight');
 
 // delete domain record 123 of the domain 'qmx.dk'
 $domainRecord->delete('qmx.dk', 123);
