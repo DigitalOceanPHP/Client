@@ -129,7 +129,9 @@ class DomainRecord extends AbstractApi
             'port' => $port,
             'weight' => $weight
         );
-        $content = array_filter($content);
+        $content = array_filter($content, function($val){
+            return $val !== null && $val !== false;
+        });
 
         return $this->updateFields($domainName, $recordId, $content);
     }
