@@ -231,8 +231,8 @@ $domainRecord123 = $domainRecord->getById('foo.dk', 123);
 // return the created DomainRecord entity of the domain 'bar.dk'
 $created = $domainRecord->create('bar.dk', 'AAAA', 'bar-name', '2001:db8::ff00:42:8329');
 
-// return the updated DomainRecord entity 123 of the domain 'baz.dk'
-$updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', (int)'new-priority', (int)'new-port', (int)'new-weight');
+// return the DomainRecord entity 123 of the domain 'baz.dk' updated with new-name, new-data, priority 1, port 2 and weight 3 (name, data, priority, port, weight are nullable)
+$updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', 1, 2, 3);
 
 // delete domain record 123 of the domain 'qmx.dk'
 $domainRecord->delete('qmx.dk', 123);
