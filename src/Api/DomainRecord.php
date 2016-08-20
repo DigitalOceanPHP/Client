@@ -108,13 +108,13 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param string $domainName
-     * @param int    $recordId
-     * @param string $name
-     * @param string $data
-     * @param int    $priority
-     * @param int    $port
-     * @param int    $weight
+     * @param string      $domainName
+     * @param int         $recordId
+     * @param string|null $name
+     * @param string|null $data
+     * @param int|null    $priority
+     * @param int|null    $port
+     * @param int|null    $weight
      *
      * @throws HttpException
      *
@@ -122,24 +122,16 @@ class DomainRecord extends AbstractApi
      */
     public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null)
     {
-        $content = array();
-        if ($name !== null) {
-            $content['name'] = $name;
-        }
-        if ($data !== null) {
-            $content['data'] = $data;
-        }
-        if ($priority !== null) {
-            $content['priority'] = $priority;
-        }
-        if ($port !== null) {
-            $content['port'] = $port;
-        }
-        if ($weight !== null) {
-            $content['weight'] = $weight;
-        }
+        $content = array(
+            'name' => $name,
+            'data' => $data,
+            'priority' => $priority,
+            'port' => $port,
+            'weight' => $weight
+        );
+        $content = array_filter($content);
 
-        return $this->updateFields($domainName, $recordId, ['name' => $name]);
+        return $this->updateFields($domainName, $recordId, $content);
     }
 
     /**
