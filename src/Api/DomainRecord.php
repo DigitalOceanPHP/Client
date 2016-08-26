@@ -108,17 +108,26 @@ class DomainRecord extends AbstractApi
     }
 
     /**
-     * @param string $domainName
-     * @param int    $recordId
-     * @param string $name
+     * @param string      $domainName
+     * @param int         $recordId
+     * @param string|null $name
+     * @param string|null $data
+     * @param int|null    $priority
+     * @param int|null    $port
+     * @param int|null    $weight
      *
      * @throws HttpException
      *
      * @return DomainRecordEntity
      */
-    public function update($domainName, $recordId, $name)
+    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null)
     {
-        return $this->updateFields($domainName, $recordId, ['name' => $name]);
+        $content = compact('name', 'data', 'priority', 'port', 'weight');
+        $content = array_filter($content, function($val){
+            return $val !== null;
+        });
+
+        return $this->updateFields($domainName, $recordId, $content);
     }
 
     /**
