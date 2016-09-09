@@ -82,7 +82,7 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param int    $id
+     * @param string $id
      * @param string $name
      *
      * @throws HttpException
@@ -91,7 +91,7 @@ class Key extends AbstractApi
      */
     public function update($id, $name)
     {
-        $key = $this->adapter->put(sprintf('%s/account/keys/%d', $this->endpoint, $id), ['name' => $name]);
+        $key = $this->adapter->put(sprintf('%s/account/keys/%s', $this->endpoint, $id), ['name' => $name]);
 
         $key = json_decode($key);
 
@@ -99,12 +99,12 @@ class Key extends AbstractApi
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @throws HttpException
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/account/keys/%d', $this->endpoint, $id));
+        $this->adapter->delete(sprintf('%s/account/keys/%s', $this->endpoint, $id));
     }
 }
