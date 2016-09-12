@@ -1,11 +1,13 @@
 CHANGELOG
 =========
 
-2.1.1 (Not released yet)
+2.1.1 (12/09/2016)
 ------------------
 
 - Added support for Volumes (Block Storage)
 - Added the size_gigabytes attribute to images
+- Added the posibility to page through droplets - PR #141
+- Improved the update method for domain records - PR #142
 
 2.1.0 (2015-12-22)
 ------------------
