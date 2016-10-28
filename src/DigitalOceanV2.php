@@ -24,6 +24,7 @@ use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Volume;
+use DigitalOceanV2\Api\Snapshot;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -138,5 +139,13 @@ class DigitalOceanV2
     public function volume()
     {
         return new Volume($this->adapter);
+    }
+
+    /**
+     * @return Snapshot
+     */
+    public function snapshot()
+    {
+        return new Snapshot($this->adapter);
     }
 }
