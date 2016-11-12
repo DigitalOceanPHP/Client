@@ -129,6 +129,10 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                             "ipv6"
                         ],
                         "status": "active",
+                        "tags" : [ 
+                            "tag-1" ,
+                            "tag-2" 
+                        ],
                         "networks": {
                             "v4": [
                                 {
@@ -167,6 +171,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
         $droplet = $this->getById(14);
         $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $droplet->tags->shouldBeArray();
+        $droplet->tags->shouldHaveCount(2);
         $droplet->networks->shouldBeArray();
         $droplet->networks->shouldHaveCount(2);
         $droplet->networks[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
@@ -202,6 +208,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                         "created_at": "",
                         "features": ["virtio", "private_networking", "backups", "ipv6"],
                         "status": "active",
+                        "tags" : [],
                         "networks": {
                             "v4": [
                                 {
@@ -229,6 +236,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
 
         $droplet = $this->getById(1234);
         $droplet->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $droplet->tags->shouldBeArray();
+        $droplet->tags->shouldHaveCount(0);
         $droplet->networks->shouldBeArray();
         $droplet->networks->shouldHaveCount(2);
         $droplet->networks[0]->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Network');
