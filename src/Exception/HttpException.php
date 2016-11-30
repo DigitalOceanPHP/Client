@@ -16,5 +16,4 @@ namespace DigitalOceanV2\Exception;
  */
 class HttpException extends \RuntimeException implements ExceptionInterface
 {
-    //
 }

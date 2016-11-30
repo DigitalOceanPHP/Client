@@ -3,7 +3,6 @@
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\Adapter\AdapterInterface;
-use DigitalOceanV2\Exception\HttpException;
 
 class SnapshotSpec extends \PhpSpec\ObjectBehavior
 {
@@ -108,8 +107,8 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
                     "total": 1
                 }
                 }');
-        
-        $criteria['type'] = "volume";
+
+        $criteria['type'] = 'volume';
         $snapshots = $this->getAll($criteria);
         $snapshots->shouldBeArray();
         $snapshots->shouldHaveCount(1);
@@ -140,11 +139,11 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
                         "size_gigabytes": 0
                     }
                 }');
-        
-        $snapshot = $this->getById("4f60fc64-85d1-11e6-a004-000f53315871");
+
+        $snapshot = $this->getById('4f60fc64-85d1-11e6-a004-000f53315871');
         $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
-        $snapshot->id->shouldBe("4f60fc64-85d1-11e6-a004-000f53315871");
-        $snapshot->name->shouldBe("snapshot1-volume");
+        $snapshot->id->shouldBe('4f60fc64-85d1-11e6-a004-000f53315871');
+        $snapshot->name->shouldBe('snapshot1-volume');
     }
 
     public function it_deletes_the_snapshot_and_returns_nothing($adapter)

@@ -16,5 +16,4 @@ namespace DigitalOceanV2\Exception;
  */
 class InvalidRecordException extends \InvalidArgumentException implements ExceptionInterface
 {
-    //
 }
