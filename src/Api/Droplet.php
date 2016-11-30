@@ -118,7 +118,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = false)
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true)
     {
         $data = is_array($names) ? ['names' => $names] : ['name' => $names];
 
