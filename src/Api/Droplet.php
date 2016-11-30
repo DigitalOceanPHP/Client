@@ -24,15 +24,15 @@ use DigitalOceanV2\Exception\HttpException;
  */
 class Droplet extends AbstractApi
 {
-	/**
-	 * @param int $per_page
-	 * @param int $page
-	 *
-	 * @return DropletEntity[]
-	 */
+    /**
+     * @param int $per_page
+     * @param int $page
+     *
+     * @return DropletEntity[]
+     */
     public function getAll($per_page = 200, $page = 1)
     {
-	    $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
+        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
 
         $droplets = json_decode($droplets);
 
@@ -118,7 +118,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '')
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true)
     {
         $data = is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -129,6 +129,7 @@ class Droplet extends AbstractApi
             'backups' => $backups ? 'true' : 'false',
             'ipv6' => $ipv6 ? 'true' : 'false',
             'private_networking' => $privateNetworking ? 'true' : 'false',
+            'monitoring' => $monitoring ? 'true' : 'false',
         ]);
 
         if (0 < count($sshKeys)) {
