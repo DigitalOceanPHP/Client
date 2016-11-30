@@ -31,11 +31,11 @@
     },
 
     "require-dev": {
-        "kriswallsmith/buzz" : "~0.10",
-        "guzzle/guzzle"      : "~3.7",
-        "guzzlehttp/guzzle"  : "~5.0|~6.0",
-        "phpspec/phpspec"    : "~2.4",
-        "fabpot/php-cs-fixer": "~1.11"
+        "kriswallsmith/buzz"        : "~0.10",
+        "guzzle/guzzle"             : "~3.7",
+        "guzzlehttp/guzzle"         : "~5.0|~6.0",
+        "phpspec/phpspec"           : "~2.4",
+        "friendsofphp/php-cs-fixer" : "~1.11"
     },
 
     "suggest": {
