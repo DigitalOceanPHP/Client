@@ -24,21 +24,21 @@ use DigitalOceanV2\Exception\HttpException;
  */
 class Droplet extends AbstractApi
 {
-	/**
-	 * @param int $per_page
-	 * @param int $page
-	 *
-	 * @return DropletEntity[]
-	 */
+    /**
+     * @param int $per_page
+     * @param int $page
+     *
+     * @return DropletEntity[]
+     */
     public function getAll($per_page = 200, $page = 1)
     {
-	    $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
+        $droplets = $this->adapter->get(sprintf('%s/droplets?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
 
         $droplets = json_decode($droplets);
 
         $this->extractMeta($droplets);
 
-        return array_map(function ($droplet) {
+        return array_map(function($droplet) {
             return new DropletEntity($droplet);
         }, $droplets->droplets);
     }
@@ -54,7 +54,7 @@ class Droplet extends AbstractApi
 
         $droplets = json_decode($droplets);
 
-        return array_map(function ($droplet) {
+        return array_map(function($droplet) {
             return new DropletEntity($droplet);
         }, $droplets->droplets);
     }
@@ -68,7 +68,7 @@ class Droplet extends AbstractApi
 
         $neighbors = json_decode($neighbors);
 
-        return array_map(function ($neighbor) {
+        return array_map(function($neighbor) {
             return new DropletEntity($neighbor);
         }, $neighbors->neighbors);
     }
@@ -82,7 +82,7 @@ class Droplet extends AbstractApi
 
         $upgrades = json_decode($upgrades);
 
-        return array_map(function ($upgrade) {
+        return array_map(function($upgrade) {
             return new UpgradeEntity($upgrade);
         }, $upgrades);
     }
@@ -113,22 +113,26 @@ class Droplet extends AbstractApi
      * @param bool         $privateNetworking
      * @param int[]        $sshKeys
      * @param string       $userData
+     * @param bool         $monitoring
+     * @param array        $volumes
+     * @param array        $tags
      *
      * @throws HttpException
      *
      * @return DropletEntity|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '')
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, $volumes = [], $tags = [])
     {
         $data = is_array($names) ? ['names' => $names] : ['name' => $names];
 
         $data = array_merge($data, [
-            'region' => $region,
-            'size' => $size,
-            'image' => $image,
-            'backups' => $backups ? 'true' : 'false',
-            'ipv6' => $ipv6 ? 'true' : 'false',
+            'region'             => $region,
+            'size'               => $size,
+            'image'              => $image,
+            'backups'            => $backups ? 'true' : 'false',
+            'ipv6'               => $ipv6 ? 'true' : 'false',
             'private_networking' => $privateNetworking ? 'true' : 'false',
+            'monitoring'         => $monitoring ? 'true' : 'false',
         ]);
 
         if (0 < count($sshKeys)) {
@@ -139,12 +143,20 @@ class Droplet extends AbstractApi
             $data['user_data'] = $userData;
         }
 
+        if (!empty($tags)) {
+            $data['tags'] = $tags;
+        }
+
+        if (!empty($volumes)) {
+            $data['volumes'] = $volumes;
+        }
+
         $droplet = $this->adapter->post(sprintf('%s/droplets', $this->endpoint), $data);
 
         $droplet = json_decode($droplet);
 
         if (is_array($names)) {
-            return array_map(function ($droplet) {
+            return array_map(function($droplet) {
                 return new DropletEntity($droplet);
             }, $droplet->droplets);
         }
@@ -177,7 +189,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($kernels);
 
-        return array_map(function ($kernel) {
+        return array_map(function($kernel) {
             return new KernelEntity($kernel);
         }, $kernels->kernels);
     }
@@ -195,7 +207,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($snapshots);
 
-        return array_map(function ($snapshot) {
+        return array_map(function($snapshot) {
             $snapshot = new ImageEntity($snapshot);
 
             return $snapshot;
@@ -215,7 +227,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($backups);
 
-        return array_map(function ($backup) {
+        return array_map(function($backup) {
             return new ImageEntity($backup);
         }, $backups->backups);
     }
@@ -233,7 +245,7 @@ class Droplet extends AbstractApi
 
         $this->meta = $this->extractMeta($actions);
 
-        return array_map(function ($action) {
+        return array_map(function($action) {
             return new ActionEntity($action);
         }, $actions->actions);
     }
