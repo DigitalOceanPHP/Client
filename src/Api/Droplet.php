@@ -25,8 +25,9 @@ use DigitalOceanV2\Exception\HttpException;
 class Droplet extends AbstractApi
 {
     /**
-     * @param int $per_page
-     * @param int $page
+     * @param int    $per_page
+     * @param int    $page
+     * @param string $tag
      *
      * @return DropletEntity[]
      */
