@@ -41,6 +41,14 @@ class BuzzAdapter implements AdapterInterface
     }
 
     /**
+     * @param int $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->browser->getClient()->setTimeout($timeout);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function get($url)
