@@ -38,6 +38,8 @@ abstract class AbstractEntity
      */
     public function build(array $parameters)
     {
+        $parameters = (array) $parameters;
+
         foreach ($parameters as $property => $value) {
             $property = static::convertToCamelCase($property);
 
