@@ -268,11 +268,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                ['name' => 'foo', 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false', 'monitoring' => 'true']
+                ['name' => 'foo', 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false', 'monitoring' => 'true', 'volumes' => ['123', '456'], 'tags' => ['foo', 'bar']]
             )
             ->willReturn('{"droplet": {}}');
 
-        $this->create('foo', 'nyc1', '512mb', 123456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $this->create('foo', 'nyc1', '512mb', 123456, false, false, false, [], '', true, ["123", "456"], ["foo", "bar"])->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
     public function it_returns_the_created_droplet_entity_with_ssh_keys($adapter)
@@ -280,12 +280,12 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                ['name' => 'bar', 'region' => 'nyc2', 'size' => '512mb', 'image' => 'ubuntu', 'backups' => 'true', 'ipv6' => 'true', 'private_networking' => 'true', 'ssh_keys' => ['123', '456', '789'], 'monitoring' => 'true']
+                ['name' => 'bar', 'region' => 'nyc2', 'size' => '512mb', 'image' => 'ubuntu', 'backups' => 'true', 'ipv6' => 'true', 'private_networking' => 'true', 'ssh_keys' => ['123', '456', '789'], 'monitoring' => 'true', 'volumes' => ['123', '456'], 'tags' => ['foo', 'bar']]
             )
             ->willReturn('{"droplet":{}}');
 
         $this
-            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, ['123', '456', '789'])
+            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, ['123', '456', '789'], '', true, ["123", "456"], ["foo", "bar"])
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
@@ -294,11 +294,11 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/droplets',
-                ['names' => ['foo', 'bar'], 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false']
+                ['names' => ['foo', 'bar'], 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false', 'ssh_keys' => ['123', '456', '789'], 'monitoring' => 'true', 'volumes' => ['123', '456'], 'tags' => ['foo', 'bar']]
             )
             ->willReturn('{"droplets": {}}');
 
-        $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456)->shouldReturn(null);
+        $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456, false, false, false, ['123', '456', '789'], '', true, ["123", "456"], ["foo", "bar"])->shouldReturn(null);
     }
 
     public function it_throws_an_http_exception_if_not_possible_to_create_a_droplet($adapter)

@@ -113,12 +113,15 @@ class Droplet extends AbstractApi
      * @param bool         $privateNetworking
      * @param int[]        $sshKeys
      * @param string       $userData
+     * @param bool         $monitoring
+     * @param array        $volumes
+     * @param array        $tags
      *
      * @throws HttpException
      *
      * @return DropletEntity|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true)
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, array $volumes = [], array $tags = [])
     {
         $data = is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -138,6 +141,14 @@ class Droplet extends AbstractApi
 
         if (!empty($userData)) {
             $data['user_data'] = $userData;
+        }
+
+        if (0 < count($volumes)) {
+            $data['volumes'] = $volumes;
+        }
+
+        if (0 < count($tags)) {
+            $data['tags'] = $tags;
         }
 
         $droplet = $this->adapter->post(sprintf('%s/droplets', $this->endpoint), $data);
