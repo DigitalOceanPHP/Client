@@ -66,4 +66,5 @@ class Snapshot extends AbstractApi
     {
         $this->adapter->delete(sprintf('%s/snapshots/%s', $this->endpoint, $id));
     }
+
 }

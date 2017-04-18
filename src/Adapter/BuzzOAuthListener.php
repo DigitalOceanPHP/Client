@@ -47,5 +47,6 @@ class BuzzOAuthListener implements ListenerInterface
      */
     public function postSend(RequestInterface $request, MessageInterface $response)
     {
+        //
     }
 }
