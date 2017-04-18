@@ -93,7 +93,7 @@ class DomainRecord extends AbstractApi
                 break;
 
             case 'MX':
-                $content = ['type' => $type, 'data' => $data, 'priority' => $priority];
+                $content = ['type' => $type, 'name' => $name, 'data' => $data, 'priority' => $priority];
                 break;
 
             default:
