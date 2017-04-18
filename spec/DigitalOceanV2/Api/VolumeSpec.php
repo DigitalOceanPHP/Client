@@ -29,7 +29,7 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
     public function it_returns_an_array_of_volume_entity($adapter)
     {
         $total = 1;
-        $response = <<<EOT
+        $response = <<<'EOT'
             {"volumes": [
                 {
                 "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
@@ -90,7 +90,7 @@ EOT;
     public function it_returns_an_array_of_volume_entity_with_region($adapter)
     {
         $total = 1;
-        $response = <<<EOT
+        $response = <<<'EOT'
             {"volumes": [
                 {
                 "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
@@ -152,7 +152,7 @@ EOT;
     public function it_returns_an_array_of_volume_entity_with_region_and_name($adapter)
     {
         $total = 1;
-        $response = <<<EOT
+        $response = <<<'EOT'
             {"volumes": [
                 {
                 "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
@@ -214,7 +214,7 @@ EOT;
 
     public function it_returns_a_volume_entity_with_id($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
             {
                 "volume": {
                     "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
@@ -265,7 +265,7 @@ EOT;
 
     public function it_returns_the_created_volume_entity($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
             {
                 "volume": {
                     "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
@@ -369,7 +369,7 @@ EOT;
 
     public function it_returns_the_action_entity_after_attaching($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
         {
             "action": {
                 "id": 72531856,
@@ -419,7 +419,7 @@ EOT;
 
     public function it_returns_the_action_entity_after_detaching($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
         {
             "action": {
                 "id": 68212773,
@@ -469,7 +469,7 @@ EOT;
 
     public function it_returns_the_action_entity_after_resizing($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
         {
             "action": {
                 "id": 72531856,
@@ -519,7 +519,7 @@ EOT;
 
     public function it_returns_the_action_entity_when_retrieving_action($adapter)
     {
-        $response = <<<EOT
+        $response = <<<'EOT'
         {
             "action": {
                 "id": 72531856,
@@ -569,7 +569,7 @@ EOT;
     {
         $total = 1;
 
-        $response = <<<EOT
+        $response = <<<'EOT'
         {
         "actions": [
             {
