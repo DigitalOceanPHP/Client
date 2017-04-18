@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+2.2.0 (18/04/2017)
+------------------
+
+- Add support for snapshots
+- Add support for volumes and tags
+- Support droplet monitoring
+- Add in tag_name filter
+- Support the certificate api
+
 2.1.2 (12/09/2016)
 ------------------
 
@@ -8,6 +17,12 @@ CHANGELOG
 - Added the size_gigabytes attribute to images
 - Added the posibility to page through droplets - PR #141
 - Improved the update method for domain records - PR #142
+
+2.1.1 (02/04/2016)
+------------------
+
+- Fixed an issue with the buzz adapter
+- Fixed creating multiple droplets
 
 2.1.0 (2015-12-22)
 ------------------
