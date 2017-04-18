@@ -272,7 +272,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             )
             ->willReturn('{"droplet": {}}');
 
-        $this->create('foo', 'nyc1', '512mb', 123456, false, false, false, [], '', true, ["123", "456"], ["foo", "bar"])->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
+        $this->create('foo', 'nyc1', '512mb', 123456, false, false, false, [], '', true, ['123', '456'], ['foo', 'bar'])->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
     public function it_returns_the_created_droplet_entity_with_ssh_keys($adapter)
@@ -285,7 +285,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->willReturn('{"droplet":{}}');
 
         $this
-            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, ['123', '456', '789'], '', true, ["123", "456"], ["foo", "bar"])
+            ->create('bar', 'nyc2', '512mb', 'ubuntu', true, true, true, ['123', '456', '789'], '', true, ['123', '456'], ['foo', 'bar'])
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
@@ -298,7 +298,7 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             )
             ->willReturn('{"droplets": {}}');
 
-        $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456, false, false, false, ['123', '456', '789'], '', true, ["123", "456"], ["foo", "bar"])->shouldReturn(null);
+        $this->create(['foo', 'bar'], 'nyc1', '512mb', 123456, false, false, false, ['123', '456', '789'], '', true, ['123', '456'], ['foo', 'bar'])->shouldReturn(null);
     }
 
     public function it_throws_an_http_exception_if_not_possible_to_create_a_droplet($adapter)
