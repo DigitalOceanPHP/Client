@@ -14,6 +14,7 @@ namespace DigitalOceanV2;
 use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
+use DigitalOceanV2\Api\Certificate;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
@@ -59,6 +60,14 @@ class DigitalOceanV2
     public function action()
     {
         return new Action($this->adapter);
+    }
+
+    /**
+     * @return Certificate
+     */
+    public function certificate()
+    {
+        return new Certificate($this->adapter);
     }
 
     /**

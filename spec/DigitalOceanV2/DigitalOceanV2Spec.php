@@ -26,6 +26,11 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
         $this->action()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Action');
     }
 
+    function it_should_return_a_certificate_instance()
+    {
+        $this->certificate()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Certificate');
+    }
+
     function it_should_return_a_domain_instance()
     {
         $this->domain()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Domain');
