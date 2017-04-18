@@ -27,7 +27,7 @@ class Droplet extends AbstractApi
     /**
      * @param int $per_page
      * @param int $page
-     * @param string $tag
+     * @param string|null $tag
      *
      * @return DropletEntity[]
      */
