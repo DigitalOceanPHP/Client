@@ -235,14 +235,14 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
-                ['type' => 'MX', 'data' => '127.0.0.1', 'priority' => 0]
+                ['type' => 'MX', 'data' => '127.0.0.1', 'name' => 'new-name', 'priority' => 0]
             )
             ->willReturn('
                 {
                     "domain_record": {
                         "id": 123,
                         "type": "MX",
-                        "name": null,
+                        "name": "new-name",
                         "data": "127.0.0.1",
                         "priority": 0,
                         "port": null,
@@ -252,7 +252,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ');
 
         $this
-            ->create('foo.dk', 'mx', 'not_used', '127.0.0.1', 0)
+            ->create('foo.dk', 'mx', 'new-name', '127.0.0.1', 0)
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
