@@ -23,8 +23,8 @@ use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
-use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\Api\Snapshot;
+use DigitalOceanV2\Api\Volume;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>

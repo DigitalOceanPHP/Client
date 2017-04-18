@@ -11,8 +11,8 @@
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Entity\Volume as VolumeEntity;
 use DigitalOceanV2\Entity\Action as ActionEntity;
+use DigitalOceanV2\Entity\Volume as VolumeEntity;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -20,9 +20,9 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 class Volume extends AbstractApi
 {
     /**
-     * @param string $regionSlug restricts results to volumes available in a specific region.
+     * @param string $regionSlug restricts results to volumes available in a specific region
      *
-     * @return VolumeEntity[] Lists all of the Block Storage volumes available.
+     * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
     public function getAll($regionSlug = null)
     {
@@ -39,10 +39,10 @@ class Volume extends AbstractApi
     }
 
     /**
-     * @param string $driveName  restricts results to volumes with the specified name.
-     * @param string $regionSlug restricts results to volumes available in a specific region.
+     * @param string $driveName  restricts results to volumes with the specified name
+     * @param string $regionSlug restricts results to volumes available in a specific region
      *
-     * @return VolumeEntity[] Lists all of the Block Storage volumes available.
+     * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
     public function getByNameAndRegion($driveName, $regionSlug)
     {
@@ -60,7 +60,7 @@ class Volume extends AbstractApi
     /**
      * @param string $id
      *
-     * @return VolumeEntity the Block Storage volume with the specified id.
+     * @return VolumeEntity the Block Storage volume with the specified id
      */
     public function getById($id)
     {
@@ -72,14 +72,14 @@ class Volume extends AbstractApi
     }
 
     /**
-     * @param string $name            A human-readable name for the Block Storage volume.
-     * @param string $description     Free-form text field to describe a Block Storage volume.
-     * @param string $sizeInGigabytes The size of the Block Storage volume in GiB.
-     * @param string $regionSlug      The region where the Block Storage volume will be created.
+     * @param string $name            A human-readable name for the Block Storage volume
+     * @param string $description     Free-form text field to describe a Block Storage volume
+     * @param string $sizeInGigabytes The size of the Block Storage volume in GiB
+     * @param string $regionSlug      The region where the Block Storage volume will be created
      *
      * @throws HttpException
-     * 
-     * @return VolumeEntity the Block Storage volume that was created.
+     *
+     * @return VolumeEntity the Block Storage volume that was created
      */
     public function create($name, $description, $sizeInGigabytes, $regionSlug)
     {
@@ -108,8 +108,8 @@ class Volume extends AbstractApi
     }
 
     /**
-     * @param string $driveName  restricts the search to volumes with the specified name.
-     * @param string $regionSlug restricts the search to volumes available in a specific region.
+     * @param string $driveName  restricts the search to volumes with the specified name
+     * @param string $regionSlug restricts the search to volumes available in a specific region
      *
      * @throws HttpException
      */
@@ -120,8 +120,8 @@ class Volume extends AbstractApi
 
     /**
      * @param string $id         the id of the volume
-     * @param int    $dropletId  the unique identifier for the Droplet the volume will be attached to.
-     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     * @param int    $dropletId  the unique identifier for the Droplet the volume will be attached to
+     * @param string $regionSlug the slug identifier for the region the volume is located in
      *
      * @return ActionEntity
      */
@@ -142,8 +142,8 @@ class Volume extends AbstractApi
 
     /**
      * @param string $id         the id of the volume
-     * @param int    $dropletId  the unique identifier for the Droplet the volume will detach from.
-     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     * @param int    $dropletId  the unique identifier for the Droplet the volume will detach from
+     * @param string $regionSlug the slug identifier for the region the volume is located in
      *
      * @return ActionEntity
      */
@@ -164,8 +164,8 @@ class Volume extends AbstractApi
 
     /**
      * @param string $id         the id of the volume
-     * @param int    $newSize    the new size of the Block Storage volume in GiB.
-     * @param string $regionSlug the slug identifier for the region the volume is located in.
+     * @param int    $newSize    the new size of the Block Storage volume in GiB
+     * @param string $regionSlug the slug identifier for the region the volume is located in
      *
      * @return ActionEntity
      */
