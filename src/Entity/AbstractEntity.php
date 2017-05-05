@@ -48,6 +48,27 @@ abstract class AbstractEntity
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $settings = [];
+        $called = get_called_class();
+
+        $reflection = new \ReflectionClass($called);
+        $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
+
+        foreach ($properties as $property) {
+            $prop = $property->getName();
+            if (isset($this->$prop) && $property->class == $called) {
+                $settings[self::convertToSnakeCase($prop)] = $this->$prop;
+            }
+        }
+
+        return $settings;
+    }
+
+    /**
      * @param string|null $date DateTime string
      *
      * @return string|null DateTime in ISO8601 format
@@ -76,5 +97,15 @@ abstract class AbstractEntity
         };
 
         return lcfirst(preg_replace_callback('/(^|_)([a-z])/', $callback, $str));
+    }
+
+    /**
+     * @param $str Camel case string
+     *
+     * @return string Snake case string
+     */
+    protected static function convertToSnakeCase($str)
+    {
+        return strtolower(implode('_', preg_split('/(?=[A-Z])/', $str)));
     }
 }

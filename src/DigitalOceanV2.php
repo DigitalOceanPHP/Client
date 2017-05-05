@@ -21,6 +21,7 @@ use DigitalOceanV2\Api\Droplet;
 use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
+use DigitalOceanV2\Api\LoadBalancer;
 use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
@@ -116,6 +117,14 @@ class DigitalOceanV2
     public function key()
     {
         return new Key($this->adapter);
+    }
+
+    /**
+     * @return LoadBalancer
+     */
+    public function loadBalancer()
+    {
+        return new LoadBalancer($this->adapter);
     }
 
     /**
