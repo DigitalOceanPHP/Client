@@ -627,7 +627,7 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    public function it_returns_an_array_of_volumes_snapshots_which_are_image_entity($adapter)
+    public function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity($adapter)
     {
         $total = 3;
 
@@ -686,7 +686,7 @@ EOT;
         $snapshots->shouldBeArray();
         $snapshots->shouldHaveCount($total);
         foreach ($snapshots as $snapshot) {
-            $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
+            $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
         }
         $meta = $this->getMeta();
         $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');

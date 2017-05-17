@@ -12,7 +12,6 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
-use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
 
@@ -89,7 +88,7 @@ class Volume extends AbstractApi
         $this->meta = $this->extractMeta($snapshots);
 
         return array_map(function ($snapshot) {
-            $snapshot = new ImageEntity($snapshot);
+            $snapshot = new SnapshotEntity($snapshot);
 
             return $snapshot;
         }, $snapshots->snapshots);
