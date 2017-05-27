@@ -61,6 +61,11 @@ class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
         $this->key()->shouldBeAnInstanceOf('DigitalOceanV2\Api\Key');
     }
 
+    function it_should_return_a_load_balancer_instance()
+    {
+        $this->loadBalancer()->shouldBeAnInstanceOf('DigitalOceanV2\Api\LoadBalancer');
+    }
+
     function it_should_return_a_rate_limit_instance()
     {
         $this->rateLimit()->shouldBeAnInstanceOf('DigitalOceanV2\Api\RateLimit');

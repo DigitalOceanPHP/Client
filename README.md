@@ -400,6 +400,33 @@ $updatedKey = $key->update(123, 'new-key-name');
 $key->delete(123);
 ```
 
+Load Balancer
+-------------
+
+```php
+// ..
+// return the load balancer api
+$loadBalancer = $digitalocean->loadbalancer();
+
+//returns a collection of Load Balancer entities
+$loadBalancers = $loadBalancer->getAll();
+
+//return a Load Balancer entity by id
+$myLoadBalancer = $loadBalancer->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
+/**
+* updates an existing load balancer, the method will except a LoadBalancer
+* entity or a load balancer representation in array form, the digitial
+* Ocean API requires a full representation of your load
+* balancer, any attribute that is missing will
+* be reset to it's default setting.
+*/
+$myUpdatedLoadBalancer = $loadBalancer->update('506f78a4-e098-11e5-ad9f-000f53306ae1', $myLoadBalancer);
+
+//create a standard load balancer that listens on port 80 and 443 with ssl passthrough enabled
+$myNewLoadBalancer = $loadBalancer->create('my-new-load-balancer', 'nyc1');
+```
+
 Region
 ------
 
