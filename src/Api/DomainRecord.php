@@ -62,12 +62,13 @@ class DomainRecord extends AbstractApi
      * @param int    $priority
      * @param int    $port
      * @param int    $weight
+     * @param int    $ttl
      *
      * @throws HttpException|InvalidRecordException
      *
      * @return DomainRecordEntity
      */
-    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null)
+    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null, $ttl = null)
     {
         switch ($type = strtoupper($type)) {
             case 'A':
@@ -100,6 +101,10 @@ class DomainRecord extends AbstractApi
                 throw new InvalidRecordException('The domain record type is invalid.');
         }
 
+        if (null !== $ttl) {
+            $content['ttl'] = $ttl;
+        }
+
         $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
 
         $domainRecord = json_decode($domainRecord);
@@ -115,12 +120,13 @@ class DomainRecord extends AbstractApi
      * @param int|null    $priority
      * @param int|null    $port
      * @param int|null    $weight
+     * @param int|null    $ttl
      *
      * @throws HttpException
      *
      * @return DomainRecordEntity
      */
-    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null)
+    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null, $ttl = null)
     {
         $content = compact('name', 'data', 'priority', 'port', 'weight');
         $content = array_filter($content, function ($val) {
