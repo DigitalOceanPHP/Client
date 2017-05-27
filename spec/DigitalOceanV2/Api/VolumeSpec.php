@@ -626,4 +626,100 @@ EOT;
         $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
         $meta->total->shouldBe($total);
     }
+
+    public function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity($adapter)
+    {
+        $total = 3;
+
+        $response = <<<'EOT'
+        {
+            "snapshots": [
+                {
+                    "id": "ddcd0c62-3b45-11e7-b079-0242ac110606",
+                    "name": "test_1",
+                    "regions": [
+                        "fra1"
+                    ],
+                    "created_at": "2017-05-17T21:14:51Z",
+                    "resource_id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                    "resource_type": "volume",
+                    "min_disk_size": 40,
+                    "size_gigabytes": 25
+                },
+                {
+                    "id": "dfaeb3f1-3b45-11e7-889c-0242ac110705",
+                    "name": "test_2",
+                    "regions": [
+                        "fra1"
+                    ],
+                    "created_at": "2017-05-17T21:14:54Z",
+                    "resource_id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                    "resource_type": "volume",
+                    "min_disk_size": 40,
+                    "size_gigabytes": 25
+                },
+                {
+                    "id": "e1f9100f-3b45-11e7-b079-0242ac110606",
+                    "name": "test_3",
+                    "regions": [
+                        "fra1"
+                    ],
+                    "created_at": "2017-05-17T21:14:58Z",
+                    "resource_id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                    "resource_type": "volume",
+                    "min_disk_size": 40,
+                    "size_gigabytes": 25
+                }
+            ],
+            "links": {},
+            "meta": {
+                "total": 3
+            }
+        }
+EOT;
+
+        $adapter
+            ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots?per_page=200')
+            ->willReturn($response);
+
+        $snapshots = $this->getSnapshots('506f78a4-e098-11e5-ad9f-000f53306ae1');
+        $snapshots->shouldBeArray();
+        $snapshots->shouldHaveCount($total);
+        foreach ($snapshots as $snapshot) {
+            $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
+        }
+        $meta = $this->getMeta();
+        $meta->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Meta');
+        $meta->total->shouldBe($total);
+    }
+
+    public function it_returns_snapshot_entity_after_snapshot_creation($adapter)
+    {
+        $response = <<<'EOT'
+        {
+            "snapshot": {
+                "id": "902068ee-3b3f-11e7-93a1-0242ac116705",
+                "name": "snapshot1-volume",
+                "regions": [
+                    "fra1"
+                ],
+                "created_at": "2017-05-17T20:29:44Z",
+                "resource_id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                "resource_type": "volume",
+                "min_disk_size": 40,
+                "size_gigabytes": 25
+            }
+        }
+EOT;
+        $adapter
+            ->post('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots',
+                ['name' => 'snapshot1-volume']
+            )
+            ->willReturn($response);
+
+        $snapshot = $this->snapshot('506f78a4-e098-11e5-ad9f-000f53306ae1', 'snapshot1-volume');
+        $snapshot->shouldBeAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
+        $snapshot->id->shouldBe('902068ee-3b3f-11e7-93a1-0242ac116705');
+        $snapshot->name->shouldBe('snapshot1-volume');
+    }
 }
