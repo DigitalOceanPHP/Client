@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
+use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
 
 /**
@@ -69,6 +70,28 @@ class Volume extends AbstractApi
         $volume = json_decode($volume);
 
         return new VolumeEntity($volume->volume);
+    }
+
+    /**
+     * Get all volume snapshots.
+     *
+     * @param string $id
+     *
+     * @return ImageEntity[]
+     */
+    public function getSnapshots($id)
+    {
+        $snapshots = $this->adapter->get(sprintf('%s/volumes/%s/snapshots?per_page=%d', $this->endpoint, $id, 200));
+
+        $snapshots = json_decode($snapshots);
+
+        $this->meta = $this->extractMeta($snapshots);
+
+        return array_map(function ($snapshot) {
+            $snapshot = new SnapshotEntity($snapshot);
+
+            return $snapshot;
+        }, $snapshots->snapshots);
     }
 
     /**
@@ -182,6 +205,29 @@ class Volume extends AbstractApi
         $action = json_decode($action);
 
         return new ActionEntity($action->action);
+    }
+
+    /**
+     * Create a new snapshot of the volume.
+     *
+     * @param string $id   the id of the volume
+     * @param string $name a human-readable name for the volume snapshot
+     *
+     * @throws HttpException
+     *
+     * @return SnapshotEntity
+     */
+    public function snapshot($id, $name)
+    {
+        $data = [
+            'name' => $name,
+        ];
+
+        $snapshot = $this->adapter->post(sprintf('%s/volumes/%s/snapshots', $this->endpoint, $id), $data);
+
+        $snapshot = json_decode($snapshot);
+
+        return new SnapshotEntity($snapshot->snapshot);
     }
 
     /**

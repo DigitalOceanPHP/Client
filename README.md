@@ -483,6 +483,9 @@ $volumes = $volume->getByNameAndRegion('example', 'nyc1');
 // returns a volume by id
 $myvolume = $volume->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
+// returns a volumes snapshots by volume id
+$mySnapshots = $volume->getSnapshots('506f78a4-e098-11e5-ad9f-000f53306ae1');
+
 // creates a volume
 $myvolume = $volume->create('example', 'Block store for examples', 10, 'nyc1');
 
@@ -500,6 +503,9 @@ $volume->detach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
 
 // resize a volume 
 $volume->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc1');
+
+// take a snapshot of volume and name it 'my-snapshot'. Returns the Snapshot entity
+$snapshot = $volume->snapshot('506f78a4-e098-11e5-ad9f-000f53306ae1', 'my-snapshot');
 
 // get a volume action by its id 
 $volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
