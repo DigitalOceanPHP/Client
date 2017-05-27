@@ -50,5 +50,10 @@ final class DomainRecord extends AbstractEntity
     /**
      * @var int
      */
+    public $ttl;
+
+    /**
+     * @var int
+     */
     public $weight;
 }

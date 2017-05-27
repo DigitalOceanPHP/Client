@@ -58,6 +58,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "@",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -92,6 +93,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "8.8.8.8",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -116,6 +118,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "8.8.8.8",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -142,6 +145,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "hosttarget",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -168,6 +172,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "whatever",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -194,6 +199,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "ns1.digitalocean.com.",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -220,6 +226,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "targethost",
                         "priority": 0,
                         "port": 1,
+                        "ttl" : 1800,
                         "weight": 2
                     }
                 }
@@ -246,6 +253,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "127.0.0.1",
                         "priority": 0,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -255,6 +263,33 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->create('foo.dk', 'mx', 'new-name', '127.0.0.1', 0)
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
+
+
+    function it_returns_the_created_domain_record_with_ttl($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/domains/foo.dk/records',
+                ['name' => '@', 'type' => 'A', 'data' => '8.8.8.8', 'ttl' => '60']
+            )
+            ->willReturn('
+                {
+                    "domain_record": {
+                        "id": 123,
+                        "type": "A",
+                        "name": "@",
+                        "data": "8.8.8.8",
+                        "priority": null,
+                        "port": null,
+                        "ttl" : 60,
+                        "weight": null
+                    }
+                }
+            ');
+
+        $this->create('foo.dk', 'a', '@', '8.8.8.8', null, null, null, 60)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+    }
+
 
     function it_throws_an_invalid_record_exception_if_unknown_type()
     {
@@ -279,6 +314,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "127.0.0.1",
                         "priority": null,
                         "port": null,
+                        "ttl" : 1800,
                         "weight": null
                     }
                 }
@@ -294,7 +330,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
-                ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2]
+                ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2, 'ttl' => 60]
             )
             ->willReturn('
                 {
@@ -305,13 +341,14 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "targethost",
                         "priority": 0,
                         "port": 1,
+                        "ttl" : 60,
                         "weight": 2
                     }
                 }
             ');
 
         $this
-            ->updateFields('foo.dk', 123, ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2])
+            ->updateFields('foo.dk', 123, ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2, 'ttl' => 60])
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
