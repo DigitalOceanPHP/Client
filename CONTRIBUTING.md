@@ -28,4 +28,13 @@ $ composer global require phpspec/phpspec:@stable
 $ phpspec run -fpretty
 ```
 
+Generating documentation
+------------------------
+
+Before sending a pull request make sure you regenerate the documentation by running the following commmand:
+
+```bash
+$ php vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d src/ -t documentation --cache-folder phpdoccache && rm -r phpdoccache/
+```
+
 **Happy coding** !
