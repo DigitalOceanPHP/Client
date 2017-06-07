@@ -33,11 +33,13 @@ class BuzzAdapter implements AdapterInterface
      * @param string                 $token
      * @param Browser|null           $browser
      * @param ListenerInterface|null $listener
+     * @param int                    $timeout
      */
-    public function __construct($token, Browser $browser = null, ListenerInterface $listener = null)
+    public function __construct($token, Browser $browser = null, ListenerInterface $listener = null, $timeout = 5)
     {
         $this->browser = $browser ?: new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
         $this->browser->addListener($listener ?: new BuzzOAuthListener($token));
+        $this->browser->getClient()->setTimeout($timeout);
     }
 
     /**
