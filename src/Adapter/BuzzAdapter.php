@@ -41,6 +41,14 @@ class BuzzAdapter implements AdapterInterface
     }
 
     /**
+     * @return Browser
+     */
+    public function getBrowser()
+    {
+        return $this->browser;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function get($url)
