@@ -121,12 +121,14 @@ class Droplet extends AbstractApi
      * @param bool         $monitoring
      * @param array        $volumes
      * @param array        $tags
+     * @param bool         $wait
+     * @param int          $waitTimeout
      *
      * @throws HttpException
      *
      * @return DropletEntity|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, array $volumes = [], array $tags = [])
+    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, array $volumes = [], array $tags = [], $wait = false, $waitTimeout = 300)
     {
         $data = is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -162,11 +164,19 @@ class Droplet extends AbstractApi
 
         if (is_array($names)) {
             return array_map(function ($droplet) {
-                return new DropletEntity($droplet);
+                $dropletEntity = new DropletEntity($droplet);
+                if ($wait) {
+                  return $this->waitForActive($dropletEntity, $waitTimeout);
+                }
+                return $dropletEntity;
             }, $droplet->droplets);
         }
 
-        return new DropletEntity($droplet->droplet);
+        $dropletEntity = new DropletEntity($droplet->droplet);
+        if ($wait) {
+          return $this->waitForActive($dropletEntity, $waitTimeout);
+        }
+        return $dropletEntity;
     }
 
     /**
@@ -484,5 +494,26 @@ class Droplet extends AbstractApi
         $action = json_decode($action);
 
         return new ActionEntity($action->action);
+    }
+
+    /**
+     * @param DropletEntity $droplet
+     * @param int           $waitTimeout
+     *
+     * @throws HttpException
+     *
+     * @return DropletEntity|null
+     */
+    public function waitForActive($droplet, $waitTimeout)
+    {
+      $endTime = time() + $waitTimeout;
+      while (time() < $endTime) {
+        sleep(min(20, $endTime - time()));
+        $droplet = $this->getById($droplet->id);
+        if ($droplet->status == 'active') {
+          return $droplet;
+        }
+      }
+      return $droplet;
     }
 }
