@@ -314,7 +314,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "127.0.0.1",
                         "priority": null,
                         "port": 80,
-                        "ttl" : 60,
+                        "ttl" : 22,
                         "weight": 2
                     }
                 }
