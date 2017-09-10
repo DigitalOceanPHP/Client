@@ -303,7 +303,7 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $adapter
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/456',
-                ['name' => 'new-name']
+                ['name' => 'new-name', 'data' => '127.0.0.1', 'port' => 80, 'weight' => 2, 'ttl' => 22]
             )
             ->willReturn('
                 {
@@ -313,15 +313,15 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "name": "new-name",
                         "data": "127.0.0.1",
                         "priority": null,
-                        "port": null,
-                        "ttl" : 1800,
-                        "weight": null
+                        "port": 80,
+                        "ttl" : 60,
+                        "weight": 2
                     }
                 }
             ');
 
         $this
-            ->update('foo.dk', 456, 'new-name')
+            ->update('foo.dk', 456, 'new-name', '127.0.0.1', null, 80, 2, 22)
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
