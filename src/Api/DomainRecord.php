@@ -62,13 +62,15 @@ class DomainRecord extends AbstractApi
      * @param int    $priority
      * @param int    $port
      * @param int    $weight
+     * @param int    $flags
+     * @param int    $tag
      * @param int    $ttl
      *
      * @throws HttpException|InvalidRecordException
      *
      * @return DomainRecordEntity
      */
-    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null, $ttl = null)
+    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
     {
         switch ($type = strtoupper($type)) {
             case 'A':
@@ -97,6 +99,10 @@ class DomainRecord extends AbstractApi
                 $content = ['type' => $type, 'name' => $name, 'data' => $data, 'priority' => $priority];
                 break;
 
+            case 'CAA':
+                $content = ['type' => $type, 'name' => $name, 'data' => $data, 'flags' => $flags, 'tag' => $tag];
+                break;
+
             default:
                 throw new InvalidRecordException('The domain record type is invalid.');
         }
@@ -120,15 +126,18 @@ class DomainRecord extends AbstractApi
      * @param int|null    $priority
      * @param int|null    $port
      * @param int|null    $weight
+     * @param int|null    $flags
+     * @param int|null    $tag
      * @param int|null    $ttl
      *
      * @throws HttpException
      *
      * @return DomainRecordEntity
      */
-    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null, $ttl = null)
+    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
     {
-        $content = compact('name', 'data', 'priority', 'port', 'weight', 'ttl');
+        $content = compact('name', 'data', 'priority', 'port', 'weight', 'flags', 'tag', 'ttl');
+
         $content = array_filter($content, function ($val) {
             return $val !== null;
         });

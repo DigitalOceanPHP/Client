@@ -59,7 +59,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -94,7 +96,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -119,7 +123,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -146,7 +152,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -173,7 +181,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -200,7 +210,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -227,7 +239,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": 0,
                         "port": 1,
                         "ttl" : 1800,
-                        "weight": 2
+                        "weight": 2,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -254,7 +268,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": 0,
                         "port": null,
                         "ttl" : 1800,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
@@ -264,6 +280,34 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    function it_returns_the_created_domain_record_type_caa($adapter)
+    {
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/domains/foo.dk/records',
+                ['name' => 'recordname', 'type' => 'CAA', 'data' => 'letsencrypt.org', 'flags' => 10, 'tag' => 'iodef',]
+            )
+            ->willReturn('
+                {
+                    "domain_record": {
+                        "id": 123,
+                        "type": "TXT",
+                        "name": "recordname",
+                        "data": "letsencrypt.org",
+                        "priority": null,
+                        "port": null,
+                        "ttl" : 1800,
+                        "weight": null,
+                        "flags": 10,
+                        "tag": "iodef"
+                    }
+                }
+            ');
+
+        $this
+            ->create('foo.dk', 'caa', 'recordname', 'letsencrypt.org', null, null, null, 10, 'iodef')
+            ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+    }
 
     function it_returns_the_created_domain_record_with_ttl($adapter)
     {
@@ -281,13 +325,15 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "data": "8.8.8.8",
                         "priority": null,
                         "port": null,
-                        "ttl" : 60,
-                        "weight": null
+                        "weight": null,
+                        "flags": null,
+                        "tag": null,
+                        "ttl": 60
                     }
                 }
             ');
 
-        $this->create('foo.dk', 'a', '@', '8.8.8.8', null, null, null, 60)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
+        $this->create('foo.dk', 'a', '@', '8.8.8.8', null, null, null, null, null, 60)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
 
@@ -315,13 +361,15 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": null,
                         "port": 80,
                         "ttl" : 22,
-                        "weight": 2
+                        "weight": 2,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
 
         $this
-            ->update('foo.dk', 456, 'new-name', '127.0.0.1', null, 80, 2, 22)
+            ->update('foo.dk', 456, 'new-name', '127.0.0.1', null, 80, 2, null, null, 22)
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
@@ -342,7 +390,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
                         "priority": 0,
                         "port": 1,
                         "ttl" : 60,
-                        "weight": 2
+                        "weight": 2,
+                        "flags": null,
+                        "tag": null
                     }
                 }
             ');
