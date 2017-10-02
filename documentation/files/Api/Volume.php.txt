@@ -99,12 +99,11 @@ class Volume extends AbstractApi
      * @param string $description     Free-form text field to describe a Block Storage volume
      * @param string $sizeInGigabytes The size of the Block Storage volume in GiB
      * @param string $regionSlug      The region where the Block Storage volume will be created
+     * @param string $snapshotId      The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.
      *
-     * @throws HttpException
-     *
-     * @return VolumeEntity the Block Storage volume that was created
+     * @return VolumeEntity
      */
-    public function create($name, $description, $sizeInGigabytes, $regionSlug)
+    public function create($name, $description, $sizeInGigabytes, $regionSlug, $snapshotId = null)
     {
         $data = [
             'size_gigabytes' => $sizeInGigabytes,
@@ -112,6 +111,10 @@ class Volume extends AbstractApi
             'description' => $description,
             'region' => $regionSlug,
         ];
+
+        if($snapshotId !== null) {
+            $data['snapshot_id'] = $snapshotId;
+        }
 
         $volume = $this->adapter->post(sprintf('%s/volumes', $this->endpoint), $data);
 
