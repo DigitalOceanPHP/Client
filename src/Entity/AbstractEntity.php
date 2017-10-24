@@ -18,6 +18,13 @@ namespace DigitalOceanV2\Entity;
 abstract class AbstractEntity
 {
     /**
+     * The model's attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
      * @param \stdClass|array|null $parameters
      */
     public function __construct($parameters = null)
@@ -107,5 +114,28 @@ abstract class AbstractEntity
     protected static function convertToSnakeCase($str)
     {
         return strtolower(implode('_', preg_split('/(?=[A-Z])/', $str)));
+    }
+
+    /**
+     * Dynamically retrieve attributes on the model.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+    }
+
+    /**
+     * Dynamically set attributes on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        $this->attributes[$key] = $value;
     }
 }
