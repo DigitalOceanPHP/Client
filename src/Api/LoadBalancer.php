@@ -97,6 +97,48 @@ class LoadBalancer extends AbstractApi
     }
 
     /**
+     * @param string                      $name
+     * @param string                      $region
+     * @param array|ForwardRuleEntity[]   $forwardRules
+     * @param string                      $algorithm
+     * @param array|HealthCheckEntity[]   $healthCheck
+     * @param array|StickySessionEntity[] $stickySessions
+     * @param bool                        $httpsRedirect
+     * @param array                       $tags
+     *
+     * @throws HttpException
+     *
+     * @return LoadBalancerEntity
+     */
+    public function createTag(
+        $name,
+        $region,
+        $forwardRules = null,
+        $algorithm = 'round_robin',
+        $healthCheck = [],
+        $stickySessions = [],
+        $httpsRedirect = false
+        $tags = [],
+    ) {
+        $data = [
+            'name' => $name,
+            'algorithm' => $algorithm,
+            'region' => $region,
+            'forwarding_rules' => $this->formatForwardRules($forwardRules),
+            'health_check' => $this->formatConfigurationOptions($healthCheck),
+            'sticky_sessions' => $this->formatConfigurationOptions($stickySessions),
+            'redirect_http_to_https' => $httpsRedirect,
+            'tags' => $this->formatConfigurationOptions($tags),
+        ];
+
+        $loadBalancer = $this->adapter->post(sprintf('%s/load_balancers', $this->endpoint), $data);
+
+        $loadBalancer = json_decode($loadBalancer);
+
+        return new LoadBalancerEntity($loadBalancer->load_balancer);
+    }
+    
+    /**
      * @param string                   $id
      * @param array|LoadBalancerEntity $loadBalancerSpec
      *
