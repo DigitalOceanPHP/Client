@@ -139,6 +139,7 @@ final class LoadBalancer extends AbstractEntity
             'sticky_sessions' => $this->stickySessions->toArray(),
             'droplet_ids' => $this->dropletIds,
             'redirect_http_to_https' => $this->redirectHttpToHttps,
+            'tag' => $this->tag,
         ];
     }
 }
