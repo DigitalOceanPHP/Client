@@ -118,7 +118,7 @@ class LoadBalancer extends AbstractApi
         $healthCheck = [],
         $stickySessions = [],
         $httpsRedirect = false
-        $tags = '',
+        $tag = '',
     ) {
         $data = [
             'name' => $name,
@@ -128,7 +128,7 @@ class LoadBalancer extends AbstractApi
             'health_check' => $this->formatConfigurationOptions($healthCheck),
             'sticky_sessions' => $this->formatConfigurationOptions($stickySessions),
             'redirect_http_to_https' => $httpsRedirect,
-            'tags' => $tags,
+            'tag' => $tag,
         ];
 
         $loadBalancer = $this->adapter->post(sprintf('%s/load_balancers', $this->endpoint), $data);
