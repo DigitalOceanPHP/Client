@@ -87,6 +87,7 @@ services:
     do.factory:
         class: %do.class.factory%
         arguments: [@do.adapter]
+        public: true # Needed for symfony 3.3+ with autoconfiure/autowire set to true
 
     ....
 ```
