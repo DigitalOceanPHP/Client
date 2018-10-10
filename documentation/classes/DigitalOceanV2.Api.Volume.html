@@ -144,28 +144,28 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2036686744"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-375119251"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-2036686744" class="accordion-body collapse in">
+            <div id="namespace-375119251" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-801696975"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1580458204"></a>
                                 <a href="../namespaces/DigitalOceanV2.html" style="margin-left: 30px; padding-left: 0">DigitalOceanV2</a>
             </div>
-            <div id="namespace-801696975" class="accordion-body collapse ">
+            <div id="namespace-1580458204" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-523865219"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-38052551"></a>
                                 <a href="../namespaces/DigitalOceanV2.Adapter.html" style="margin-left: 30px; padding-left: 0">Adapter</a>
             </div>
-            <div id="namespace-523865219" class="accordion-body collapse ">
+            <div id="namespace-38052551" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -184,10 +184,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1228887833"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-594490881"></a>
                                 <a href="../namespaces/DigitalOceanV2.Api.html" style="margin-left: 30px; padding-left: 0">Api</a>
             </div>
-            <div id="namespace-1228887833" class="accordion-body collapse ">
+            <div id="namespace-594490881" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -217,10 +217,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-670961067"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-722357853"></a>
                                 <a href="../namespaces/DigitalOceanV2.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
             </div>
-            <div id="namespace-670961067" class="accordion-body collapse ">
+            <div id="namespace-722357853" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -258,10 +258,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-304723239"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1600685042"></a>
                                 <a href="../namespaces/DigitalOceanV2.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
             </div>
-            <div id="namespace-304723239" class="accordion-body collapse ">
+            <div id="namespace-1600685042" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -377,7 +377,7 @@
                     
                     <dl>
                         <dt>File</dt>
-                            <dd><a href="../files/Api.Volume.html"><div class="path-wrapper">Api/Volume.php</div></a></dd>
+                            <dd><a href="../files/Api.Volume.html"><div class="path-wrapper">Api\Volume.php</div></a></dd>
                                                 <dt>Package</dt>
                             <dd><div class="namespace-wrapper">Default</div></dd>
                                                 <dt>Class hierarchy</dt>
@@ -760,7 +760,7 @@
             <article class="method">
                 <h3 class="public ">create()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">create(string  <span class="argument">$name</span>, string  <span class="argument">$description</span>, string  <span class="argument">$sizeInGigabytes</span>, string  <span class="argument">$regionSlug</span>, string  <span class="argument">$snapshotId = null</span>) : \DigitalOceanV2\Entity\Volume</pre>
+                <pre class="signature" style="margin-right: 54px;">create(string  <span class="argument">$name</span>, string  <span class="argument">$description</span>, string  <span class="argument">$sizeInGigabytes</span>, string  <span class="argument">$regionSlug</span>) : \DigitalOceanV2\Entity\Volume</pre>
                 <p><em></em></p>
                 
 
@@ -786,16 +786,17 @@
                                 <td>$regionSlug </td>
                                 <td><p>The region where the Block Storage volume will be created</p></td>
                             </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$snapshotId </td>
-                                <td><p>The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.</p></td>
-                            </tr>
                                             </table>
                 
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\DigitalOceanV2\Api\HttpException</dt>
+                            <dd></dd>
+                                                                    </dl>
                 
                                     <h4>Returns</h4>
                     <a href="../classes/DigitalOceanV2.Entity.Volume.html">\DigitalOceanV2\Entity\Volume</a>
+                                            &mdash; <p>the Block Storage volume that was created</p>
                                     				
                             </article>
         </div>
@@ -1201,7 +1202,7 @@
             <h3 id="source-view-label">Volume.php</h3>
         </div>
         <div class="modal-body">
-            <pre data-src="../files/Api/Volume.php.txt" class="language-php line-numbers"></pre>
+            <pre data-src="../files/Api\Volume.php.txt" class="language-php line-numbers"></pre>
         </div>
     </div>
 
@@ -1242,7 +1243,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on October 2nd, 2017 at 15:09.
+                    on June 4th, 2017 at 14:42.
                 </section>
             </section>
         </section>
