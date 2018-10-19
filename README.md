@@ -477,7 +477,7 @@ Volume
 // ..
 // return the volume api
 $volume = $digitalocean->volume();
-
+// create new api for the volume
 // returns the all volumes
 $volumes = $volume->getAll();
 
