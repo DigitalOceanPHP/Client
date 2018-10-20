@@ -27,22 +27,20 @@
     },
 
     "require": {
-        "php": "~5.4 || 7.0.*"
+        "php": "7.1.* || 7.2.*",
+        "ext-json": "*"
     },
 
     "require-dev": {
-        "kriswallsmith/buzz"        : "~0.10",
-        "guzzle/guzzle"             : "~3.7",
-        "guzzlehttp/guzzle"         : "~5.0|~6.0",
-        "phpspec/phpspec"           : "~2.4",
-        "friendsofphp/php-cs-fixer" : "~1.11",
-        "phpdocumentor/phpdocumentor": "2.*"
+        "kriswallsmith/buzz"        : "~0.17",
+        "guzzlehttp/guzzle"         : "~6.0",
+        "phpspec/phpspec"           : "~5.0",
+        "friendsofphp/php-cs-fixer" : "~2.13"
     },
 
     "suggest": {
-        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:~0.10.",
-        "guzzle/guzzle"     : "To use GuzzleAdapter, require guzzle/guzzle:~3.7.",
-        "guzzlehttp/guzzle" : "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:~5.0|~6.0."
+        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:~0.17.",
+        "guzzlehttp/guzzle" : "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:~6.0."
     },
 
     "autoload": {
