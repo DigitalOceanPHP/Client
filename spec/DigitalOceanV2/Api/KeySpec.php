@@ -2,12 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class KeySpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -17,6 +19,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Key');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_an_empty_array($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/account/keys?per_page=200')->willReturn('{"ssh_keys": []}');
@@ -26,6 +31,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $keys->shouldHaveCount(0);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_an_array_of_key_entity($adapter)
     {
         $total = 3;
@@ -36,6 +44,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $keys->shouldBeArray();
         $keys->shouldHaveCount($total);
         foreach ($keys as $key) {
+            /**
+             * @var \DigitalOceanV2\Entity\Key|\PhpSpec\Wrapper\Subject $key
+             */
             $key->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
         }
         $meta = $this->getMeta();
@@ -43,6 +54,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_a_key_entity_get_by_its_id($adapter)
     {
         $adapter
@@ -61,6 +75,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->getById(123)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_a_key_entity_get_by_its_fingerprint($adapter)
     {
         $adapter
@@ -81,6 +98,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_key($adapter)
     {
         $adapter
@@ -102,6 +122,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->create('foo', 'ssh-rsa foobarbaz...')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_updated_key($adapter)
     {
         $adapter
@@ -120,6 +143,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->update(456, 'bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Key');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_throws_an_http_exception_when_trying_to_update_an_inexisting_key($adapter)
     {
         $adapter
@@ -129,6 +155,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('update', [0, 'baz']);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_deletes_the_key_and_returns_nothing($adapter)
     {
         $adapter
@@ -138,6 +167,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_key($adapter)
     {
         $adapter

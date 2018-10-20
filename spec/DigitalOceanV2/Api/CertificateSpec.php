@@ -2,11 +2,12 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
-
 class CertificateSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -16,6 +17,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Certificate');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_an_array_of_size_entity($adapter)
     {
         $total = 3;
@@ -36,6 +40,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
         $certificates->shouldHaveCount($total);
 
         foreach ($certificates as $certificate) {
+            /**
+             * @var \DigitalOceanV2\Entity\Certificate|\PhpSpec\Wrapper\Subject $certificate
+             */
             $certificate->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Certificate');
         }
 
@@ -44,6 +51,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_a_certificate_entity_by_its_id($adapter)
     {
         $adapter
@@ -62,6 +72,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
              ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Certificate');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_certificate($adapter)
     {
         $data = [
@@ -88,6 +101,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Certificate');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_deletes_the_certificate_and_returns_nothing($adapter)
     {
         $adapter

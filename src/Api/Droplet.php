@@ -163,7 +163,7 @@ class Droplet extends AbstractApi
         $droplet = json_decode($droplet);
 
         if (is_array($names)) {
-            return array_map(function ($droplet) {
+            return array_map(function ($droplet) use ($wait, $waitTimeout) {
                 $dropletEntity = new DropletEntity($droplet);
                 if ($wait) {
                   return $this->waitForActive($dropletEntity, $waitTimeout);
