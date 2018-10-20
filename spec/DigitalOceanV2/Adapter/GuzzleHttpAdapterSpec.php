@@ -2,14 +2,12 @@
 
 namespace spec\DigitalOceanV2\Adapter;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Stream;
-use PhpSpec\ObjectBehavior;
-
-class GuzzleHttpAdapterSpec extends ObjectBehavior
+class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Client $client)
+    /**
+     * @param \GuzzleHttp\Client $client
+     */
+    function let($client)
     {
         $client->beConstructedWith([
             'headers' => [
@@ -25,7 +23,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleHttpAdapter');
     }
 
-    function it_returns_json_content(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_returns_json_content($client, $response, $stream)
     {
         $client->get('http://sbin.dk')->willReturn($response);
         $response->getBody()->willReturn($stream);
@@ -34,7 +37,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_delete(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_can_delete($client, $response, $stream)
     {
         $client->delete('http://sbin.dk/123')->willReturn($response);
 
@@ -45,7 +53,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->delete('http://sbin.dk/123')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_put_basic(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_can_put_basic($client, $response, $stream)
     {
         $client->put('http://sbin.dk/456', ['body' => ''])->willReturn($response);
 
@@ -56,7 +69,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->put('http://sbin.dk/456')->shouldBe('foo');
     }
 
-    function it_can_put_array(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_can_put_array($client, $response, $stream)
     {
         $client->put('http://sbin.dk/456', [
             'json' => [
@@ -71,7 +89,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post_basic(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_can_post_basic($client, $response, $stream)
     {
         $client->post('http://sbin.dk/456', ['body' => ''])->willReturn($response);
 
@@ -82,7 +105,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->post('http://sbin.dk/456')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post_array(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_can_post_array($client, $response, $stream)
     {
         $client->post('http://sbin.dk/456', [
             'json' => [
@@ -97,7 +125,12 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
         $this->post('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_returns_last_response_header(Client $client, Response $response, Stream $stream)
+    /**
+     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\Psr7\Response $response
+     * @param \GuzzleHttp\Psr7\Stream $stream
+     */
+    function it_returns_last_response_header($client, $response, $stream)
     {
         $client->get('http://sbin.dk')->willReturn($response);
 

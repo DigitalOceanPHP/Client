@@ -3,9 +3,8 @@
 namespace spec\DigitalOceanV2\Adapter;
 
 use DigitalOceanV2\Exception\HttpException;
-use PhpSpec\ObjectBehavior;
 
-class BuzzAdapterSpec extends ObjectBehavior
+class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {
     /**
      * @param \Buzz\Browser $browser
