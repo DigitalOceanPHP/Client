@@ -21,15 +21,15 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:~2.0
+$ php composer.phar require toin0u/digitalocean-v2:^2.2
 ```
 
 You then need to install **one** of the following:
 ```bash
-$ php composer.phar require kriswallsmith/buzz:~0.10
-$ php composer.phar require guzzle/guzzle:~3.7
-$ php composer.phar require guzzlehttp/guzzle:~5.0
-$ php composer.phar require guzzlehttp/guzzle:~6.0
+$ php composer.phar require kriswallsmith/buzz:^0.16
+$ php composer.phar require guzzle/guzzle:^3.7
+$ php composer.phar require guzzlehttp/guzzle:^5.3
+$ php composer.phar require guzzlehttp/guzzle:^6.3
 ```
 
 Or edit `composer.json` and add:
@@ -37,7 +37,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "~2.0"
+        "toin0u/digitalocean-v2": "^2.2"
     }
 }
 ```
@@ -47,10 +47,10 @@ And then add **one** of the following:
 ```json
 {
     "require": {
-        "kriswallsmith/buzz": "~0.10",
-        "guzzle/guzzle": "~3.7",
-        "guzzlehttp/guzzle": "~5.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "kriswallsmith/buzz": "^0.16",
+        "guzzle/guzzle": "^3.7",
+        "guzzlehttp/guzzle": "^5.0",
+        "guzzlehttp/guzzle": "^6.0"
     }
 }
 ```
@@ -62,14 +62,14 @@ And then add **one** of the following:
 ```json
 {
     "require": {
-        "graham-campbell/digitalocean": "~3.0"
+        "graham-campbell/digitalocean": "^5.0"
     }
 }
 ```
 
 ### Using Symfony2? ###
 
-For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to).Just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
+For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to). Just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
 
 ```yaml
 # YourBundle/Resources/config/services.yml
