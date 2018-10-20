@@ -24,7 +24,7 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleAdapter');
     }
 
-    function it_returns_json_content(Client $client, Request $request, Response $response)
+    function it_returns_json_content($client, Request $request, Response $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);
