@@ -11,7 +11,11 @@ use Psr\Http\Message\StreamInterface;
 
 class BuzzAdapterSpec extends ObjectBehavior
 {
-    function let(Browser $browser, MiddlewareInterface $middleware)
+    /**
+     * @param Browser $browser
+     * @param MiddlewareInterface $middleware
+     */
+    function let($browser, $middleware)
     {
         $browser->addMiddleware($middleware)->shouldBeCalled();
 
@@ -23,7 +27,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\BuzzAdapter');
     }
 
-    function it_returns_json_content(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_returns_json_content($browser, $response, $stream)
     {
         $browser->get('http://sbin.dk')->willReturn($response);
 
@@ -34,7 +43,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_throws_an_http_exception($browser, $response, $stream)
     {
         $browser->get('http://sbin.dk')->willReturn($response);
 
@@ -46,7 +60,7 @@ class BuzzAdapterSpec extends ObjectBehavior
             ->during('get', ['http://sbin.dk']);
     }
 
-    function it_can_delete(Browser $browser, ResponseInterface $response)
+    function it_can_delete($browser, $response)
     {
         $browser->delete('http://sbin.dk/123')->willReturn($response);
 
@@ -55,11 +69,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->delete('http://sbin.dk/123');
     }
 
-    function it_throws_an_http_exception_if_cannot_delete(
-        Browser $browser,
-        ResponseInterface $response,
-        StreamInterface $stream
-    ) {
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_throws_an_http_exception_if_cannot_delete($browser, $response, $stream) {
         $browser->delete('http://sbin.dk/123')->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
@@ -70,7 +85,12 @@ class BuzzAdapterSpec extends ObjectBehavior
             ->during('delete', ['http://sbin.dk/123']);
     }
 
-    function it_can_put_basic(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_can_put_basic($browser, $response, $stream)
     {
         $browser->put('http://sbin.dk/456', [], '')->willReturn($response);
 
@@ -81,7 +101,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->put('http://sbin.dk/456')->shouldBe('foo');
     }
 
-    function it_can_put_array(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_can_put_array($browser, $response, $stream)
     {
         $browser->put('http://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -93,11 +118,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception_if_cannot_put(
-        Browser $browser,
-        ResponseInterface $response,
-        StreamInterface $stream
-    ) {
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_throws_an_http_exception_if_cannot_put($browser, $response, $stream) {
         $browser->put('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
@@ -109,7 +135,12 @@ class BuzzAdapterSpec extends ObjectBehavior
             ->during('put', ['http://sbin.dk', ['foo' => 'bar']]);
     }
 
-    function it_can_post_basic(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_can_post_basic($browser, $response, $stream)
     {
         $browser->post('http://sbin.dk', [], '')->willReturn($response);
 
@@ -120,7 +151,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->post('http://sbin.dk')->shouldBe('foo');
     }
 
-    function it_can_post_array(Browser $browser, ResponseInterface $response, StreamInterface $stream)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_can_post_array($browser, $response, $stream)
     {
         $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -132,11 +168,12 @@ class BuzzAdapterSpec extends ObjectBehavior
         $this->post('http://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception_if_cannot_post(
-        Browser $browser,
-        ResponseInterface $response,
-        StreamInterface $stream
-    ) {
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     * @param StreamInterface $stream
+     */
+    function it_throws_an_http_exception_if_cannot_post($browser, $response, $stream) {
         $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
@@ -148,7 +185,11 @@ class BuzzAdapterSpec extends ObjectBehavior
             ->during('post', ['http://sbin.dk', ['foo' => 'bar']]);
     }
 
-    function it_returns_last_response_header(Browser $browser, ResponseInterface $response)
+    /**
+     * @param Browser $browser
+     * @param ResponseInterface $response
+     */
+    function it_returns_last_response_header($browser, $response)
     {
         $browser->getLastResponse()->willReturn($response);
 

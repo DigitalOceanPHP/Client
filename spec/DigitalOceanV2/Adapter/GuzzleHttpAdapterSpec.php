@@ -2,9 +2,7 @@
 
 namespace spec\DigitalOceanV2\Adapter;
 
-use DigitalOceanV2\Adapter\GuzzleHttpAdapter;
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use PhpSpec\ObjectBehavior;
@@ -24,7 +22,7 @@ class GuzzleHttpAdapterSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(GuzzleHttpAdapter::class);
+        $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleHttpAdapter');
     }
 
     function it_returns_json_content(Client $client, Response $response, Stream $stream)
