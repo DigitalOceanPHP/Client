@@ -14,9 +14,9 @@ namespace DigitalOceanV2\Adapter;
 use Buzz\Browser;
 use Buzz\Client\Curl;
 use Buzz\Client\FileGetContents;
+use Buzz\Message\Response;
 use Buzz\Middleware\MiddlewareInterface;
 use DigitalOceanV2\Exception\HttpException;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -49,7 +49,7 @@ class BuzzAdapter implements AdapterInterface
 
         $this->handleResponse($response);
 
-        return $response->getBody()->getContents();
+        return $response->getContent();
     }
 
     /**
@@ -78,7 +78,7 @@ class BuzzAdapter implements AdapterInterface
 
         $this->handleResponse($response);
 
-        return $response->getBody()->getContents();
+        return $response->getContent();
     }
 
     /**
@@ -97,7 +97,7 @@ class BuzzAdapter implements AdapterInterface
 
         $this->handleResponse($response);
 
-        return $response->getBody()->getContents();
+        return $response->getContent();
     }
 
     /**
@@ -117,11 +117,11 @@ class BuzzAdapter implements AdapterInterface
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param Response $response
      *
      * @throws HttpException
      */
-    protected function handleResponse(ResponseInterface $response)
+    protected function handleResponse(Response $response)
     {
         if ($response->getStatusCode() === 200) {
             return;
@@ -131,13 +131,13 @@ class BuzzAdapter implements AdapterInterface
     }
 
     /**
-     * @param ResponseInterface $response
+     * @param Response $response
      *
      * @throws HttpException
      */
-    protected function handleError(ResponseInterface $response)
+    protected function handleError(Response $response)
     {
-        $body = $response->getBody()->getContents();
+        $body = $response->getContent();
         $code = $response->getStatusCode();
 
         $content = json_decode($body);
