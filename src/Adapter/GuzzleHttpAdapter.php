@@ -6,6 +6,7 @@ use DigitalOceanV2\Exception\HttpException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -21,9 +22,9 @@ class GuzzleHttpAdapter implements AdapterInterface
     protected $client;
 
     /**
-     * @var Response
+     * @var Response|ResponseInterface
      */
-    public $response;
+    protected $response;
 
     /**
      * @param string               $token
@@ -31,7 +32,13 @@ class GuzzleHttpAdapter implements AdapterInterface
      */
     public function __construct($token, ClientInterface $client = null)
     {
-        $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
+        if (version_compare(ClientInterface::VERSION, '6') === 1) {
+            $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
+        } else {
+            $this->client = $client ?: new Client();
+
+            $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
+        }
     }
 
     /**
@@ -46,7 +53,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
+        return $this->response->getBody();
     }
 
     /**
@@ -61,7 +68,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
+        return $this->response->getBody();
     }
 
     /**
@@ -80,7 +87,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
+        return $this->response->getBody();
     }
 
     /**
@@ -99,7 +106,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
+        return $this->response->getBody();
     }
 
     /**
@@ -108,7 +115,7 @@ class GuzzleHttpAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $this->response) {
-            return null;
+            return;
         }
 
         return [
