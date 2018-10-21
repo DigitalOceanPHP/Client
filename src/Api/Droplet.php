@@ -163,19 +163,21 @@ class Droplet extends AbstractApi
         $droplet = json_decode($droplet);
 
         if (is_array($names)) {
-            return array_map(function ($droplet) {
+            return array_map(function ($droplet) use ($wait, $waitTimeout) {
                 $dropletEntity = new DropletEntity($droplet);
                 if ($wait) {
-                  return $this->waitForActive($dropletEntity, $waitTimeout);
+                    return $this->waitForActive($dropletEntity, $waitTimeout);
                 }
                 return $dropletEntity;
             }, $droplet->droplets);
         }
 
         $dropletEntity = new DropletEntity($droplet->droplet);
+
         if ($wait) {
-          return $this->waitForActive($dropletEntity, $waitTimeout);
+            return $this->waitForActive($dropletEntity, $waitTimeout);
         }
+
         return $dropletEntity;
     }
 
@@ -506,14 +508,16 @@ class Droplet extends AbstractApi
      */
     public function waitForActive($droplet, $waitTimeout)
     {
-      $endTime = time() + $waitTimeout;
-      while (time() < $endTime) {
-        sleep(min(20, $endTime - time()));
-        $droplet = $this->getById($droplet->id);
-        if ($droplet->status == 'active') {
-          return $droplet;
+        $endTime = time() + $waitTimeout;
+
+        while (time() < $endTime) {
+            sleep(min(20, $endTime - time()));
+            $droplet = $this->getById($droplet->id);
+            if ($droplet->status === 'active') {
+                return $droplet;
+            }
         }
-      }
-      return $droplet;
+
+        return $droplet;
     }
 }
