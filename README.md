@@ -16,6 +16,7 @@ Installation
 
 This library can be found on [Packagist](https://packagist.org/packages/toin0u/digitalocean-v2).
 The recommended way to install this is through [composer](http://getcomposer.org).
+We support PHP 5.5.9-7.3. This library is no longer tested on HHVM.
 
 Run these commands to install composer, the library and its dependencies:
 

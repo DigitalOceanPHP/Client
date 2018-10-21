@@ -28,6 +28,17 @@ $ composer global require phpspec/phpspec:@stable
 $ phpspec run -fpretty
 ```
 
+Running test in docker container
+------------
+```bash
+$ docker run -it --rm -v $(pwd):/var/www -w /var/www php bash
+$ apt update && apt install -y git unzip
+$ docker-php-ext-install zip
+$ curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+$ composer global require phpspec/phpspec:@stable
+$ phpspec run -fpretty
+```
+
 Generating documentation
 ------------------------
 
