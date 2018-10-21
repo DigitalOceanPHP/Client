@@ -21,11 +21,14 @@ use DigitalOceanV2\Exception\HttpException;
 class Domain extends AbstractApi
 {
     /**
+     * @param int $per_page
+     * @param int $page
+     *
      * @return DomainEntity[]
      */
-    public function getAll()
+    public function getAll($per_page = 200, $page = 1)
     {
-        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d', $this->endpoint, 200));
+        $domains = $this->adapter->get(sprintf('%s/domains?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
 
         $domains = json_decode($domains);
 
