@@ -6,7 +6,6 @@ use DigitalOceanV2\Exception\HttpException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -22,7 +21,7 @@ class GuzzleHttpAdapter implements AdapterInterface
     protected $client;
 
     /**
-     * @var Response|ResponseInterface
+     * @var Response
      */
     protected $response;
 
@@ -53,7 +52,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return $this->response->getBody();
+        return (string)$this->response->getBody();
     }
 
     /**
@@ -68,7 +67,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return $this->response->getBody();
+        return (string)$this->response->getBody();
     }
 
     /**
@@ -87,7 +86,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return $this->response->getBody();
+        return (string)$this->response->getBody();
     }
 
     /**
@@ -106,7 +105,7 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->handleError();
         }
 
-        return $this->response->getBody();
+        return (string)$this->response->getBody();
     }
 
     /**
@@ -115,7 +114,7 @@ class GuzzleHttpAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $this->response) {
-            return;
+            return null;
         }
 
         return [
