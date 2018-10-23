@@ -9,14 +9,6 @@ Coding Standard
 ---------------
 This library will use the [Symfony2 Coding Standard](http://symfony.com/doc/current/contributing/code/standards.html).
 
-These conventions are enforced using the [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) tool. PHP-CS-Fixer is installed as a dev dependency and will therefore be available after running `composer install` or `composer update`.
-
-``` bash
-$ cd /path/to/DigitalOceanV2
-$ ./vendor/bin/php-cs-fixer fix
-```
-
-
 Specification tests
 -------------------
 
@@ -29,7 +21,7 @@ $ phpspec run -fpretty
 ```
 
 Running test in docker container
-------------
+--------------------------------
 ```bash
 $ docker run -it --rm -v $(pwd):/var/www -w /var/www php bash
 $ apt update && apt install -y git unzip

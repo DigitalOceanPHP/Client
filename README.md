@@ -146,12 +146,6 @@ If you use Guzzle, you can inject your own client to our `GuzzleAdapter`.
 
 You can also build your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
 
-API documentation
--------
-
-The API documentation is available [here](https://cdn.rawgit.com/toin0u/DigitalOceanV2/master/documentation/index.html) and generated using [phpDocumentor](https://www.phpdoc.org/)
-
-
 Example
 -------
 
@@ -472,7 +466,7 @@ $currentLimit = $rateLimit->getRateLimit();
 ```
 
 Volume
----------
+------
 
 ```php
 // ..
