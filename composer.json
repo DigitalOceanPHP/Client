@@ -27,7 +27,7 @@
     },
 
     "require": {
-        "php": ">=5.4.0",
+        "php": "^7.1",
         "ext-json": "*"
     },
 
@@ -58,5 +58,7 @@
         "branch-alias": {
             "dev-master": "3.0-dev"
         }
-    }
+    },
+    
+    "minimum-stability": "beta"
 }
