@@ -32,14 +32,14 @@
     },
 
     "require-dev": {
-        "kriswallsmith/buzz": "^0.16",
+        "kriswallsmith/buzz": "^1.0",
         "guzzle/guzzle": "^3.7",
         "guzzlehttp/guzzle": "^5.3|^6.3",
         "phpspec/phpspec": "^2.5"
     },
 
     "suggest": {
-        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^0.16.",
+        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^1.0.",
         "guzzle/guzzle"     : "To use GuzzleAdapter, require guzzle/guzzle:^3.7.",
         "guzzlehttp/guzzle" : "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:^5.3|^6.3."
     },
@@ -56,7 +56,7 @@
 
     "extra": {
         "branch-alias": {
-            "dev-master": "2.3-dev"
+            "dev-master": "3.0-dev"
         }
     }
 }
