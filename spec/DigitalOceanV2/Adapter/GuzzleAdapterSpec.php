@@ -2,14 +2,12 @@
 
 namespace spec\DigitalOceanV2\Adapter;
 
-use Guzzle\Http\Client;
-use Guzzle\Http\Message\EntityEnclosingRequest;
-use Guzzle\Http\Message\Request;
-use Guzzle\Http\Message\Response;
-
 class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Client $client)
+    /**
+     * @param \Guzzle\Http\Client $client
+     */
+    function let($client)
     {
         $client->setDefaultOption('headers/Authorization', 'Bearer my_access_token')->willReturn($client);
 
@@ -21,7 +19,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleAdapter');
     }
 
-    function it_returns_json_content($client, Request $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\Request $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_returns_json_content($client, $request, $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);
@@ -32,7 +35,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_delete($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_can_delete($client, $request, $response)
     {
         $client->delete('http://sbin.dk/123')->willReturn($request);
         $request->send()->willReturn($response);
@@ -43,7 +51,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->delete('http://sbin.dk/123');
     }
 
-    function it_can_put_basic($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_can_put_basic($client, $request, $response)
     {
         $client->put('http://sbin.dk/456')->willReturn($request);
         $request->setBody('')->willReturn($request);
@@ -55,7 +68,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456')->shouldBe('foo');
     }
 
-    function it_can_put_array($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_can_put_array($client, $request, $response)
     {
         $client->put('http://sbin.dk/456')->willReturn($request);
         $request->setBody('{"foo":"bar"}', 'application/json')->willReturn($request);
@@ -67,7 +85,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post_basic($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_can_post_basic($client, $request, $response)
     {
         $client->post('http://sbin.dk/456')->willReturn($request);
         $request->setBody('')->willReturn($request);
@@ -79,7 +102,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk/456')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_can_post_array($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_can_post_array($client, $request, $response)
     {
         $client->post('http://sbin.dk/456')->willReturn($request);
         $request->setBody('{"foo":"bar"}', 'application/json')->willReturn($request);
@@ -91,7 +119,12 @@ class GuzzleAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_returns_last_response_header($client, EntityEnclosingRequest $request, Response $response)
+    /**
+     * @param \Guzzle\Http\Client $client
+     * @param \Guzzle\Http\Message\EntityEnclosingRequest $request
+     * @param \Guzzle\Http\Message\Response $response
+     */
+    function it_returns_last_response_header($client, $request, $response)
     {
         $client->get('http://sbin.dk')->willReturn($request);
         $request->send()->willReturn($response);

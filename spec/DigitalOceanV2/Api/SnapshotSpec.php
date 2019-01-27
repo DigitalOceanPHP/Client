@@ -2,11 +2,12 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
-
 class SnapshotSpec extends \PhpSpec\ObjectBehavior
 {
-    public function let(AdapterInterface $adapter)
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    public function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -16,6 +17,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Snapshot');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_returns_an_empty_array($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/snapshots?per_page=200')->willReturn('{"snapshots": []}');
@@ -25,6 +29,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $snapshots->shouldHaveCount(0);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_returns_an_array_of_snapshot_entity($adapter)
     {
         $adapter
@@ -71,6 +78,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $snapshots->shouldBeArray();
         $snapshots->shouldHaveCount(2);
         foreach ($snapshots as $snapshot) {
+            /**
+             * @var \DigitalOceanV2\Entity\Snapshot|\PhpSpec\Wrapper\Subject $snapshot
+             */
             $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
         }
         $meta = $this->getMeta();
@@ -78,6 +88,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe(2);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_returns_an_array_of_snapshot_entity_by_type($adapter)
     {
         $adapter
@@ -113,6 +126,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $snapshots->shouldBeArray();
         $snapshots->shouldHaveCount(1);
         foreach ($snapshots as $snapshot) {
+            /**
+             * @var \DigitalOceanV2\Entity\Snapshot|\PhpSpec\Wrapper\Subject $snapshot
+             */
             $snapshot->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Snapshot');
         }
         $meta = $this->getMeta();
@@ -120,6 +136,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe(1);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_returns_snapshot_entity_by_id($adapter)
     {
         $adapter
@@ -146,6 +165,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
         $snapshot->name->shouldBe('snapshot1-volume');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_deletes_the_snapshot_and_returns_nothing($adapter)
     {
         $adapter

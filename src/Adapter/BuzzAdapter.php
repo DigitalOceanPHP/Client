@@ -14,8 +14,8 @@ namespace DigitalOceanV2\Adapter;
 use Buzz\Browser;
 use Buzz\Client\Curl;
 use Buzz\Client\FileGetContents;
-use Buzz\Listener\ListenerInterface;
 use Buzz\Message\Response;
+use Buzz\Middleware\MiddlewareInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 /**
@@ -32,12 +32,12 @@ class BuzzAdapter implements AdapterInterface
     /**
      * @param string                 $token
      * @param Browser|null           $browser
-     * @param ListenerInterface|null $listener
+     * @param MiddlewareInterface|null $middleware
      */
-    public function __construct($token, Browser $browser = null, ListenerInterface $listener = null)
+    public function __construct($token, Browser $browser = null, MiddlewareInterface $middleware = null)
     {
         $this->browser = $browser ?: new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
-        $this->browser->addListener($listener ?: new BuzzOAuthListener($token));
+        $this->browser->addMiddleware($middleware ?: new BuzzOAuthMiddleware($token));
     }
 
     /**
@@ -106,7 +106,7 @@ class BuzzAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $response = $this->browser->getLastResponse()) {
-            return;
+            return null;
         }
 
         return [
@@ -123,7 +123,7 @@ class BuzzAdapter implements AdapterInterface
      */
     protected function handleResponse(Response $response)
     {
-        if ($response->isSuccessful()) {
+        if ($response->getStatusCode() === 200) {
             return;
         }
 
@@ -137,8 +137,8 @@ class BuzzAdapter implements AdapterInterface
      */
     protected function handleError(Response $response)
     {
-        $body = (string) $response->getContent();
-        $code = (int) $response->getStatusCode();
+        $body = $response->getContent();
+        $code = $response->getStatusCode();
 
         $content = json_decode($body);
 

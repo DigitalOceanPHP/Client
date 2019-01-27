@@ -2,13 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 use DigitalOceanV2\Exception\InvalidRecordException;
 
 class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -18,6 +20,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_an_empty_array($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=200')->willReturn('{"domain_records": []}');
@@ -27,6 +32,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $domainRecords->shouldHaveCount(0);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_an_array_of_domain_record_entity($adapter)
     {
         $total = 3;
@@ -38,6 +46,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $domainRecords->shouldBeArray();
         $domainRecords->shouldHaveCount($total);
         foreach ($domainRecords as $domainRecord) {
+            /**
+             * @var \DigitalOceanV2\Entity\DomainRecord|\PhpSpec\Wrapper\Subject $domainRecord
+             */
             $domainRecord->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
         }
         $meta = $this->getMeta();
@@ -45,6 +56,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_domain_get_by_its_id($adapter)
     {
         $adapter
@@ -70,15 +84,21 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_throws_an_http_exception_if_requested_domain_record_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
             ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->duringGetById('foo.dk', 123456789);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', ['foo.dk', 123456789]);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_a($adapter)
     {
         $adapter
@@ -106,6 +126,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->create('foo.dk', 'a', '@', '8.8.8.8')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_aaaa($adapter)
     {
         $adapter
@@ -135,6 +158,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_cname($adapter)
     {
         $adapter
@@ -164,6 +190,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_txt($adapter)
     {
         $adapter
@@ -193,6 +222,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_ns($adapter)
     {
         $adapter
@@ -222,6 +254,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_srv($adapter)
     {
         $adapter
@@ -251,6 +286,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_mx($adapter)
     {
         $adapter
@@ -280,6 +318,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_type_caa($adapter)
     {
         $adapter
@@ -309,6 +350,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_the_created_domain_record_with_ttl($adapter)
     {
         $adapter
@@ -336,14 +380,16 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->create('foo.dk', 'a', '@', '8.8.8.8', null, null, null, null, null, 60)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
-
     function it_throws_an_invalid_record_exception_if_unknown_type()
     {
         $this
             ->shouldThrow(new InvalidRecordException('The domain record type is invalid.'))
-            ->duringCreate('foo.dk', 'foo_bar', 'name', 'data');
+            ->during('create', ['foo.dk', 'foo_bar', 'name', 'data']);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_returns_updated_domain_record($adapter)
     {
         $adapter
@@ -373,6 +419,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_updates_domain_record_fields($adapter)
     {
         $adapter
@@ -402,15 +451,21 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\DomainRecord');
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_throws_an_http_exception_when_trying_to_update_inexisting_domain_record($adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
             ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->duringUpdate('foo.dk', 123, 'new-name');
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('update', ['foo.dk', 123, 'new-name']);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_deletes_given_domain_record_and_returns_nothing($adapter)
     {
         $adapter
@@ -420,12 +475,15 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
         $this->delete('foo.dk', 123);
     }
 
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     function it_throws_an_http_exception_when_trying_to_delete_inexisting_domain_record($adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->willThrow(new HttpException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->duringDelete('foo.dk', 123);
+        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['foo.dk', 123]);
     }
 }

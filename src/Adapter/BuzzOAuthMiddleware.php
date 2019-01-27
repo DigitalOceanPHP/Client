@@ -11,15 +11,15 @@
 
 namespace DigitalOceanV2\Adapter;
 
-use Buzz\Listener\ListenerInterface;
-use Buzz\Message\MessageInterface;
-use Buzz\Message\RequestInterface;
+use Buzz\Middleware\MiddlewareInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BuzzOAuthListener implements ListenerInterface
+class BuzzOAuthMiddleware implements MiddlewareInterface
 {
     /**
      * @var string
@@ -34,18 +34,13 @@ class BuzzOAuthListener implements ListenerInterface
         $this->token = $token;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function preSend(RequestInterface $request)
+    public function handleRequest(RequestInterface $request, callable $next)
     {
-        $request->addHeader(sprintf('Authorization: Bearer %s', $this->token));
+        return $next($request->withHeader('Authorization', sprintf('Bearer %s', $this->token)));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function postSend(RequestInterface $request, MessageInterface $response)
+    public function handleResponse(RequestInterface $request, ResponseInterface $response, callable $next)
     {
+        return $next($request, $response);
     }
 }

@@ -2,11 +2,12 @@
 
 namespace spec\DigitalOceanV2;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
-
 class DigitalOceanV2Spec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
