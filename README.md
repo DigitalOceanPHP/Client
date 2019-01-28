@@ -28,7 +28,6 @@ $ php composer.phar require toin0u/digitalocean-v2:^2.2
 You then need to install **one** of the following:
 ```bash
 $ php composer.phar require kriswallsmith/buzz:^0.16
-$ php composer.phar require guzzle/guzzle:^3.7
 $ php composer.phar require guzzlehttp/guzzle:^5.3
 $ php composer.phar require guzzlehttp/guzzle:^6.3
 ```
@@ -49,7 +48,6 @@ And then add **one** of the following:
 {
     "require": {
         "kriswallsmith/buzz": "^0.16",
-        "guzzle/guzzle": "^3.7",
         "guzzlehttp/guzzle": "^5.0",
         "guzzlehttp/guzzle": "^6.0"
     }
