@@ -279,7 +279,7 @@ $images = $droplet->getSnapshots(123);
 // return a collection of Image entity
 $backups = $droplet->getBackups(123);
 
-// return a collection og Action entity of the droplet 123
+// return a collection of Action entity of the droplet 123
 $actions = $droplet->getActions(123);
 
 // return the Action entity 456 of the droplet 123
