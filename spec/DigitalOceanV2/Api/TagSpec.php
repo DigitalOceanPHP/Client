@@ -155,15 +155,15 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     {
         $resources = [
             [
-                "resource_id" =>  "9569411",
+                "resource_id" => "9569411",
                 "resource_type" => "droplet",
             ],
             [
-                "resource_id" =>  "7555620",
+                "resource_id" => "7555620",
                 "resource_type" => "image",
             ],
             [
-                "resource_id" =>  "3d80cb72-342b-4aaa-b92e-4e4abb24a933",
+                "resource_id" => "3d80cb72-342b-4aaa-b92e-4e4abb24a933",
                 "resource_type" => "volume",
             ]
         ];
