@@ -163,7 +163,7 @@ class DigitalOceanV2
      /**
      * @return Tag
      */
-    public function tags()
+    public function tag()
     {
         return new Tag($this->adapter);
     }
