@@ -26,6 +26,7 @@ use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
+use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 
 /**
@@ -152,18 +153,26 @@ class DigitalOceanV2
     }
 
     /**
-     * @return Volume
-     */
-    public function volume()
-    {
-        return new Volume($this->adapter);
-    }
-
-    /**
      * @return Snapshot
      */
     public function snapshot()
     {
         return new Snapshot($this->adapter);
+    }
+
+     /**
+     * @return Tag
+     */
+    public function tags()
+    {
+        return new Tag($this->adapter);
+    }
+
+    /**
+     * @return Volume
+     */
+    public function volume()
+    {
+        return new Volume($this->adapter);
     }
 }
