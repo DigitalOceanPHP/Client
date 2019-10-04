@@ -49,6 +49,18 @@ class Droplet extends AbstractApi
     }
 
     /**
+     * @return $total
+     */
+    public function getTotal()
+    {
+        $url = sprintf('%s/droplets?per_page=1&page=1', $this->endpoint);
+        $droplets = json_decode($this->adapter->get($url));
+        $total = $droplets->meta->total;
+        
+        return $total;
+    }
+
+    /**
      * @param int $id
      *
      * @return DropletEntity[]
