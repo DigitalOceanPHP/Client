@@ -22,7 +22,7 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:^2.2
+$ php composer.phar require toin0u/digitalocean-v2:^2.3
 ```
 
 You then need to install **one** of the following:
@@ -37,7 +37,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "toin0u/digitalocean-v2": "^2.2"
+        "toin0u/digitalocean-v2": "^2.3"
     }
 }
 ```
