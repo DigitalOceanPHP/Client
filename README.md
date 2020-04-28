@@ -4,11 +4,9 @@ DigitalOcean V2
 Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) ([issues](https://github.com/digitalocean/api-v2/issues) /
 [changelog](https://developers.digitalocean.com/documentation/changelog/)) :)
 
-[![Build Status](https://secure.travis-ci.org/toin0u/DigitalOceanV2.png)](http://travis-ci.org/toin0u/DigitalOceanV2)
+[![Build Status](https://travis-ci.com/DigitalOceanPHP/DigitalOceanV2.svg?branch=master)](https://travis-ci.com/github/DigitalOceanPHP/DigitalOceanV2)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
 [![Total Downloads](https://poser.pugx.org/toin0u/digitalocean-v2/downloads.png)](https://packagist.org/packages/toin0u/digitalocean-v2)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/5b4eac7e-c83b-4913-86e1-72950821757a/mini.png)](https://insight.sensiolabs.com/projects/5b4eac7e-c83b-4913-86e1-72950821757a)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/toin0u/DigitalOceanV2/?branch=master)
 [![License](https://poser.pugx.org/toin0u/digitalocean-v2/license.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
 
 Installation
@@ -22,7 +20,7 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:3.0
+$ php composer.phar require toin0u/digitalocean-v2:^3.0
 ```
 
 You then need to install **one** of the following:
@@ -518,12 +516,12 @@ $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 Contributing
 ------------
 
-Please see [CONTRIBUTING](https://github.com/toin0u/DigitalOceanV2/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/CONTRIBUTING.md) for details.
 
 Changelog
 ---------
 
-Please see [CHANGELOG](https://github.com/toin0u/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
+Please see [CHANGELOG](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
 
 Credits
 -------
@@ -534,12 +532,12 @@ Credits
 * [Liverbool](https://github.com/liverbool)
 * [Marcos Sigueros](https://github.com/alrik11es)
 * [Chris Fidao](https://github.com/fideloper)
-* [All contributors](https://github.com/toin0u/DigitalOceanV2/contributors)
+* [All contributors](https://github.com/DigitalOceanPHP/DigitalOceanV2/contributors)
 
 Support
 -------
 
-[Please open an issue in github](https://github.com/toin0u/DigitalOceanV2/issues)
+[Please open an issue in github](https://github.com/DigitalOceanPHP/DigitalOceanV2/issues)
 
 Contributor Code of Conduct
 ---------------------------
@@ -574,4 +572,4 @@ License
 -------
 
 DigitalOceanV2 is released under the MIT License. See the bundled
-[LICENSE](https://github.com/toin0u/DigitalOceanV2/blob/master/LICENSE) file for details.
+[LICENSE](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/LICENSE) file for details.
