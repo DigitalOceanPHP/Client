@@ -15,14 +15,14 @@ Installation
 ------------
 
 This library can be found on [Packagist](https://packagist.org/packages/toin0u/digitalocean-v2).
-The recommended way to install this is through [composer](http://getcomposer.org).
-We support PHP 7.1-7.3. This library is no longer tested on HHVM.
+The recommended way to install this is through [composer](https://getcomposer.org).
+We support PHP 7.1-7.4. This library is no longer tested on HHVM.
 
 Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:^2.2
+$ php composer.phar require toin0u/digitalocean-v2:3.0
 ```
 
 You then need to install **one** of the following:
