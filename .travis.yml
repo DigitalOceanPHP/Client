@@ -1,14 +1,12 @@
 language: php
 
-sudo: false
-
-matrix:
+jobs:
   include:
     - php: 7.1
     - php: 7.2
     - php: 7.3
-      dist: trusty
+    - php: 7.4
 
-install: travis_retry composer install --no-interaction --prefer-source
+install: travis_retry composer update --no-interaction
 
 script: php vendor/bin/phpspec run -fpretty
