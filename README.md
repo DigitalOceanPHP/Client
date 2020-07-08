@@ -15,10 +15,9 @@ We present a modern [DigitalOcean API v2](https://developers.digitalocean.com/do
 Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalOceanPHP/Client/releases), [security policy](https://github.com/DigitalOceanPHP/Client/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
 
 
-Installation
-------------
+## Installation
 
-This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that an HTTP Client.
+This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install either [Guzzle](https://docs.guzzlephp.org) or [Buzz](https://github.com/kriswallsmith/Buzz) to enable us to send HTTP requests. Laravel uses can also use [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
 
 ### Using Guzzle 6:
 
@@ -44,7 +43,6 @@ $ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16
 $ composer require graham-campbell/digitalocean:^7.0
 ```
 
-[graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
 
 ## Examples
 
