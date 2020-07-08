@@ -148,6 +148,8 @@ class BuzzHttpClient implements HttpClientInterface
      * @param Response $response
      *
      * @throws HttpException
+     *
+     * @return void
      */
     private static function handleResponse(Response $response)
     {
@@ -162,6 +164,8 @@ class BuzzHttpClient implements HttpClientInterface
      * @param Response $response
      *
      * @throws HttpException
+     *
+     * @return void
      */
     private static function handleError(Response $response)
     {

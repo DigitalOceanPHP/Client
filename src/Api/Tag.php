@@ -70,6 +70,8 @@ class Tag extends AbstractApi
      * @param array $resources
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function tagResources($name, $resources)
     {
@@ -81,6 +83,8 @@ class Tag extends AbstractApi
      * @param array $resources
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function untagResources($name, $resources)
     {

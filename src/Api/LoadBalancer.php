@@ -85,9 +85,9 @@ class LoadBalancer extends AbstractApi
             'name' => $name,
             'algorithm' => $algorithm,
             'region' => $region,
-            'forwarding_rules' => $this->formatForwardRules($forwardRules),
-            'health_check' => $this->formatConfigurationOptions($healthCheck),
-            'sticky_sessions' => $this->formatConfigurationOptions($stickySessions),
+            'forwarding_rules' => self::formatForwardRules($forwardRules),
+            'health_check' => self::formatConfigurationOptions($healthCheck),
+            'sticky_sessions' => self::formatConfigurationOptions($stickySessions),
             'droplet_ids' => $dropletIds,
             'redirect_http_to_https' => $httpsRedirect,
         ];
@@ -109,7 +109,7 @@ class LoadBalancer extends AbstractApi
      */
     public function update($id, $loadBalancerSpec)
     {
-        $data = $this->formatConfigurationOptions($loadBalancerSpec);
+        $data = self::formatConfigurationOptions($loadBalancerSpec);
 
         $loadBalancer = $this->httpClient->put(sprintf('%s/load_balancers/%s', $this->endpoint, $id), $data);
 
@@ -135,26 +135,26 @@ class LoadBalancer extends AbstractApi
      *
      * @return array
      */
-    private function formatForwardRules($forwardRules)
+    private static function formatForwardRules($forwardRules)
     {
         if (is_array($forwardRules)) {
             return array_map(function ($rule) {
-                return $this->formatConfigurationOptions($rule);
+                return self::formatConfigurationOptions($rule);
             }, $forwardRules);
-        } else {
-            return [
-                (new ForwardRuleEntity())->setStandardHttpRules()->toArray(),
-                (new ForwardRuleEntity())->setStandardHttpsRules()->toArray(),
-            ];
         }
+
+        return [
+            (new ForwardRuleEntity())->setStandardHttpRules()->toArray(),
+            (new ForwardRuleEntity())->setStandardHttpsRules()->toArray(),
+        ];
     }
 
     /**
      * @param array|AbstractEntity $config
      *
-     * @return array|AbstractEntity
+     * @return array
      */
-    private function formatConfigurationOptions($config)
+    private static function formatConfigurationOptions($config)
     {
         return $config instanceof AbstractEntity ? $config->toArray() : $config;
     }

@@ -36,9 +36,11 @@ final class Upgrade extends AbstractEntity
 
     /**
      * @param string $dateOfMigration
+     *
+     * @return void
      */
-    public function setDateOfMigration($dateOfMigration)
+    public function setDateOfMigration(string $dateOfMigration)
     {
-        $this->dateOfMigration = static::convertDateTime($dateOfMigration);
+        $this->dateOfMigration = static::convertToIso8601($dateOfMigration);
     }
 }

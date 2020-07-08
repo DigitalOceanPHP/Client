@@ -39,6 +39,8 @@ abstract class AbstractEntity
 
     /**
      * @param array $parameters
+     *
+     * @return void
      */
     public function build(array $parameters)
     {
@@ -73,16 +75,12 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param string|null $date DateTime string
+     * @param string $date DateTime string
      *
-     * @return string|null DateTime in ISO8601 format
+     * @return string DateTime in ISO8601 format
      */
-    protected static function convertDateTime(?string $date)
+    protected static function convertToIso8601(string $date)
     {
-        if ($date === null) {
-            return null;
-        }
-
         $date = new \DateTime($date);
         $date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 

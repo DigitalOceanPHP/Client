@@ -39,12 +39,12 @@ class ForwardingRule extends AbstractEntity
     public $targetPort;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $certificateId;
 
     /**
-     * @var string
+     * @var bool|null
      */
     public $tlsPassthrough;
 

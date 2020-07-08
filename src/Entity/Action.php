@@ -35,12 +35,12 @@ final class Action extends AbstractEntity
     public $type;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $startedAt;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $completedAt;
 
@@ -66,6 +66,8 @@ final class Action extends AbstractEntity
 
     /**
      * @param array $parameters
+     *
+     * @return void
      */
     public function build(array $parameters)
     {
@@ -79,18 +81,22 @@ final class Action extends AbstractEntity
     }
 
     /**
-     * @param string $completedAt
+     * @param string $startedAt
+     *
+     * @return void
      */
-    public function setCompletedAt($completedAt)
+    public function setStartedAt(string $startedAt)
     {
-        $this->completedAt = static::convertDateTime($completedAt);
+        $this->startedAt = static::convertToIso8601($startedAt);
     }
 
     /**
-     * @param string $startedAt
+     * @param string|null $completedAt
+     *
+     * @return void
      */
-    public function setStartedAt($startedAt)
+    public function setCompletedAt(?string $completedAt)
     {
-        $this->startedAt = static::convertDateTime($startedAt);
+        $this->completedAt = $completedAt === null ? null : static::convertToIso8601($completedAt);
     }
 }

@@ -182,6 +182,8 @@ class DomainRecord extends AbstractApi
     /**
      * @param string $domainName
      * @param int    $recordId
+     *
+     * @return void
      */
     public function delete($domainName, $recordId)
     {

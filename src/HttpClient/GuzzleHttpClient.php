@@ -155,6 +155,8 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param ResponseInterface $response
      *
      * @throws HttpException
+     *
+     * @return void
      */
     private static function handleError(ResponseInterface $response)
     {

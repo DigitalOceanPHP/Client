@@ -45,9 +45,11 @@ final class Certificate extends AbstractEntity
 
     /**
      * @param string $createdAt
+     *
+     * @return void
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(string $createdAt)
     {
-        $this->createdAt = static::convertDateTime($createdAt);
+        $this->createdAt = static::convertToIso8601($createdAt);
     }
 }

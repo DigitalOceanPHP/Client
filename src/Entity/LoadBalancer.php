@@ -85,6 +85,8 @@ final class LoadBalancer extends AbstractEntity
 
     /**
      * @param array $parameters
+     *
+     * @return void
      */
     public function build(array $parameters)
     {
