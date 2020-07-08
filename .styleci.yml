@@ -10,3 +10,7 @@ enabled:
 
 disabled:
   - concat_with_spaces
+
+finder:
+  not-path:
+    - spec

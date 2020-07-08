@@ -69,7 +69,8 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Browser $browser
      * @param \Buzz\Message\Response $response
      */
-    function it_throws_an_http_exception_if_cannot_delete($browser, $response) {
+    function it_throws_an_http_exception_if_cannot_delete($browser, $response)
+    {
         $browser->delete('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
@@ -113,7 +114,8 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Browser $browser
      * @param \Buzz\Message\Response $response
      */
-    function it_throws_an_http_exception_if_cannot_put($browser, $response) {
+    function it_throws_an_http_exception_if_cannot_put($browser, $response)
+    {
         $browser->put('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
@@ -157,7 +159,8 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Browser $browser
      * @param \Buzz\Message\Response $response
      */
-    function it_throws_an_http_exception_if_cannot_post($browser, $response) {
+    function it_throws_an_http_exception_if_cannot_post($browser, $response)
+    {
         $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 

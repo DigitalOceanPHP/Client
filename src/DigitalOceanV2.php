@@ -160,7 +160,7 @@ class DigitalOceanV2
         return new Snapshot($this->adapter);
     }
 
-     /**
+    /**
      * @return Tag
      */
     public function tag()

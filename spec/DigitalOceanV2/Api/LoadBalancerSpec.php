@@ -22,7 +22,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_throws_an_http_exception_if_load_balancer_does_not_exist($adapter)
+    function it_throws_an_http_exception_if_load_balancer_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/load_balancers/1234')
@@ -34,7 +34,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_an_array_of_load_balancer_entity($adapter)
+    function it_returns_an_array_of_load_balancer_entity($adapter)
     {
         $total = 3;
         $adapter->get('https://api.digitalocean.com/v2/load_balancers')
@@ -68,7 +68,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_a_load_balancer_entity_by_its_id($adapter)
+    function it_returns_a_load_balancer_entity_by_its_id($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/load_balancers/1234')
                 ->willReturn(json_encode($this->getLoadBalancerSpecification()));
@@ -80,7 +80,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_a_created_load_balancer($adapter)
+    function it_returns_a_created_load_balancer($adapter)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
 
@@ -107,7 +107,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_updates_an_existing_load_balancer($adapter)
+    function it_updates_an_existing_load_balancer($adapter)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
         $lbs = $loadBalancerSpecification['load_balancer'];

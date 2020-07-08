@@ -9,12 +9,12 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function let($adapter)
+    function let($adapter)
     {
         $this->beConstructedWith($adapter);
     }
 
-    public function it_is_initializable()
+    function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Api\Action');
     }
@@ -22,7 +22,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_an_empty_array($adapter)
+    function it_returns_an_empty_array($adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/actions?per_page=200')->willReturn('{"actions": []}');
 
@@ -34,12 +34,13 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_an_array_of_action_entity($adapter)
+    function it_returns_an_array_of_action_entity($adapter)
     {
         $total = 3;
         $adapter
             ->get('https://api.digitalocean.com/v2/actions?per_page=200')
-            ->willReturn(sprintf('
+            ->willReturn(sprintf(
+                '
                 {
                     "actions": [
                         {
@@ -99,7 +100,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
                     }
                 }
             ',
-        $total));
+                $total
+            ));
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
@@ -124,7 +126,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_returns_an_action_entity_get_by_its_id($adapter)
+    function it_returns_an_action_entity_get_by_its_id($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/123')
@@ -161,7 +163,7 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
-    public function it_throws_an_http_exception_if_requested_action_does_not_exist($adapter)
+    function it_throws_an_http_exception_if_requested_action_does_not_exist($adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/1234567')
