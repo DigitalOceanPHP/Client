@@ -9,5 +9,7 @@
 /Makefile export-ignore
 /phpstan-baseline.neon export-ignore
 /phpstan.neon.dist export-ignore
+/psalm-baseline.xml export-ignore
+/psalm.xml export-ignore
 /CHANGELOG.md export-ignore
 /README.md export-ignore
