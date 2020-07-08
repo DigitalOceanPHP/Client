@@ -1,58 +1,75 @@
 <?php
 
-namespace DigitalOceanV2\Adapter;
+/*
+ * This file is part of the DigitalOceanV2 library.
+ *
+ * (c) Antoine Corcy <contact@sbin.dk>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\HttpException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Marcos Sigueros <alrik11es@gmail.com>
  * @author Chris Fidao <fideloper@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GuzzleHttpAdapter implements AdapterInterface
+class GuzzleHttpClient implements HttpClientInterface
 {
     /**
      * @var ClientInterface
      */
-    protected $client;
+    private $client;
 
     /**
-     * @var Response
+     * @var ResponseInterface|null
      */
-    protected $response;
+    private $response;
 
     /**
-     * @param string               $token
-     * @param ClientInterface|null $client
+     * @param ClientInterface $client
      */
-    public function __construct($token, ClientInterface $client = null)
+    public function __construct(ClientInterface $client)
     {
-        $this->client = $client ?? new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
+        $this->client = $client;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $url
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function get($url)
+    public function get(string $url)
     {
         try {
             $this->response = $this->client->request('GET', $url);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleError();
+            self::handleError($this->response);
         }
 
         return (string) $this->response->getBody();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function post($url, $content = '')
+    public function post(string $url, $content = '')
     {
         $options = [];
 
@@ -62,16 +79,21 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->request('POST', $url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleError();
+            self::handleError($this->response);
         }
 
         return (string) $this->response->getBody();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function put($url, $content = '')
+    public function put(string $url, $content = '')
     {
         $options = [];
 
@@ -81,16 +103,19 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->request('PUT', $url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleError();
+            self::handleError($this->response);
         }
 
         return (string) $this->response->getBody();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $url
+     * @param array|string $content
+     *
+     * @throws HttpException
      */
-    public function delete($url, $content = '')
+    public function delete(string $url, $content = '')
     {
         $options = [];
 
@@ -100,18 +125,18 @@ class GuzzleHttpAdapter implements AdapterInterface
             $this->response = $this->client->request('DELETE', $url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
-            $this->handleError();
+            self::handleError($this->response);
         }
 
         return (string) $this->response->getBody();
     }
 
     /**
-     * {@inheritdoc}
+     * @return array|null
      */
     public function getLatestResponseHeaders()
     {
-        if (null === $this->response) {
+        if ($this->response === null) {
             return null;
         }
 
@@ -123,12 +148,14 @@ class GuzzleHttpAdapter implements AdapterInterface
     }
 
     /**
+     * @param ResponseInterface $response
+     *
      * @throws HttpException
      */
-    protected function handleError()
+    private static function handleError(ResponseInterface $response)
     {
-        $body = (string) $this->response->getBody();
-        $code = (int) $this->response->getStatusCode();
+        $body = (string) $response->getBody();
+        $code = (int) $response->getStatusCode();
 
         $content = json_decode($body);
 

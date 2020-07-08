@@ -28,7 +28,7 @@ class DomainRecord extends AbstractApi
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, 200));
+        $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, 200));
 
         $domainRecords = json_decode($domainRecords);
 
@@ -47,7 +47,7 @@ class DomainRecord extends AbstractApi
      */
     public function getById($domainName, $id)
     {
-        $domainRecords = $this->adapter->get(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $id));
+        $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $id));
 
         $domainRecords = json_decode($domainRecords);
 
@@ -111,7 +111,7 @@ class DomainRecord extends AbstractApi
             $content['ttl'] = $ttl;
         }
 
-        $domainRecord = $this->adapter->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
+        $domainRecord = $this->httpClient->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
 
         $domainRecord = json_decode($domainRecord);
 
@@ -170,7 +170,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $domainRecord = $this->adapter->put(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId), $fields);
+        $domainRecord = $this->httpClient->put(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId), $fields);
 
         $domainRecord = json_decode($domainRecord);
 
@@ -183,6 +183,6 @@ class DomainRecord extends AbstractApi
      */
     public function delete($domainName, $recordId)
     {
-        $this->adapter->delete(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId));
+        $this->httpClient->delete(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId));
     }
 }

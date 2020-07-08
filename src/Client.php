@@ -11,7 +11,9 @@
 
 namespace DigitalOceanV2;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\Builder;
+use DigitalOceanV2\HttpClient\FactoryInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Certificate;
@@ -36,16 +38,28 @@ use DigitalOceanV2\Api\Volume;
 class Client
 {
     /**
-     * @var AdapterInterface
+     * @var Builder
      */
-    protected $adapter;
+    private $httpClientBuilder;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param Builder|null $httpClientBuilder
      */
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(Builder $httpClientBuilder = null)
     {
-        $this->adapter = $adapter;
+        $this->httpClientBuilder = $httpClientBuilder ?? new Builder();
+    }
+
+    /**
+     * @param FactoryInterface $factory
+     *
+     * @return Client
+     */
+    public static function createWithFactory(FactoryInterface $factory)
+    {
+        $builder = new Builder($factory);
+
+        return new self($builder);
     }
 
     /**
@@ -53,7 +67,7 @@ class Client
      */
     public function account()
     {
-        return new Account($this->adapter);
+        return new Account($this->getHttpClient());
     }
 
     /**
@@ -61,7 +75,7 @@ class Client
      */
     public function action()
     {
-        return new Action($this->adapter);
+        return new Action($this->getHttpClient());
     }
 
     /**
@@ -69,7 +83,7 @@ class Client
      */
     public function certificate()
     {
-        return new Certificate($this->adapter);
+        return new Certificate($this->getHttpClient());
     }
 
     /**
@@ -77,7 +91,7 @@ class Client
      */
     public function domain()
     {
-        return new Domain($this->adapter);
+        return new Domain($this->getHttpClient());
     }
 
     /**
@@ -85,7 +99,7 @@ class Client
      */
     public function domainRecord()
     {
-        return new DomainRecord($this->adapter);
+        return new DomainRecord($this->getHttpClient());
     }
 
     /**
@@ -93,7 +107,7 @@ class Client
      */
     public function droplet()
     {
-        return new Droplet($this->adapter);
+        return new Droplet($this->getHttpClient());
     }
 
     /**
@@ -101,7 +115,7 @@ class Client
      */
     public function floatingIp()
     {
-        return new FloatingIp($this->adapter);
+        return new FloatingIp($this->getHttpClient());
     }
 
     /**
@@ -109,7 +123,7 @@ class Client
      */
     public function image()
     {
-        return new Image($this->adapter);
+        return new Image($this->getHttpClient());
     }
 
     /**
@@ -117,7 +131,7 @@ class Client
      */
     public function key()
     {
-        return new Key($this->adapter);
+        return new Key($this->getHttpClient());
     }
 
     /**
@@ -125,7 +139,7 @@ class Client
      */
     public function loadBalancer()
     {
-        return new LoadBalancer($this->adapter);
+        return new LoadBalancer($this->getHttpClient());
     }
 
     /**
@@ -133,7 +147,7 @@ class Client
      */
     public function rateLimit()
     {
-        return new RateLimit($this->adapter);
+        return new RateLimit($this->getHttpClient());
     }
 
     /**
@@ -141,7 +155,7 @@ class Client
      */
     public function region()
     {
-        return new Region($this->adapter);
+        return new Region($this->getHttpClient());
     }
 
     /**
@@ -149,7 +163,7 @@ class Client
      */
     public function size()
     {
-        return new Size($this->adapter);
+        return new Size($this->getHttpClient());
     }
 
     /**
@@ -157,7 +171,7 @@ class Client
      */
     public function snapshot()
     {
-        return new Snapshot($this->adapter);
+        return new Snapshot($this->getHttpClient());
     }
 
     /**
@@ -165,7 +179,7 @@ class Client
      */
     public function tag()
     {
-        return new Tag($this->adapter);
+        return new Tag($this->getHttpClient());
     }
 
     /**
@@ -173,6 +187,32 @@ class Client
      */
     public function volume()
     {
-        return new Volume($this->adapter);
+        return new Volume($this->getHttpClient());
+    }
+
+    /**
+     * @param string|null $token
+     *
+     * @return void
+     */
+    public function authenticate(string $token = null)
+    {
+        $this->getHttpClientBuilder()->setAuthToken($token);
+    }
+
+    /**
+     * @return HttpClientInterface
+     */
+    public function getHttpClient()
+    {
+        return $this->getHttpClientBuilder()->getHttpClient();
+    }
+
+    /**
+     * @return Builder
+     */
+    protected function getHttpClientBuilder()
+    {
+        return $this->httpClientBuilder;
     }
 }

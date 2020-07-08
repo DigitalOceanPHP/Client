@@ -32,7 +32,7 @@ class Snapshot extends AbstractApi
             $query = sprintf('%s&resource_type=%s', $query, $criteria['type']);
         }
 
-        $snapshots = $this->adapter->get($query);
+        $snapshots = $this->httpClient->get($query);
 
         $snapshots = json_decode($snapshots);
 
@@ -50,7 +50,7 @@ class Snapshot extends AbstractApi
      */
     public function getById($id)
     {
-        $snapshot = $this->adapter->get(sprintf('%s/snapshots/%s', $this->endpoint, $id));
+        $snapshot = $this->httpClient->get(sprintf('%s/snapshots/%s', $this->endpoint, $id));
 
         $snapshot = json_decode($snapshot);
 
@@ -64,6 +64,6 @@ class Snapshot extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/snapshots/%s', $this->endpoint, $id));
+        $this->httpClient->delete(sprintf('%s/snapshots/%s', $this->endpoint, $id));
     }
 }

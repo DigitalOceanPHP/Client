@@ -1,24 +1,22 @@
 <?php
 
-namespace spec\DigitalOceanV2\Adapter;
+namespace spec\DigitalOceanV2\HttpClient;
 
 use Buzz\Browser;
 use Buzz\Message\Response;
 use Buzz\Middleware\MiddlewareInterface;
 use DigitalOceanV2\Exception\HttpException;
 
-class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
+class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(Browser$browser, MiddlewareInterface$middleware)
+    function let(Browser $browser)
     {
-        $browser->addMiddleware($middleware)->shouldBeCalled();
-
-        $this->beConstructedWith('my_access_token', $browser, $middleware);
+        $this->beConstructedWith($browser);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('DigitalOceanV2\Adapter\BuzzAdapter');
+        $this->shouldHaveType('DigitalOceanV2\HttpClient\BuzzHttpClient');
     }
 
     function it_returns_json_content(Browser $browser, Response $response)

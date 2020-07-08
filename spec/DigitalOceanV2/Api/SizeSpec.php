@@ -2,14 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 class SizeSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -18,10 +18,10 @@ class SizeSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_size_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_size_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter->get('https://api.digitalocean.com/v2/sizes?per_page=200')
+        $httpClient->get('https://api.digitalocean.com/v2/sizes?per_page=200')
             ->willReturn(sprintf('{"sizes": [{},{},{}], "meta": {"total": %d}}', $total));
 
         $sizes = $this->getAll();

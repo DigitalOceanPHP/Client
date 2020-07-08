@@ -27,7 +27,7 @@ class FloatingIp extends AbstractApi
     {
         $query = sprintf('%s/floating_ips?per_page=%d', $this->endpoint, 200);
 
-        $ips = $this->adapter->get($query);
+        $ips = $this->httpClient->get($query);
 
         $ips = json_decode($ips);
 
@@ -45,7 +45,7 @@ class FloatingIp extends AbstractApi
      */
     public function getById($id)
     {
-        $ip = $this->adapter->get(sprintf('%s/floating_ips/%s', $this->endpoint, $id));
+        $ip = $this->httpClient->get(sprintf('%s/floating_ips/%s', $this->endpoint, $id));
 
         $ip = json_decode($ip);
 
@@ -61,7 +61,7 @@ class FloatingIp extends AbstractApi
      */
     public function createAssigned($dropletId)
     {
-        $ip = $this->adapter->post(sprintf('%s/floating_ips', $this->endpoint), ['droplet_id' => $dropletId]);
+        $ip = $this->httpClient->post(sprintf('%s/floating_ips', $this->endpoint), ['droplet_id' => $dropletId]);
 
         $ip = json_decode($ip);
 
@@ -77,7 +77,7 @@ class FloatingIp extends AbstractApi
      */
     public function createReserved($regionSlug)
     {
-        $ip = $this->adapter->post(sprintf('%s/floating_ips', $this->endpoint), ['region' => $regionSlug]);
+        $ip = $this->httpClient->post(sprintf('%s/floating_ips', $this->endpoint), ['region' => $regionSlug]);
 
         $ip = json_decode($ip);
 
@@ -91,7 +91,7 @@ class FloatingIp extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/floating_ips/%s', $this->endpoint, $id));
+        $this->httpClient->delete(sprintf('%s/floating_ips/%s', $this->endpoint, $id));
     }
 
     /**
@@ -101,7 +101,7 @@ class FloatingIp extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->adapter->get(sprintf('%s/floating_ips/%s/actions?per_page=%d', $this->endpoint, $id, 200));
+        $actions = $this->httpClient->get(sprintf('%s/floating_ips/%s/actions?per_page=%d', $this->endpoint, $id, 200));
 
         $actions = json_decode($actions);
 
@@ -120,7 +120,7 @@ class FloatingIp extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->adapter->get(sprintf('%s/floating_ips/%s/actions/%d', $this->endpoint, $id, $actionId));
+        $action = $this->httpClient->get(sprintf('%s/floating_ips/%s/actions/%d', $this->endpoint, $id, $actionId));
 
         $action = json_decode($action);
 
@@ -162,7 +162,7 @@ class FloatingIp extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $action = $this->adapter->post(sprintf('%s/floating_ips/%s/actions', $this->endpoint, $id), $options);
+        $action = $this->httpClient->post(sprintf('%s/floating_ips/%s/actions', $this->endpoint, $id), $options);
 
         $action = json_decode($action);
 

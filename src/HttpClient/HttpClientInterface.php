@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOceanV2\Adapter;
+namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\HttpException;
 
@@ -17,7 +17,7 @@ use DigitalOceanV2\Exception\HttpException;
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-interface AdapterInterface
+interface HttpClientInterface
 {
     /**
      * @param string $url
@@ -26,7 +26,7 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function get($url);
+    public function get(string $url);
 
     /**
      * @param string       $url
@@ -36,7 +36,7 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function post($url, $content = '');
+    public function post(string $url, $content = '');
 
     /**
      * @param string       $url
@@ -46,14 +46,15 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function put($url, $content = '');
+    public function put(string $url, $content = '');
 
     /**
      * @param string $url
+     * @param array|string $content
      *
      * @throws HttpException
      */
-    public function delete($url, $content = '');
+    public function delete(string $url, $content = '');
 
     /**
      * @return array|null

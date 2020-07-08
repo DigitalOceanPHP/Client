@@ -11,7 +11,7 @@
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Entity\Meta;
 
 /**
@@ -26,9 +26,9 @@ abstract class AbstractApi
     const ENDPOINT = 'https://api.digitalocean.com/v2';
 
     /**
-     * @var AdapterInterface
+     * @var HttpClientInterface
      */
-    protected $adapter;
+    protected $httpClient;
 
     /**
      * @var string
@@ -41,12 +41,12 @@ abstract class AbstractApi
     protected $meta;
 
     /**
-     * @param AdapterInterface $adapter
+     * @param HttpClientInterface $httpClient
      * @param string|null      $endpoint
      */
-    public function __construct(AdapterInterface $adapter, $endpoint = null)
+    public function __construct(HttpClientInterface $httpClient, $endpoint = null)
     {
-        $this->adapter = $adapter;
+        $this->httpClient = $httpClient;
         $this->endpoint = $endpoint ?: static::ENDPOINT;
     }
 

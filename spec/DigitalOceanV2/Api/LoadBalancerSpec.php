@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_load_balancer_does_not_exist(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_load_balancer_does_not_exist(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/load_balancers/1234')
             ->willThrow(new HttpException('Load Balancer not found'));
 
@@ -29,10 +29,10 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_load_balancer_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_load_balancer_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter->get('https://api.digitalocean.com/v2/load_balancers')
+        $httpClient->get('https://api.digitalocean.com/v2/load_balancers')
                 ->willReturn(json_encode([
                     'load_balancers' => [
                         [],
@@ -61,9 +61,9 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_a_load_balancer_entity_by_its_id(AdapterInterface $adapter)
+    function it_returns_a_load_balancer_entity_by_its_id(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/load_balancers/1234')
+        $httpClient->get('https://api.digitalocean.com/v2/load_balancers/1234')
                 ->willReturn(json_encode($this->getLoadBalancerSpecification()));
 
         $loadBalancer = $this->getById('1234');
@@ -71,7 +71,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_a_created_load_balancer(AdapterInterface $adapter)
+    function it_returns_a_created_load_balancer(HttpClientInterface $httpClient)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
 
@@ -87,7 +87,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
             'redirect_http_to_https' => false,
         ];
 
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/load_balancers', $data)
             ->willReturn(json_encode($loadBalancerSpecification));
 
@@ -96,7 +96,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_updates_an_existing_load_balancer(AdapterInterface $adapter)
+    function it_updates_an_existing_load_balancer(HttpClientInterface $httpClient)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
         $lbs = $loadBalancerSpecification['load_balancer'];
@@ -111,7 +111,7 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
             'redirect_http_to_https' => false,
         ];
 
-        $adapter
+        $httpClient
             ->put('https://api.digitalocean.com/v2/load_balancers/'.$lbs['id'], $data)
             ->willReturn(json_encode($loadBalancerSpecification));
 

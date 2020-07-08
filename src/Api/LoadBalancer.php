@@ -28,7 +28,7 @@ class LoadBalancer extends AbstractApi
      */
     public function getAll()
     {
-        $loadBalancers = $this->adapter->get(sprintf('%s/load_balancers', $this->endpoint));
+        $loadBalancers = $this->httpClient->get(sprintf('%s/load_balancers', $this->endpoint));
 
         $loadBalancers = json_decode($loadBalancers);
 
@@ -48,7 +48,7 @@ class LoadBalancer extends AbstractApi
      */
     public function getById($id)
     {
-        $loadBalancer = $this->adapter->get(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
+        $loadBalancer = $this->httpClient->get(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
 
         $loadBalancer = json_decode($loadBalancer);
 
@@ -90,7 +90,7 @@ class LoadBalancer extends AbstractApi
             'redirect_http_to_https' => $httpsRedirect,
         ];
 
-        $loadBalancer = $this->adapter->post(sprintf('%s/load_balancers', $this->endpoint), $data);
+        $loadBalancer = $this->httpClient->post(sprintf('%s/load_balancers', $this->endpoint), $data);
 
         $loadBalancer = json_decode($loadBalancer);
 
@@ -109,7 +109,7 @@ class LoadBalancer extends AbstractApi
     {
         $data = $this->formatConfigurationOptions($loadBalancerSpec);
 
-        $loadBalancer = $this->adapter->put(sprintf('%s/load_balancers/%s', $this->endpoint, $id), $data);
+        $loadBalancer = $this->httpClient->put(sprintf('%s/load_balancers/%s', $this->endpoint, $id), $data);
 
         $loadBalancer = json_decode($loadBalancer);
 
@@ -123,7 +123,7 @@ class LoadBalancer extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
+        $this->httpClient->delete(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
     }
 
     /**

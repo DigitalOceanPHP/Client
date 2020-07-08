@@ -19,13 +19,13 @@ This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply req
 ### Using Guzzle 6:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^6.3
+$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^6.3.1
 ```
 
 ### Using Guzzle 7:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0
+$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0.1
 ```
 
 ### Using Buzz 0.16:
@@ -40,20 +40,7 @@ $ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16
 $ composer require graham-campbell/digitalocean:^7.0
 ```
 
-[graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
-
-Adapters
---------
-
-We provide a simple `BuzzAdapter`  which (at the moment) can be tweaked by injecting your own `Browser`
-and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
-will be used.
-
-To wrap your own response message, please inject your own `ExceptionInterface` if needed (see `DigitalOceanV2\Exception\ResponseException` for more info).
-
-If you use Guzzle, you can inject your own client to our `GuzzleAdapter`.
-
-You can also build your own adapter by extending `AbstractAdapter` and implementing `AdapterInterface`.
+[graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
 
 Example
 -------
@@ -63,12 +50,12 @@ Example
 
 require_once 'vendor/autoload.php';
 
-// create an adapter with your access token which can be
-// generated at https://cloud.digitalocean.com/settings/applications
-$adapter = new DigitalOceanV2\Adapter\BuzzAdapter('your_access_token');
+// create a new DigitalOcean client
+$client = new DigitalOceanV2\Client();
 
-// create a digital ocean object with the previous adapter
-$digitalocean = new DigitalOceanV2\Client($adapter);
+// authenticate the client with your access token which can be
+// generated at https://cloud.digitalocean.com/settings/applications
+$client->authenticate('your_access_token');
 
 // ...
 ```
@@ -79,7 +66,7 @@ Account
 ```php
 // ...
 // return the account api
-$account = $digitalocean->account();
+$account = $client->account();
 
 // return the Account entity
 $userInformation = $account->getUserInformation();
@@ -89,9 +76,9 @@ Action
 ------
 
 ```php
-// ..
+// ...
 // return the action api
-$action  = $digitalocean->action();
+$action  = $client->action();
 
 // return a collection of Action entity
 $actions = $action->getAll();
@@ -104,9 +91,9 @@ Domain
 ------
 
 ```php
-// ..
+// ...
 // return the domain api
-$domain = $digitalocean->domain();
+$domain = $client->domain();
 
 // return a collection of Domain entity
 $domains = $domain->getAll();
@@ -119,16 +106,15 @@ $created = $domain->create('bar.dk', '127.0.0.1');
 
 // delete the domain named 'baz.dk'
 $domain->delete('baz.dk');
-
 ```
 
 Domain Record
 -------------
 
 ```php
-// ..
+// ...
 // return the domain record api
-$domainRecord = $digitalocean->domainRecord();
+$domainRecord = $client->domainRecord();
 
 // return a collection of DomainRecord entity of the domain 'foo.dk'
 $domainRecords = $domainRecord->getAll('foo.dk');
@@ -150,9 +136,9 @@ Droplet
 -------
 
 ```php
-// ..
+// ...
 // return the droplet api
-$droplet = $digitalocean->droplet();
+$droplet = $client->droplet();
 
 // return a collection of Droplet entity
 $droplets = $droplet->getAll();
@@ -243,9 +229,9 @@ Image
 -----
 
 ```php
-// ..
+// ...
 // return the image api
-$image = $digitalocean->image();
+$image = $client->image();
 
 // return a collection of Image entity
 $images = $image->getAll();
@@ -285,9 +271,9 @@ Key
 ---
 
 ```php
-// ..
+// ...
 // return the key api
-$key = $digitalocean->key();
+$key = $client->key();
 
 // return a collection of Key entity
 $keys = $key->getAll();
@@ -312,9 +298,9 @@ Load Balancer
 -------------
 
 ```php
-// ..
+// ...
 // return the load balancer api
-$loadBalancer = $digitalocean->loadbalancer();
+$loadBalancer = $client->loadbalancer();
 
 //returns a collection of Load Balancer entities
 $loadBalancers = $loadBalancer->getAll();
@@ -339,9 +325,9 @@ Region
 ------
 
 ```php
-// ..
+// ...
 // return the region api
-$region = $digitalocean->region();
+$region = $client->region();
 
 // return a collection of Region entity
 $regions = $region->getAll();
@@ -351,9 +337,9 @@ Size
 ----
 
 ```php
-// ..
+// ...
 // return the size api
-$size = $digitalocean->size();
+$size = $client->size();
 
 // return a collection of Size entity
 $sizes = $size->getAll();
@@ -363,9 +349,9 @@ RateLimit
 ---------
 
 ```php
-// ..
+// ...
 // returns the rate limit api
-$rateLimit = $digitalocean->rateLimit();
+$rateLimit = $client->rateLimit();
 
 // returns the rate limit returned by the latest request
 $currentLimit = $rateLimit->getRateLimit();
@@ -375,9 +361,9 @@ Tag
 ----
 
 ```php
-// ..
+// ...
 // return the tag api
-$tag = $digitalocean->tag();
+$tag = $client->tag();
 
 // return a collection of Tag entity
 $tags = $tag->getAll();
@@ -402,9 +388,9 @@ Volume
 ------
 
 ```php
-// ..
+// ...
 // return the volume api
-$volume = $digitalocean->volume();
+$volume = $client->volume();
 
 // returns the all volumes
 $volumes = $volume->getAll();
@@ -447,7 +433,6 @@ $volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 // get all actions related to a volume
 $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
-
 ```
 
 Credits

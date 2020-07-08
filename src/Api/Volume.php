@@ -30,7 +30,7 @@ class Volume extends AbstractApi
     public function getAll($regionSlug = null)
     {
         $regionQueryParameter = is_null($regionSlug) ? '' : sprintf('&region=%s', $regionSlug);
-        $volumes = $this->adapter->get(sprintf('%s/volumes?per_page=%d%s', $this->endpoint, 200, $regionQueryParameter));
+        $volumes = $this->httpClient->get(sprintf('%s/volumes?per_page=%d%s', $this->endpoint, 200, $regionQueryParameter));
 
         $volumes = json_decode($volumes);
 
@@ -49,7 +49,7 @@ class Volume extends AbstractApi
      */
     public function getByNameAndRegion($driveName, $regionSlug)
     {
-        $volumes = $this->adapter->get(sprintf('%s/volumes?per_page=%d&region=%s&name=%s', $this->endpoint, 200, $regionSlug, $driveName));
+        $volumes = $this->httpClient->get(sprintf('%s/volumes?per_page=%d&region=%s&name=%s', $this->endpoint, 200, $regionSlug, $driveName));
 
         $volumes = json_decode($volumes);
 
@@ -67,7 +67,7 @@ class Volume extends AbstractApi
      */
     public function getById($id)
     {
-        $volume = $this->adapter->get(sprintf('%s/volumes/%s?per_page=%d', $this->endpoint, $id, 200));
+        $volume = $this->httpClient->get(sprintf('%s/volumes/%s?per_page=%d', $this->endpoint, $id, 200));
 
         $volume = json_decode($volume);
 
@@ -83,7 +83,7 @@ class Volume extends AbstractApi
      */
     public function getSnapshots($id)
     {
-        $snapshots = $this->adapter->get(sprintf('%s/volumes/%s/snapshots?per_page=%d', $this->endpoint, $id, 200));
+        $snapshots = $this->httpClient->get(sprintf('%s/volumes/%s/snapshots?per_page=%d', $this->endpoint, $id, 200));
 
         $snapshots = json_decode($snapshots);
 
@@ -126,7 +126,7 @@ class Volume extends AbstractApi
             $data['filesystem_label'] = $filesystemLabel;
         }
 
-        $volume = $this->adapter->post(sprintf('%s/volumes', $this->endpoint), $data);
+        $volume = $this->httpClient->post(sprintf('%s/volumes', $this->endpoint), $data);
 
         $volume = json_decode($volume);
 
@@ -140,7 +140,7 @@ class Volume extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/volumes/%s', $this->endpoint, $id));
+        $this->httpClient->delete(sprintf('%s/volumes/%s', $this->endpoint, $id));
     }
 
     /**
@@ -151,7 +151,7 @@ class Volume extends AbstractApi
      */
     public function deleteWithNameAndRegion($driveName, $regionSlug)
     {
-        $this->adapter->delete(sprintf('%s/volumes?name=%s&region=%s', $this->endpoint, $driveName, $regionSlug));
+        $this->httpClient->delete(sprintf('%s/volumes?name=%s&region=%s', $this->endpoint, $driveName, $regionSlug));
     }
 
     /**
@@ -169,7 +169,7 @@ class Volume extends AbstractApi
             'region' => $regionSlug,
         ];
 
-        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+        $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
         $action = json_decode($action);
 
@@ -191,7 +191,7 @@ class Volume extends AbstractApi
             'region' => $regionSlug,
         ];
 
-        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+        $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
         $action = json_decode($action);
 
@@ -213,7 +213,7 @@ class Volume extends AbstractApi
             'region' => $regionSlug,
         ];
 
-        $action = $this->adapter->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
+        $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
         $action = json_decode($action);
 
@@ -236,7 +236,7 @@ class Volume extends AbstractApi
             'name' => $name,
         ];
 
-        $snapshot = $this->adapter->post(sprintf('%s/volumes/%s/snapshots', $this->endpoint, $id), $data);
+        $snapshot = $this->httpClient->post(sprintf('%s/volumes/%s/snapshots', $this->endpoint, $id), $data);
 
         $snapshot = json_decode($snapshot);
 
@@ -251,7 +251,7 @@ class Volume extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->adapter->get(sprintf('%s/volumes/%s/actions/%d', $this->endpoint, $id, $actionId));
+        $action = $this->httpClient->get(sprintf('%s/volumes/%s/actions/%d', $this->endpoint, $id, $actionId));
 
         $action = json_decode($action);
 
@@ -265,7 +265,7 @@ class Volume extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->adapter->get(sprintf('%s/volumes/%s/actions?per_page=%d', $this->endpoint, $id, 200));
+        $actions = $this->httpClient->get(sprintf('%s/volumes/%s/actions?per_page=%d', $this->endpoint, $id, 200));
 
         $actions = json_decode($actions);
 

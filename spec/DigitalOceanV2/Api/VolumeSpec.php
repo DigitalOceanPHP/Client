@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class VolumeSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200')->willReturn('{"volumes": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/volumes?per_page=200')->willReturn('{"volumes": []}');
 
         $volumes = $this->getAll();
         $volumes->shouldBeArray();
@@ -29,7 +29,7 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_volume_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_volume_entity(HttpClientInterface $httpClient)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -75,7 +75,7 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
         }        
 EOT;
 
-        $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200')
+        $httpClient->get('https://api.digitalocean.com/v2/volumes?per_page=200')
             ->willReturn($response);
 
         $volumes = $this->getAll();
@@ -95,7 +95,7 @@ EOT;
     }
 
 
-    function it_returns_an_array_of_volume_entity_with_region(AdapterInterface $adapter)
+    function it_returns_an_array_of_volume_entity_with_region(HttpClientInterface $httpClient)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -141,7 +141,7 @@ EOT;
         }        
 EOT;
 
-        $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1')
+        $httpClient->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1')
             ->willReturn($response);
 
         $volumes = $this->getAll('nyc1');
@@ -162,7 +162,7 @@ EOT;
     }
 
 
-    function it_returns_an_array_of_volume_entity_with_region_and_name(AdapterInterface $adapter)
+    function it_returns_an_array_of_volume_entity_with_region_and_name(HttpClientInterface $httpClient)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -208,7 +208,7 @@ EOT;
         }        
 EOT;
 
-        $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1&name=example')
+        $httpClient->get('https://api.digitalocean.com/v2/volumes?per_page=200&region=nyc1&name=example')
             ->willReturn($response);
 
         $volumes = $this->getByNameAndRegion('example', 'nyc1');
@@ -230,7 +230,7 @@ EOT;
     }
 
 
-    function it_returns_a_volume_entity_with_id(AdapterInterface $adapter)
+    function it_returns_a_volume_entity_with_id(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
             {
@@ -269,7 +269,7 @@ EOT;
             }       
 EOT;
 
-        $adapter->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1?per_page=200')
+        $httpClient->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1?per_page=200')
             ->willReturn($response);
 
         $volume = $this->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
@@ -282,7 +282,7 @@ EOT;
     }
 
 
-    function it_returns_the_created_volume_entity(AdapterInterface $adapter)
+    function it_returns_the_created_volume_entity(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
             {
@@ -321,7 +321,7 @@ EOT;
             }       
 EOT;
 
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples', 'size_gigabytes' => '10', 'region' => 'nyc1']
@@ -340,7 +340,7 @@ EOT;
     }
 
 
-    function it_send_payload_with_snapshot_id(AdapterInterface $adapter)
+    function it_send_payload_with_snapshot_id(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
             {
@@ -379,7 +379,7 @@ EOT;
             }       
 EOT;
 
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples snapshot id', 'size_gigabytes' => '10', 'region' => 'nyc1', 'snapshot_id' => '506f78a4-e098-11e5-ad9f-000f53306ae1']
@@ -390,7 +390,7 @@ EOT;
     }
 
 
-    function it_send_payload_with_filesystem_type(AdapterInterface $adapter)
+    function it_send_payload_with_filesystem_type(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
             {
@@ -429,7 +429,7 @@ EOT;
             }       
 EOT;
 
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples snapshot id', 'size_gigabytes' => '10', 'region' => 'nyc1', 'filesystem_type' => 'ext4']
@@ -440,7 +440,7 @@ EOT;
     }
 
 
-    function it_send_payload_with_filesystem_label(AdapterInterface $adapter)
+    function it_send_payload_with_filesystem_label(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
             {
@@ -479,7 +479,7 @@ EOT;
             }       
 EOT;
 
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples snapshot id', 'size_gigabytes' => '10', 'region' => 'nyc1', 'filesystem_label' => 'My filesystem!']
@@ -490,9 +490,9 @@ EOT;
     }
 
 
-    function it_throws_an_http_exception_if_not_possible_to_create_a_volume(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_not_possible_to_create_a_volume(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples', 'size_gigabytes' => '10', 'region' => 'nyc1']
@@ -502,9 +502,9 @@ EOT;
     }
 
 
-    function it_deletes_the_volume_with_id_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_volume_with_id_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
             ->shouldBeCalled();
 
@@ -512,9 +512,9 @@ EOT;
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -522,9 +522,9 @@ EOT;
     }
 
 
-    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
             ->shouldBeCalled();
 
@@ -532,9 +532,9 @@ EOT;
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -542,7 +542,7 @@ EOT;
     }
 
 
-    function it_returns_the_action_entity_after_attaching(AdapterInterface $adapter)
+    function it_returns_the_action_entity_after_attaching(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
         {
@@ -580,7 +580,7 @@ EOT;
             }
         }
 EOT;
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
                 ['type' => 'attach', 'droplet_id' => 123456, 'region' => 'nyc']
@@ -593,7 +593,7 @@ EOT;
     }
 
 
-    function it_returns_the_action_entity_after_detaching(AdapterInterface $adapter)
+    function it_returns_the_action_entity_after_detaching(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
         {
@@ -631,7 +631,7 @@ EOT;
             }
         }
 EOT;
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
                 ['type' => 'detach', 'droplet_id' => 123456, 'region' => 'nyc']
@@ -644,7 +644,7 @@ EOT;
     }
 
 
-    function it_returns_the_action_entity_after_resizing(AdapterInterface $adapter)
+    function it_returns_the_action_entity_after_resizing(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
         {
@@ -682,7 +682,7 @@ EOT;
             }
         }
 EOT;
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions',
                 ['type' => 'resize', 'size_gigabytes' => 20, 'region' => 'nyc']
@@ -695,7 +695,7 @@ EOT;
     }
 
 
-    function it_returns_the_action_entity_when_retrieving_action(AdapterInterface $adapter)
+    function it_returns_the_action_entity_when_retrieving_action(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
         {
@@ -733,7 +733,7 @@ EOT;
             }
         }
 EOT;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions/72531856')
             ->willReturn($response);
 
@@ -744,7 +744,7 @@ EOT;
     }
 
 
-    function it_returns_an_array_of_action_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_action_entity(HttpClientInterface $httpClient)
     {
         $total = 1;
 
@@ -791,7 +791,7 @@ EOT;
         }
     }
 EOT;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/actions?per_page=200')
             ->willReturn($response);
 
@@ -812,7 +812,7 @@ EOT;
     }
 
 
-    function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
 
@@ -863,7 +863,7 @@ EOT;
         }
 EOT;
 
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots?per_page=200')
             ->willReturn($response);
 
@@ -882,7 +882,7 @@ EOT;
     }
 
 
-    function it_returns_snapshot_entity_after_snapshot_creation(AdapterInterface $adapter)
+    function it_returns_snapshot_entity_after_snapshot_creation(HttpClientInterface $httpClient)
     {
         $response = <<<'EOT'
         {
@@ -900,7 +900,7 @@ EOT;
             }
         }
 EOT;
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots',
                 ['name' => 'snapshot1-volume']

@@ -2,14 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 class RegionSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -18,9 +18,9 @@ class RegionSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_region_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_region_entity(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/regions?per_page=200')->willReturn('{"regions": [{},{},{}]}');
+        $httpClient->get('https://api.digitalocean.com/v2/regions?per_page=200')->willReturn('{"regions": [{},{},{}]}');
 
         $regions = $this->getAll();
         $regions->shouldBeArray();

@@ -8,7 +8,12 @@ CHANGELOG
 - Added getTotal() to droplet API
 - Added support for newer properties for volumes
 - Support only Guzzle `^6.5.5` or `^7.0.1` or Buzz `^0.16.1`
-* Renamed `DigitalOceanV2\DigitalOceanV2` to `DigitalOceanV2\Client`
+* Reworked and renamed `DigitalOceanV2\DigitalOceanV2` to `DigitalOceanV2\Client`
+* Moved `DigitalOceanV2\Adapter` to `DigitalOceanV2\HttpClient`
+* Reworked and renamed `AdapterInterface` to `HttpClientInterface`
+* Reworked and renamed `BuzzAdapter` to `BuzzHttpClient`
+* Reworked and renamed `GuzzleHttpAdapter` to `GuzzleHttpClient`
+* Added support for automatic discovery of Guzzle and Buzz
 - Support only PHP 7.1-7.4
 
 2.3.0 (27/01/2019)

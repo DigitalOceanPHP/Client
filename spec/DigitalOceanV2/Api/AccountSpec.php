@@ -2,14 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 class AccountSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -18,9 +18,9 @@ class AccountSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_user_information(AdapterInterface $adapter)
+    function it_returns_user_information(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/account')
             ->willReturn('
                 {

@@ -24,7 +24,7 @@ class Size extends AbstractApi
      */
     public function getAll()
     {
-        $sizes = $this->adapter->get(sprintf('%s/sizes?per_page=%d', $this->endpoint, 200));
+        $sizes = $this->httpClient->get(sprintf('%s/sizes?per_page=%d', $this->endpoint, 200));
 
         $sizes = json_decode($sizes);
 

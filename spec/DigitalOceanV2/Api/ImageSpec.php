@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class ImageSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/images?per_page=200')->willReturn('{"images": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/images?per_page=200')->willReturn('{"images": []}');
 
         $images = $this->getAll();
         $images->shouldBeArray();
@@ -29,10 +29,10 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_image_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_image_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images?per_page=200')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -51,10 +51,10 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_distribution_image_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_distribution_image_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=distribution')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -73,10 +73,10 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_application_image_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_application_image_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=application')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -95,10 +95,10 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_private_application_image_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_private_application_image_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&type=application&private=true')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -117,10 +117,10 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_private_image_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_private_image_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images?per_page=200'.'&private=true')
             ->willReturn(sprintf('{"images": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -139,9 +139,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_image_entity_get_by_its_id(AdapterInterface $adapter)
+    function it_returns_an_image_entity_get_by_its_id(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images/123')
             ->willReturn('
                 {
@@ -168,9 +168,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_image_entity_get_by_its_slug(AdapterInterface $adapter)
+    function it_returns_an_image_entity_get_by_its_slug(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images/foo-bar')
             ->willReturn('
                 {
@@ -193,9 +193,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_updated_image(AdapterInterface $adapter)
+    function it_returns_the_updated_image(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->put('https://api.digitalocean.com/v2/images/123', ['name' => 'bar-baz'])
             ->willReturn('
                 {
@@ -218,9 +218,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_image(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_image(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->put('https://api.digitalocean.com/v2/images/0', ['name' => 'baz-baz'])
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -228,9 +228,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_the_image_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_image_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/images/678')
             ->shouldBeCalled();
 
@@ -238,9 +238,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_image(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_image(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/images/0')
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -248,9 +248,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_transfer_the_image_to_an_other_region_and_returns_its_image(AdapterInterface $adapter)
+    function it_transfer_the_image_to_an_other_region_and_returns_its_image(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'transfer', 'region' => 'nyc2'])
             ->willReturn('
                 {
@@ -280,9 +280,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_trying_to_transfer_to_unknown_region_slug(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_trying_to_transfer_to_unknown_region_slug(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -290,9 +290,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_can_convert_the_image_to_a_snapshot(AdapterInterface $adapter)
+    function it_can_convert_the_image_to_a_snapshot(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'convert'])
             ->willReturn('
                 {
@@ -316,9 +316,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_requested_action_entity_of_the_given_image(AdapterInterface $adapter)
+    function it_returns_the_requested_action_entity_of_the_given_image(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images/123/actions/456')
             ->willReturn('
                 {
@@ -348,9 +348,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_retrieving_non_existing_image_action(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_retrieving_non_existing_image_action(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
             ->willThrow(new HttpException('Request not processed.'));
 

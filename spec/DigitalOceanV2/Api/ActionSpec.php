@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class ActionSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/actions?per_page=200')->willReturn('{"actions": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/actions?per_page=200')->willReturn('{"actions": []}');
 
         $actions = $this->getAll();
         $actions->shouldBeArray();
@@ -29,10 +29,10 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_action_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_action_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/actions?per_page=200')
             ->willReturn(sprintf(
                 '
@@ -119,9 +119,9 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_action_entity_get_by_its_id(AdapterInterface $adapter)
+    function it_returns_an_action_entity_get_by_its_id(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/actions/123')
             ->willReturn('
                 {
@@ -154,9 +154,9 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_requested_action_does_not_exist(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_requested_action_does_not_exist(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/actions/1234567')
             ->willThrow(new HttpException('Request not processed.'));
 

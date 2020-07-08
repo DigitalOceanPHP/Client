@@ -2,15 +2,8 @@
 
 namespace spec\DigitalOceanV2;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
-
 class ClientSpec extends \PhpSpec\ObjectBehavior
 {
-    function let(AdapterInterface $adapter)
-    {
-        $this->beConstructedWith($adapter);
-    }
-
     function it_is_initializable()
     {
         $this->shouldHaveType('DigitalOceanV2\Client');

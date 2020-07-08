@@ -2,14 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 class SnapshotSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -18,9 +18,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/snapshots?per_page=200')->willReturn('{"snapshots": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/snapshots?per_page=200')->willReturn('{"snapshots": []}');
 
         $snapshots = $this->getAll();
         $snapshots->shouldBeArray();
@@ -28,9 +28,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_snapshot_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_snapshot_entity(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/snapshots?per_page=200')
             ->willReturn('{
                 "snapshots": [
@@ -85,9 +85,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_snapshot_entity_by_type(AdapterInterface $adapter)
+    function it_returns_an_array_of_snapshot_entity_by_type(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/snapshots?per_page=200&resource_type=volume')
             ->willReturn('{
                 "snapshots": [
@@ -131,9 +131,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_snapshot_entity_by_id(AdapterInterface $adapter)
+    function it_returns_snapshot_entity_by_id(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/snapshots/4f60fc64-85d1-11e6-a004-000f53315871')
             ->willReturn('{
                 "snapshot":
@@ -158,9 +158,9 @@ class SnapshotSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_the_snapshot_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_snapshot_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/snapshots/4f60fc64-85d1-11e6-a004-000f53315871')
             ->shouldBeCalled();
 

@@ -2,14 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 class CertificateSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -18,10 +18,10 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_size_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_size_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/certificates')
             ->willReturn(json_encode([
                 'certificates' => [
@@ -50,9 +50,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_a_certificate_entity_by_its_id(AdapterInterface $adapter)
+    function it_returns_a_certificate_entity_by_its_id(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/certificates/123')
             ->willReturn(json_encode([
                 'certificate' => [
@@ -69,7 +69,7 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_certificate(AdapterInterface $adapter)
+    function it_returns_the_created_certificate(HttpClientInterface $httpClient)
     {
         $data = [
             'name' => 'web-cert-01',
@@ -78,7 +78,7 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
             'certificate_chain' => '-----BEGIN CERTIFICATE-----\nMIIFFjCCA/6gAwIBAgISA0AznUJmXhu08/89ZuSPC/kRMA0GC....',
         ];
 
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/certificates', $data)
             ->willReturn(json_encode([
                 'certificate' => [
@@ -96,9 +96,9 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_the_certificate_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_certificate_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/certificates/123')
             ->shouldBeCalled();
 

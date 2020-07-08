@@ -9,53 +9,56 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOceanV2\Adapter;
+namespace DigitalOceanV2\HttpClient;
 
 use Buzz\Browser;
-use Buzz\Client\Curl;
-use Buzz\Client\FileGetContents;
 use Buzz\Message\Response;
-use Buzz\Middleware\MiddlewareInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BuzzAdapter implements AdapterInterface
+class BuzzHttpClient implements HttpClientInterface
 {
     /**
      * @var Browser
      */
-    protected $browser;
+    private $browser;
 
     /**
-     * @param string                 $token
-     * @param Browser|null           $browser
-     * @param MiddlewareInterface|null $middleware
+     * @param Browser $browser
      */
-    public function __construct($token, Browser $browser = null, MiddlewareInterface $middleware = null)
+    public function __construct(Browser $browser)
     {
-        $this->browser = $browser ?? new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
-        $this->browser->addMiddleware($middleware ?? new BuzzOAuthMiddleware($token));
+        $this->browser = $browser;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $url
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function get($url)
+    public function get(string $url)
     {
         $response = $this->browser->get($url);
 
-        $this->handleResponse($response);
+        self::handleResponse($response);
 
         return $response->getContent();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function post($url, $content = '')
+    public function post(string $url, $content = '')
     {
         $headers = [];
 
@@ -66,15 +69,20 @@ class BuzzAdapter implements AdapterInterface
 
         $response = $this->browser->post($url, $headers, $content);
 
-        $this->handleResponse($response);
+        self::handleResponse($response);
 
         return $response->getContent();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws HttpException
+     *
+     * @return string
      */
-    public function put($url, $content = '')
+    public function put(string $url, $content = '')
     {
         $headers = [];
 
@@ -85,15 +93,18 @@ class BuzzAdapter implements AdapterInterface
 
         $response = $this->browser->put($url, $headers, $content);
 
-        $this->handleResponse($response);
+        self::handleResponse($response);
 
         return $response->getContent();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $url
+     * @param array|string $content
+     *
+     * @throws HttpException
      */
-    public function delete($url, $content = '')
+    public function delete(string $url, $content = '')
     {
         $headers = [];
 
@@ -104,17 +115,19 @@ class BuzzAdapter implements AdapterInterface
 
         $response = $this->browser->delete($url, $headers, $content);
 
-        $this->handleResponse($response);
+        self::handleResponse($response);
 
         return $response->getContent();
     }
 
     /**
-     * {@inheritdoc}
+     * @return array|null
      */
     public function getLatestResponseHeaders()
     {
-        if (null === $response = $this->browser->getLastResponse()) {
+        $response = $this->browser->getLastResponse();
+
+        if ($response === null) {
             return null;
         }
 
@@ -130,13 +143,13 @@ class BuzzAdapter implements AdapterInterface
      *
      * @throws HttpException
      */
-    protected function handleResponse(Response $response)
+    private static function handleResponse(Response $response)
     {
         if ($response->getStatusCode() === 200) {
             return;
         }
 
-        $this->handleError($response);
+        self::handleError($response);
     }
 
     /**
@@ -144,7 +157,7 @@ class BuzzAdapter implements AdapterInterface
      *
      * @throws HttpException
      */
-    protected function handleError(Response $response)
+    private static function handleError(Response $response)
     {
         $body = $response->getContent();
         $code = $response->getStatusCode();

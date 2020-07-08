@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace DigitalOceanV2\Adapter;
+namespace DigitalOceanV2\HttpClient;
 
 use Buzz\Middleware\MiddlewareInterface;
 use Psr\Http\Message\RequestInterface;
@@ -24,12 +24,12 @@ class BuzzOAuthMiddleware implements MiddlewareInterface
     /**
      * @var string
      */
-    protected $token;
+    private $token;
 
     /**
      * @param string $token
      */
-    public function __construct($token)
+    public function __construct(string $token)
     {
         $this->token = $token;
     }

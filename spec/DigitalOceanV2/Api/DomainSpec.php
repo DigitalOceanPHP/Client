@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class DomainSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains?per_page=200&page=1')->willReturn('{"domains": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/domains?per_page=200&page=1')->willReturn('{"domains": []}');
 
         $domains = $this->getAll();
         $domains->shouldBeArray();
@@ -29,10 +29,10 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_domain_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_domain_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains?per_page=200&page=1')
             ->willReturn(sprintf('{"domains": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -51,9 +51,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_a_domain_entity_get_by_its_name(AdapterInterface $adapter)
+    function it_returns_a_domain_entity_get_by_its_name(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.com')
             ->willReturn('
                 {
@@ -69,9 +69,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_requested_domain_does_not_exist(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_requested_domain_does_not_exist(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -79,9 +79,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_entity(AdapterInterface $adapter)
+    function it_returns_the_created_domain_entity(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/domains', ['name' => 'bar.dk', 'ip_address' => '127.0.0.1'])
             ->willReturn('
                 {
@@ -97,9 +97,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_ip_address_is_invalid(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_ip_address_is_invalid(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post('https://api.digitalocean.com/v2/domains', ['name' => 'boo.dk', 'ip_address' => '123456'])
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -107,9 +107,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_the_domain_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_domain_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/qmx.fr')
             ->shouldBeCalled();
 
@@ -117,9 +117,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_domain(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_domain(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/qmx.bar')
             ->willThrow(new HttpException('Request not processed.'));
 

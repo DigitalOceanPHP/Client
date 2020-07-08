@@ -2,16 +2,16 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 use DigitalOceanV2\Exception\InvalidRecordException;
 
 class DomainRecordSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -20,9 +20,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=200')->willReturn('{"domain_records": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=200')->willReturn('{"domain_records": []}');
 
         $domainRecords = $this->getAll('foo.dk');
         $domainRecords->shouldBeArray();
@@ -30,10 +30,10 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_domain_record_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_domain_record_entity(HttpClientInterface $httpClient)
     {
         $total = 3;
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records?per_page=200')
             ->willReturn(sprintf('{"domain_records": [{},{},{}], "meta": {"total": %d}}', $total));
 
@@ -52,9 +52,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_domain_get_by_its_id(AdapterInterface $adapter)
+    function it_returns_the_domain_get_by_its_id(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->willReturn('
                 {
@@ -78,9 +78,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_if_requested_domain_record_does_not_exist(AdapterInterface $adapter)
+    function it_throws_an_http_exception_if_requested_domain_record_does_not_exist(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -88,9 +88,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_a(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_a(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => '@', 'type' => 'A', 'data' => '8.8.8.8']
@@ -116,9 +116,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_aaaa(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_aaaa(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => 'ipv6host', 'type' => 'AAAA', 'data' => '2001:db8::ff00:42:8329']
@@ -146,9 +146,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_cname(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_cname(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => 'newalias', 'type' => 'CNAME', 'data' => 'hosttarget']
@@ -176,9 +176,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_txt(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_txt(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => 'recordname', 'type' => 'TXT', 'data' => 'whatever']
@@ -206,9 +206,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_ns(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_ns(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['type' => 'NS', 'data' => 'ns1.digitalocean.com.']
@@ -236,9 +236,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_srv(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_srv(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['type' => 'SRV', 'name' => 'servicename', 'data' => 'targethost', 'priority' => 0, 'port' => 1, 'weight' => 2]
@@ -266,9 +266,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_mx(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_mx(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['type' => 'MX', 'data' => '127.0.0.1', 'name' => 'new-name', 'priority' => 0]
@@ -296,9 +296,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_type_caa(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_type_caa(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => 'recordname', 'type' => 'CAA', 'data' => 'letsencrypt.org', 'flags' => 10, 'tag' => 'iodef',]
@@ -326,9 +326,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_domain_record_with_ttl(AdapterInterface $adapter)
+    function it_returns_the_created_domain_record_with_ttl(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records',
                 ['name' => '@', 'type' => 'A', 'data' => '8.8.8.8', 'ttl' => '60']
@@ -361,9 +361,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_updated_domain_record(AdapterInterface $adapter)
+    function it_returns_updated_domain_record(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/456',
                 ['name' => 'new-name', 'data' => '127.0.0.1', 'port' => 80, 'weight' => 2, 'ttl' => 22]
@@ -391,9 +391,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_updates_domain_record_fields(AdapterInterface $adapter)
+    function it_updates_domain_record_fields(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->put(
                 'https://api.digitalocean.com/v2/domains/foo.dk/records/123',
                 ['name' => 'servicename', 'data' => 'targethost', 'port' => 1, 'weight' => 2, 'ttl' => 60]
@@ -421,9 +421,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_update_inexisting_domain_record(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_update_inexisting_domain_record(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
             ->willThrow(new HttpException('Request not processed.'));
 
@@ -431,9 +431,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_given_domain_record_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_given_domain_record_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->shouldBeCalled();
 
@@ -441,9 +441,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_inexisting_domain_record(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_inexisting_domain_record(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
             ->willThrow(new HttpException('Request not processed.'));
 

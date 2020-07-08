@@ -2,15 +2,15 @@
 
 namespace spec\DigitalOceanV2\Api;
 
-use DigitalOceanV2\Adapter\AdapterInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class TagSpec extends \PhpSpec\ObjectBehavior
 {
 
-    function let(AdapterInterface $adapter)
+    function let(HttpClientInterface $httpClient)
     {
-        $this->beConstructedWith($adapter);
+        $this->beConstructedWith($httpClient);
     }
 
     function it_is_initializable()
@@ -19,9 +19,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_empty_array(AdapterInterface $adapter)
+    function it_returns_an_empty_array(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/tags')->willReturn('{"tags": []}');
+        $httpClient->get('https://api.digitalocean.com/v2/tags')->willReturn('{"tags": []}');
 
         $tags = $this->getAll();
         $tags->shouldBeArray();
@@ -29,9 +29,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_tag_entity(AdapterInterface $adapter)
+    function it_returns_an_array_of_tag_entity(HttpClientInterface $httpClient)
     {
-        $adapter->get('https://api.digitalocean.com/v2/tags')
+        $httpClient->get('https://api.digitalocean.com/v2/tags')
             ->willReturn('{"tags": [{},{},{}]}');
 
         $tags = $this->getAll();
@@ -47,9 +47,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_a_tag_entity_get_by_its_name(AdapterInterface $adapter)
+    function it_returns_a_tag_entity_get_by_its_name(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->get('https://api.digitalocean.com/v2/tags/awesome')
             ->willReturn('
                 {
@@ -79,9 +79,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_the_created_tag(AdapterInterface $adapter)
+    function it_returns_the_created_tag(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/tags',
                 ['name' => 'awesome']
@@ -110,7 +110,7 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_tag_resources_and_returns_nothing(AdapterInterface $adapter)
+    function it_tag_resources_and_returns_nothing(HttpClientInterface $httpClient)
     {
         $resources = [
             [
@@ -127,7 +127,7 @@ class TagSpec extends \PhpSpec\ObjectBehavior
             ]
         ];
 
-        $adapter
+        $httpClient
             ->post(
                 'https://api.digitalocean.com/v2/tags/awesome/resources',
                 ['resources' => $resources]
@@ -138,7 +138,7 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_untag_resources_and_returns_nothing(AdapterInterface $adapter)
+    function it_untag_resources_and_returns_nothing(HttpClientInterface $httpClient)
     {
         $resources = [
             [
@@ -155,7 +155,7 @@ class TagSpec extends \PhpSpec\ObjectBehavior
             ]
         ];
 
-        $adapter
+        $httpClient
             ->delete(
                 'https://api.digitalocean.com/v2/tags/awesome/resources',
                 ['resources' => $resources]
@@ -166,9 +166,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_deletes_the_tag_and_returns_nothing(AdapterInterface $adapter)
+    function it_deletes_the_tag_and_returns_nothing(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/tags/awesome')
             ->shouldBeCalled();
 
@@ -176,9 +176,9 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_tag(AdapterInterface $adapter)
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_tag(HttpClientInterface $httpClient)
     {
-        $adapter
+        $httpClient
             ->delete('https://api.digitalocean.com/v2/tags/fake')
             ->willThrow(new HttpException('Request not processed.'));
 

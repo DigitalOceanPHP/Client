@@ -1,27 +1,21 @@
 <?php
 
-namespace spec\DigitalOceanV2\Adapter;
+namespace spec\DigitalOceanV2\HttpClient;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 
-class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
+class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
 {
     function let(Client $client)
     {
-        $client->beConstructedWith([
-            'headers' => [
-                'Authorization' => 'Bearer my_access_token',
-            ],
-        ]);
-
-        $this->beConstructedWith('my_access_token', $client);
+        $this->beConstructedWith($client);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('DigitalOceanV2\Adapter\GuzzleHttpAdapter');
+        $this->shouldHaveType('DigitalOceanV2\HttpClient\GuzzleHttpClient');
     }
 
     function it_returns_json_content(Client $client, Response $response, Stream $stream)

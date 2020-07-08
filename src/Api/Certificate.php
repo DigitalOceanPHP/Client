@@ -24,7 +24,7 @@ class Certificate extends AbstractApi
      */
     public function getAll()
     {
-        $certificates = $this->adapter->get(sprintf('%s/certificates', $this->endpoint));
+        $certificates = $this->httpClient->get(sprintf('%s/certificates', $this->endpoint));
 
         $certificates = json_decode($certificates);
 
@@ -44,7 +44,7 @@ class Certificate extends AbstractApi
      */
     public function getById($id)
     {
-        $certificate = $this->adapter->get(sprintf('%s/certificates/%s', $this->endpoint, $id));
+        $certificate = $this->httpClient->get(sprintf('%s/certificates/%s', $this->endpoint, $id));
 
         $certificate = json_decode($certificate);
 
@@ -70,7 +70,7 @@ class Certificate extends AbstractApi
             'certificate_chain' => $certificateChain,
         ];
 
-        $certificate = $this->adapter->post(sprintf('%s/certificates', $this->endpoint), $data);
+        $certificate = $this->httpClient->post(sprintf('%s/certificates', $this->endpoint), $data);
 
         $certificate = json_decode($certificate);
 
@@ -84,6 +84,6 @@ class Certificate extends AbstractApi
      */
     public function delete($id)
     {
-        $this->adapter->delete(sprintf('%s/certificates/%s', $this->endpoint, $id));
+        $this->httpClient->delete(sprintf('%s/certificates/%s', $this->endpoint, $id));
     }
 }
