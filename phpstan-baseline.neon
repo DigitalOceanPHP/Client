@@ -1,0 +1,22 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot cast array\\<string\\> to string\\.$#"
+			count: 3
+			path: src/Adapter/GuzzleHttpAdapter.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$str Camel case string\\)\\: Unexpected token \"\\$str\", expected type at offset 18$#"
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
+			message: "#^Property DigitalOceanV2\\\\Entity\\\\Droplet\\:\\:\\$tags has unknown class DigitalOceanV2\\\\Entity\\\\Tags as its type\\.$#"
+			count: 1
+			path: src/Entity/Droplet.php
+
+		-
+			message: "#^Property DigitalOceanV2\\\\Entity\\\\Volume\\:\\:\\$tags has unknown class DigitalOceanV2\\\\Entity\\\\Tags as its type\\.$#"
+			count: 1
+			path: src/Entity/Volume.php
+

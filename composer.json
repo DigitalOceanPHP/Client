@@ -1,60 +1,45 @@
 {
-    "name"       : "toin0u/digitalocean-v2",
-    "type"       : "library",
-    "description": "DigitalOcean API v2 PHP 5.4+ library",
-    "keywords"   : ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
-    "homepage"   : "https://github.com/toin0u/DigitalOceanV2",
-    "license"    : "MIT",
-
+    "name": "toin0u/digitalocean-v2",
+    "description": "DigitalOcean API v2 PHP library",
+    "keywords": ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
+    "license": "MIT",
     "authors": [
         {
-            "name"    : "Antoine Corcy",
-            "email"   : "contact@sbin.dk",
-            "homepage": "http://sbin.dk",
-            "role"    : "Developer"
+            "name": "Antoine Corcy",
+            "email": "contact@sbin.dk"
         },
         {
-            "name"    : "Yassir Hannnoun",
-            "email"   : "yassir.hannoun@gmail.com",
-            "homepage": "https://yassirh.com",
-            "role"    : "Developer"
+            "name": "Graham Campbell",
+            "email": "graham@alt-three.com"
+        },
+        {
+            "name": "Yassir Hannoun",
+            "email": "yassir.hannoun@gmail.com"
+        },
+        {
+            "name": "Glenn Jacobs",
+            "email": "glenn@neondigital.co.uk"
         }
     ],
-
-    "support": {
-        "issues": "https://github.com/toin0u/DigitalOceanV2/issues",
-        "source": "https://github.com/toin0u/DigitalOceanV2"
-    },
-
     "require": {
         "php": "^7.1",
         "ext-json": "*"
     },
-
     "require-dev": {
-        "kriswallsmith/buzz": "^0.16",
-        "guzzlehttp/guzzle": "^5.3|^6.3",
-        "phpspec/phpspec": "^2.5"
+        "bamarni/composer-bin-plugin": "^1.4.1",
+        "guzzlehttp/guzzle": "^6.5.5|^7.0.1",
+        "kriswallsmith/buzz": "^0.16.1"
     },
-
     "suggest": {
-        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^0.16.",
-        "guzzlehttp/guzzle" : "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:^5.3|^6.3."
+        "guzzlehttp/guzzle": "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:6.5.5|^7.0.1.",
+        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^0.16.1."
     },
-
     "autoload": {
         "psr-4": {
             "DigitalOceanV2\\": "src/"
         }
     },
-
     "config": {
         "preferred-install": "dist"
-    },
-
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
     }
 }

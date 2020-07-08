@@ -1,0 +1,12 @@
+preset: psr12
+
+enabled:
+  - array_indentation
+  - cast_spaces
+  - no_empty_phpdoc
+  - phpdoc_indent
+  - phpdoc_scalar
+  - short_scalar_cast
+
+disabled:
+  - concat_with_spaces

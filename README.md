@@ -4,133 +4,46 @@ DigitalOcean V2
 Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) ([issues](https://github.com/digitalocean/api-v2/issues) /
 [changelog](https://developers.digitalocean.com/documentation/changelog/)) :)
 
-[![Build Status](https://travis-ci.com/DigitalOceanPHP/DigitalOceanV2.svg?branch=master)](https://travis-ci.com/github/DigitalOceanPHP/DigitalOceanV2)
-[![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/v/stable.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
-[![Total Downloads](https://poser.pugx.org/toin0u/digitalocean-v2/downloads.png)](https://packagist.org/packages/toin0u/digitalocean-v2)
-[![License](https://poser.pugx.org/toin0u/digitalocean-v2/license.svg)](https://packagist.org/packages/toin0u/digitalocean-v2)
+[![Build Status](
+https://img.shields.io/github/workflow/status/DigitalOceanPHP/DigitalOceanV2/Tests?style=flat-square)](https://github.com/DigitalOceanPHP/DigitalOceanV2/actions?query=workflow%3ATests)
+[![StyleCI](https://github.styleci.io/repos/20703714/shield?branch=3.0)](https://github.styleci.io/repos/20703714?branch=3.0)
+[![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/version?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
+[![Total Downloads](https://poser.pugx.org/toin0u/digitalocean-v2/downloads?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
+[![License](https://poser.pugx.org/toin0u/digitalocean-v2/license?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
 
 Installation
 ------------
 
-This library can be found on [Packagist](https://packagist.org/packages/toin0u/digitalocean-v2).
-The recommended way to install this is through [composer](https://getcomposer.org).
-We support PHP 7.1-7.4. This library is no longer tested on HHVM.
+This version supports [PHP](https://php.net) 5.6-7.4. To get started, simply require the project using [Composer](https://getcomposer.org).
 
-Run these commands to install composer, the library and its dependencies:
+### Using Guzzle 6:
 
-```bash
-$ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require toin0u/digitalocean-v2:^3.0
+```
+$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^6.5.5
 ```
 
-You then need to install **one** of the following:
-```bash
-$ php composer.phar require kriswallsmith/buzz:^0.16
-$ php composer.phar require guzzlehttp/guzzle:^5.3
-$ php composer.phar require guzzlehttp/guzzle:^6.3
+### Using Guzzle 7:
+
+```
+$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0.1
 ```
 
-Or edit `composer.json` and add:
+### Using Buzz 0.16:
 
-```json
-{
-    "require": {
-        "toin0u/digitalocean-v2": "^2.2"
-    }
-}
+```
+$ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16.1
 ```
 
-And then add **one** of the following:
+### Using Laravel 6+:
 
-```json
-{
-    "require": {
-        "kriswallsmith/buzz": "^0.16",
-        "guzzlehttp/guzzle": "^5.0",
-        "guzzlehttp/guzzle": "^6.0"
-    }
-}
+```
+$ composer require graham-campbell/digitalocean:^7.0
 ```
 
-### Using Laravel? ###
+[graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
 
-[Laravel DigitalOcean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell) might interest you.
-
-```json
-{
-    "require": {
-        "graham-campbell/digitalocean": "^5.0"
-    }
-}
-```
-
-### Using Symfony2? ###
-
-For Symfony2 users, there is no need to create separate bundle (But you could if you wanted to). Just install `toin0u/digitalocean-v2` via composer and define it as a service. For example:
-
-```yaml
-# YourBundle/Resources/config/services.yml
-parameters:
-    do.class.factory: DigitalOceanV2\DigitalOceanV2
-    do.class.adapter: DigitalOceanV2\Adapter\GuzzleAdapter
-    ....
-
-services:
-    do.adapter:
-        class: %do.class.adapter%
-        public: false
-        arguments: [api_secret]
-
-    do.factory:
-        class: %do.class.factory%
-        arguments: [@do.adapter]
-        public: true # Needed for symfony 3.3+ with autoconfiure/autowire set to true
-
-    ....
-```
-
-Now you can use in container.
-
-```php
-$droplet = $this->container->get('do.factory')->droplet();
-```
-
-Or you could define your service api one by one using a class factory.
-
-```yaml
-parameters:
-    ....
-    do.class.api.droplet: DigitalOceanV2\Api\Droplet
-    do.class.api.action: DigitalOceanV2\Api\Action
-    do.class.api.domain: ...
-
-services:
-    ....
-
-    do.droplet:
-        class: %do.class.api.droplet%
-        factory_service: do.factory
-        factory_method: droplet
-
-    do.action:
-        class: %do.class.api.action%
-        factory_service: do.factory
-        factory_method: action
-
-    do.domain:
-        ....
-```
-
-And now you can use it in the container as
-
-```php
-$droplets = $this->container->get('do.droplet')->getAll();
-```
-
-> This is helpful for a child of `Symfony\Bundle\FrameworkBundle\Controller\Controller` user to use by `$this->get('do.droplet')->getAll()`
-
-Adapter
--------
+Adapters
+--------
 
 We provide a simple `BuzzAdapter`  which (at the moment) can be tweaked by injecting your own `Browser`
 and `ListenerInterface`. By default a `Curl` client will be injected in `Browser` and the `BuzzOAuthListener`
@@ -540,16 +453,6 @@ $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 ```
 
-Contributing
-------------
-
-Please see [CONTRIBUTING](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/CONTRIBUTING.md) for details.
-
-Changelog
----------
-
-Please see [CHANGELOG](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/CHANGELOG.md) for details.
-
 Credits
 -------
 
@@ -561,42 +464,17 @@ Credits
 * [Chris Fidao](https://github.com/fideloper)
 * [All contributors](https://github.com/DigitalOceanPHP/DigitalOceanV2/contributors)
 
-Support
--------
+Contributing
+------------
 
-[Please open an issue in github](https://github.com/DigitalOceanPHP/DigitalOceanV2/issues)
+We will gladly review and accept pull requests, in accordance with our [contribution guidelines](.github/CONTRIBUTING.md)!
 
-Contributor Code of Conduct
----------------------------
-
-As contributors and maintainers of this project, we pledge to respect all people
-who contribute through reporting issues, posting feature requests, updating
-documentation, submitting pull requests or patches, and other activities.
-
-We are committed to making participation in this project a harassment-free
-experience for everyone, regardless of level of experience, gender, gender
-identity and expression, sexual orientation, disability, personal appearance,
-body size, race, age, or religion.
-
-Examples of unacceptable behavior by participants include the use of sexual
-language or imagery, derogatory comments or personal attacks, trolling, public
-or private harassment, insults, or other unprofessional conduct.
-
-Project maintainers have the right and responsibility to remove, edit, or reject
-comments, commits, code, wiki edits, issues, and other contributions that are
-not aligned to this Code of Conduct. Project maintainers who do not follow the
-Code of Conduct may be removed from the project team.
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by opening an issue or contacting one or more of the project
-maintainers.
-
-This Code of Conduct is adapted from the [Contributor
-Covenant](http:contributor-covenant.org), version 1.0.0, available at
-[http://contributor-covenant.org/version/1/0/0/](http://contributor-covenant.org/version/1/0/0/).
+```
+$ make install
+$ make test
+```
 
 License
 -------
 
-DigitalOceanV2 is released under the MIT License. See the bundled
-[LICENSE](https://github.com/DigitalOceanPHP/DigitalOceanV2/blob/master/LICENSE) file for details.
+DigitalOceanV2 is licensed under [The MIT License (MIT)](LICENSE).
