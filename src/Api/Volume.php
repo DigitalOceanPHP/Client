@@ -139,6 +139,8 @@ class Volume extends AbstractApi
      * @param string $id
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($id)
     {
@@ -150,6 +152,8 @@ class Volume extends AbstractApi
      * @param string $regionSlug restricts the search to volumes available in a specific region
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function deleteWithNameAndRegion($driveName, $regionSlug)
     {

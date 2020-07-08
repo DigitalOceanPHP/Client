@@ -38,13 +38,15 @@ abstract class AbstractApi
     protected $endpoint;
 
     /**
-     * @var Meta
+     * @var Meta|null
      */
     protected $meta;
 
     /**
      * @param HttpClientInterface $httpClient
-     * @param string|null      $endpoint
+     * @param string|null         $endpoint
+     *
+     * @return void
      */
     public function __construct(HttpClientInterface $httpClient, $endpoint = null)
     {

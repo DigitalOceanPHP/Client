@@ -26,21 +26,36 @@ class BuzzOAuthMiddleware implements MiddlewareInterface
     /**
      * @var string
      */
-    private $token;
+    private $header;
 
     /**
      * @param string $token
+     *
+     * @return void
      */
     public function __construct(string $token)
     {
-        $this->token = $token;
+        $this->header = sprintf('Bearer %s', $token);
     }
 
+    /**
+     * @param RequestInterface $request
+     * @param callable         $next
+     *
+     * @return ResponseInterface
+     */
     public function handleRequest(RequestInterface $request, callable $next)
     {
-        return $next($request->withHeader('Authorization', sprintf('Bearer %s', $this->token)));
+        return $next($request->withHeader('Authorization', $this->header));
     }
 
+    /**
+     * @param RequestInterface  $request
+     * @param ResponseInterface $response
+     * @param callable          $next
+     *
+     * @return ResponseInterface
+     */
     public function handleResponse(RequestInterface $request, ResponseInterface $response, callable $next)
     {
         return $next($request, $response);

@@ -80,6 +80,8 @@ class Domain extends AbstractApi
      * @param string $domain
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($domain)
     {

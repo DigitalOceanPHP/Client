@@ -91,6 +91,8 @@ class Tag extends AbstractApi
      * @param string $name
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($name)
     {

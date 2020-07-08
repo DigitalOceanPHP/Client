@@ -21,6 +21,8 @@ abstract class AbstractEntity
 {
     /**
      * @param \stdClass|array|null $parameters
+     *
+     * @return void
      */
     public function __construct($parameters = null)
     {
@@ -75,10 +77,10 @@ abstract class AbstractEntity
      *
      * @return string|null DateTime in ISO8601 format
      */
-    protected static function convertDateTime($date)
+    protected static function convertDateTime(?string $date)
     {
-        if (!$date) {
-            return;
+        if ($date === null) {
+            return null;
         }
 
         $date = new \DateTime($date);
@@ -88,11 +90,11 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param string $str Snake case string
+     * @param string $str
      *
-     * @return string Camel case string
+     * @return string
      */
-    protected static function convertToCamelCase($str)
+    protected static function convertToCamelCase(string $str)
     {
         $callback = function ($match) {
             return strtoupper($match[2]);
@@ -102,11 +104,11 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param $str Camel case string
+     * @param string $str
      *
-     * @return string Snake case string
+     * @return string
      */
-    protected static function convertToSnakeCase($str)
+    protected static function convertToSnakeCase(string $str)
     {
         return strtolower(implode('_', preg_split('/(?=[A-Z])/', $str)));
     }

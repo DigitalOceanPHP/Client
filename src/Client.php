@@ -46,6 +46,8 @@ class Client
 
     /**
      * @param Builder|null $httpClientBuilder
+     *
+     * @return void
      */
     public function __construct(Builder $httpClientBuilder = null)
     {

@@ -138,7 +138,7 @@ class Droplet extends AbstractApi
      *
      * @throws HttpException
      *
-     * @return DropletEntity|null
+     * @return DropletEntity|DropletEntity[]|null
      */
     public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, array $volumes = [], array $tags = [])
     {
@@ -189,6 +189,8 @@ class Droplet extends AbstractApi
      * @param int $id
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($id)
     {

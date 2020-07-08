@@ -100,6 +100,8 @@ class Image extends AbstractApi
      * @param int $id
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($id)
     {

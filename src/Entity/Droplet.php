@@ -85,7 +85,7 @@ final class Droplet extends AbstractEntity
     public $status;
 
     /**
-     * @var Tags[]
+     * @var Tag[]
      */
     public $tags = [];
 

@@ -30,6 +30,8 @@ class BuzzHttpClient implements HttpClientInterface
 
     /**
      * @param Browser $browser
+     *
+     * @return void
      */
     public function __construct(Browser $browser)
     {
@@ -105,6 +107,8 @@ class BuzzHttpClient implements HttpClientInterface
      * @param array|string $content
      *
      * @throws HttpException
+     *
+     * @return string
      */
     public function delete(string $url, $content = '')
     {

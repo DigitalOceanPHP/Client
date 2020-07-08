@@ -64,7 +64,7 @@ final class Volume extends AbstractEntity
     public $filesystemLabel;
 
     /**
-     * @var Tags[]
+     * @var Tag[]
      */
     public $tags = [];
 

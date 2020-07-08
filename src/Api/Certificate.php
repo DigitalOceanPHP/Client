@@ -83,6 +83,8 @@ class Certificate extends AbstractApi
      * @param string $id
      *
      * @throws HttpException
+     *
+     * @return void
      */
     public function delete($id)
     {

@@ -55,6 +55,8 @@ interface HttpClientInterface
      * @param array|string $content
      *
      * @throws HttpException
+     *
+     * @return string
      */
     public function delete(string $url, $content = '');
 
