@@ -9,6 +9,7 @@ enabled:
   - no_alternative_syntax
   - no_blank_lines_between_traits
   - no_unreachable_default_argument_value
+  - phpdoc_order
   - short_array_syntax
 
 disabled:
