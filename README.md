@@ -6,7 +6,7 @@ Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/)
 
 [![Build Status](
 https://img.shields.io/github/workflow/status/DigitalOceanPHP/DigitalOceanV2/Tests?style=flat-square)](https://github.com/DigitalOceanPHP/DigitalOceanV2/actions?query=workflow%3ATests)
-[![StyleCI](https://github.styleci.io/repos/20703714/shield?branch=3.0)](https://github.styleci.io/repos/20703714?branch=3.0)
+[![StyleCI](https://github.styleci.io/repos/20703714/shield?branch=4.0)](https://github.styleci.io/repos/20703714?branch=4.0)
 [![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/version?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
 [![Total Downloads](https://poser.pugx.org/toin0u/digitalocean-v2/downloads?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
 [![License](https://poser.pugx.org/toin0u/digitalocean-v2/license?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
@@ -19,25 +19,25 @@ This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply req
 ### Using Guzzle 6:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^6.3.1
+$ composer require toin0u/digitalocean-v2:^4.0 guzzlehttp/guzzle:^6.3.1
 ```
 
 ### Using Guzzle 7:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0.1
+$ composer require toin0u/digitalocean-v2:^4.0 guzzlehttp/guzzle:^7.0.1
 ```
 
 ### Using Buzz 0.16:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16
+$ composer require toin0u/digitalocean-v2:^4.0 kriswallsmith/buzz:^0.16
 ```
 
 ### Using Laravel 6+:
 
 ```
-$ composer require graham-campbell/digitalocean:^7.0
+$ composer require graham-campbell/digitalocean:^8.0
 ```
 
 [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
