@@ -27,12 +27,12 @@
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.4.1",
-        "guzzlehttp/guzzle": "^6.5.5|^7.0.1",
-        "kriswallsmith/buzz": "^0.16.1"
+        "guzzlehttp/guzzle": "^6.3|^7.0",
+        "kriswallsmith/buzz": "^0.16"
     },
     "suggest": {
-        "guzzlehttp/guzzle": "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:6.5.5|^7.0.1.",
-        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^0.16.1."
+        "guzzlehttp/guzzle": "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:6.3|^7.0.",
+        "kriswallsmith/buzz": "To use BuzzAdapter, require kriswallsmith/buzz:^0.16."
     },
     "autoload": {
         "psr-4": {
