@@ -1,20 +1,24 @@
-DigitalOcean V2
-===============
+# DigitalOcean PHP API Client
 
-Let's consume the [DigitalOcean API V2](https://developers.digitalocean.com/v2/) ([issues](https://github.com/digitalocean/api-v2/issues) /
-[changelog](https://developers.digitalocean.com/documentation/changelog/)) :)
+We present a modern [DigitalOcean API v2](https://developers.digitalocean.com/documentation/v2/) client for PHP.
 
-[![Build Status](
-https://img.shields.io/github/workflow/status/DigitalOceanPHP/DigitalOceanV2/Tests?style=flat-square)](https://github.com/DigitalOceanPHP/DigitalOceanV2/actions?query=workflow%3ATests)
-[![StyleCI](https://github.styleci.io/repos/20703714/shield?branch=4.0)](https://github.styleci.io/repos/20703714?branch=4.0)
-[![Latest Stable Version](https://poser.pugx.org/toin0u/digitalocean-v2/version?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
-[![Total Downloads](https://poser.pugx.org/toin0u/digitalocean-v2/downloads?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
-[![License](https://poser.pugx.org/toin0u/digitalocean-v2/license?format=flat-square)](https://packagist.org/packages/toin0u/digitalocean-v2)
+![Banner](https://user-images.githubusercontent.com/2829600/86969008-fcc6d180-c164-11ea-9864-5ffd9caf2c6b.png)
+
+<p align="center">
+<a href="https://github.com/DigitalOceanPHP/Client/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/DigitalOceanPHP/Client/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
+<a href="https://github.styleci.io/repos/20703714"><img src="https://github.styleci.io/repos/20703714/shield" alt="StyleCI Status"></img></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
+<a href="https://packagist.org/packages/toin0u/digitalocean-v2"><img src="https://img.shields.io/packagist/dt/toin0u/digitalocean-v2?style=flat-square" alt="Packagist Downloads"></img></a>
+<a href="https://github.com/DigitalOceanPHP/Client/releases"><img src="https://img.shields.io/github/release/DigitalOceanPHP/Client?style=flat-square" alt="Latest Version"></img></a>
+</p>
+
+Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalOceanPHP/Client/releases), [security policy](https://github.com/DigitalOceanPHP/Client/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
+
 
 Installation
 ------------
 
-This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org).
+This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that an HTTP Client.
 
 ### Using Guzzle 6:
 
@@ -42,8 +46,9 @@ $ composer require graham-campbell/digitalocean:^8.0
 
 [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
 
-Example
--------
+## Examples
+
+As of version 3.0, we will will automatically discover an HTTP client use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
 
 ```php
 <?php
@@ -60,8 +65,7 @@ $client->authenticate('your_access_token');
 // ...
 ```
 
-Account
--------
+### Account
 
 ```php
 // ...
@@ -72,8 +76,7 @@ $account = $client->account();
 $userInformation = $account->getUserInformation();
 ````
 
-Action
-------
+### Action
 
 ```php
 // ...
@@ -87,8 +90,7 @@ $actions = $action->getAll();
 $action123 = $action->getById(123);
 ```
 
-Domain
-------
+### Domain
 
 ```php
 // ...
@@ -108,8 +110,7 @@ $created = $domain->create('bar.dk', '127.0.0.1');
 $domain->delete('baz.dk');
 ```
 
-Domain Record
--------------
+### Domain Record
 
 ```php
 // ...
@@ -132,8 +133,7 @@ $updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', 1, 2, 3,
 $domainRecord->delete('qmx.dk', 123);
 ```
 
-Droplet
--------
+### Droplet
 
 ```php
 // ...
@@ -225,8 +225,7 @@ $backupsDisabled = $droplet->disableBackups(123);
 $privateNetworkingEnabled = $droplet->enablePrivateNetworking(123);
 ```
 
-Image
------
+### Image
 
 ```php
 // ...
@@ -267,8 +266,7 @@ $transferredImage = $image->transfer(123, 'region-slug');
 $actionImage = $image->getAction(123, 456);
 ```
 
-Key
----
+### Key
 
 ```php
 // ...
@@ -294,8 +292,7 @@ $updatedKey = $key->update(123, 'new-key-name');
 $key->delete(123);
 ```
 
-Load Balancer
--------------
+### Load Balancer
 
 ```php
 // ...
@@ -321,8 +318,7 @@ $myUpdatedLoadBalancer = $loadBalancer->update('506f78a4-e098-11e5-ad9f-000f5330
 $myNewLoadBalancer = $loadBalancer->create('my-new-load-balancer', 'nyc1');
 ```
 
-Region
-------
+### Region
 
 ```php
 // ...
@@ -333,8 +329,7 @@ $region = $client->region();
 $regions = $region->getAll();
 ```
 
-Size
-----
+### Size
 
 ```php
 // ...
@@ -345,8 +340,7 @@ $size = $client->size();
 $sizes = $size->getAll();
 ```
 
-RateLimit
----------
+### Rate Limit
 
 ```php
 // ...
@@ -357,8 +351,7 @@ $rateLimit = $client->rateLimit();
 $currentLimit = $rateLimit->getRateLimit();
 ```
 
-Tag
-----
+### Tag
 
 ```php
 // ...
@@ -384,8 +377,7 @@ $tag->untagResources('awesome', [["resource_id" => "9569411", "resource_type" =>
 $tag->delete('awesome');
 ```
 
-Volume
-------
+### Volume
 
 ```php
 // ...
@@ -435,28 +427,22 @@ $volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
 $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 ```
 
-Credits
--------
 
-* [Antoine Corcy](https://twitter.com/toin0u)
-* [Graham Campbell](https://twitter.com/GrahamCampbell)
-* [Yassir Hannoun](https://twitter.com/yassirh)
-* [Liverbool](https://github.com/liverbool)
-* [Marcos Sigueros](https://github.com/alrik11es)
-* [Chris Fidao](https://github.com/fideloper)
-* [All contributors](https://github.com/DigitalOceanPHP/DigitalOceanV2/contributors)
+## Contributing
 
-Contributing
-------------
-
-We will gladly review and accept pull requests, in accordance with our [contribution guidelines](.github/CONTRIBUTING.md)!
+We will gladly receive issue reports and review and accept pull requests, in accordance with our [code of conduct](.github/CODE_OF_CONDUCT.md) and [contribution guidelines](.github/CONTRIBUTING.md)!
 
 ```
 $ make install
 $ make test
 ```
 
-License
--------
 
-DigitalOceanV2 is licensed under [The MIT License (MIT)](LICENSE).
+## Security
+
+If you discover a security vulnerability within this package, please send an email to Graham Campbell at graham@alt-three.com or Glenn Jacobs at glenn@neondigital.co.uk. All security vulnerabilities will be promptly addressed. You may view our full security policy [here](https://github.com/DigitalOceanPHP/Client/security/policy).
+
+
+## License
+
+DigitalOcean PHP API Client is licensed under [The MIT License (MIT)](LICENSE).

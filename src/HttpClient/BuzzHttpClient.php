@@ -103,7 +103,7 @@ class BuzzHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param string $url
+     * @param string       $url
      * @param array|string $content
      *
      * @throws HttpException
@@ -133,7 +133,7 @@ class BuzzHttpClient implements HttpClientInterface
     {
         $response = $this->browser->getLastResponse();
 
-        if ($response === null) {
+        if (null === $response) {
             return null;
         }
 
@@ -153,7 +153,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     private static function handleResponse(Response $response)
     {
-        if ($response->getStatusCode() === 200) {
+        if (200 === $response->getStatusCode()) {
             return;
         }
 

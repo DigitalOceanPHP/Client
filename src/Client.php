@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2;
 
-use DigitalOceanV2\HttpClient\Builder;
-use DigitalOceanV2\HttpClient\FactoryInterface;
-use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Certificate;
@@ -32,6 +29,9 @@ use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
+use DigitalOceanV2\HttpClient\Builder;
+use DigitalOceanV2\HttpClient\FactoryInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>

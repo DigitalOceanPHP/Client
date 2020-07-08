@@ -39,6 +39,6 @@ class GuzzleFactory implements FactoryInterface
      */
     private static function getOptions(?string $token)
     {
-        return $token === null ? [] : ['headers' => ['Authorization' => sprintf('Bearer %s', $token)]];
+        return null === $token ? [] : ['headers' => ['Authorization' => sprintf('Bearer %s', $token)]];
     }
 }

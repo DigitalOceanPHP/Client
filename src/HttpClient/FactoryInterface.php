@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\HttpException;
-
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */

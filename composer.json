@@ -1,6 +1,6 @@
 {
     "name": "toin0u/digitalocean-v2",
-    "description": "DigitalOcean API v2 PHP library",
+    "description": "DigitalOcean API v2 client for PHP",
     "keywords": ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
     "license": "MIT",
     "authors": [
@@ -19,6 +19,10 @@
         {
             "name": "Glenn Jacobs",
             "email": "glenn@neondigital.co.uk"
+        },
+        {
+            "name": "Cameron Van Orman",
+            "email": "cameron@efelle.com"
         }
     ],
     "require": {

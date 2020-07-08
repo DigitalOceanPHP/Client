@@ -97,6 +97,6 @@ final class Action extends AbstractEntity
      */
     public function setCompletedAt(?string $completedAt)
     {
-        $this->completedAt = $completedAt === null ? null : static::convertToIso8601($completedAt);
+        $this->completedAt = null === $completedAt ? null : static::convertToIso8601($completedAt);
     }
 }

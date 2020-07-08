@@ -51,7 +51,7 @@ interface HttpClientInterface
     public function put(string $url, $content = '');
 
     /**
-     * @param string $url
+     * @param string       $url
      * @param array|string $content
      *
      * @throws HttpException
