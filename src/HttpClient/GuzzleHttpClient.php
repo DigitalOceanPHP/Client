@@ -167,7 +167,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     private static function getResponseBody(?ResponseInterface $response)
     {
-        return $response === null ? '' : (string) $response->getBody();
+        return null === $response ? '' : (string) $response->getBody();
     }
 
     /**
@@ -193,7 +193,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     private static function handleError(?ResponseInterface $response)
     {
-        if ($response === null) {
+        if (null === $response) {
             throw new HttpException('An HTTP transport error occured.');
         }
 

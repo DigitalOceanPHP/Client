@@ -160,7 +160,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     private static function getResponseBody(?Response $response)
     {
-        return $response === null ? '' : (string) $response->getContent();
+        return null === $response ? '' : (string) $response->getContent();
     }
 
     /**
@@ -174,7 +174,7 @@ class BuzzHttpClient implements HttpClientInterface
         /** @var string[]|null */
         $headers = $response->getHeader($name, false);
 
-        return $headers === null ? null : array_shift($headers);
+        return null === $headers ? null : array_shift($headers);
     }
 
     /**
@@ -202,7 +202,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     private static function handleError(?Response $response)
     {
-        if ($response === null) {
+        if (null === $response) {
             throw new HttpException('An HTTP transport error occured.');
         }
 

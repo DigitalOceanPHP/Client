@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
-use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
 use DigitalOceanV2\Exception\HttpException;
