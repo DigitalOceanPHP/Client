@@ -31,13 +31,7 @@ class GuzzleHttpAdapter implements AdapterInterface
      */
     public function __construct($token, ClientInterface $client = null)
     {
-        if (version_compare(ClientInterface::VERSION, '6') === 1) {
-            $this->client = $client ?: new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
-        } else {
-            $this->client = $client ?: new Client();
-
-            $this->client->setDefaultOption('headers/Authorization', sprintf('Bearer %s', $token));
-        }
+        $this->client = $client ?? new Client(['headers' => ['Authorization' => sprintf('Bearer %s', $token)]]);
     }
 
     /**
