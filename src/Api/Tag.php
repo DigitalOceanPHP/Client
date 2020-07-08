@@ -67,7 +67,7 @@ class Tag extends AbstractApi
 
     /**
      * @param string $name
-     * @param array $resources
+     * @param array  $resources
      *
      * @throws HttpException
      *
@@ -80,7 +80,7 @@ class Tag extends AbstractApi
 
     /**
      * @param string $name
-     * @param array $resources
+     * @param array  $resources
      *
      * @throws HttpException
      *

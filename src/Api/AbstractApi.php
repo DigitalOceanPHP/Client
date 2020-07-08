@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Entity\Meta;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -25,7 +25,7 @@ abstract class AbstractApi
     /**
      * @var string
      */
-    const ENDPOINT = 'https://api.digitalocean.com/v2';
+    public const ENDPOINT = 'https://api.digitalocean.com/v2';
 
     /**
      * @var HttpClientInterface

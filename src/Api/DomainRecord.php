@@ -80,10 +80,12 @@ class DomainRecord extends AbstractApi
             case 'CNAME':
             case 'TXT':
                 $content = ['name' => $name, 'type' => $type, 'data' => $data];
+
                 break;
 
             case 'NS':
                 $content = ['type' => $type, 'data' => $data];
+
                 break;
 
             case 'SRV':
@@ -95,14 +97,17 @@ class DomainRecord extends AbstractApi
                     'port' => (int) $port,
                     'weight' => (int) $weight,
                 ];
+
                 break;
 
             case 'MX':
                 $content = ['type' => $type, 'name' => $name, 'data' => $data, 'priority' => $priority];
+
                 break;
 
             case 'CAA':
                 $content = ['type' => $type, 'name' => $name, 'data' => $data, 'flags' => $flags, 'tag' => $tag];
+
                 break;
 
             default:
@@ -141,7 +146,7 @@ class DomainRecord extends AbstractApi
         $content = compact('name', 'data', 'priority', 'port', 'weight', 'flags', 'tag', 'ttl');
 
         $content = array_filter($content, function ($val) {
-            return $val !== null;
+            return null !== $val;
         });
 
         return $this->updateFields($domainName, $recordId, $content);

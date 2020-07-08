@@ -36,11 +36,11 @@ class FactoryDiscovery
      */
     public static function find()
     {
-        if (($factory = self::discoverGuzzle()) !== null) {
+        if (null !== ($factory = self::discoverGuzzle())) {
             return $factory;
         }
 
-        if (($factory = self::discoverBuzz()) !== null) {
+        if (null !== ($factory = self::discoverBuzz())) {
             return $factory;
         }
 
@@ -60,7 +60,7 @@ class FactoryDiscovery
         $version = self::getGuzzleVersion();
 
         // ensure Guzzle version is at least 6.3.1
-        if ($version === null || version_compare($version, '6.3.1') < 0) {
+        if (null === $version || version_compare($version, '6.3.1') < 0) {
             return null;
         }
 
@@ -104,7 +104,7 @@ class FactoryDiscovery
         $param = self::getFirstParam(RequestException::class, 'setRequest');
 
         // ensure Buzz version is at least 0.16.0
-        if ($param === null || $param->hasType()) {
+        if (null === $param || $param->hasType()) {
             return null;
         }
 

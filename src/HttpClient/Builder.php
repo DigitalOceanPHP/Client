@@ -59,7 +59,7 @@ final class Builder
      */
     public function getHttpClient()
     {
-        if ($this->httpClient === null) {
+        if (null === $this->httpClient) {
             $this->httpClient = $this->factory->create($this->authToken);
         }
 

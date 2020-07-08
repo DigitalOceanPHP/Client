@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\HttpException;
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
@@ -112,7 +111,7 @@ class GuzzleHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param string $url
+     * @param string       $url
      * @param array|string $content
      *
      * @throws HttpException
@@ -140,7 +139,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     public function getLatestResponseHeaders()
     {
-        if ($this->response === null) {
+        if (null === $this->response) {
             return null;
         }
 
