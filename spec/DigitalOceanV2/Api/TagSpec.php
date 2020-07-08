@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class TagSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Tag');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/tags')->willReturn('{"tags": []}');
 
@@ -31,10 +28,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $tags->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_tag_entity($adapter)
+
+    function it_returns_an_array_of_tag_entity(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/tags')
             ->willReturn('{"tags": [{},{},{}]}');
@@ -51,10 +46,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         }
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_tag_entity_get_by_its_name($adapter)
+
+    function it_returns_a_tag_entity_get_by_its_name(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/tags/awesome')
@@ -85,10 +78,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->getByName('awesome')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Tag');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_tag($adapter)
+
+    function it_returns_the_created_tag(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -118,10 +109,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->create('awesome')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Tag');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_tag_resources_and_returns_nothing($adapter)
+
+    function it_tag_resources_and_returns_nothing(AdapterInterface $adapter)
     {
         $resources = [
             [
@@ -148,10 +137,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->tagResources('awesome', $resources);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_untag_resources_and_returns_nothing($adapter)
+
+    function it_untag_resources_and_returns_nothing(AdapterInterface $adapter)
     {
         $resources = [
             [
@@ -178,10 +165,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->untagResources('awesome', $resources);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_tag_and_returns_nothing($adapter)
+
+    function it_deletes_the_tag_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/tags/awesome')
@@ -190,10 +175,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
         $this->delete('awesome');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_tag($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_tag(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/tags/fake')

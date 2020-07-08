@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class ActionSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Action');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/actions?per_page=200')->willReturn('{"actions": []}');
 
@@ -31,10 +28,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $actions->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_action_entity($adapter)
+
+    function it_returns_an_array_of_action_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -123,10 +118,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_action_entity_get_by_its_id($adapter)
+
+    function it_returns_an_action_entity_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/123')
@@ -160,10 +153,8 @@ class ActionSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_requested_action_does_not_exist($adapter)
+
+    function it_throws_an_http_exception_if_requested_action_does_not_exist(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/actions/1234567')

@@ -2,12 +2,12 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
+
 class RateLimitSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -17,20 +17,16 @@ class RateLimitSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\RateLimit');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_null_if_there_is_no_previous_request($adapter)
+
+    function it_returns_null_if_there_is_no_previous_request(AdapterInterface $adapter)
     {
         $adapter->getLatestResponseHeaders()->willReturn(null);
 
         $this->getRateLimit()->shouldBeNull();
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_rate_limit_entity($adapter)
+
+    function it_returns_rate_limit_entity(AdapterInterface $adapter)
     {
         $adapter->getLatestResponseHeaders()->willReturn([
             'limit' => 1200,

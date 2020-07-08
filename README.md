@@ -61,17 +61,14 @@ Example
 ```php
 <?php
 
-require 'vendor/autoload.php';
-
-use DigitalOceanV2\Adapter\BuzzAdapter;
-use DigitalOceanV2\DigitalOceanV2;
+require_once 'vendor/autoload.php';
 
 // create an adapter with your access token which can be
 // generated at https://cloud.digitalocean.com/settings/applications
-$adapter = new BuzzAdapter('your_access_token');
+$adapter = new DigitalOceanV2\Adapter\BuzzAdapter('your_access_token');
 
 // create a digital ocean object with the previous adapter
-$digitalocean = new DigitalOceanV2($adapter);
+$digitalocean = new DigitalOceanV2\Client($adapter);
 
 // ...
 ```

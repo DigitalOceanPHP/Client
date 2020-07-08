@@ -2,15 +2,14 @@
 
 namespace spec\DigitalOceanV2\Adapter;
 
+use Buzz\Browser;
+use Buzz\Message\Response;
+use Buzz\Middleware\MiddlewareInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Middleware\MiddlewareInterface $middleware
-     */
-    function let($browser, $middleware)
+    function let(Browser$browser, MiddlewareInterface$middleware)
     {
         $browser->addMiddleware($middleware)->shouldBeCalled();
 
@@ -22,11 +21,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Adapter\BuzzAdapter');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_returns_json_content($browser, $response)
+    function it_returns_json_content(Browser $browser, Response $response)
     {
         $browser->get('https://sbin.dk')->willReturn($response);
 
@@ -36,11 +31,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_throws_an_http_exception($browser, $response)
+    function it_throws_an_http_exception(Browser $browser, Response $response)
     {
         $browser->get('https://sbin.dk')->willReturn($response);
 
@@ -51,11 +42,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
             ->during('get', ['https://sbin.dk']);
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_can_delete($browser, $response)
+    function it_can_delete(Browser $browser, Response $response)
     {
         $browser->delete('https://sbin.dk/456', [], '')->willReturn($response);
 
@@ -65,11 +52,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->delete('https://sbin.dk/456')->shouldBe('foo');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_throws_an_http_exception_if_cannot_delete($browser, $response)
+    function it_throws_an_http_exception_if_cannot_delete(Browser $browser, Response $response)
     {
         $browser->delete('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -81,11 +64,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
             ->during('delete', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_can_put_basic($browser, $response)
+    function it_can_put_basic(Browser $browser, Response $response)
     {
         $browser->put('https://sbin.dk/456', [], '')->willReturn($response);
 
@@ -95,11 +74,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('https://sbin.dk/456')->shouldBe('foo');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_can_put_array($browser, $response)
+    function it_can_put_array(Browser $browser, Response $response)
     {
         $browser->put('https://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -110,11 +85,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->put('https://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_throws_an_http_exception_if_cannot_put($browser, $response)
+    function it_throws_an_http_exception_if_cannot_put(Browser $browser, Response $response)
     {
         $browser->put('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -126,11 +97,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
             ->during('put', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_can_post_basic($browser, $response)
+    function it_can_post_basic(Browser $browser, Response $response)
     {
         $browser->post('https://sbin.dk', [], '')->willReturn($response);
 
@@ -140,11 +107,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('https://sbin.dk')->shouldBe('foo');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_can_post_array($browser, $response)
+    function it_can_post_array(Browser $browser, Response $response)
     {
         $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -155,11 +118,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
         $this->post('https://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_throws_an_http_exception_if_cannot_post($browser, $response)
+    function it_throws_an_http_exception_if_cannot_post(Browser $browser, Response $response)
     {
         $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -171,11 +130,7 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
             ->during('post', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
-    /**
-     * @param \Buzz\Browser $browser
-     * @param \Buzz\Message\Response $response
-     */
-    function it_returns_last_response_header($browser, $response)
+    function it_returns_last_response_header(Browser $browser, Response $response)
     {
         $browser->getLastResponse()->willReturn($response);
 

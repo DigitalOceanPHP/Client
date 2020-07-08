@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class VolumeSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Volume');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/volumes?per_page=200')->willReturn('{"volumes": []}');
 
@@ -31,10 +28,8 @@ class VolumeSpec extends \PhpSpec\ObjectBehavior
         $volumes->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_volume_entity($adapter)
+
+    function it_returns_an_array_of_volume_entity(AdapterInterface $adapter)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -99,10 +94,8 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_volume_entity_with_region($adapter)
+
+    function it_returns_an_array_of_volume_entity_with_region(AdapterInterface $adapter)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -168,10 +161,8 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_volume_entity_with_region_and_name($adapter)
+
+    function it_returns_an_array_of_volume_entity_with_region_and_name(AdapterInterface $adapter)
     {
         $total = 1;
         $response = <<<'EOT'
@@ -238,10 +229,8 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_volume_entity_with_id($adapter)
+
+    function it_returns_a_volume_entity_with_id(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
             {
@@ -292,10 +281,8 @@ EOT;
         $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_volume_entity($adapter)
+
+    function it_returns_the_created_volume_entity(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
             {
@@ -352,10 +339,8 @@ EOT;
         $volume->region->slug->shouldBeEqualTo('nyc1');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_send_payload_with_snapshot_id($adapter)
+
+    function it_send_payload_with_snapshot_id(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
             {
@@ -404,10 +389,8 @@ EOT;
         $volume = $this->create('example', 'Block store for examples snapshot id', 10, 'nyc1', '506f78a4-e098-11e5-ad9f-000f53306ae1');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_send_payload_with_filesystem_type($adapter)
+
+    function it_send_payload_with_filesystem_type(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
             {
@@ -456,10 +439,8 @@ EOT;
         $volume = $this->create('example', 'Block store for examples snapshot id', 10, 'nyc1', null, 'ext4');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_send_payload_with_filesystem_label($adapter)
+
+    function it_send_payload_with_filesystem_label(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
             {
@@ -508,10 +489,8 @@ EOT;
         $volume = $this->create('example', 'Block store for examples snapshot id', 10, 'nyc1', null, null, 'My filesystem!');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_not_possible_to_create_a_volume($adapter)
+
+    function it_throws_an_http_exception_if_not_possible_to_create_a_volume(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -522,10 +501,8 @@ EOT;
         $this->shouldThrow(new HttpException('Request not processed.'))->during('create', ['example', 'Block store for examples', 10, 'nyc1']);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_volume_with_id_and_returns_nothing($adapter)
+
+    function it_deletes_the_volume_with_id_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
@@ -534,10 +511,8 @@ EOT;
         $this->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_with_id_inexisting_volume(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
@@ -546,10 +521,8 @@ EOT;
         $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['506f78a4-e098-11e5-ad9f-000f53306ae1']);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing($adapter)
+
+    function it_deletes_the_volume_with_region_and_drivename_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
@@ -558,10 +531,8 @@ EOT;
         $this->deleteWithNameAndRegion('example', 'ams1');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_with_region_and_drivename_inexisting_volume(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
@@ -570,10 +541,8 @@ EOT;
         $this->shouldThrow(new HttpException('Request not processed.'))->during('deleteWithNameAndRegion', ['example', 'ams1']);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_attaching($adapter)
+
+    function it_returns_the_action_entity_after_attaching(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
         {
@@ -623,10 +592,8 @@ EOT;
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_detaching($adapter)
+
+    function it_returns_the_action_entity_after_detaching(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
         {
@@ -676,10 +643,8 @@ EOT;
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_resizing($adapter)
+
+    function it_returns_the_action_entity_after_resizing(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
         {
@@ -729,10 +694,8 @@ EOT;
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_when_retrieving_action($adapter)
+
+    function it_returns_the_action_entity_when_retrieving_action(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
         {
@@ -780,10 +743,8 @@ EOT;
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_action_entity($adapter)
+
+    function it_returns_an_array_of_action_entity(AdapterInterface $adapter)
     {
         $total = 1;
 
@@ -850,10 +811,8 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity($adapter)
+
+    function it_returns_an_array_of_volumes_snapshots_which_are_snapshot_entity(AdapterInterface $adapter)
     {
         $total = 3;
 
@@ -922,10 +881,8 @@ EOT;
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_snapshot_entity_after_snapshot_creation($adapter)
+
+    function it_returns_snapshot_entity_after_snapshot_creation(AdapterInterface $adapter)
     {
         $response = <<<'EOT'
         {

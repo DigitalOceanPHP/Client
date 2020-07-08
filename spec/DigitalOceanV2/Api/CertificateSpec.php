@@ -2,12 +2,12 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
+
 class CertificateSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -17,10 +17,8 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Certificate');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_size_entity($adapter)
+
+    function it_returns_an_array_of_size_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -51,10 +49,8 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_certificate_entity_by_its_id($adapter)
+
+    function it_returns_a_certificate_entity_by_its_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/certificates/123')
@@ -72,10 +68,8 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
              ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Certificate');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_certificate($adapter)
+
+    function it_returns_the_created_certificate(AdapterInterface $adapter)
     {
         $data = [
             'name' => 'web-cert-01',
@@ -101,10 +95,8 @@ class CertificateSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Certificate');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_certificate_and_returns_nothing($adapter)
+
+    function it_deletes_the_certificate_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/certificates/123')

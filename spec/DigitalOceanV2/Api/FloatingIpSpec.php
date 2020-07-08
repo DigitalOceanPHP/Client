@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class FloatingIpSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\FloatingIp');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/floating_ips?per_page=200')->willReturn('{"floating_ips": []}');
 
@@ -31,10 +28,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $ips->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_floating_ip_entity($adapter)
+
+    function it_returns_an_array_of_floating_ip_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -55,10 +50,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_floating_ip_entity_get_by_its_id($adapter)
+
+    function it_returns_a_floating_ip_entity_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/floating_ips/45.55.96.47')
@@ -101,10 +94,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_requested_floating_id_does_not_exist($adapter)
+
+    function it_throws_an_http_exception_if_requested_floating_id_does_not_exist(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/floating_ips/1234567')
@@ -113,10 +104,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', [1234567]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_floating_id_entity_assigned_to_droplet($adapter)
+
+    function it_returns_the_created_floating_id_entity_assigned_to_droplet(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/floating_ips', ['droplet_id' => 123456])
@@ -125,10 +114,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->createAssigned(123456)->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\FloatingIp');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_floating_id_entity_reserved_by_region($adapter)
+
+    function it_returns_the_created_floating_id_entity_reserved_by_region(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/floating_ips', ['region' => 'nyc3'])
@@ -137,10 +124,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->createReserved('nyc3')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\FloatingIp');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_floating_ip_and_returns_nothing($adapter)
+
+    function it_deletes_the_floating_ip_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/floating_ips/123')
@@ -149,10 +134,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->delete(123);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_inexisting_floating_ip($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_inexisting_floating_ip(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/floating_ips/123')
@@ -161,10 +144,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [123]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_floating_ips_action_entity($adapter)
+
+    function it_returns_an_array_of_floating_ips_action_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -186,10 +167,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_given_floating_ips_action_get_by_its_id($adapter)
+
+    function it_returns_the_given_floating_ips_action_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/floating_ips/123/actions/456')->willReturn('{"action": {"region": {}}}');
 
@@ -198,10 +177,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_assign($adapter)
+
+    function it_returns_the_action_entity_after_assign(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/floating_ips/123/actions', ['type' => 'assign', 'droplet_id' => 456])
@@ -212,10 +189,8 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_unassign($adapter)
+
+    function it_returns_the_action_entity_after_unassign(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/floating_ips/123/actions', ['type' => 'unassign'])

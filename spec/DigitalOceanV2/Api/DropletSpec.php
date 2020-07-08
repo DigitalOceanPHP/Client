@@ -2,15 +2,14 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Entity\Droplet;
 use DigitalOceanV2\Exception\HttpException;
 
 class DropletSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -20,10 +19,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Droplet');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/droplets?per_page=200&page=1')->willReturn('{"droplets": []}');
 
@@ -32,10 +29,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplets->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplet_entity($adapter)
+
+    function it_returns_an_array_of_droplet_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -56,10 +51,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplet_neighbors_for_a_given_droplet_id($adapter)
+
+    function it_returns_an_array_of_droplet_neighbors_for_a_given_droplet_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/123/neighbors')
@@ -76,10 +69,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         }
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_upgrade_entity($adapter)
+
+    function it_returns_an_array_of_upgrade_entity(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplet_upgrades')
@@ -96,10 +87,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         }
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplet_that_are_running_on_the_same_physical_hardware($adapter)
+
+    function it_returns_an_array_of_droplet_that_are_running_on_the_same_physical_hardware(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/reports/droplet_neighbors')
@@ -116,10 +105,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         }
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_droplet_entity_get_by_its_id($adapter)
+
+    function it_returns_a_droplet_entity_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/14')
@@ -232,10 +219,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_droplet_entity_even_if_backup_is_disabled($adapter)
+
+    function it_returns_a_droplet_entity_even_if_backup_is_disabled(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/1234')
@@ -304,10 +289,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $droplet->nextBackupWindow->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\NextBackupWindow');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_requested_droplet_does_not_exist($adapter)
+
+    function it_throws_an_http_exception_if_requested_droplet_does_not_exist(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/droplets/1234567')
@@ -316,10 +299,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', [1234567]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_droplet_entity_without_ssh_keys($adapter)
+
+    function it_returns_the_created_droplet_entity_without_ssh_keys(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -331,10 +312,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->create('foo', 'nyc1', '512mb', 123456, false, false, false, [], '', true, ['123', '456'], ['foo', 'bar'])->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_created_droplet_entity_with_ssh_keys($adapter)
+
+    function it_returns_the_created_droplet_entity_with_ssh_keys(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -348,10 +327,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
             ->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Droplet');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_can_create_multiple_droplets_at_the_same_time($adapter)
+
+    function it_can_create_multiple_droplets_at_the_same_time(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -388,10 +365,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         )->shouldReturn([]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_not_possible_to_create_a_droplet($adapter)
+
+    function it_throws_an_http_exception_if_not_possible_to_create_a_droplet(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -403,10 +378,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('create', ['foo', 'nyc1', '512mb', 123456]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_droplet_and_returns_nothing($adapter)
+
+    function it_deletes_the_droplet_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/droplets/123')
@@ -415,10 +388,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->delete(123);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_inexisting_droplet($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_inexisting_droplet(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/droplets/123')
@@ -427,10 +398,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [123]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplets_kernel_entity($adapter)
+
+    function it_returns_an_array_of_droplets_kernel_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -451,10 +420,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplets_snapshots_which_are_image_entity($adapter)
+
+    function it_returns_an_array_of_droplets_snapshots_which_are_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -475,10 +442,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplets_backup_which_are_image_entity($adapter)
+
+    function it_returns_an_array_of_droplets_backup_which_are_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -498,10 +463,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_droplets_action_entity($adapter)
+
+    function it_returns_an_array_of_droplets_action_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -523,10 +486,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_given_droplets_action_get_by_its_id($adapter)
+
+    function it_returns_the_given_droplets_action_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/droplets/123/actions/456')->willReturn('{"action": {"region": {}}}');
 
@@ -535,10 +496,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_reboot($adapter)
+
+    function it_returns_the_action_entity_after_reboot(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'reboot'])
@@ -549,10 +508,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_power_cycle($adapter)
+
+    function it_returns_the_action_entity_after_power_cycle(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'power_cycle'])
@@ -563,10 +520,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_shutdown($adapter)
+
+    function it_returns_the_action_entity_after_shutdown(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'shutdown'])
@@ -577,10 +532,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_power_off($adapter)
+
+    function it_returns_the_action_entity_after_power_off(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'power_off'])
@@ -591,10 +544,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_power_on($adapter)
+
+    function it_returns_the_action_entity_after_power_on(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'power_on'])
@@ -605,10 +556,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_password_reset($adapter)
+
+    function it_returns_the_action_entity_after_password_reset(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'password_reset'])
@@ -619,10 +568,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_resize($adapter)
+
+    function it_returns_the_action_entity_after_resize(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -636,10 +583,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_restore($adapter)
+
+    function it_returns_the_action_entity_after_restore(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -653,10 +598,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_rebuild($adapter)
+
+    function it_returns_the_action_entity_after_rebuild(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -670,10 +613,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_changing_kernel($adapter)
+
+    function it_returns_the_action_entity_after_changing_kernel(AdapterInterface $adapter)
     {
         $adapter
             ->post(
@@ -687,10 +628,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_ipv6_enabled($adapter)
+
+    function it_returns_the_action_entity_after_ipv6_enabled(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'enable_ipv6'])
@@ -701,10 +640,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_backups_are_enabled($adapter)
+
+    function it_returns_the_action_entity_after_backups_are_enabled(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'enable_backups'])
@@ -715,10 +652,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_backups_are_disabled($adapter)
+
+    function it_returns_the_action_entity_after_backups_are_disabled(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'disable_backups'])
@@ -729,10 +664,8 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_action_entity_after_enabling_private_network($adapter)
+
+    function it_returns_the_action_entity_after_enabling_private_network(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/droplets/123/actions', ['type' => 'enable_private_networking'])

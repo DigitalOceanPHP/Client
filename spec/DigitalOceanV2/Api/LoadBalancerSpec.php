@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\LoadBalancer');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_load_balancer_does_not_exist($adapter)
+
+    function it_throws_an_http_exception_if_load_balancer_does_not_exist(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/load_balancers/1234')
@@ -31,10 +28,8 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Load Balancer not found'))->during('getById', [1234]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_load_balancer_entity($adapter)
+
+    function it_returns_an_array_of_load_balancer_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter->get('https://api.digitalocean.com/v2/load_balancers')
@@ -65,10 +60,8 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_load_balancer_entity_by_its_id($adapter)
+
+    function it_returns_a_load_balancer_entity_by_its_id(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/load_balancers/1234')
                 ->willReturn(json_encode($this->getLoadBalancerSpecification()));
@@ -77,10 +70,8 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
         $loadBalancer->shouldBeAnInstanceOf('DigitalOceanV2\Entity\LoadBalancer');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_a_created_load_balancer($adapter)
+
+    function it_returns_a_created_load_balancer(AdapterInterface $adapter)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
 
@@ -104,10 +95,8 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
         $loadBalancer->shouldBeAnInstanceOf('DigitalOceanV2\Entity\LoadBalancer');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_updates_an_existing_load_balancer($adapter)
+
+    function it_updates_an_existing_load_balancer(AdapterInterface $adapter)
     {
         $loadBalancerSpecification = $this->getLoadBalancerSpecification();
         $lbs = $loadBalancerSpecification['load_balancer'];

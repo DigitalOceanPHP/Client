@@ -2,14 +2,13 @@
 
 namespace spec\DigitalOceanV2\Api;
 
+use DigitalOceanV2\Adapter\AdapterInterface;
 use DigitalOceanV2\Exception\HttpException;
 
 class ImageSpec extends \PhpSpec\ObjectBehavior
 {
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function let($adapter)
+
+    function let(AdapterInterface $adapter)
     {
         $this->beConstructedWith($adapter);
     }
@@ -19,10 +18,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldHaveType('DigitalOceanV2\Api\Image');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_empty_array($adapter)
+
+    function it_returns_an_empty_array(AdapterInterface $adapter)
     {
         $adapter->get('https://api.digitalocean.com/v2/images?per_page=200')->willReturn('{"images": []}');
 
@@ -31,10 +28,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $images->shouldHaveCount(0);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_image_entity($adapter)
+
+    function it_returns_an_array_of_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -55,10 +50,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_distribution_image_entity($adapter)
+
+    function it_returns_an_array_of_distribution_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -79,10 +72,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_application_image_entity($adapter)
+
+    function it_returns_an_array_of_application_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -103,10 +94,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_private_application_image_entity($adapter)
+
+    function it_returns_an_array_of_private_application_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -127,10 +116,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_array_of_private_image_entity($adapter)
+
+    function it_returns_an_array_of_private_image_entity(AdapterInterface $adapter)
     {
         $total = 3;
         $adapter
@@ -151,10 +138,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $meta->total->shouldBe($total);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_image_entity_get_by_its_id($adapter)
+
+    function it_returns_an_image_entity_get_by_its_id(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/123')
@@ -182,10 +167,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->getMeta()->shouldBeNull();
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_an_image_entity_get_by_its_slug($adapter)
+
+    function it_returns_an_image_entity_get_by_its_slug(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/foo-bar')
@@ -209,10 +192,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->getBySlug('foo-bar')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_updated_image($adapter)
+
+    function it_returns_the_updated_image(AdapterInterface $adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/images/123', ['name' => 'bar-baz'])
@@ -236,10 +217,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->update(123, 'bar-baz')->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Image');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_image($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_update_an_inexisting_image(AdapterInterface $adapter)
     {
         $adapter
             ->put('https://api.digitalocean.com/v2/images/0', ['name' => 'baz-baz'])
@@ -248,10 +227,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('update', [0, 'baz-baz']);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_deletes_the_image_and_returns_nothing($adapter)
+
+    function it_deletes_the_image_and_returns_nothing(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/images/678')
@@ -260,10 +237,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->delete(678);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_image($adapter)
+
+    function it_throws_an_http_exception_when_trying_to_delete_an_inexisting_image(AdapterInterface $adapter)
     {
         $adapter
             ->delete('https://api.digitalocean.com/v2/images/0')
@@ -272,10 +247,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [0]);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_transfer_the_image_to_an_other_region_and_returns_its_image($adapter)
+
+    function it_transfer_the_image_to_an_other_region_and_returns_its_image(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'transfer', 'region' => 'nyc2'])
@@ -306,10 +279,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $image->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_if_trying_to_transfer_to_unknown_region_slug($adapter)
+
+    function it_throws_an_http_exception_if_trying_to_transfer_to_unknown_region_slug(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
@@ -318,10 +289,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $this->shouldThrow(new HttpException('Request not processed.'))->during('transfer', [0, 'foo']);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_can_convert_the_image_to_a_snapshot($adapter)
+
+    function it_can_convert_the_image_to_a_snapshot(AdapterInterface $adapter)
     {
         $adapter
             ->post('https://api.digitalocean.com/v2/images/123/actions', ['type' => 'convert'])
@@ -346,10 +315,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $image->region->shouldReturn(null);
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_returns_the_requested_action_entity_of_the_given_image($adapter)
+
+    function it_returns_the_requested_action_entity_of_the_given_image(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/123/actions/456')
@@ -380,10 +347,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
         $action->region->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Region');
     }
 
-    /**
-     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
-     */
-    function it_throws_an_http_exception_when_retrieving_non_existing_image_action($adapter)
+
+    function it_throws_an_http_exception_when_retrieving_non_existing_image_action(AdapterInterface $adapter)
     {
         $adapter
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')

@@ -33,7 +33,7 @@ use DigitalOceanV2\Api\Volume;
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class DigitalOceanV2
+class Client
 {
     /**
      * @var AdapterInterface
