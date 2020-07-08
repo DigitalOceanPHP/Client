@@ -14,7 +14,7 @@ https://img.shields.io/github/workflow/status/DigitalOceanPHP/DigitalOceanV2/Tes
 Installation
 ------------
 
-This version supports [PHP](https://php.net) 5.6-7.4. To get started, simply require the project using [Composer](https://getcomposer.org).
+This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org).
 
 ### Using Guzzle 6:
 
