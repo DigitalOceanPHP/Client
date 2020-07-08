@@ -1,9 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot cast array\\<string\\> to string\\.$#"
-			count: 3
-			path: src/Adapter/GuzzleHttpAdapter.php
+			message: "#^Property DigitalOceanV2\\\\Api\\\\AbstractApi\\:\\:\\$meta \\(DigitalOceanV2\\\\Entity\\\\Meta\\) does not accept null\\.$#"
+			count: 1
+			path: src/Api/Action.php
+
+		-
+			message: "#^Method DigitalOceanV2\\\\Api\\\\Droplet\\:\\:create\\(\\) should return DigitalOceanV2\\\\Entity\\\\Droplet\\|null but returns array\\.$#"
+			count: 1
+			path: src/Api/Droplet.php
+
+		-
+			message: "#^Method DigitalOceanV2\\\\Api\\\\LoadBalancer\\:\\:formatConfigurationOptions\\(\\) never returns DigitalOceanV2\\\\Entity\\\\AbstractEntity so it can be removed from the return typehint\\.$#"
+			count: 1
+			path: src/Api/LoadBalancer.php
+
+		-
+			message: "#^Method DigitalOceanV2\\\\Entity\\\\AbstractEntity\\:\\:convertDateTime\\(\\) should return string\\|null but empty return statement found\\.$#"
+			count: 1
+			path: src/Entity/AbstractEntity.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$str Camel case string\\)\\: Unexpected token \"\\$str\", expected type at offset 18$#"
@@ -16,7 +31,17 @@ parameters:
 			path: src/Entity/Droplet.php
 
 		-
+			message: "#^Property DigitalOceanV2\\\\Entity\\\\ForwardingRule\\:\\:\\$tlsPassthrough \\(string\\) does not accept true\\.$#"
+			count: 1
+			path: src/Entity/ForwardingRule.php
+
+		-
 			message: "#^Property DigitalOceanV2\\\\Entity\\\\Volume\\:\\:\\$tags has unknown class DigitalOceanV2\\\\Entity\\\\Tags as its type\\.$#"
 			count: 1
 			path: src/Entity/Volume.php
+
+		-
+			message: "#^Cannot cast array\\<string\\> to string\\.$#"
+			count: 3
+			path: src/HttpClient/GuzzleHttpClient.php
 
