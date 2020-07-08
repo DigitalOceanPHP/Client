@@ -461,6 +461,33 @@ $rateLimit = $digitalocean->rateLimit();
 $currentLimit = $rateLimit->getRateLimit();
 ```
 
+Tag
+----
+
+```php
+// ..
+// return the tag api
+$tag = $digitalocean->tag();
+
+// return a collection of Tag entity
+$tags = $tag->getAll();
+
+// return a Tag entity by name
+$tag = $tag->getByName();
+
+// create a tag
+$tag = $tag->create('awesome');
+
+// tag resources
+$tag->tagResources('awesome', [["resource_id" => "9569411", "resource_type" => "droplet"]]);
+
+// untag resources
+$tag->untagResources('awesome', [["resource_id" => "9569411", "resource_type" => "droplet"]]);
+
+// delete tag
+$tag->delete('awesome');
+```
+
 Volume
 ------
 
