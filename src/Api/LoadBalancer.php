@@ -85,7 +85,7 @@ class LoadBalancer extends AbstractApi
             'name' => $name,
             'algorithm' => $algorithm,
             'region' => $region,
-            'forwarding_rules' => self::formatForwardRules($forwardRules),
+            'forwarding_rules' => $forwardRules === null ? null : self::formatForwardRules($forwardRules),
             'health_check' => self::formatConfigurationOptions($healthCheck),
             'sticky_sessions' => self::formatConfigurationOptions($stickySessions),
             'droplet_ids' => $dropletIds,
