@@ -19,6 +19,10 @@
         {
             "name": "Glenn Jacobs",
             "email": "glenn@neondigital.co.uk"
+        },
+        {
+            "name": "Cameron Van Orman",
+            "email": "cameron@efelle.com"
         }
     ],
     "require": {
