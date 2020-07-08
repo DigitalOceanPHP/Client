@@ -99,12 +99,27 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
-        $response->getHeader('RateLimit-Limit')->willReturn(1200);
-        $response->getHeader('RateLimit-Remaining')->willReturn(1100);
-        $response->getHeader('RateLimit-Reset')->willReturn(1402425459);
+        $response->getHeader('RateLimit-Limit')->willReturn(['1200']);
+        $response->getHeader('RateLimit-Remaining')->willReturn(['1100']);
+        $response->getHeader('RateLimit-Reset')->willReturn(['1402425459']);
 
         $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
         $this->getLatestResponseHeaders()->shouldBeArray();
         $this->getLatestResponseHeaders()->shouldHaveCount(3);
+    }
+
+    function it_returns_null_last_response_header(Client $client, Response $response, Stream $stream)
+    {
+        $client->request('GET', 'https://sbin.dk')->willReturn($response);
+
+        $response->getStatusCode()->willReturn(200);
+        $response->getBody()->willReturn($stream);
+        $stream->__toString()->willReturn('{"foo":"bar"}');
+        $response->getHeader('RateLimit-Limit')->willReturn([]);
+        $response->getHeader('RateLimit-Remaining')->willReturn(['1100']);
+        $response->getHeader('RateLimit-Reset')->willReturn(['1402425459']);
+
+        $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
+        $this->getLatestResponseHeaders()->shouldBeNull();
     }
 }

@@ -37,6 +37,8 @@ class GuzzleHttpClient implements HttpClientInterface
 
     /**
      * @param ClientInterface $client
+     *
+     * @return void
      */
     public function __construct(ClientInterface $client)
     {
@@ -59,7 +61,7 @@ class GuzzleHttpClient implements HttpClientInterface
             self::handleError($this->response);
         }
 
-        return (string) $this->response->getBody();
+        return self::getResponseBody($this->response);
     }
 
     /**
@@ -83,7 +85,7 @@ class GuzzleHttpClient implements HttpClientInterface
             self::handleError($this->response);
         }
 
-        return (string) $this->response->getBody();
+        return self::getResponseBody($this->response);
     }
 
     /**
@@ -107,7 +109,7 @@ class GuzzleHttpClient implements HttpClientInterface
             self::handleError($this->response);
         }
 
-        return (string) $this->response->getBody();
+        return self::getResponseBody($this->response);
     }
 
     /**
@@ -131,11 +133,11 @@ class GuzzleHttpClient implements HttpClientInterface
             self::handleError($this->response);
         }
 
-        return (string) $this->response->getBody();
+        return self::getResponseBody($this->response);
     }
 
     /**
-     * @return array|null
+     * @return array<string,int>|null
      */
     public function getLatestResponseHeaders()
     {
@@ -143,24 +145,60 @@ class GuzzleHttpClient implements HttpClientInterface
             return null;
         }
 
+        $reset = self::getHeader($this->response, 'RateLimit-Reset');
+        $remaining = self::getHeader($this->response, 'RateLimit-Remaining');
+        $limit = self::getHeader($this->response, 'RateLimit-Limit');
+
+        if (null === $reset || null === $remaining || null === $limit) {
+            return null;
+        }
+
         return [
-            'reset' => (int) (string) $this->response->getHeader('RateLimit-Reset'),
-            'remaining' => (int) (string) $this->response->getHeader('RateLimit-Remaining'),
-            'limit' => (int) (string) $this->response->getHeader('RateLimit-Limit'),
+            'reset' => (int) $reset,
+            'remaining' => (int) $remaining,
+            'limit' => (int) $limit,
         ];
     }
 
     /**
+     * @param ResponseInterface|null $response
+     *
+     * @return string
+     */
+    private static function getResponseBody(?ResponseInterface $response)
+    {
+        return $response === null ? '' : (string) $response->getBody();
+    }
+
+    /**
      * @param ResponseInterface $response
+     * @param string            $name
+     *
+     * @return string|null
+     */
+    public static function getHeader(ResponseInterface $response, string $name)
+    {
+        /** @var string[] */
+        $headers = $response->getHeader($name);
+
+        return array_shift($headers);
+    }
+
+    /**
+     * @param ResponseInterface|null $response
      *
      * @throws HttpException
      *
      * @return void
      */
-    private static function handleError(ResponseInterface $response)
+    private static function handleError(?ResponseInterface $response)
     {
-        $body = (string) $response->getBody();
-        $code = (int) $response->getStatusCode();
+        if ($response === null) {
+            throw new HttpException('An HTTP transport error occured.');
+        }
+
+        $body = self::getResponseBody($response);
+        $code = $response->getStatusCode();
 
         $content = json_decode($body);
 
