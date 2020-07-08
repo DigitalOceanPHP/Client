@@ -52,6 +52,21 @@ final class Volume extends AbstractEntity
     public $createdAt;
 
     /**
+     * @var string
+     */
+    public $filesystemType;
+
+    /**
+     * @var string
+     */
+    public $filesystemLabel;
+
+    /**
+     * @var Tags[]
+     */
+    public $tags = [];
+
+    /**
      * @param array $parameters
      */
     public function build(array $parameters)
