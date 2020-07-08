@@ -407,6 +407,110 @@ EOT;
     /**
      * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
      */
+    public function it_send_payload_with_filesystem_type($adapter)
+    {
+        $response = <<<'EOT'
+            {
+                "volume": {
+                    "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                    "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "512mb",
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "16gb",
+                        "32gb",
+                        "48gb",
+                        "64gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                    },
+                    "droplet_ids": [
+
+                    ],
+                    "name": "example",
+                    "description": "Block store for examples",
+                    "size_gigabytes": 10,
+                    "created_at": "2016-03-02T17:00:49Z"
+                }
+            }       
+EOT;
+
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes',
+                ['name' => 'example', 'description' => 'Block store for examples snapshot id', 'size_gigabytes' => '10', 'region' => 'nyc1', 'filesystem_type' => 'ext4']
+            )
+            ->shouldBeCalled()->willReturn($response);
+
+        $volume = $this->create('example', 'Block store for examples snapshot id', 10, 'nyc1', null, 'ext4');
+    }
+
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
+    public function it_send_payload_with_filesystem_label($adapter)
+    {
+        $response = <<<'EOT'
+            {
+                "volume": {
+                    "id": "506f78a4-e098-11e5-ad9f-000f53306ae1",
+                    "region": {
+                    "name": "New York 1",
+                    "slug": "nyc1",
+                    "sizes": [
+                        "512mb",
+                        "1gb",
+                        "2gb",
+                        "4gb",
+                        "8gb",
+                        "16gb",
+                        "32gb",
+                        "48gb",
+                        "64gb"
+                    ],
+                    "features": [
+                        "private_networking",
+                        "backups",
+                        "ipv6",
+                        "metadata"
+                    ],
+                    "available": true
+                    },
+                    "droplet_ids": [
+
+                    ],
+                    "name": "example",
+                    "description": "Block store for examples",
+                    "size_gigabytes": 10,
+                    "created_at": "2016-03-02T17:00:49Z"
+                }
+            }       
+EOT;
+
+        $adapter
+            ->post(
+                'https://api.digitalocean.com/v2/volumes',
+                ['name' => 'example', 'description' => 'Block store for examples snapshot id', 'size_gigabytes' => '10', 'region' => 'nyc1', 'filesystem_label' => 'My filesystem!']
+            )
+            ->shouldBeCalled()->willReturn($response);
+
+        $volume = $this->create('example', 'Block store for examples snapshot id', 10, 'nyc1', null, null, 'My filesystem!');
+    }
+
+    /**
+     * @param \DigitalOceanV2\Adapter\AdapterInterface $adapter
+     */
     public function it_throws_an_http_exception_if_not_possible_to_create_a_volume($adapter)
     {
         $adapter
@@ -840,7 +944,8 @@ EOT;
         }
 EOT;
         $adapter
-            ->post('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots',
+            ->post(
+                'https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1/snapshots',
                 ['name' => 'snapshot1-volume']
             )
             ->willReturn($response);

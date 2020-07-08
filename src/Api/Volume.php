@@ -100,10 +100,12 @@ class Volume extends AbstractApi
      * @param string $sizeInGigabytes The size of the Block Storage volume in GiB
      * @param string $regionSlug      The region where the Block Storage volume will be created
      * @param string $snapshotId      The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.
+     * @param string $filesystemType  The name of the filesystem type to be used on the volume.
+     * @param string $filesystemLabel The label to be applied to the filesystem.
      *
      * @return VolumeEntity
      */
-    public function create($name, $description, $sizeInGigabytes, $regionSlug, $snapshotId = null)
+    public function create($name, $description, $sizeInGigabytes, $regionSlug, $snapshotId = null, $filesystemType = null, $filesystemLabel = null)
     {
         $data = [
             'size_gigabytes' => $sizeInGigabytes,
@@ -112,8 +114,14 @@ class Volume extends AbstractApi
             'region' => $regionSlug,
         ];
 
-        if($snapshotId !== null) {
+        if ($snapshotId !== null) {
             $data['snapshot_id'] = $snapshotId;
+        }
+        if ($filesystemType !== null) {
+            $data['filesystem_type'] = $filesystemType;
+        }
+        if ($filesystemLabel !== null) {
+            $data['filesystem_label'] = $filesystemLabel;
         }
 
         $volume = $this->adapter->post(sprintf('%s/volumes', $this->endpoint), $data);
