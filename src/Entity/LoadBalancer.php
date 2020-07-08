@@ -99,6 +99,7 @@ final class LoadBalancer extends AbstractEntity
                     }
 
                     unset($parameters[$property]);
+
                     break;
 
                 case 'health_check':
@@ -106,6 +107,7 @@ final class LoadBalancer extends AbstractEntity
                         $this->healthCheck = new HealthCheck($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'sticky_sessions':
@@ -113,6 +115,7 @@ final class LoadBalancer extends AbstractEntity
                         $this->stickySessions = new StickySession($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'region':
@@ -120,6 +123,7 @@ final class LoadBalancer extends AbstractEntity
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);
+
                     break;
             }
         }

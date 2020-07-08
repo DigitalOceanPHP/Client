@@ -167,6 +167,7 @@ final class Droplet extends AbstractEntity
                         }
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'kernel':
@@ -174,6 +175,7 @@ final class Droplet extends AbstractEntity
                         $this->kernel = new Kernel($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'size':
@@ -181,6 +183,7 @@ final class Droplet extends AbstractEntity
                         $this->size = new Size($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'region':
@@ -188,6 +191,7 @@ final class Droplet extends AbstractEntity
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'image':
@@ -195,11 +199,13 @@ final class Droplet extends AbstractEntity
                         $this->image = new Image($value);
                     }
                     unset($parameters[$property]);
+
                     break;
 
                 case 'next_backup_window':
                     $this->nextBackupWindow = new NextBackupWindow($value);
                     unset($parameters[$property]);
+
                     break;
             }
         }

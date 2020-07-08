@@ -104,8 +104,8 @@ class Volume extends AbstractApi
      * @param string $sizeInGigabytes The size of the Block Storage volume in GiB
      * @param string $regionSlug      The region where the Block Storage volume will be created
      * @param string $snapshotId      The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.
-     * @param string $filesystemType  The name of the filesystem type to be used on the volume.
-     * @param string $filesystemLabel The label to be applied to the filesystem.
+     * @param string $filesystemType  the name of the filesystem type to be used on the volume
+     * @param string $filesystemLabel the label to be applied to the filesystem
      *
      * @return VolumeEntity
      */
@@ -118,13 +118,13 @@ class Volume extends AbstractApi
             'region' => $regionSlug,
         ];
 
-        if ($snapshotId !== null) {
+        if (null !== $snapshotId) {
             $data['snapshot_id'] = $snapshotId;
         }
-        if ($filesystemType !== null) {
+        if (null !== $filesystemType) {
             $data['filesystem_type'] = $filesystemType;
         }
-        if ($filesystemLabel !== null) {
+        if (null !== $filesystemLabel) {
             $data['filesystem_label'] = $filesystemLabel;
         }
 

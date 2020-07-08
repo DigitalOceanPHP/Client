@@ -84,6 +84,7 @@ final class Volume extends AbstractEntity
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);
+
                     break;
             }
         }

@@ -32,7 +32,7 @@ class BuzzFactory implements FactoryInterface
     {
         $browser = new Browser(self::makeTransport());
 
-        if ($token !== null) {
+        if (null !== $token) {
             $browser->addMiddleware(new BuzzOAuthMiddleware($token));
         }
 
