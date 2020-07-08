@@ -25,7 +25,7 @@ class GuzzleFactory implements FactoryInterface
      */
     public function create(string $token = null)
     {
-    	return new GuzzleHttpClient(
+        return new GuzzleHttpClient(
             new Client(self::getOptions($token))
         );
     }
