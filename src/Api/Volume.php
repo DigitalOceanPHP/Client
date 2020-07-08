@@ -81,7 +81,7 @@ class Volume extends AbstractApi
      *
      * @param string $id
      *
-     * @return ImageEntity[]
+     * @return SnapshotEntity[]
      */
     public function getSnapshots($id)
     {
