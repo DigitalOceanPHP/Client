@@ -15,6 +15,7 @@ use DigitalOceanV2\Entity\AbstractEntity;
 use DigitalOceanV2\Entity\ForwardingRule as ForwardRuleEntity;
 use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
+use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
 use DigitalOceanV2\Exception\HttpException;
 
 /**
@@ -132,7 +133,7 @@ class LoadBalancer extends AbstractApi
      */
     private function formatForwardRules($forwardRules)
     {
-        if (isset($forwardRules)) {
+        if (is_array($forwardRules)) {
             return array_map(function ($rule) {
                 return $this->formatConfigurationOptions($rule);
             }, $forwardRules);

@@ -49,7 +49,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @return $total
+     * @return int
      */
     public function getTotal()
     {

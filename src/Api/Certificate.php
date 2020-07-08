@@ -12,6 +12,7 @@
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Certificate as CertificateEntity;
+use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -23,7 +24,7 @@ class Certificate extends AbstractApi
      */
     public function getAll()
     {
-        $certificates = $this->adapter->get(sprintf('%s/certificates', $this->endpoint, 200));
+        $certificates = $this->adapter->get(sprintf('%s/certificates', $this->endpoint));
 
         $certificates = json_decode($certificates);
 
