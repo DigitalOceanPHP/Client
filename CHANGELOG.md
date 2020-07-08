@@ -1,6 +1,28 @@
 CHANGELOG
 =========
 
+3.0.0 (UPCOMING)
+----------------
+
+- Add support for the Tag API
+- Added getTotal() to droplet API
+- Added support for newer properties for volumes
+- Support only Guzzle `^6.5.5` or `^7.0.1` or Buzz `^0.16.1`
+- Support only PHP 7.1-7.4
+
+2.3.0 (27/01/2019)
+------------------
+
+- Load Balancer API intergration
+- Added the support for taking snapshots
+- Add domain records TTL support
+- Add support for the CAA DomainRecord type
+- Add support for the wait parameter when creating a droplet
+- Added possibility to specify snapshot_id on volume creation
+- Drop support for Buzz less than version `0.16.0`
+- Added official PHP 7 support
+- Dropped official HHVM support
+
 2.2.0 (18/04/2017)
 ------------------
 
