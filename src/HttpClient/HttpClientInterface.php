@@ -61,7 +61,7 @@ interface HttpClientInterface
     public function delete(string $url, $content = '');
 
     /**
-     * @return array|null
+     * @return array<string,int>|null
      */
     public function getLatestResponseHeaders();
 }

@@ -51,7 +51,7 @@ class BuzzHttpClient implements HttpClientInterface
 
         self::handleResponse($response);
 
-        return $response->getContent();
+        return self::getResponseBody($response);
     }
 
     /**
@@ -75,7 +75,7 @@ class BuzzHttpClient implements HttpClientInterface
 
         self::handleResponse($response);
 
-        return $response->getContent();
+        return self::getResponseBody($response);
     }
 
     /**
@@ -99,7 +99,7 @@ class BuzzHttpClient implements HttpClientInterface
 
         self::handleResponse($response);
 
-        return $response->getContent();
+        return self::getResponseBody($response);
     }
 
     /**
@@ -123,37 +123,70 @@ class BuzzHttpClient implements HttpClientInterface
 
         self::handleResponse($response);
 
-        return $response->getContent();
+        return self::getResponseBody($response);
     }
 
     /**
-     * @return array|null
+     * @return array<string,int>|null
      */
     public function getLatestResponseHeaders()
     {
+        /** @var Response|null */
         $response = $this->browser->getLastResponse();
 
         if (null === $response) {
             return null;
         }
 
+        $reset = self::getHeader($response, 'RateLimit-Reset');
+        $remaining = self::getHeader($response, 'RateLimit-Remaining');
+        $limit = self::getHeader($response, 'RateLimit-Limit');
+
+        if (null === $reset || null === $remaining || null === $limit) {
+            return null;
+        }
+
         return [
-            'reset' => (int) $response->getHeader('RateLimit-Reset'),
-            'remaining' => (int) $response->getHeader('RateLimit-Remaining'),
-            'limit' => (int) $response->getHeader('RateLimit-Limit'),
+            'reset' => (int) $reset,
+            'remaining' => (int) $remaining,
+            'limit' => (int) $limit,
         ];
     }
 
     /**
+     * @param Response|null $response
+     *
+     * @return string
+     */
+    private static function getResponseBody(?Response $response)
+    {
+        return null === $response ? '' : (string) $response->getContent();
+    }
+
+    /**
      * @param Response $response
+     * @param string   $name
+     *
+     * @return string|null
+     */
+    private static function getHeader(Response $response, string $name)
+    {
+        /** @var string[]|null */
+        $headers = $response->getHeader($name, false);
+
+        return null === $headers ? null : array_shift($headers);
+    }
+
+    /**
+     * @param Response|null $response
      *
      * @throws HttpException
      *
      * @return void
      */
-    private static function handleResponse(Response $response)
+    private static function handleResponse(?Response $response)
     {
-        if (200 === $response->getStatusCode()) {
+        if (null !== $response && 200 === $response->getStatusCode()) {
             return;
         }
 
@@ -161,15 +194,19 @@ class BuzzHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param Response $response
+     * @param Response|null $response
      *
      * @throws HttpException
      *
      * @return void
      */
-    private static function handleError(Response $response)
+    private static function handleError(?Response $response)
     {
-        $body = $response->getContent();
+        if (null === $response) {
+            throw new HttpException('An HTTP transport error occured.');
+        }
+
+        $body = self::getResponseBody($response);
         $code = $response->getStatusCode();
 
         $content = json_decode($body);

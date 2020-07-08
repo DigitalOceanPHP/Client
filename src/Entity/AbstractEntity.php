@@ -20,7 +20,7 @@ namespace DigitalOceanV2\Entity;
 abstract class AbstractEntity
 {
     /**
-     * @param \stdClass|array|null $parameters
+     * @param object|array|null $parameters
      *
      * @return void
      */
@@ -30,7 +30,7 @@ abstract class AbstractEntity
             return;
         }
 
-        if ($parameters instanceof \stdClass) {
+        if (is_object($parameters)) {
             $parameters = get_object_vars($parameters);
         }
 

@@ -134,11 +134,22 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
     {
         $browser->getLastResponse()->willReturn($response);
 
-        $response->getHeader('RateLimit-Limit')->willReturn(1200);
-        $response->getHeader('RateLimit-Remaining')->willReturn(1100);
-        $response->getHeader('RateLimit-Reset')->willReturn(1402425459);
+        $response->getHeader('RateLimit-Limit', false)->willReturn(['1200']);
+        $response->getHeader('RateLimit-Remaining', false)->willReturn(['1100']);
+        $response->getHeader('RateLimit-Reset', false)->willReturn(['1402425459']);
 
         $this->getLatestResponseHeaders()->shouldBeArray();
         $this->getLatestResponseHeaders()->shouldHaveCount(3);
+    }
+
+    function it_returns_null_last_response_header(Browser $browser, Response $response)
+    {
+        $browser->getLastResponse()->willReturn($response);
+
+        $response->getHeader('RateLimit-Limit', false)->willReturn(null);
+        $response->getHeader('RateLimit-Remaining', false)->willReturn(['1100']);
+        $response->getHeader('RateLimit-Reset', false)->willReturn(['1402425459']);
+
+        $this->getLatestResponseHeaders()->shouldBeNull();
     }
 }

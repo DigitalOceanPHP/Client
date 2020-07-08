@@ -1,7 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Cannot cast array\\<string\\> to string\\.$#"
-			count: 3
-			path: src/HttpClient/GuzzleHttpClient.php
-
