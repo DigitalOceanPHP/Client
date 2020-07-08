@@ -36,8 +36,8 @@ class BuzzAdapter implements AdapterInterface
      */
     public function __construct($token, Browser $browser = null, MiddlewareInterface $middleware = null)
     {
-        $this->browser = $browser ?: new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
-        $this->browser->addMiddleware($middleware ?: new BuzzOAuthMiddleware($token));
+        $this->browser = $browser ?? new Browser(function_exists('curl_exec') ? new Curl() : new FileGetContents());
+        $this->browser->addMiddleware($middleware ?? new BuzzOAuthMiddleware($token));
     }
 
     /**
@@ -55,11 +55,20 @@ class BuzzAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($url)
+    public function post($url, $content = '')
     {
-        $response = $this->browser->delete($url);
+        $headers = [];
+
+        if (is_array($content)) {
+            $content = json_encode($content);
+            $headers[] = 'Content-Type: application/json';
+        }
+
+        $response = $this->browser->post($url, $headers, $content);
 
         $this->handleResponse($response);
+
+        return $response->getContent();
     }
 
     /**
@@ -84,7 +93,7 @@ class BuzzAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function post($url, $content = '')
+    public function delete($url, $content = '')
     {
         $headers = [];
 
@@ -93,7 +102,7 @@ class BuzzAdapter implements AdapterInterface
             $headers[] = 'Content-Type: application/json';
         }
 
-        $response = $this->browser->post($url, $headers, $content);
+        $response = $this->browser->delete($url, $headers, $content);
 
         $this->handleResponse($response);
 

@@ -40,47 +40,13 @@ class GuzzleHttpAdapter implements AdapterInterface
     public function get($url)
     {
         try {
-            $this->response = $this->client->get($url);
+            $this->response = $this->client->request('GET', $url);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($url)
-    {
-        try {
-            $this->response = $this->client->delete($url);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            $this->handleError();
-        }
-
-        return (string)$this->response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function put($url, $content = '')
-    {
-        $options = [];
-
-        $options[is_array($content) ? 'json' : 'body'] = $content;
-
-        try {
-            $this->response = $this->client->put($url, $options);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            $this->handleError();
-        }
-
-        return (string)$this->response->getBody();
+        return (string) $this->response->getBody();
     }
 
     /**
@@ -93,13 +59,51 @@ class GuzzleHttpAdapter implements AdapterInterface
         $options[is_array($content) ? 'json' : 'body'] = $content;
 
         try {
-            $this->response = $this->client->post($url, $options);
+            $this->response = $this->client->request('POST', $url, $options);
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
             $this->handleError();
         }
 
-        return (string)$this->response->getBody();
+        return (string) $this->response->getBody();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function put($url, $content = '')
+    {
+        $options = [];
+
+        $options[is_array($content) ? 'json' : 'body'] = $content;
+
+        try {
+            $this->response = $this->client->request('PUT', $url, $options);
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
+
+        return (string) $this->response->getBody();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($url, $content = '')
+    {
+        $options = [];
+
+        $options[is_array($content) ? 'json' : 'body'] = $content;
+
+        try {
+            $this->response = $this->client->request('DELETE', $url, $options);
+        } catch (RequestException $e) {
+            $this->response = $e->getResponse();
+            $this->handleError();
+        }
+
+        return (string) $this->response->getBody();
     }
 
     /**

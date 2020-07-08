@@ -28,12 +28,12 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_returns_json_content($browser, $response)
     {
-        $browser->get('http://sbin.dk')->willReturn($response);
+        $browser->get('https://sbin.dk')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('{"foo":"bar"}');
 
-        $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
+        $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -42,13 +42,13 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_throws_an_http_exception($browser, $response)
     {
-        $browser->get('http://sbin.dk')->willReturn($response);
+        $browser->get('https://sbin.dk')->willReturn($response);
 
         $response->getStatusCode()->willReturn(404);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
         $this->shouldThrow(new HttpException('Error message.', 404))
-            ->during('get', ['http://sbin.dk']);
+            ->during('get', ['https://sbin.dk']);
     }
 
     /**
@@ -57,11 +57,12 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_delete($browser, $response)
     {
-        $browser->delete('http://sbin.dk/123')->willReturn($response);
+        $browser->delete('https://sbin.dk/456', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
+        $response->getContent()->willReturn('foo');
 
-        $this->delete('http://sbin.dk/123');
+        $this->delete('https://sbin.dk/456')->shouldBe('foo');
     }
 
     /**
@@ -69,13 +70,14 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Message\Response $response
      */
     function it_throws_an_http_exception_if_cannot_delete($browser, $response) {
-        $browser->delete('http://sbin.dk/123')->willReturn($response);
+        $browser->delete('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+            ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
         $this->shouldThrow(new HttpException('Error message.', 500))
-            ->during('delete', ['http://sbin.dk/123']);
+            ->during('delete', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
     /**
@@ -84,12 +86,12 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_put_basic($browser, $response)
     {
-        $browser->put('http://sbin.dk/456', [], '')->willReturn($response);
+        $browser->put('https://sbin.dk/456', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('foo');
 
-        $this->put('http://sbin.dk/456')->shouldBe('foo');
+        $this->put('https://sbin.dk/456')->shouldBe('foo');
     }
 
     /**
@@ -98,13 +100,13 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_put_array($browser, $response)
     {
-        $browser->put('http://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->put('https://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('{"foo":"bar"}');
 
-        $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
+        $this->put('https://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -112,14 +114,14 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Message\Response $response
      */
     function it_throws_an_http_exception_if_cannot_put($browser, $response) {
-        $browser->put('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->put('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
         $this->shouldThrow(new HttpException('Error message.', 500))
-            ->during('put', ['http://sbin.dk', ['foo' => 'bar']]);
+            ->during('put', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
     /**
@@ -128,12 +130,12 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_post_basic($browser, $response)
     {
-        $browser->post('http://sbin.dk', [], '')->willReturn($response);
+        $browser->post('https://sbin.dk', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('foo');
 
-        $this->post('http://sbin.dk')->shouldBe('foo');
+        $this->post('https://sbin.dk')->shouldBe('foo');
     }
 
     /**
@@ -142,13 +144,13 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_post_array($browser, $response)
     {
-        $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('{"foo":"bar"}');
 
-        $this->post('http://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
+        $this->post('https://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -156,14 +158,14 @@ class BuzzAdapterSpec extends \PhpSpec\ObjectBehavior
      * @param \Buzz\Message\Response $response
      */
     function it_throws_an_http_exception_if_cannot_post($browser, $response) {
-        $browser->post('http://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
         $this->shouldThrow(new HttpException('Error message.', 500))
-            ->during('post', ['http://sbin.dk', ['foo' => 'bar']]);
+            ->during('post', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
     /**

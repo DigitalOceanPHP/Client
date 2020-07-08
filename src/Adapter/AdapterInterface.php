@@ -29,11 +29,14 @@ interface AdapterInterface
     public function get($url);
 
     /**
-     * @param string $url
+     * @param string       $url
+     * @param array|string $content
      *
      * @throws HttpException
+     *
+     * @return string
      */
-    public function delete($url);
+    public function post($url, $content = '');
 
     /**
      * @param string       $url
@@ -46,14 +49,11 @@ interface AdapterInterface
     public function put($url, $content = '');
 
     /**
-     * @param string       $url
-     * @param array|string $content
+     * @param string $url
      *
      * @throws HttpException
-     *
-     * @return string
      */
-    public function post($url, $content = '');
+    public function delete($url, $content = '');
 
     /**
      * @return array|null

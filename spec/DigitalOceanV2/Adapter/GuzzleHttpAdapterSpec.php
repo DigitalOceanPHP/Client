@@ -30,11 +30,11 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_returns_json_content($client, $response, $stream)
     {
-        $client->get('http://sbin.dk')->willReturn($response);
+        $client->request('GET', 'https://sbin.dk')->willReturn($response);
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
 
-        $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
+        $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -44,13 +44,13 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_delete($client, $response, $stream)
     {
-        $client->delete('http://sbin.dk/123')->willReturn($response);
+        $client->request('DELETE', 'https://sbin.dk/456', ['body' => ''])->willReturn($response);
 
-        $response->getStatusCode()->willReturn(500);
+        $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
-        $stream->__toString()->willReturn('{"foo":"bar"}');
+        $stream->__toString()->willReturn('foo');
 
-        $this->delete('http://sbin.dk/123')->shouldBe('{"foo":"bar"}');
+        $this->delete('https://sbin.dk/456')->shouldBe('foo');
     }
 
     /**
@@ -60,13 +60,13 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_put_basic($client, $response, $stream)
     {
-        $client->put('http://sbin.dk/456', ['body' => ''])->willReturn($response);
+        $client->request('PUT', 'https://sbin.dk/456', ['body' => ''])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('foo');
 
-        $this->put('http://sbin.dk/456')->shouldBe('foo');
+        $this->put('https://sbin.dk/456')->shouldBe('foo');
     }
 
     /**
@@ -76,7 +76,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_put_array($client, $response, $stream)
     {
-        $client->put('http://sbin.dk/456', [
+        $client->request('PUT', 'https://sbin.dk/456', [
             'json' => [
                 'foo' => 'bar',
             ],
@@ -86,7 +86,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
 
-        $this->put('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
+        $this->put('https://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -96,13 +96,13 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_post_basic($client, $response, $stream)
     {
-        $client->post('http://sbin.dk/456', ['body' => ''])->willReturn($response);
+        $client->request('POST', 'https://sbin.dk/456', ['body' => ''])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
 
-        $this->post('http://sbin.dk/456')->shouldBe('{"foo":"bar"}');
+        $this->post('https://sbin.dk/456')->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -112,7 +112,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_can_post_array($client, $response, $stream)
     {
-        $client->post('http://sbin.dk/456', [
+        $client->request('POST', 'https://sbin.dk/456', [
             'json' => [
                 'foo' => 'bar',
             ],
@@ -122,7 +122,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
 
-        $this->post('http://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
+        $this->post('https://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
     /**
@@ -132,7 +132,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
      */
     function it_returns_last_response_header($client, $response, $stream)
     {
-        $client->get('http://sbin.dk')->willReturn($response);
+        $client->request('GET', 'https://sbin.dk')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
@@ -141,7 +141,7 @@ class GuzzleHttpAdapterSpec extends \PhpSpec\ObjectBehavior
         $response->getHeader('RateLimit-Remaining')->willReturn(1100);
         $response->getHeader('RateLimit-Reset')->willReturn(1402425459);
 
-        $this->get('http://sbin.dk')->shouldBe('{"foo":"bar"}');
+        $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
         $this->getLatestResponseHeaders()->shouldBeArray();
         $this->getLatestResponseHeaders()->shouldHaveCount(3);
     }
