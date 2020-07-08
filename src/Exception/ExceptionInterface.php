@@ -14,6 +14,6 @@ namespace DigitalOceanV2\Exception;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-interface ExceptionInterface
+interface ExceptionInterface extends \Throwable
 {
 }
