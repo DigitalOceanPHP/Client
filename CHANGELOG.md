@@ -1,13 +1,13 @@
-CHANGELOG
-=========
+CHANGE LOG
+==========
 
-3.0.0 (UPCOMING)
-----------------
 
-- Add support for the Tag API
-- Added getTotal() to droplet API
-- Added support for newer properties for volumes
-- Support only Guzzle `^6.5.5` or `^7.0.1` or Buzz `^0.16.1`
+## 3.0.0 (Upcoming)
+
+* Add support for the Tag API
+* Added getTotal() to droplet API
+* Added support for newer properties for volumes
+* Support only Guzzle `^6.5.5` or `^7.0.1` or Buzz `^0.16.1`
 * Reworked and renamed `DigitalOceanV2\DigitalOceanV2` to `DigitalOceanV2\Client`
 * Moved `DigitalOceanV2\Adapter` to `DigitalOceanV2\HttpClient`
 * Reworked and renamed `AdapterInterface` to `HttpClientInterface`
@@ -15,160 +15,77 @@ CHANGELOG
 * Reworked and renamed `GuzzleHttpAdapter` to `GuzzleHttpClient`
 * Added support for automatic discovery of Guzzle and Buzz
 * Removed wait for active: should be implemented at a higher level of abstraction
-- Support only PHP 7.1-7.4
+* Support only PHP 7.1-7.4
 
-2.3.0 (27/01/2019)
-------------------
 
-- Load Balancer API intergration
-- Added the support for taking snapshots
-- Add domain records TTL support
-- Add support for the CAA DomainRecord type
-- Add support for the wait parameter when creating a droplet
-- Added possibility to specify snapshot_id on volume creation
-- Drop support for Buzz less than version `0.16.0`
-- Added official PHP 7 support
-- Dropped official HHVM support
+## 2.3.0 (27/01/2019)
 
-2.2.0 (18/04/2017)
-------------------
+* Load Balancer API intergration
+* Added the support for taking snapshots
+* Add domain records TTL support
+* Add support for the CAA DomainRecord type
+* Add support for the wait parameter when creating a droplet
+* Added possibility to specify snapshot_id on volume creation
+* Drop support for Buzz less than version `0.16.0`
+* Added official PHP 7 support
+* Dropped official HHVM support
 
-- Add support for snapshots
-- Add support for volumes and tags
-- Support droplet monitoring
-- Add in tag_name filter
-- Support the certificate api
 
-2.1.2 (12/09/2016)
-------------------
+## 2.2.0 (18/04/2017)
 
-- Added support for Volumes (Block Storage)
-- Added the size_gigabytes attribute to images
-- Added the posibility to page through droplets - PR #141
-- Improved the update method for domain records - PR #142
+* Add support for snapshots
+* Add support for volumes and tags
+* Support droplet monitoring
+* Add in tag_name filter
+* Support the certificate api
 
-2.1.1 (02/04/2016)
-------------------
 
-- Fixed an issue with the buzz adapter
-- Fixed creating multiple droplets
+## 2.1.2 (12/09/2016)
 
-2.1.0 (2015-12-22)
-------------------
+* Added support for Volumes (Block Storage)
+* Added the size_gigabytes attribute to images
+* Added the posibility to page through droplets
+* Improved the update method for domain records
 
-- Unified exception handling in adapters
-- Support using buzz without curl
-- Added missing floatingIp method
 
-2.0.0 (2015-12-21)
-------------------
+## 2.1.1 (02/04/2016)
 
-- Added guzzle 6 support (watch out for the adapter rename)
-- Major cleanup of adapters
-- Fixed content type handling
-- Support updaing fields on domain records
-- Fixed droplet entity networking issues
-- Allow using custom endpoints
-- Made the entity classes final
-- Removed dynamic entity properties
-- Updated the account entity with the latest properties
-- Support creating multiple droplets at once
-- Support converting images to snapshots
-- Support the ability to enable droplet backups
-- Added full floating ip support
-- Improved exceptions
-- Minor code cleanup
+* Fixed an issue with the buzz adapter
+* Fixed creating multiple droplets
 
-1.0.1 (2015-06-25)
-------------------
 
-- Fixed issues with null values
-- Minor code cleanup
+## 2.1.0 (2015-12-22)
 
-1.0.0 (2015-04-16)
-------------------
+* Unified exception handling in adapters
+* Support using buzz without curl
+* Added missing floatingIp method
 
-- The API is now stable! https://www.digitalocean.com/company/blog/apiv2-officially-leaves-beta/
-- Fixed typo
 
-0.6.0 (2015-03-17)
-------------------
+## 2.0.0 (2015-12-21)
 
-- Added available property to size entity - fix #93
-- Added type property to image entity - fix #94
-- Added [BC break] fix action object embed a region object - fix #89
-- Added droplet neighbors report - fix #80
-- Added list of droplets that are scheduled to be upgraded - fix #81
+* Added guzzle 6 support (watch out for the adapter rename)
+* Major cleanup of adapters
+* Fixed content type handling
+* Support updaing fields on domain records
+* Fixed droplet entity networking issues
+* Allow using custom endpoints
+* Made the entity classes final
+* Removed dynamic entity properties
+* Updated the account entity with the latest properties
+* Support creating multiple droplets at once
+* Support converting images to snapshots
+* Support the ability to enable droplet backups
+* Added full floating ip support
+* Improved exceptions
+* Minor code cleanup
 
-0.5.2 (2015-02-26)
-------------------
 
-- Added images filtering and its specs
-- Added user image filtering and its specs
-- Updated specs and doc
+## 1.0.1 (2015-06-25)
 
-0.5.1 (2015-02-23)
-------------------
+* Fixed issues with null values
+* Minor code cleanup
 
-- Fixed droplet could not be created when the backup function was disabled (next_backup_window was null)
-- Added specs
 
-0.5.0 (2015-02-17)
-------------------
+## 1.0.0 (2015-04-16)
 
-- Added dynamic properties for all entities.
-- Added specs.
-- Updated doc.
-
-0.4.2 (2015-02-12)
-------------------
-
-- Added nextBackupWindow property to Droplet entity.
-- Improved specs.
-
-0.4.1 (2014-12-23)
-------------------
-
-- Use travis docker
-- Small cosmetic changes to please scrutinizer-ci
-
-0.4.0 (2014-12-23)
-------------------
-
-- Added the ability to set userdata when creating a droplet.
-- Added Account api
-- Fixed CS to be PSR-2 compliant
-- Added Code of Conduct
-
-0.3.0 (2014-11-14)
-------------------
-
-- Added updateData to DomainRecord Api
-- Added minDiskSize for the image entity.
-- Changed the droplet size to sizeSlug.
-- Added Support for Guzzle 5.
-
-0.2.0 (2014-09-21)
-------------------
-
-- Allow using either guzzle or buzz.
-- Support creating droplet with ssh fingerprints.
-- Pagination fixes.
-
-0.1.1 (2014-07-27)
-------------------
-
-- Fixed getAll methods. now they return all instead of the first 25.
-- Added getActions for a droplet.
-- New field createdAt added to the droplet entity.
-- Improved the mapping of a droplet networks to the droplet entity.
-- Fixed Droplet rename method.
-- Added Snapshot to the droplet api.
-- Dates are formatted in ISO 8601.
-- Added droplet features to the droplet entity.
-- Better exception handling.
-
-0.1.0 (2014-07-05)
-------------------
-
-- Initial stable release (all API classes are tested)
+* First stable release
