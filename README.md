@@ -7,12 +7,12 @@ We present a modern [DigitalOcean API v2](https://developers.digitalocean.com/do
 <p align="center">
 <a href="https://github.com/DigitalOceanPHP/Client/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/DigitalOceanPHP/Client/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
 <a href="https://github.styleci.io/repos/20703714"><img src="https://github.styleci.io/repos/20703714/shield" alt="StyleCI Status"></img></a>
-<a href="https://github.com/DigitalOceanPHP/Client/releases"><img src="https://img.shields.io/github/release/DigitalOceanPHP/Client?style=flat-square" alt="Latest Version"></img></a>
-<a href="https://packagist.org/packages/toin0u/digitalocean-v2"><img src="https://img.shields.io/packagist/dt/toin0u/digitalocean-v2?style=flat-square" alt="Packagist Downloads"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
+<a href="https://packagist.org/packages/toin0u/digitalocean-v2"><img src="https://img.shields.io/packagist/dt/toin0u/digitalocean-v2?style=flat-square" alt="Packagist Downloads"></img></a>
+<a href="https://github.com/DigitalOceanPHP/Client/releases"><img src="https://img.shields.io/github/release/DigitalOceanPHP/Client?style=flat-square" alt="Latest Version"></img></a>
 </p>
 
-Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalOceanPHP/Client/releases), [security policy](https://github.com/DigitalOceanPHP/Client/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
+Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalOceanPHP/Client/releases), [security policy](https://github.com/DigitalOceanPHP/Client/security/policy), [license](LICENSE), [code of conduct](.github/CODE_OF_CONDUCT.md), and [contribution guidelines](.github/CONTRIBUTING.md).
 
 
 Installation
@@ -430,7 +430,7 @@ $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 ## Contributing
 
-Not all endpoints of the API are implemented yet. We will gladly review and accept pull requests, in accordance with our [contribution guidelines](.github/CONTRIBUTING.md)!
+We will gladly receive issue reports and review and accept pull requests, in accordance with our [code of conduct](.github/CODE_OF_CONDUCT.md) and [contribution guidelines](.github/CONTRIBUTING.md)!
 
 ```
 $ make install
