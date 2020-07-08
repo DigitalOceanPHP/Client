@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\DigitalOceanV2;
 
 class ClientSpec extends \PhpSpec\ObjectBehavior

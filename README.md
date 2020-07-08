@@ -48,6 +48,8 @@ Example
 ```php
 <?php
 
+declare(strict_types=1);
+
 require_once 'vendor/autoload.php';
 
 // create a new DigitalOcean client

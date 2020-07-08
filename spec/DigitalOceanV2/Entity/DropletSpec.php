@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\DigitalOceanV2\Entity;
 
 class DropletSpec extends \PhpSpec\ObjectBehavior
