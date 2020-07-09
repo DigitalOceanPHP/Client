@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\AbstractEntity;
 use DigitalOceanV2\Entity\ForwardingRule as ForwardRuleEntity;
 use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
 use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>

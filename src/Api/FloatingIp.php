@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\FloatingIp as FloatingIpEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>

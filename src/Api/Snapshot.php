@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>

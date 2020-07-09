@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Key as KeyEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>

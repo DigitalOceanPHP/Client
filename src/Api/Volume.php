@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -248,7 +248,6 @@ class Volume extends AbstractApi
      * @param string $name a human-readable name for the volume snapshot
      *
      * @throws ExceptionInterface
-     *
      * @throws ExceptionInterface
      *
      * @return SnapshotEntity

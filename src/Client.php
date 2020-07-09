@@ -12,6 +12,7 @@ declare(strict_types=1);
  */
 
 namespace DigitalOceanV2;
+
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Certificate;
