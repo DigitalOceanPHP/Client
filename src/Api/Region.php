@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Region as RegionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -31,7 +32,7 @@ class Region extends AbstractApi
     {
         $regions = $this->httpClient->get(sprintf('%s/regions?per_page=%d', $this->endpoint, 200));
 
-        $regions = json_decode($regions);
+        $regions = JsonObject::decode($regions);
 
         $this->extractMeta($regions);
 

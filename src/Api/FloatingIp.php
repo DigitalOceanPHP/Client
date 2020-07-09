@@ -16,6 +16,7 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\FloatingIp as FloatingIpEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -33,7 +34,7 @@ class FloatingIp extends AbstractApi
 
         $ips = $this->httpClient->get($query);
 
-        $ips = json_decode($ips);
+        $ips = JsonObject::decode($ips);
 
         $this->extractMeta($ips);
 
@@ -53,7 +54,7 @@ class FloatingIp extends AbstractApi
     {
         $ip = $this->httpClient->get(sprintf('%s/floating_ips/%s', $this->endpoint, $id));
 
-        $ip = json_decode($ip);
+        $ip = JsonObject::decode($ip);
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -69,7 +70,7 @@ class FloatingIp extends AbstractApi
     {
         $ip = $this->httpClient->post(sprintf('%s/floating_ips', $this->endpoint), ['droplet_id' => $dropletId]);
 
-        $ip = json_decode($ip);
+        $ip = JsonObject::decode($ip);
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -85,7 +86,7 @@ class FloatingIp extends AbstractApi
     {
         $ip = $this->httpClient->post(sprintf('%s/floating_ips', $this->endpoint), ['region' => $regionSlug]);
 
-        $ip = json_decode($ip);
+        $ip = JsonObject::decode($ip);
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -113,7 +114,7 @@ class FloatingIp extends AbstractApi
     {
         $actions = $this->httpClient->get(sprintf('%s/floating_ips/%s/actions?per_page=%d', $this->endpoint, $id, 200));
 
-        $actions = json_decode($actions);
+        $actions = JsonObject::decode($actions);
 
         $this->meta = $this->extractMeta($actions);
 
@@ -134,7 +135,7 @@ class FloatingIp extends AbstractApi
     {
         $action = $this->httpClient->get(sprintf('%s/floating_ips/%s/actions/%d', $this->endpoint, $id, $actionId));
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -176,7 +177,7 @@ class FloatingIp extends AbstractApi
     {
         $action = $this->httpClient->post(sprintf('%s/floating_ips/%s/actions', $this->endpoint, $id), $options);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }

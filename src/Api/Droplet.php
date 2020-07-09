@@ -17,8 +17,8 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Droplet as DropletEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Kernel as KernelEntity;
-use DigitalOceanV2\Entity\Upgrade as UpgradeEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -43,7 +43,7 @@ class Droplet extends AbstractApi
             $url .= '&tag_name='.$tag;
         }
 
-        $droplets = json_decode($this->httpClient->get($url));
+        $droplets = JsonObject::decode($this->httpClient->get($url));
 
         $this->extractMeta($droplets);
 
@@ -60,7 +60,7 @@ class Droplet extends AbstractApi
     public function getTotal()
     {
         $url = sprintf('%s/droplets?per_page=1&page=1', $this->endpoint);
-        $droplets = json_decode($this->httpClient->get($url));
+        $droplets = JsonObject::decode($this->httpClient->get($url));
         $total = $droplets->meta->total;
 
         return $total;
@@ -77,7 +77,7 @@ class Droplet extends AbstractApi
     {
         $droplets = $this->httpClient->get(sprintf('%s/droplets/%d/neighbors', $this->endpoint, $id));
 
-        $droplets = json_decode($droplets);
+        $droplets = JsonObject::decode($droplets);
 
         return array_map(function ($droplet) {
             return new DropletEntity($droplet);
@@ -93,27 +93,11 @@ class Droplet extends AbstractApi
     {
         $neighbors = $this->httpClient->get(sprintf('%s/reports/droplet_neighbors', $this->endpoint));
 
-        $neighbors = json_decode($neighbors);
+        $neighbors = JsonObject::decode($neighbors);
 
         return array_map(function ($neighbor) {
             return new DropletEntity($neighbor);
         }, $neighbors->neighbors);
-    }
-
-    /**
-     * @throws ExceptionInterface
-     *
-     * @return UpgradeEntity[]
-     */
-    public function getUpgrades()
-    {
-        $upgrades = $this->httpClient->get(sprintf('%s/droplet_upgrades', $this->endpoint));
-
-        $upgrades = json_decode($upgrades);
-
-        return array_map(function ($upgrade) {
-            return new UpgradeEntity($upgrade);
-        }, $upgrades);
     }
 
     /**
@@ -127,7 +111,7 @@ class Droplet extends AbstractApi
     {
         $droplet = $this->httpClient->get(sprintf('%s/droplets/%d', $this->endpoint, $id));
 
-        $droplet = json_decode($droplet);
+        $droplet = JsonObject::decode($droplet);
 
         return new DropletEntity($droplet->droplet);
     }
@@ -182,7 +166,7 @@ class Droplet extends AbstractApi
 
         $droplet = $this->httpClient->post(sprintf('%s/droplets', $this->endpoint), $data);
 
-        $droplet = json_decode($droplet);
+        $droplet = JsonObject::decode($droplet);
 
         if (is_array($names)) {
             return array_map(function ($droplet) {
@@ -218,7 +202,7 @@ class Droplet extends AbstractApi
     {
         $kernels = $this->httpClient->get(sprintf('%s/droplets/%d/kernels', $this->endpoint, $id));
 
-        $kernels = json_decode($kernels);
+        $kernels = JsonObject::decode($kernels);
 
         $this->meta = $this->extractMeta($kernels);
 
@@ -238,7 +222,7 @@ class Droplet extends AbstractApi
     {
         $snapshots = $this->httpClient->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', $this->endpoint, $id, 200));
 
-        $snapshots = json_decode($snapshots);
+        $snapshots = JsonObject::decode($snapshots);
 
         $this->meta = $this->extractMeta($snapshots);
 
@@ -260,7 +244,7 @@ class Droplet extends AbstractApi
     {
         $backups = $this->httpClient->get(sprintf('%s/droplets/%d/backups?per_page=%d', $this->endpoint, $id, 200));
 
-        $backups = json_decode($backups);
+        $backups = JsonObject::decode($backups);
 
         $this->meta = $this->extractMeta($backups);
 
@@ -280,7 +264,7 @@ class Droplet extends AbstractApi
     {
         $actions = $this->httpClient->get(sprintf('%s/droplets/%d/actions?per_page=%d', $this->endpoint, $id, 200));
 
-        $actions = json_decode($actions);
+        $actions = JsonObject::decode($actions);
 
         $this->meta = $this->extractMeta($actions);
 
@@ -301,7 +285,7 @@ class Droplet extends AbstractApi
     {
         $action = $this->httpClient->get(sprintf('%s/droplets/%d/actions/%d', $this->endpoint, $id, $actionId));
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -517,7 +501,7 @@ class Droplet extends AbstractApi
     {
         $action = $this->httpClient->post(sprintf('%s/droplets/%d/actions', $this->endpoint, $id), $options);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }

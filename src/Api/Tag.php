@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Tag as TagEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Nicolas Beauvais <nicolas@bvs.email>
@@ -30,7 +31,7 @@ class Tag extends AbstractApi
     {
         $tags = $this->httpClient->get(sprintf('%s/tags', $this->endpoint));
 
-        $tags = json_decode($tags);
+        $tags = JsonObject::decode($tags);
 
         return array_map(function ($tag) {
             return new TagEntity($tag);
@@ -48,7 +49,7 @@ class Tag extends AbstractApi
     {
         $tag = $this->httpClient->get(sprintf('%s/tags/%s', $this->endpoint, $name));
 
-        $tag = json_decode($tag);
+        $tag = JsonObject::decode($tag);
 
         return new TagEntity($tag->tag);
     }
@@ -64,7 +65,7 @@ class Tag extends AbstractApi
     {
         $tag = $this->httpClient->post(sprintf('%s/tags', $this->endpoint), ['name' => $name]);
 
-        $tag = json_decode($tag);
+        $tag = JsonObject::decode($tag);
 
         return new TagEntity($tag->tag);
     }

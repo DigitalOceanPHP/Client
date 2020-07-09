@@ -14,6 +14,7 @@ CHANGE LOG
 * Reworked and renamed `BuzzAdapter` to `BuzzHttpClient`
 * Reworked and renamed `GuzzleHttpAdapter` to `GuzzleHttpClient`
 * Added support for automatic discovery of Guzzle and Buzz
+* Removed old droplet upgrades endpoint
 * Removed wait for active: should be implemented at a higher level of abstraction
 * Support only PHP 7.1-7.4
 

@@ -19,6 +19,7 @@ use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
 use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -34,7 +35,7 @@ class LoadBalancer extends AbstractApi
     {
         $loadBalancers = $this->httpClient->get(sprintf('%s/load_balancers', $this->endpoint));
 
-        $loadBalancers = json_decode($loadBalancers);
+        $loadBalancers = JsonObject::decode($loadBalancers);
 
         $this->extractMeta($loadBalancers);
 
@@ -54,7 +55,7 @@ class LoadBalancer extends AbstractApi
     {
         $loadBalancer = $this->httpClient->get(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
 
-        $loadBalancer = json_decode($loadBalancer);
+        $loadBalancer = JsonObject::decode($loadBalancer);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -96,7 +97,7 @@ class LoadBalancer extends AbstractApi
 
         $loadBalancer = $this->httpClient->post(sprintf('%s/load_balancers', $this->endpoint), $data);
 
-        $loadBalancer = json_decode($loadBalancer);
+        $loadBalancer = JsonObject::decode($loadBalancer);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -115,7 +116,7 @@ class LoadBalancer extends AbstractApi
 
         $loadBalancer = $this->httpClient->put(sprintf('%s/load_balancers/%s', $this->endpoint, $id), $data);
 
-        $loadBalancer = json_decode($loadBalancer);
+        $loadBalancer = JsonObject::decode($loadBalancer);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }

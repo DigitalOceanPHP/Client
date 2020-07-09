@@ -54,9 +54,8 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
     function it_can_put_array(Client $client, Response $response, Stream $stream)
     {
         $client->request('PUT', 'https://sbin.dk/456', [
-            'json' => [
-                'foo' => 'bar',
-            ],
+            'body' => '{"foo":"bar"}',
+            'headers' => ['Content-Type' => 'application/json'],
         ])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
@@ -80,9 +79,8 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
     function it_can_post_array(Client $client, Response $response, Stream $stream)
     {
         $client->request('POST', 'https://sbin.dk/456', [
-            'json' => [
-                'foo' => 'bar',
-            ],
+            'body' => '{"foo":"bar"}',
+            'headers' => ['Content-Type' => 'application/json'],
         ])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);

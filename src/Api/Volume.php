@@ -17,6 +17,7 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -35,7 +36,7 @@ class Volume extends AbstractApi
         $regionQueryParameter = is_null($regionSlug) ? '' : sprintf('&region=%s', $regionSlug);
         $volumes = $this->httpClient->get(sprintf('%s/volumes?per_page=%d%s', $this->endpoint, 200, $regionQueryParameter));
 
-        $volumes = json_decode($volumes);
+        $volumes = JsonObject::decode($volumes);
 
         $this->extractMeta($volumes);
 
@@ -56,7 +57,7 @@ class Volume extends AbstractApi
     {
         $volumes = $this->httpClient->get(sprintf('%s/volumes?per_page=%d&region=%s&name=%s', $this->endpoint, 200, $regionSlug, $driveName));
 
-        $volumes = json_decode($volumes);
+        $volumes = JsonObject::decode($volumes);
 
         $this->extractMeta($volumes);
 
@@ -76,7 +77,7 @@ class Volume extends AbstractApi
     {
         $volume = $this->httpClient->get(sprintf('%s/volumes/%s?per_page=%d', $this->endpoint, $id, 200));
 
-        $volume = json_decode($volume);
+        $volume = JsonObject::decode($volume);
 
         return new VolumeEntity($volume->volume);
     }
@@ -94,7 +95,7 @@ class Volume extends AbstractApi
     {
         $snapshots = $this->httpClient->get(sprintf('%s/volumes/%s/snapshots?per_page=%d', $this->endpoint, $id, 200));
 
-        $snapshots = json_decode($snapshots);
+        $snapshots = JsonObject::decode($snapshots);
 
         $this->meta = $this->extractMeta($snapshots);
 
@@ -139,7 +140,7 @@ class Volume extends AbstractApi
 
         $volume = $this->httpClient->post(sprintf('%s/volumes', $this->endpoint), $data);
 
-        $volume = json_decode($volume);
+        $volume = JsonObject::decode($volume);
 
         return new VolumeEntity($volume->volume);
     }
@@ -188,7 +189,7 @@ class Volume extends AbstractApi
 
         $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -212,7 +213,7 @@ class Volume extends AbstractApi
 
         $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -236,7 +237,7 @@ class Volume extends AbstractApi
 
         $action = $this->httpClient->post(sprintf('%s/volumes/%s/actions', $this->endpoint, $id), $data);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -259,7 +260,7 @@ class Volume extends AbstractApi
 
         $snapshot = $this->httpClient->post(sprintf('%s/volumes/%s/snapshots', $this->endpoint, $id), $data);
 
-        $snapshot = json_decode($snapshot);
+        $snapshot = JsonObject::decode($snapshot);
 
         return new SnapshotEntity($snapshot->snapshot);
     }
@@ -276,7 +277,7 @@ class Volume extends AbstractApi
     {
         $action = $this->httpClient->get(sprintf('%s/volumes/%s/actions/%d', $this->endpoint, $id, $actionId));
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -292,7 +293,7 @@ class Volume extends AbstractApi
     {
         $actions = $this->httpClient->get(sprintf('%s/volumes/%s/actions?per_page=%d', $this->endpoint, $id, 200));
 
-        $actions = json_decode($actions);
+        $actions = JsonObject::decode($actions);
 
         $this->meta = $this->extractMeta($actions);
 

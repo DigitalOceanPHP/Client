@@ -16,6 +16,7 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\InvalidRecordException;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -34,7 +35,7 @@ class DomainRecord extends AbstractApi
     {
         $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, 200));
 
-        $domainRecords = json_decode($domainRecords);
+        $domainRecords = JsonObject::decode($domainRecords);
 
         $this->extractMeta($domainRecords);
 
@@ -55,7 +56,7 @@ class DomainRecord extends AbstractApi
     {
         $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $id));
 
-        $domainRecords = json_decode($domainRecords);
+        $domainRecords = JsonObject::decode($domainRecords);
 
         return new DomainRecordEntity($domainRecords->domain_record);
     }
@@ -124,7 +125,7 @@ class DomainRecord extends AbstractApi
 
         $domainRecord = $this->httpClient->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
 
-        $domainRecord = json_decode($domainRecord);
+        $domainRecord = JsonObject::decode($domainRecord);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
@@ -192,7 +193,7 @@ class DomainRecord extends AbstractApi
     {
         $domainRecord = $this->httpClient->put(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId), $fields);
 
-        $domainRecord = json_decode($domainRecord);
+        $domainRecord = JsonObject::decode($domainRecord);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }

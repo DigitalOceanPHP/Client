@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Entity;
 
+use DigitalOceanV2\Exception\RuntimeException;
+
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
@@ -98,7 +100,13 @@ abstract class AbstractEntity
             return strtoupper($match[2]);
         };
 
-        return lcfirst(preg_replace_callback('/(^|_)([a-z])/', $callback, $str));
+        $replaced = preg_replace_callback('/(^|_)([a-z])/', $callback, $str);
+
+        if (null === $replaced) {
+            throw new RuntimeException(sprintf('preg_replace_callback error: %s', \preg_last_error_msg()));
+        }
+
+        return lcfirst($replaced);
     }
 
     /**
@@ -108,6 +116,12 @@ abstract class AbstractEntity
      */
     protected static function convertToSnakeCase(string $str)
     {
-        return strtolower(implode('_', preg_split('/(?=[A-Z])/', $str)));
+        $replaced = preg_split('/(?=[A-Z])/', $str);
+
+        if (false === $replaced) {
+            throw new RuntimeException(sprintf('preg_split error: %s', \preg_last_error_msg()));
+        }
+
+        return strtolower(implode('_', $replaced));
     }
 }
