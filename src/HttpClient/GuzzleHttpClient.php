@@ -117,10 +117,10 @@ class GuzzleHttpClient implements HttpClientInterface
             $this->response = $response = self::getResponseFromException($e);
 
             if (null === $response || $response->getStatusCode() < 300) {
-                throw new HttpException('An HTTP transport error occured.');
+                throw new HttpException('An HTTP transport error occured.', 0, $e);
             }
 
-            throw self::getExceptionFor($response);
+            throw new HttpException(self::getExceptionMessageFor($response), $response->getStatusCode(), $e);
         }
 
         return (string) $response->getBody();
@@ -139,16 +139,13 @@ class GuzzleHttpClient implements HttpClientInterface
     /**
      * @param ResponseInterface $response
      *
-     * @return HttpException
+     * @return string
      */
-    private static function getExceptionFor(ResponseInterface $response)
+    private static function getExceptionMessageFor(ResponseInterface $response)
     {
-        $body = (string) $response->getBody();
-        $code = $response->getStatusCode();
+        $content = json_decode((string) $response->getBody());
 
-        $content = json_decode($body);
-
-        return new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
+        return isset($content->message) ? $content->message : 'Request not processed.';
     }
 
     /**

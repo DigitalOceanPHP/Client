@@ -112,29 +112,26 @@ class BuzzHttpClient implements HttpClientInterface
             /** @var Response */
             $response = $this->browser->call($url, $method, $headers, $content);
         } catch (ExceptionInterface $e) {
-            throw new HttpException('An HTTP transport error occured.');
+            throw new HttpException('An HTTP transport error occured.', 0, $e);
         }
 
         if ($response->getStatusCode() < 300) {
-            return (string) $response->getContent();
+            return $response->getContent();
         }
 
-        throw self::getExceptionFor($response);
+        throw new HttpException(self::getExceptionMessageFor($response), $response->getStatusCode());
     }
 
     /**
      * @param Response $response
      *
-     * @return HttpException
+     * @return string
      */
-    private static function getExceptionFor(Response $response)
+    private static function getExceptionMessageFor(Response $response)
     {
-        $body = (string) $response->getContent();
-        $code = $response->getStatusCode();
+        $content = json_decode($response->getContent());
 
-        $content = json_decode($body);
-
-        return new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
+        return isset($content->message) ? $content->message : 'Request not processed.';
     }
 
     /**
