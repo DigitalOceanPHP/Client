@@ -72,24 +72,6 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     }
 
 
-    function it_returns_an_array_of_upgrade_entity(HttpClientInterface $httpClient)
-    {
-        $httpClient
-            ->get('https://api.digitalocean.com/v2/droplet_upgrades')
-            ->willReturn('[{}, {}, {}]');
-
-        $upgrades = $this->getUpgrades();
-        $upgrades->shouldBeArray();
-        $upgrades->shouldHaveCount(3);
-        foreach ($upgrades as $upgrade) {
-            /**
-             * @var \DigitalOceanV2\Entity\Upgrade|\PhpSpec\Wrapper\Subject $upgrade
-             */
-            $upgrade->shouldReturnAnInstanceOf('DigitalOceanV2\Entity\Upgrade');
-        }
-    }
-
-
     function it_returns_an_array_of_droplet_that_are_running_on_the_same_physical_hardware(HttpClientInterface $httpClient)
     {
         $httpClient

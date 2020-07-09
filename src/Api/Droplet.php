@@ -101,22 +101,6 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @throws ExceptionInterface
-     *
-     * @return UpgradeEntity[]
-     */
-    public function getUpgrades()
-    {
-        $upgrades = $this->httpClient->get(sprintf('%s/droplet_upgrades', $this->endpoint));
-
-        $upgrades = json_decode($upgrades);
-
-        return array_map(function ($upgrade) {
-            return new UpgradeEntity($upgrade);
-        }, $upgrades);
-    }
-
-    /**
      * @param int $id
      *
      * @throws ExceptionInterface
