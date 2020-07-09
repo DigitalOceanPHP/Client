@@ -158,7 +158,7 @@ class Droplet extends AbstractApi
             $data['ssh_keys'] = $sshKeys;
         }
 
-        if (!empty($userData)) {
+        if ('' !== $userData) {
             $data['user_data'] = $userData;
         }
 

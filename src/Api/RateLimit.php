@@ -28,6 +28,6 @@ class RateLimit extends AbstractApi
     {
         $results = $this->httpClient->getLatestResponseHeaders();
 
-        return $results ? new RateLimitEntity($results) : null;
+        return $results === null ? null : new RateLimitEntity($results);
     }
 }

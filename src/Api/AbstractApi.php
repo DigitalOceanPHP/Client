@@ -51,7 +51,7 @@ abstract class AbstractApi
     public function __construct(HttpClientInterface $httpClient, $endpoint = null)
     {
         $this->httpClient = $httpClient;
-        $this->endpoint = $endpoint ?: static::ENDPOINT;
+        $this->endpoint = $endpoint ?? static::ENDPOINT;
     }
 
     /**

@@ -32,7 +32,7 @@ class Image extends AbstractApi
     {
         $query = sprintf('%s/images?per_page=%d', $this->endpoint, 200);
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'])) {
+        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'], true)) {
             $query = sprintf('%s&type=%s', $query, $criteria['type']);
         }
 

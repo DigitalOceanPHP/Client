@@ -6,3 +6,5 @@ parameters:
     paths:
         - src
     checkMissingIterableValueType: false
+    ignoreErrors:
+        - "#Anonymous function should have native return typehint#"

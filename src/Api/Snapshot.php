@@ -30,7 +30,7 @@ class Snapshot extends AbstractApi
     {
         $query = sprintf('%s/snapshots?per_page=%d', $this->endpoint, 200);
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'])) {
+        if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'], true)) {
             $query = sprintf('%s&resource_type=%s', $query, $criteria['type']);
         }
 
