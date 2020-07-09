@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -38,7 +39,7 @@ class Snapshot extends AbstractApi
 
         $snapshots = $this->httpClient->get($query);
 
-        $snapshots = json_decode($snapshots);
+        $snapshots = JsonObject::decode($snapshots);
 
         $this->extractMeta($snapshots);
 
@@ -58,7 +59,7 @@ class Snapshot extends AbstractApi
     {
         $snapshot = $this->httpClient->get(sprintf('%s/snapshots/%s', $this->endpoint, $id));
 
-        $snapshot = json_decode($snapshot);
+        $snapshot = JsonObject::decode($snapshot);
 
         return new SnapshotEntity($snapshot->snapshot);
     }

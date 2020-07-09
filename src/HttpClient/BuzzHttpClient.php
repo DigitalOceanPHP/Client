@@ -18,6 +18,7 @@ use Buzz\Exception\ExceptionInterface as BuzzException;
 use Buzz\Message\Response;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -105,7 +106,7 @@ class BuzzHttpClient implements HttpClientInterface
         $headers = [];
 
         if (is_array($content)) {
-            $content = json_encode($content);
+            $content = JsonObject::encode($content);
             $headers[] = 'Content-Type: application/json';
         }
 
@@ -130,9 +131,13 @@ class BuzzHttpClient implements HttpClientInterface
      */
     private static function getExceptionMessageFor(Response $response)
     {
-        $content = json_decode($response->getContent());
+        try {
+            $content = JsonObject::decode($response->getContent());
+        } catch (RuntimeException $e) {
+            return 'Request not processed.';
+        }
 
-        return isset($content->message) ? $content->message : 'Request not processed.';
+        return isset($content->message) && is_string($content->message) ? $content->message : 'Request not processed.';
     }
 
     /**

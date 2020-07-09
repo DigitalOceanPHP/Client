@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Domain as DomainEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -34,7 +35,7 @@ class Domain extends AbstractApi
     {
         $domains = $this->httpClient->get(sprintf('%s/domains?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
 
-        $domains = json_decode($domains);
+        $domains = JsonObject::decode($domains);
 
         $this->extractMeta($domains);
 
@@ -54,7 +55,7 @@ class Domain extends AbstractApi
     {
         $domain = $this->httpClient->get(sprintf('%s/domains/%s', $this->endpoint, $domainName));
 
-        $domain = json_decode($domain);
+        $domain = JsonObject::decode($domain);
 
         return new DomainEntity($domain->domain);
     }
@@ -73,7 +74,7 @@ class Domain extends AbstractApi
 
         $domain = $this->httpClient->post(sprintf('%s/domains', $this->endpoint), $content);
 
-        $domain = json_decode($domain);
+        $domain = JsonObject::decode($domain);
 
         return new DomainEntity($domain->domain);
     }

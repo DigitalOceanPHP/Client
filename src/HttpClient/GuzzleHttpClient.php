@@ -15,6 +15,7 @@ namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -108,9 +109,7 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     public function send(string $method, string $url, $content)
     {
-        $options = [];
-
-        $options[is_array($content) ? 'json' : 'body'] = $content;
+        $options = self::getOptions($content);
 
         try {
             $this->response = $response = $this->client->request($method, $url, $options);
@@ -125,6 +124,25 @@ class GuzzleHttpClient implements HttpClientInterface
         }
 
         return (string) $response->getBody();
+    }
+
+    /**
+     * @param array|string $content
+     *
+     * @throws RuntimeException
+     *
+     * @return array
+     */
+    private static function getOptions($content)
+    {
+        if (is_array($content)) {
+            return [
+                'body' => JsonObject::encode($content),
+                'headers' => ['Content-Type' => 'application/json'],
+            ];
+        }
+
+        return ['body' => $content];
     }
 
     /**
@@ -144,9 +162,13 @@ class GuzzleHttpClient implements HttpClientInterface
      */
     private static function getExceptionMessageFor(ResponseInterface $response)
     {
-        $content = json_decode((string) $response->getBody());
+        try {
+            $content = JsonObject::decode((string) $response->getBody());
+        } catch (RuntimeException $e) {
+            return 'Request not processed.';
+        }
 
-        return isset($content->message) ? $content->message : 'Request not processed.';
+        return isset($content->message) && is_string($content->message) ? $content->message : 'Request not processed.';
     }
 
     /**

@@ -13,7 +13,7 @@ rules:
     - Ergebnis\PHPStan\Rules\Methods\PrivateInFinalClassRule
 
 parameters:
-    level: 6
+    level: max
     paths:
         - src
     checkMissingIterableValueType: false

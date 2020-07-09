@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Certificate as CertificateEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -30,7 +31,7 @@ class Certificate extends AbstractApi
     {
         $certificates = $this->httpClient->get(sprintf('%s/certificates', $this->endpoint));
 
-        $certificates = json_decode($certificates);
+        $certificates = JsonObject::decode($certificates);
 
         $this->extractMeta($certificates);
 
@@ -50,7 +51,7 @@ class Certificate extends AbstractApi
     {
         $certificate = $this->httpClient->get(sprintf('%s/certificates/%s', $this->endpoint, $id));
 
-        $certificate = json_decode($certificate);
+        $certificate = JsonObject::decode($certificate);
 
         return new CertificateEntity($certificate->certificate);
     }
@@ -76,7 +77,7 @@ class Certificate extends AbstractApi
 
         $certificate = $this->httpClient->post(sprintf('%s/certificates', $this->endpoint), $data);
 
-        $certificate = json_decode($certificate);
+        $certificate = JsonObject::decode($certificate);
 
         return new CertificateEntity($certificate->certificate);
     }

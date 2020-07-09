@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Key as KeyEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -31,7 +32,7 @@ class Key extends AbstractApi
     {
         $keys = $this->httpClient->get(sprintf('%s/account/keys?per_page=%d', $this->endpoint, 200));
 
-        $keys = json_decode($keys);
+        $keys = JsonObject::decode($keys);
 
         $this->extractMeta($keys);
 
@@ -51,7 +52,7 @@ class Key extends AbstractApi
     {
         $key = $this->httpClient->get(sprintf('%s/account/keys/%d', $this->endpoint, $id));
 
-        $key = json_decode($key);
+        $key = JsonObject::decode($key);
 
         return new KeyEntity($key->ssh_key);
     }
@@ -67,7 +68,7 @@ class Key extends AbstractApi
     {
         $key = $this->httpClient->get(sprintf('%s/account/keys/%s', $this->endpoint, $fingerprint));
 
-        $key = json_decode($key);
+        $key = JsonObject::decode($key);
 
         return new KeyEntity($key->ssh_key);
     }
@@ -84,7 +85,7 @@ class Key extends AbstractApi
     {
         $key = $this->httpClient->post(sprintf('%s/account/keys', $this->endpoint), ['name' => $name, 'public_key' => $publicKey]);
 
-        $key = json_decode($key);
+        $key = JsonObject::decode($key);
 
         return new KeyEntity($key->ssh_key);
     }
@@ -101,7 +102,7 @@ class Key extends AbstractApi
     {
         $key = $this->httpClient->put(sprintf('%s/account/keys/%s', $this->endpoint, $id), ['name' => $name]);
 
-        $key = json_decode($key);
+        $key = JsonObject::decode($key);
 
         return new KeyEntity($key->ssh_key);
     }

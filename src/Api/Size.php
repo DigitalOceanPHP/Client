@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Size as SizeEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -31,7 +32,7 @@ class Size extends AbstractApi
     {
         $sizes = $this->httpClient->get(sprintf('%s/sizes?per_page=%d', $this->endpoint, 200));
 
-        $sizes = json_decode($sizes);
+        $sizes = JsonObject::decode($sizes);
 
         $this->extractMeta($sizes);
 

@@ -15,6 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -31,7 +32,7 @@ class Action extends AbstractApi
     {
         $actions = $this->httpClient->get(sprintf('%s/actions?per_page=%d', $this->endpoint, 200));
 
-        $actions = json_decode($actions);
+        $actions = JsonObject::decode($actions);
 
         $this->extractMeta($actions);
 
@@ -51,7 +52,7 @@ class Action extends AbstractApi
     {
         $action = $this->httpClient->get(sprintf('%s/actions/%d', $this->endpoint, $id));
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         $this->meta = null;
 

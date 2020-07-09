@@ -16,6 +16,7 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -44,7 +45,7 @@ class Image extends AbstractApi
 
         $images = $this->httpClient->get($query);
 
-        $images = json_decode($images);
+        $images = JsonObject::decode($images);
 
         $this->extractMeta($images);
 
@@ -64,7 +65,7 @@ class Image extends AbstractApi
     {
         $image = $this->httpClient->get(sprintf('%s/images/%d', $this->endpoint, $id));
 
-        $image = json_decode($image);
+        $image = JsonObject::decode($image);
 
         return new ImageEntity($image->image);
     }
@@ -80,7 +81,7 @@ class Image extends AbstractApi
     {
         $image = $this->httpClient->get(sprintf('%s/images/%s', $this->endpoint, $slug));
 
-        $image = json_decode($image);
+        $image = JsonObject::decode($image);
 
         return new ImageEntity($image->image);
     }
@@ -97,7 +98,7 @@ class Image extends AbstractApi
     {
         $image = $this->httpClient->put(sprintf('%s/images/%d', $this->endpoint, $id), ['name' => $name]);
 
-        $image = json_decode($image);
+        $image = JsonObject::decode($image);
 
         return new ImageEntity($image->image);
     }
@@ -126,7 +127,7 @@ class Image extends AbstractApi
     {
         $action = $this->httpClient->post(sprintf('%s/images/%d/actions', $this->endpoint, $id), ['type' => 'transfer', 'region' => $regionSlug]);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -142,7 +143,7 @@ class Image extends AbstractApi
     {
         $action = $this->httpClient->post(sprintf('%s/images/%d/actions', $this->endpoint, $id), ['type' => 'convert']);
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
@@ -159,7 +160,7 @@ class Image extends AbstractApi
     {
         $action = $this->httpClient->get(sprintf('%s/images/%d/actions/%d', $this->endpoint, $id, $actionId));
 
-        $action = json_decode($action);
+        $action = JsonObject::decode($action);
 
         return new ActionEntity($action->action);
     }
