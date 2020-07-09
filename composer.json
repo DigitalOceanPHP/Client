@@ -43,6 +43,11 @@
             "DigitalOceanV2\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "DigitalOceanV2\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "preferred-install": "dist"
     }
