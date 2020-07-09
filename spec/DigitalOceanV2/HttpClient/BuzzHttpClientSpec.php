@@ -23,7 +23,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_json_content(Browser $browser, Response $response)
     {
-        $browser->get('https://sbin.dk')->willReturn($response);
+        $browser->call('https://sbin.dk', 'GET', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('{"foo":"bar"}');
@@ -33,7 +33,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_throws_an_http_exception(Browser $browser, Response $response)
     {
-        $browser->get('https://sbin.dk')->willReturn($response);
+        $browser->call('https://sbin.dk', 'GET', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(404);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
@@ -44,7 +44,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_delete(Browser $browser, Response $response)
     {
-        $browser->delete('https://sbin.dk/456', [], '')->willReturn($response);
+        $browser->call('https://sbin.dk/456', 'DELETE', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('foo');
@@ -54,7 +54,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_throws_an_http_exception_if_cannot_delete(Browser $browser, Response $response)
     {
-        $browser->delete('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->call('https://sbin.dk', 'DELETE', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
@@ -66,7 +66,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_put_basic(Browser $browser, Response $response)
     {
-        $browser->put('https://sbin.dk/456', [], '')->willReturn($response);
+        $browser->call('https://sbin.dk/456', 'PUT', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('foo');
@@ -76,7 +76,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_put_array(Browser $browser, Response $response)
     {
-        $browser->put('https://sbin.dk/456', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->call('https://sbin.dk/456', 'PUT', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
@@ -87,7 +87,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_throws_an_http_exception_if_cannot_put(Browser $browser, Response $response)
     {
-        $browser->put('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->call('https://sbin.dk', 'PUT', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);
@@ -99,7 +99,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_post_basic(Browser $browser, Response $response)
     {
-        $browser->post('https://sbin.dk', [], '')->willReturn($response);
+        $browser->call('https://sbin.dk', 'POST', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getContent()->willReturn('foo');
@@ -109,7 +109,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_can_post_array(Browser $browser, Response $response)
     {
-        $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->call('https://sbin.dk', 'POST', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
@@ -120,7 +120,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_throws_an_http_exception_if_cannot_post(Browser $browser, Response $response)
     {
-        $browser->post('https://sbin.dk', ['Content-Type: application/json'], '{"foo":"bar"}')
+        $browser->call('https://sbin.dk', 'POST', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
 
         $response->getStatusCode()->willReturn(500);

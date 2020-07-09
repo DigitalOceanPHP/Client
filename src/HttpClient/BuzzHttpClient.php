@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient;
 
 use Buzz\Browser;
+use Buzz\Exception\ExceptionInterface;
 use Buzz\Message\Response;
 use DigitalOceanV2\Exception\HttpException;
 
@@ -47,11 +48,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     public function get(string $url)
     {
-        $response = $this->browser->get($url);
-
-        self::handleResponse($response);
-
-        return self::getResponseBody($response);
+        return $this->send('GET', $url, '');
     }
 
     /**
@@ -64,18 +61,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     public function post(string $url, $content = '')
     {
-        $headers = [];
-
-        if (is_array($content)) {
-            $content = json_encode($content);
-            $headers[] = 'Content-Type: application/json';
-        }
-
-        $response = $this->browser->post($url, $headers, $content);
-
-        self::handleResponse($response);
-
-        return self::getResponseBody($response);
+        return $this->send('POST', $url, $content);
     }
 
     /**
@@ -88,18 +74,7 @@ class BuzzHttpClient implements HttpClientInterface
      */
     public function put(string $url, $content = '')
     {
-        $headers = [];
-
-        if (is_array($content)) {
-            $content = json_encode($content);
-            $headers[] = 'Content-Type: application/json';
-        }
-
-        $response = $this->browser->put($url, $headers, $content);
-
-        self::handleResponse($response);
-
-        return self::getResponseBody($response);
+        return $this->send('PUT', $url, $content);
     }
 
     /**
@@ -112,6 +87,20 @@ class BuzzHttpClient implements HttpClientInterface
      */
     public function delete(string $url, $content = '')
     {
+        return $this->send('DELETE', $url, $content);
+    }
+
+    /**
+     * @param string       $method
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws HttpException
+     *
+     * @return string
+     */
+    private function send(string $method, string $url, $content)
+    {
         $headers = [];
 
         if (is_array($content)) {
@@ -119,11 +108,33 @@ class BuzzHttpClient implements HttpClientInterface
             $headers[] = 'Content-Type: application/json';
         }
 
-        $response = $this->browser->delete($url, $headers, $content);
+        try {
+            /** @var Response */
+            $response = $this->browser->call($url, $method, $headers, $content);
+        } catch (ExceptionInterface $e) {
+            throw new HttpException('An HTTP transport error occured.');
+        }
 
-        self::handleResponse($response);
+        if ($response->getStatusCode() < 300) {
+            return (string) $response->getContent();
+        }
 
-        return self::getResponseBody($response);
+        throw self::getExceptionFor($response);
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @return HttpException
+     */
+    private static function getExceptionFor(Response $response)
+    {
+        $body = (string) $response->getContent();
+        $code = $response->getStatusCode();
+
+        $content = json_decode($body);
+
+        return new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
 
     /**
@@ -154,16 +165,6 @@ class BuzzHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param Response|null $response
-     *
-     * @return string
-     */
-    private static function getResponseBody(?Response $response)
-    {
-        return null === $response ? '' : (string) $response->getContent();
-    }
-
-    /**
      * @param Response $response
      * @param string   $name
      *
@@ -175,42 +176,5 @@ class BuzzHttpClient implements HttpClientInterface
         $headers = $response->getHeader($name, false);
 
         return null === $headers ? null : array_shift($headers);
-    }
-
-    /**
-     * @param Response|null $response
-     *
-     * @throws HttpException
-     *
-     * @return void
-     */
-    private static function handleResponse(?Response $response)
-    {
-        if (null !== $response && 200 === $response->getStatusCode()) {
-            return;
-        }
-
-        self::handleError($response);
-    }
-
-    /**
-     * @param Response|null $response
-     *
-     * @throws HttpException
-     *
-     * @return void
-     */
-    private static function handleError(?Response $response)
-    {
-        if (null === $response) {
-            throw new HttpException('An HTTP transport error occured.');
-        }
-
-        $body = self::getResponseBody($response);
-        $code = $response->getStatusCode();
-
-        $content = json_decode($body);
-
-        throw new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
 }
