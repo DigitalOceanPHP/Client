@@ -147,7 +147,16 @@ class DomainRecord extends AbstractApi
      */
     public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
     {
-        $content = compact('name', 'data', 'priority', 'port', 'weight', 'flags', 'tag', 'ttl');
+        $content = [
+            'name' => $name,
+            'data' => $data,
+            'priority' => $priority,
+            'port' => $port,
+            'weight' => $weight,
+            'flags' => $flags,
+            'tag' => $tag,
+            'ttl' => $ttl,
+        ];
 
         $content = array_filter($content, function ($val) {
             return null !== $val;
