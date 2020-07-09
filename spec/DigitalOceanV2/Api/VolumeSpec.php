@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class VolumeSpec extends \PhpSpec\ObjectBehavior
 {
@@ -498,9 +498,9 @@ EOT;
             ->post(
                 'https://api.digitalocean.com/v2/volumes',
                 ['name' => 'example', 'description' => 'Block store for examples', 'size_gigabytes' => '10', 'region' => 'nyc1']
-            )->willThrow(new HttpException('Request not processed.'));
+            )->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('create', ['example', 'Block store for examples', 10, 'nyc1']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('create', ['example', 'Block store for examples', 10, 'nyc1']);
     }
 
 
@@ -518,9 +518,9 @@ EOT;
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['506f78a4-e098-11e5-ad9f-000f53306ae1']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', ['506f78a4-e098-11e5-ad9f-000f53306ae1']);
     }
 
 
@@ -538,9 +538,9 @@ EOT;
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/volumes?name=example&region=ams1')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('deleteWithNameAndRegion', ['example', 'ams1']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('deleteWithNameAndRegion', ['example', 'ams1']);
     }
 
 

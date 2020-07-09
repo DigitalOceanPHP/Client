@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class ImageSpec extends \PhpSpec\ObjectBehavior
 {
@@ -224,9 +224,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->put('https://api.digitalocean.com/v2/images/0', ['name' => 'baz-baz'])
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('update', [0, 'baz-baz']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('update', [0, 'baz-baz']);
     }
 
 
@@ -244,9 +244,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/images/0')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [0]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', [0]);
     }
 
 
@@ -286,9 +286,9 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->post('https://api.digitalocean.com/v2/images/0/actions', ['type' => 'transfer', 'region' => 'foo'])
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('transfer', [0, 'foo']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('transfer', [0, 'foo']);
     }
 
 
@@ -354,8 +354,8 @@ class ImageSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/images/0/actions/0')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('getAction', [0, 0]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('getAction', [0, 0]);
     }
 }

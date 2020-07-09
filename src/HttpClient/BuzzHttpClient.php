@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient;
 
 use Buzz\Browser;
-use Buzz\Exception\ExceptionInterface;
+use Buzz\Exception\ExceptionInterface as BuzzException;
 use Buzz\Message\Response;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\Exception\RuntimeException;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -42,7 +43,7 @@ class BuzzHttpClient implements HttpClientInterface
     /**
      * @param string $url
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -55,7 +56,7 @@ class BuzzHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -68,7 +69,7 @@ class BuzzHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -81,7 +82,7 @@ class BuzzHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -95,7 +96,7 @@ class BuzzHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -111,15 +112,15 @@ class BuzzHttpClient implements HttpClientInterface
         try {
             /** @var Response */
             $response = $this->browser->call($url, $method, $headers, $content);
-        } catch (ExceptionInterface $e) {
-            throw new HttpException('An HTTP transport error occured.', 0, $e);
+        } catch (BuzzException $e) {
+            throw new RuntimeException('An HTTP transport error occured.', 0, $e);
         }
 
         if ($response->getStatusCode() < 300) {
             return $response->getContent();
         }
 
-        throw new HttpException(self::getExceptionMessageFor($response), $response->getStatusCode());
+        throw ExceptionFactory::create($response->getStatusCode(), self::getExceptionMessageFor($response));
     }
 
     /**

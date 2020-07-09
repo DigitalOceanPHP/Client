@@ -18,10 +18,12 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @internal
+ *
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BuzzOAuthMiddleware implements MiddlewareInterface
+final class BuzzOAuthMiddleware implements MiddlewareInterface
 {
     /**
      * @var string

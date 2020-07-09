@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\FloatingIp as FloatingIpEntity;
-use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -23,6 +23,8 @@ use DigitalOceanV2\Exception\HttpException;
 class FloatingIp extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return FloatingIpEntity[]
      */
     public function getAll()
@@ -43,6 +45,8 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $id
      *
+     * @throws ExceptionInterface
+     *
      * @return FloatingIpEntity
      */
     public function getById($id)
@@ -57,7 +61,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $dropletId
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return FloatingIpEntity
      */
@@ -73,7 +77,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param string $regionSlug
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return FloatingIpEntity
      */
@@ -89,7 +93,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -100,6 +104,8 @@ class FloatingIp extends AbstractApi
 
     /**
      * @param int $id
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity[]
      */
@@ -120,6 +126,8 @@ class FloatingIp extends AbstractApi
      * @param int $id
      * @param int $actionId
      *
+     * @throws ExceptionInterface
+     *
      * @return ActionEntity
      */
     public function getActionById($id, $actionId)
@@ -135,7 +143,7 @@ class FloatingIp extends AbstractApi
      * @param int $id
      * @param int $dropletId
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -147,7 +155,7 @@ class FloatingIp extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -160,7 +168,7 @@ class FloatingIp extends AbstractApi
      * @param int   $id
      * @param array $options
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */

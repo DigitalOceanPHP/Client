@@ -7,7 +7,8 @@ namespace spec\DigitalOceanV2\HttpClient;
 use Buzz\Browser;
 use Buzz\Message\Response;
 use Buzz\Middleware\MiddlewareInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ApiLimitExceededException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
 {
@@ -31,14 +32,14 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $this->get('https://sbin.dk')->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception(Browser $browser, Response $response)
+    function it_throws_an_exception(Browser $browser, Response $response)
     {
         $browser->call('https://sbin.dk', 'GET', [], '')->willReturn($response);
 
         $response->getStatusCode()->willReturn(404);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('Error message.', 404))
+        $this->shouldThrow(new RuntimeException('Error message.', 404))
             ->during('get', ['https://sbin.dk']);
     }
 
@@ -52,7 +53,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $this->delete('https://sbin.dk/456')->shouldBe('foo');
     }
 
-    function it_throws_an_http_exception_if_cannot_delete(Browser $browser, Response $response)
+    function it_throws_an_exception_if_cannot_delete(Browser $browser, Response $response)
     {
         $browser->call('https://sbin.dk', 'DELETE', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -60,7 +61,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('Error message.', 500))
+        $this->shouldThrow(new RuntimeException('Error message.', 500))
             ->during('delete', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
@@ -85,7 +86,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $this->put('https://sbin.dk/456', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception_if_cannot_put(Browser $browser, Response $response)
+    function it_throws_an_exception_if_cannot_put(Browser $browser, Response $response)
     {
         $browser->call('https://sbin.dk', 'PUT', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -93,7 +94,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('Error message.', 500))
+        $this->shouldThrow(new RuntimeException('Error message.', 500))
             ->during('put', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 
@@ -118,7 +119,7 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $this->post('https://sbin.dk', ['foo' => 'bar'])->shouldBe('{"foo":"bar"}');
     }
 
-    function it_throws_an_http_exception_if_cannot_post(Browser $browser, Response $response)
+    function it_throws_an_exception_if_cannot_post(Browser $browser, Response $response)
     {
         $browser->call('https://sbin.dk', 'POST', ['Content-Type: application/json'], '{"foo":"bar"}')
             ->willReturn($response);
@@ -126,7 +127,19 @@ class BuzzHttpClientSpec extends \PhpSpec\ObjectBehavior
         $response->getStatusCode()->willReturn(500);
         $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
 
-        $this->shouldThrow(new HttpException('Error message.', 500))
+        $this->shouldThrow(new RuntimeException('Error message.', 500))
+            ->during('post', ['https://sbin.dk', ['foo' => 'bar']]);
+    }
+
+    function it_throws_an_api_limit_exception_if_over(Browser $browser, Response $response)
+    {
+        $browser->call('https://sbin.dk', 'POST', ['Content-Type: application/json'], '{"foo":"bar"}')
+            ->willReturn($response);
+
+        $response->getStatusCode()->willReturn(429);
+        $response->getContent()->willReturn('{"id":"error_id", "message":"Error message."}');
+
+        $this->shouldThrow(new ApiLimitExceededException('Error message.', 429))
             ->during('post', ['https://sbin.dk', ['foo' => 'bar']]);
     }
 

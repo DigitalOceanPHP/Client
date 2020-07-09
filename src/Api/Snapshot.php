@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
-use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -23,6 +23,8 @@ class Snapshot extends AbstractApi
 {
     /**
      * @param array $criteria
+     *
+     * @throws ExceptionInterface
      *
      * @return SnapshotEntity[]
      */
@@ -48,6 +50,8 @@ class Snapshot extends AbstractApi
     /**
      * @param string $id
      *
+     * @throws ExceptionInterface
+     *
      * @return SnapshotEntity
      */
     public function getById($id)
@@ -62,7 +66,7 @@ class Snapshot extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

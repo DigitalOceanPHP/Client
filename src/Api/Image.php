@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
-use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -25,6 +25,8 @@ class Image extends AbstractApi
 {
     /**
      * @param array $criteria
+     *
+     * @throws ExceptionInterface
      *
      * @return ImageEntity[]
      */
@@ -54,6 +56,8 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
+     * @throws ExceptionInterface
+     *
      * @return ImageEntity
      */
     public function getById($id)
@@ -67,6 +71,8 @@ class Image extends AbstractApi
 
     /**
      * @param string $slug
+     *
+     * @throws ExceptionInterface
      *
      * @return ImageEntity
      */
@@ -83,7 +89,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ImageEntity
      */
@@ -99,7 +105,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -112,7 +118,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $regionSlug
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -128,7 +134,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -144,6 +150,8 @@ class Image extends AbstractApi
     /**
      * @param int $id
      * @param int $actionId
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */

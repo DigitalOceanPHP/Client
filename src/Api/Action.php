@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 
 /**
@@ -22,6 +23,8 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 class Action extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return ActionEntity[]
      */
     public function getAll()
@@ -39,6 +42,8 @@ class Action extends AbstractApi
 
     /**
      * @param int $id
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */

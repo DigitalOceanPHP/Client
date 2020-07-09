@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Tag as TagEntity;
-use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Nicolas Beauvais <nicolas@bvs.email>
@@ -22,6 +22,8 @@ use DigitalOceanV2\Exception\HttpException;
 class Tag extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return TagEntity[]
      */
     public function getAll()
@@ -38,6 +40,8 @@ class Tag extends AbstractApi
     /**
      * @param string $name
      *
+     * @throws ExceptionInterface
+     *
      * @return TagEntity
      */
     public function getByName($name)
@@ -52,7 +56,7 @@ class Tag extends AbstractApi
     /**
      * @param string $name
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return TagEntity
      */
@@ -69,7 +73,7 @@ class Tag extends AbstractApi
      * @param string $name
      * @param array  $resources
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -82,7 +86,7 @@ class Tag extends AbstractApi
      * @param string $name
      * @param array  $resources
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -94,7 +98,7 @@ class Tag extends AbstractApi
     /**
      * @param string $name
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

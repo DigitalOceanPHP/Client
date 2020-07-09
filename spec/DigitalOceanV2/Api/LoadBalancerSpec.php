@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
 {
@@ -25,9 +25,9 @@ class LoadBalancerSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/load_balancers/1234')
-            ->willThrow(new HttpException('Load Balancer not found'));
+            ->willThrow(new RuntimeException('Load Balancer not found'));
 
-        $this->shouldThrow(new HttpException('Load Balancer not found'))->during('getById', [1234]);
+        $this->shouldThrow(new RuntimeException('Load Balancer not found'))->during('getById', [1234]);
     }
 
 

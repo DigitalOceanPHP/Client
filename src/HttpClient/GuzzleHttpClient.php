@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\Exception\RuntimeException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -48,7 +49,7 @@ class GuzzleHttpClient implements HttpClientInterface
     /**
      * @param string $url
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -61,7 +62,7 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -74,7 +75,7 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -87,7 +88,7 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -101,7 +102,7 @@ class GuzzleHttpClient implements HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -116,11 +117,11 @@ class GuzzleHttpClient implements HttpClientInterface
         } catch (GuzzleException $e) {
             $this->response = $response = self::getResponseFromException($e);
 
-            if (null === $response || $response->getStatusCode() < 300) {
-                throw new HttpException('An HTTP transport error occured.', 0, $e);
+            if (null === $response) {
+                throw new RuntimeException('An HTTP transport error occured.', 0, $e);
             }
 
-            throw new HttpException(self::getExceptionMessageFor($response), $response->getStatusCode(), $e);
+            throw ExceptionFactory::create($response->getStatusCode(), self::getExceptionMessageFor($response));
         }
 
         return (string) $response->getBody();

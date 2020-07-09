@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
-use DigitalOceanV2\Exception\HttpException;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -25,6 +25,8 @@ class Volume extends AbstractApi
 {
     /**
      * @param string $regionSlug restricts results to volumes available in a specific region
+     *
+     * @throws ExceptionInterface
      *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
@@ -46,6 +48,8 @@ class Volume extends AbstractApi
      * @param string $driveName  restricts results to volumes with the specified name
      * @param string $regionSlug restricts results to volumes available in a specific region
      *
+     * @throws ExceptionInterface
+     *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
     public function getByNameAndRegion($driveName, $regionSlug)
@@ -64,6 +68,8 @@ class Volume extends AbstractApi
     /**
      * @param string $id
      *
+     * @throws ExceptionInterface
+     *
      * @return VolumeEntity the Block Storage volume with the specified id
      */
     public function getById($id)
@@ -79,6 +85,8 @@ class Volume extends AbstractApi
      * Get all volume snapshots.
      *
      * @param string $id
+     *
+     * @throws ExceptionInterface
      *
      * @return SnapshotEntity[]
      */
@@ -105,6 +113,8 @@ class Volume extends AbstractApi
      * @param string $snapshotId      The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.
      * @param string $filesystemType  the name of the filesystem type to be used on the volume
      * @param string $filesystemLabel the label to be applied to the filesystem
+     *
+     * @throws ExceptionInterface
      *
      * @return VolumeEntity
      */
@@ -137,7 +147,7 @@ class Volume extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -150,7 +160,7 @@ class Volume extends AbstractApi
      * @param string $driveName  restricts the search to volumes with the specified name
      * @param string $regionSlug restricts the search to volumes available in a specific region
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -163,6 +173,8 @@ class Volume extends AbstractApi
      * @param string $id         the id of the volume
      * @param int    $dropletId  the unique identifier for the Droplet the volume will be attached to
      * @param string $regionSlug the slug identifier for the region the volume is located in
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -186,6 +198,8 @@ class Volume extends AbstractApi
      * @param int    $dropletId  the unique identifier for the Droplet the volume will detach from
      * @param string $regionSlug the slug identifier for the region the volume is located in
      *
+     * @throws ExceptionInterface
+     *
      * @return ActionEntity
      */
     public function detach($id, $dropletId, $regionSlug)
@@ -207,6 +221,8 @@ class Volume extends AbstractApi
      * @param string $id         the id of the volume
      * @param int    $newSize    the new size of the Block Storage volume in GiB
      * @param string $regionSlug the slug identifier for the region the volume is located in
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -231,7 +247,9 @@ class Volume extends AbstractApi
      * @param string $id   the id of the volume
      * @param string $name a human-readable name for the volume snapshot
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
+     *
+     * @throws ExceptionInterface
      *
      * @return SnapshotEntity
      */
@@ -252,6 +270,8 @@ class Volume extends AbstractApi
      * @param string $id
      * @param int    $actionId
      *
+     * @throws ExceptionInterface
+     *
      * @return ActionEntity
      */
     public function getActionById($id, $actionId)
@@ -265,6 +285,8 @@ class Volume extends AbstractApi
 
     /**
      * @param string $id
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity[]
      */
