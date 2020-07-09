@@ -147,9 +147,6 @@ $droplets = $droplet->getNeighborsById(123);
 // return a collection of Droplet that are running on the same physical hardware
 $neighbors = $droplet->getAllNeighbors();
 
-// return a collection of Upgrade entity
-$upgrades = $droplet->getUpgrades();
-
 // return the Droplet entity 123
 $droplet123 = $droplet->getById(123);
 
