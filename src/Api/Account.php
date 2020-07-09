@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Account as AccountEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -22,6 +23,8 @@ use DigitalOceanV2\Entity\Account as AccountEntity;
 class Account extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return AccountEntity
      */
     public function getUserInformation()

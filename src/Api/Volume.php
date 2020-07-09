@@ -248,7 +248,6 @@ class Volume extends AbstractApi
      * @param string $name a human-readable name for the volume snapshot
      *
      * @throws ExceptionInterface
-     * @throws ExceptionInterface
      *
      * @return SnapshotEntity
      */
