@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class KeySpec extends \PhpSpec\ObjectBehavior
 {
@@ -137,9 +137,9 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->put('https://api.digitalocean.com/v2/account/keys/0', ['name' => 'baz'])
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('update', [0, 'baz']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('update', [0, 'baz']);
     }
 
 
@@ -157,8 +157,8 @@ class KeySpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/account/keys/0')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [0]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', [0]);
     }
 }

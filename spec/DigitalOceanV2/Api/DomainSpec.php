@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class DomainSpec extends \PhpSpec\ObjectBehavior
 {
@@ -75,9 +75,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.bar')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('getByName', ['foo.bar']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('getByName', ['foo.bar']);
     }
 
 
@@ -103,9 +103,9 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->post('https://api.digitalocean.com/v2/domains', ['name' => 'boo.dk', 'ip_address' => '123456'])
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('create', ['boo.dk', '123456']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('create', ['boo.dk', '123456']);
     }
 
 
@@ -123,8 +123,8 @@ class DomainSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/qmx.bar')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['qmx.bar']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', ['qmx.bar']);
     }
 }

@@ -18,7 +18,7 @@ use DigitalOceanV2\Entity\ForwardingRule as ForwardRuleEntity;
 use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
 use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -26,6 +26,8 @@ use DigitalOceanV2\Exception\HttpException;
 class LoadBalancer extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return LoadBalancerEntity[]
      */
     public function getAll()
@@ -44,7 +46,7 @@ class LoadBalancer extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return LoadBalancerEntity
      */
@@ -67,7 +69,7 @@ class LoadBalancer extends AbstractApi
      * @param array                       $dropletIds
      * @param bool                        $httpsRedirect
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return LoadBalancerEntity
      */
@@ -103,7 +105,7 @@ class LoadBalancer extends AbstractApi
      * @param string                   $id
      * @param array|LoadBalancerEntity $loadBalancerSpec
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return LoadBalancerEntity
      */
@@ -121,7 +123,7 @@ class LoadBalancer extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

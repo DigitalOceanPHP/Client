@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Key as KeyEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -23,6 +23,8 @@ use DigitalOceanV2\Exception\HttpException;
 class Key extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return KeyEntity[]
      */
     public function getAll()
@@ -41,6 +43,8 @@ class Key extends AbstractApi
     /**
      * @param int $id
      *
+     * @throws ExceptionInterface
+     *
      * @return KeyEntity
      */
     public function getById($id)
@@ -54,6 +58,8 @@ class Key extends AbstractApi
 
     /**
      * @param string $fingerprint
+     *
+     * @throws ExceptionInterface
      *
      * @return KeyEntity
      */
@@ -70,7 +76,7 @@ class Key extends AbstractApi
      * @param string $name
      * @param string $publicKey
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return KeyEntity
      */
@@ -87,7 +93,7 @@ class Key extends AbstractApi
      * @param string $id
      * @param string $name
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return KeyEntity
      */
@@ -103,7 +109,7 @@ class Key extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\Exception\RuntimeException;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -48,92 +49,104 @@ class GuzzleHttpClient implements HttpClientInterface
     /**
      * @param string $url
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
     public function get(string $url)
     {
-        try {
-            $this->response = $this->client->request('GET', $url);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            self::handleError($this->response);
-        }
-
-        return self::getResponseBody($this->response);
+        return $this->send('GET', $url, '');
     }
 
     /**
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
     public function post(string $url, $content = '')
     {
-        $options = [];
-
-        $options[is_array($content) ? 'json' : 'body'] = $content;
-
-        try {
-            $this->response = $this->client->request('POST', $url, $options);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            self::handleError($this->response);
-        }
-
-        return self::getResponseBody($this->response);
+        return $this->send('POST', $url, $content);
     }
 
     /**
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
     public function put(string $url, $content = '')
     {
-        $options = [];
-
-        $options[is_array($content) ? 'json' : 'body'] = $content;
-
-        try {
-            $this->response = $this->client->request('PUT', $url, $options);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            self::handleError($this->response);
-        }
-
-        return self::getResponseBody($this->response);
+        return $this->send('PUT', $url, $content);
     }
 
     /**
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
     public function delete(string $url, $content = '')
+    {
+        return $this->send('DELETE', $url, $content);
+    }
+
+    /**
+     * @param string       $method
+     * @param string       $url
+     * @param array|string $content
+     *
+     * @throws ExceptionInterface
+     *
+     * @return string
+     */
+    public function send(string $method, string $url, $content)
     {
         $options = [];
 
         $options[is_array($content) ? 'json' : 'body'] = $content;
 
         try {
-            $this->response = $this->client->request('DELETE', $url, $options);
-        } catch (RequestException $e) {
-            $this->response = $e->getResponse();
-            self::handleError($this->response);
+            $this->response = $response = $this->client->request($method, $url, $options);
+        } catch (GuzzleException $e) {
+            $this->response = $response = self::getResponseFromException($e);
+
+            if (null === $response) {
+                throw new RuntimeException('An HTTP transport error occured.', 0, $e);
+            }
+
+            throw ExceptionFactory::create($response->getStatusCode(), self::getExceptionMessageFor($response));
         }
 
-        return self::getResponseBody($this->response);
+        return (string) $response->getBody();
+    }
+
+    /**
+     * @param GuzzleException $e
+     *
+     * @return ResponseInterface|null
+     */
+    private static function getResponseFromException(GuzzleException $e)
+    {
+        return method_exists($e, 'getResponse') ? $e->getResponse() : null;
+    }
+
+    /**
+     * @param ResponseInterface $response
+     *
+     * @return string
+     */
+    private static function getExceptionMessageFor(ResponseInterface $response)
+    {
+        $content = json_decode((string) $response->getBody());
+
+        return isset($content->message) ? $content->message : 'Request not processed.';
     }
 
     /**
@@ -161,47 +174,16 @@ class GuzzleHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param ResponseInterface|null $response
-     *
-     * @return string
-     */
-    private static function getResponseBody(?ResponseInterface $response)
-    {
-        return null === $response ? '' : (string) $response->getBody();
-    }
-
-    /**
      * @param ResponseInterface $response
      * @param string            $name
      *
      * @return string|null
      */
-    public static function getHeader(ResponseInterface $response, string $name)
+    private static function getHeader(ResponseInterface $response, string $name)
     {
         /** @var string[] */
         $headers = $response->getHeader($name);
 
         return array_shift($headers);
-    }
-
-    /**
-     * @param ResponseInterface|null $response
-     *
-     * @throws HttpException
-     *
-     * @return void
-     */
-    private static function handleError(?ResponseInterface $response)
-    {
-        if (null === $response) {
-            throw new HttpException('An HTTP transport error occured.');
-        }
-
-        $body = self::getResponseBody($response);
-        $code = $response->getStatusCode();
-
-        $content = json_decode($body);
-
-        throw new HttpException(isset($content->message) ? $content->message : 'Request not processed.', $code);
     }
 }

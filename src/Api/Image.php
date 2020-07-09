@@ -15,7 +15,7 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -26,13 +26,15 @@ class Image extends AbstractApi
     /**
      * @param array $criteria
      *
+     * @throws ExceptionInterface
+     *
      * @return ImageEntity[]
      */
     public function getAll(array $criteria = [])
     {
         $query = sprintf('%s/images?per_page=%d', $this->endpoint, 200);
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'])) {
+        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'], true)) {
             $query = sprintf('%s&type=%s', $query, $criteria['type']);
         }
 
@@ -54,6 +56,8 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
+     * @throws ExceptionInterface
+     *
      * @return ImageEntity
      */
     public function getById($id)
@@ -67,6 +71,8 @@ class Image extends AbstractApi
 
     /**
      * @param string $slug
+     *
+     * @throws ExceptionInterface
      *
      * @return ImageEntity
      */
@@ -83,7 +89,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $name
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ImageEntity
      */
@@ -99,7 +105,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */
@@ -112,7 +118,7 @@ class Image extends AbstractApi
      * @param int    $id
      * @param string $regionSlug
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -128,7 +134,7 @@ class Image extends AbstractApi
     /**
      * @param int $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
@@ -144,6 +150,8 @@ class Image extends AbstractApi
     /**
      * @param int $id
      * @param int $actionId
+     *
+     * @throws ExceptionInterface
      *
      * @return ActionEntity
      */

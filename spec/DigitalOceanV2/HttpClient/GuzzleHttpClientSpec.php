@@ -22,7 +22,7 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_json_content(Client $client, Response $response, Stream $stream)
     {
-        $client->request('GET', 'https://sbin.dk')->willReturn($response);
+        $client->request('GET', 'https://sbin.dk', ['body' => ''])->willReturn($response);
         $response->getBody()->willReturn($stream);
         $stream->__toString()->willReturn('{"foo":"bar"}');
 
@@ -94,7 +94,7 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_last_response_header(Client $client, Response $response, Stream $stream)
     {
-        $client->request('GET', 'https://sbin.dk')->willReturn($response);
+        $client->request('GET', 'https://sbin.dk', ['body' => ''])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);
@@ -110,7 +110,7 @@ class GuzzleHttpClientSpec extends \PhpSpec\ObjectBehavior
 
     function it_returns_null_last_response_header(Client $client, Response $response, Stream $stream)
     {
-        $client->request('GET', 'https://sbin.dk')->willReturn($response);
+        $client->request('GET', 'https://sbin.dk', ['body' => ''])->willReturn($response);
 
         $response->getStatusCode()->willReturn(200);
         $response->getBody()->willReturn($stream);

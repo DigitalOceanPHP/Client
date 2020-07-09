@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\InvalidRecordException;
 
 /**
@@ -25,6 +25,8 @@ class DomainRecord extends AbstractApi
 {
     /**
      * @param string $domainName
+     *
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity[]
      */
@@ -44,6 +46,8 @@ class DomainRecord extends AbstractApi
     /**
      * @param string $domainName
      * @param int    $id
+     *
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
@@ -68,7 +72,7 @@ class DomainRecord extends AbstractApi
      * @param int    $tag
      * @param int    $ttl
      *
-     * @throws HttpException|InvalidRecordException
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
@@ -137,7 +141,7 @@ class DomainRecord extends AbstractApi
      * @param int|null    $tag
      * @param int|null    $ttl
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
@@ -157,7 +161,7 @@ class DomainRecord extends AbstractApi
      * @param int    $recordId
      * @param string $data
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
@@ -171,7 +175,7 @@ class DomainRecord extends AbstractApi
      * @param int    $recordId
      * @param array  $fields
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
@@ -187,6 +191,8 @@ class DomainRecord extends AbstractApi
     /**
      * @param string $domainName
      * @param int    $recordId
+     *
+     * @throws ExceptionInterface
      *
      * @return void
      */

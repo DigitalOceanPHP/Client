@@ -6,7 +6,7 @@ namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\Entity\Droplet;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class DropletSpec extends \PhpSpec\ObjectBehavior
 {
@@ -296,9 +296,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/droplets/1234567')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', [1234567]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('getById', [1234567]);
     }
 
 
@@ -375,9 +375,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
                 'https://api.digitalocean.com/v2/droplets',
                 ['name' => 'foo', 'region' => 'nyc1', 'size' => '512mb', 'image' => 123456, 'backups' => 'false', 'ipv6' => 'false', 'private_networking' => 'false', 'monitoring' => 'true']
             )
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('create', ['foo', 'nyc1', '512mb', 123456]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('create', ['foo', 'nyc1', '512mb', 123456]);
     }
 
 
@@ -395,9 +395,9 @@ class DropletSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/droplets/123')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [123]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', [123]);
     }
 
 

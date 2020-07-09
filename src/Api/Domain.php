@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Domain as DomainEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -25,6 +25,8 @@ class Domain extends AbstractApi
     /**
      * @param int $per_page
      * @param int $page
+     *
+     * @throws ExceptionInterface
      *
      * @return DomainEntity[]
      */
@@ -44,7 +46,7 @@ class Domain extends AbstractApi
     /**
      * @param string $domainName
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return DomainEntity
      */
@@ -61,7 +63,7 @@ class Domain extends AbstractApi
      * @param string $name
      * @param string $ipAddress
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return DomainEntity
      */
@@ -79,7 +81,7 @@ class Domain extends AbstractApi
     /**
      * @param string $domain
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

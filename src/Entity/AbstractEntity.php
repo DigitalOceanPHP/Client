@@ -26,7 +26,7 @@ abstract class AbstractEntity
      */
     public function __construct($parameters = null)
     {
-        if (!$parameters) {
+        if (null === $parameters) {
             return;
         }
 

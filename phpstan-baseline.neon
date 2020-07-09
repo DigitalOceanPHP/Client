@@ -1,2 +1,7 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Variable property access on \\$this\\(DigitalOceanV2\\\\Entity\\\\AbstractEntity\\)\\.$#"
+			count: 3
+			path: src/Entity/AbstractEntity.php
+

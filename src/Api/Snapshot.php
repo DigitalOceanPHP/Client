@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -24,13 +24,15 @@ class Snapshot extends AbstractApi
     /**
      * @param array $criteria
      *
+     * @throws ExceptionInterface
+     *
      * @return SnapshotEntity[]
      */
     public function getAll(array $criteria = [])
     {
         $query = sprintf('%s/snapshots?per_page=%d', $this->endpoint, 200);
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'])) {
+        if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'], true)) {
             $query = sprintf('%s&resource_type=%s', $query, $criteria['type']);
         }
 
@@ -48,6 +50,8 @@ class Snapshot extends AbstractApi
     /**
      * @param string $id
      *
+     * @throws ExceptionInterface
+     *
      * @return SnapshotEntity
      */
     public function getById($id)
@@ -62,7 +66,7 @@ class Snapshot extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

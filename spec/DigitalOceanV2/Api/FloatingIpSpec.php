@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class FloatingIpSpec extends \PhpSpec\ObjectBehavior
 {
@@ -101,9 +101,9 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/floating_ips/1234567')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', [1234567]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('getById', [1234567]);
     }
 
 
@@ -141,9 +141,9 @@ class FloatingIpSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/floating_ips/123')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', [123]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', [123]);
     }
 
 

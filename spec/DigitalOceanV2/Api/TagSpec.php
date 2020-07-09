@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 
 class TagSpec extends \PhpSpec\ObjectBehavior
 {
@@ -182,8 +182,8 @@ class TagSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/tags/fake')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['fake']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', ['fake']);
     }
 }

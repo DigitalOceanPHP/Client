@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace spec\DigitalOceanV2\Api;
 
 use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\Exception\InvalidRecordException;
 
 class DomainRecordSpec extends \PhpSpec\ObjectBehavior
@@ -84,9 +84,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->get('https://api.digitalocean.com/v2/domains/foo.dk/records/123456789')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('getById', ['foo.dk', 123456789]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('getById', ['foo.dk', 123456789]);
     }
 
 
@@ -427,9 +427,9 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->put('https://api.digitalocean.com/v2/domains/foo.dk/records/123', ['name' => 'new-name'])
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('update', ['foo.dk', 123, 'new-name']);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('update', ['foo.dk', 123, 'new-name']);
     }
 
 
@@ -447,8 +447,8 @@ class DomainRecordSpec extends \PhpSpec\ObjectBehavior
     {
         $httpClient
             ->delete('https://api.digitalocean.com/v2/domains/foo.dk/records/123')
-            ->willThrow(new HttpException('Request not processed.'));
+            ->willThrow(new RuntimeException('Request not processed.'));
 
-        $this->shouldThrow(new HttpException('Request not processed.'))->during('delete', ['foo.dk', 123]);
+        $this->shouldThrow(new RuntimeException('Request not processed.'))->during('delete', ['foo.dk', 123]);
     }
 }

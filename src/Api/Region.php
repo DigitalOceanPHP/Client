@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Region as RegionEntity;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -22,6 +23,8 @@ use DigitalOceanV2\Entity\Region as RegionEntity;
 class Region extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return RegionEntity[]
      */
     public function getAll()

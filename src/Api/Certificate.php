@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Certificate as CertificateEntity;
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -22,6 +22,8 @@ use DigitalOceanV2\Exception\HttpException;
 class Certificate extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
      * @return CertificateEntity[]
      */
     public function getAll()
@@ -40,7 +42,7 @@ class Certificate extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return CertificateEntity
      */
@@ -59,7 +61,7 @@ class Certificate extends AbstractApi
      * @param string $leafCertificate
      * @param string $certificateChain
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return CertificateEntity
      */
@@ -82,7 +84,7 @@ class Certificate extends AbstractApi
     /**
      * @param string $id
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return void
      */

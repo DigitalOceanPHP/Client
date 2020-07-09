@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\HttpException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -24,7 +24,7 @@ interface HttpClientInterface
     /**
      * @param string $url
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -34,7 +34,7 @@ interface HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -44,7 +44,7 @@ interface HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
@@ -54,7 +54,7 @@ interface HttpClientInterface
      * @param string       $url
      * @param array|string $content
      *
-     * @throws HttpException
+     * @throws ExceptionInterface
      *
      * @return string
      */
