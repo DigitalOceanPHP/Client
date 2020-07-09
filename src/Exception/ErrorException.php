@@ -16,6 +16,6 @@ namespace DigitalOceanV2\Exception;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-class HttpException extends RuntimeException
+class ErrorException extends \ErrorException implements ExceptionInterface
 {
 }
