@@ -15,6 +15,7 @@ namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Message\Response;
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -32,13 +33,21 @@ final class GuzzleHttpClient implements HttpClientInterface
     private $client;
 
     /**
-     * @param ClientInterface $client
+     * @param ClientInterface|null $client
      *
      * @return void
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $client = null)
     {
-        $this->client = $client;
+        $this->client = $client ?? self::createClient();
+    }
+
+    /**
+     * @return ClientInterface
+     */
+    private static function createClient()
+    {
+        return new Client(['http_errors' => false]);
     }
 
     /**

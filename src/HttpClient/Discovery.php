@@ -25,30 +25,30 @@ use ReflectionParameter;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-class FactoryDiscovery
+class Discovery
 {
     /**
-     * Automatically find an Http client factory if possible.
+     * Automatically find an HTTP client if possible.
      *
      * @throws DiscoveryFailedException
      *
-     * @return FactoryInterface
+     * @return HttpClientInterface
      */
     public static function find()
     {
-        if (null !== ($factory = self::discoverGuzzle())) {
-            return $factory;
+        if (null !== ($httpClient = self::discoverGuzzle())) {
+            return $httpClient;
         }
 
-        if (null !== ($factory = self::discoverBuzz())) {
-            return $factory;
+        if (null !== ($httpClient = self::discoverBuzz())) {
+            return $httpClient;
         }
 
-        throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure one of the following is installed: guzzlehttp/guzzle:^6.3.1|^7.0.1 or kriswallsmith/buzz:^0.16.');
+        throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure one of the following is installed: "guzzlehttp/guzzle:^6.3.1", "guzzlehttp/guzzle:^7.0.1", or "kriswallsmith/buzz:^0.16".');
     }
 
     /**
-     * @return GuzzleFactory|null
+     * @return HttpClientInterface|null
      */
     private static function discoverGuzzle()
     {
@@ -64,7 +64,7 @@ class FactoryDiscovery
             return null;
         }
 
-        return new GuzzleFactory();
+        return new GuzzleHttpClient();
     }
 
     /**
@@ -92,7 +92,7 @@ class FactoryDiscovery
     }
 
     /**
-     * @return BuzzFactory|null
+     * @return HttpClientInterface|null
      */
     private static function discoverBuzz()
     {
@@ -108,7 +108,7 @@ class FactoryDiscovery
             return null;
         }
 
-        return new BuzzFactory();
+        return new BuzzHttpClient();
     }
 
     /**

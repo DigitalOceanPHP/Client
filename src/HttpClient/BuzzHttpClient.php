@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient;
 
 use Buzz\Browser;
+use Buzz\Client\Curl;
+use Buzz\Client\FileGetContents;
 use Buzz\Exception\ExceptionInterface as BuzzException;
 use Buzz\Message\Response as BuzzResponse;
 use DigitalOceanV2\Exception\RuntimeException;
@@ -31,13 +33,23 @@ final class BuzzHttpClient implements HttpClientInterface
     private $browser;
 
     /**
-     * @param Browser $browser
+     * @param Browser|null $browser
      *
      * @return void
      */
-    public function __construct(Browser $browser)
+    public function __construct(Browser $browser = null)
     {
-        $this->browser = $browser;
+        $this->browser = $browser ?? self::createBrowser();
+    }
+
+    /**
+     * @return Browser
+     */
+    private static function createBrowser()
+    {
+        return new Browser(
+            function_exists('curl_exec') ? new Curl() : new FileGetContents()
+        );
     }
 
     /**
