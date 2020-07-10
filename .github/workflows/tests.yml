@@ -31,14 +31,8 @@ jobs:
       - name: Install Dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Install PHPSpec
-        run: composer bin phpspec update --no-interaction --no-progress
-
       - name: Install PHPUnit
         run: composer bin phpunit update --no-interaction --no-progress
-
-      - name: Execute PHPSpec
-        run: vendor/bin/phpspec run -fpretty
 
       - name: Execute PHPUnit
         run: vendor/bin/phpunit

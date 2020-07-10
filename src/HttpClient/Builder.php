@@ -29,7 +29,12 @@ final class Builder
     private $authToken;
 
     /**
-     * @var HttpClientInterface|null
+     * @var string|null
+     */
+    private $baseUrl;
+
+    /**
+     * @var HttpMethodsClientInterface|null
      */
     private $httpClient;
 
@@ -55,12 +60,26 @@ final class Builder
     }
 
     /**
-     * @return HttpClientInterface
+     * @param string|null $url
+     *
+     * @return void
+     */
+    public function setBaseUrl(string $url = null)
+    {
+        $this->baseUrl = $url;
+        $this->httpClient = null;
+    }
+
+    /**
+     * @return HttpMethodsClientInterface
      */
     public function getHttpClient()
     {
         if (null === $this->httpClient) {
-            $this->httpClient = $this->factory->create($this->authToken);
+            $this->httpClient = new HttpMethodsClient(
+                $this->factory->create($this->authToken),
+                $this->baseUrl ?? ''
+            );
         }
 
         return $this->httpClient;

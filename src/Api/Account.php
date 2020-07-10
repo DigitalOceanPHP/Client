@@ -30,9 +30,7 @@ class Account extends AbstractApi
      */
     public function getUserInformation()
     {
-        $account = $this->httpClient->get(sprintf('%s/account', $this->endpoint));
-
-        $account = JsonObject::decode($account);
+        $account = $this->get('account');
 
         return new AccountEntity($account->account);
     }

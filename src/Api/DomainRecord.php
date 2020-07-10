@@ -33,11 +33,7 @@ class DomainRecord extends AbstractApi
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records?per_page=%d', $this->endpoint, $domainName, 200));
-
-        $domainRecords = JsonObject::decode($domainRecords);
-
-        $this->extractMeta($domainRecords);
+        $domainRecords = $this->get(sprintf('domains/%s/records', $domainName));
 
         return array_map(function ($domainRecord) {
             return new DomainRecordEntity($domainRecord);
@@ -54,9 +50,7 @@ class DomainRecord extends AbstractApi
      */
     public function getById($domainName, $id)
     {
-        $domainRecords = $this->httpClient->get(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $id));
-
-        $domainRecords = JsonObject::decode($domainRecords);
+        $domainRecords = $this->get(sprintf('domains/%s/records/%d', $domainName, $id));
 
         return new DomainRecordEntity($domainRecords->domain_record);
     }
@@ -123,9 +117,7 @@ class DomainRecord extends AbstractApi
             $content['ttl'] = $ttl;
         }
 
-        $domainRecord = $this->httpClient->post(sprintf('%s/domains/%s/records', $this->endpoint, $domainName), $content);
-
-        $domainRecord = JsonObject::decode($domainRecord);
+        $domainRecord = $this->post(sprintf('domains/%s/records', $domainName), $content);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
@@ -191,9 +183,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $domainRecord = $this->httpClient->put(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId), $fields);
-
-        $domainRecord = JsonObject::decode($domainRecord);
+        $domainRecord = $this->put(sprintf('domains/%s/records/%d', $domainName, $recordId), $fields);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
@@ -206,8 +196,8 @@ class DomainRecord extends AbstractApi
      *
      * @return void
      */
-    public function delete($domainName, $recordId)
+    public function remove($domainName, $recordId)
     {
-        $this->httpClient->delete(sprintf('%s/domains/%s/records/%d', $this->endpoint, $domainName, $recordId));
+        $this->delete(sprintf('domains/%s/records/%d', $domainName, $recordId));
     }
 }

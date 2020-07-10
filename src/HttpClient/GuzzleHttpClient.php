@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
+use DigitalOceanV2\HttpClient\Message\RateLimit;
+use DigitalOceanV2\HttpClient\Message\Response;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -25,17 +25,12 @@ use Psr\Http\Message\ResponseInterface;
  * @author Chris Fidao <fideloper@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GuzzleHttpClient implements HttpClientInterface
+final class GuzzleHttpClient implements HttpClientInterface
 {
     /**
      * @var ClientInterface
      */
     private $client;
-
-    /**
-     * @var ResponseInterface|null
-     */
-    private $response;
 
     /**
      * @param ClientInterface $client
@@ -48,164 +43,41 @@ class GuzzleHttpClient implements HttpClientInterface
     }
 
     /**
-     * @param string $url
+     * @param string               $method
+     * @param string               $url
+     * @param array<string,string> $headers
+     * @param string               $body
      *
-     * @throws ExceptionInterface
-     *
-     * @return string
+     * @return Response
      */
-    public function get(string $url)
+    public function sendRequest(string $method, string $url, array $headers, string $body)
     {
-        return $this->send('GET', $url, '');
-    }
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function post(string $url, $content = '')
-    {
-        return $this->send('POST', $url, $content);
-    }
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function put(string $url, $content = '')
-    {
-        return $this->send('PUT', $url, $content);
-    }
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function delete(string $url, $content = '')
-    {
-        return $this->send('DELETE', $url, $content);
-    }
-
-    /**
-     * @param string       $method
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function send(string $method, string $url, $content)
-    {
-        $options = self::getOptions($content);
-
         try {
-            $this->response = $response = $this->client->request($method, $url, $options);
+            $response = $this->client->request($method, $url, ['body' => $body, 'headers' => $headers]);
         } catch (GuzzleException $e) {
-            $this->response = $response = self::getResponseFromException($e);
-
-            if (null === $response) {
-                throw new RuntimeException('An HTTP transport error occured.', 0, $e);
-            }
-
-            throw ExceptionFactory::create($response->getStatusCode(), self::getExceptionMessageFor($response));
+            throw new RuntimeException('An HTTP transport error occured.', 0, $e);
         }
 
-        return (string) $response->getBody();
-    }
-
-    /**
-     * @param array|string $content
-     *
-     * @throws RuntimeException
-     *
-     * @return array
-     */
-    private static function getOptions($content)
-    {
-        if (is_array($content)) {
-            return [
-                'body' => JsonObject::encode($content),
-                'headers' => ['Content-Type' => 'application/json'],
-            ];
-        }
-
-        return ['body' => $content];
-    }
-
-    /**
-     * @param GuzzleException $e
-     *
-     * @return ResponseInterface|null
-     */
-    private static function getResponseFromException(GuzzleException $e)
-    {
-        return method_exists($e, 'getResponse') ? $e->getResponse() : null;
+        return new Response(
+            $response->getStatusCode(),
+            $response->getReasonPhrase(),
+            self::getHeaders($response),
+            (string) $response->getBody()
+        );
     }
 
     /**
      * @param ResponseInterface $response
      *
-     * @return string
+     * @return array<string,string[]>
      */
-    private static function getExceptionMessageFor(ResponseInterface $response)
+    private static function getHeaders(ResponseInterface $response)
     {
-        try {
-            $content = JsonObject::decode((string) $response->getBody());
-        } catch (RuntimeException $e) {
-            return 'Request not processed.';
-        }
-
-        return isset($content->message) && is_string($content->message) ? $content->message : 'Request not processed.';
-    }
-
-    /**
-     * @return array<string,int>|null
-     */
-    public function getLatestResponseHeaders()
-    {
-        if (null === $this->response) {
-            return null;
-        }
-
-        $reset = self::getHeader($this->response, 'RateLimit-Reset');
-        $remaining = self::getHeader($this->response, 'RateLimit-Remaining');
-        $limit = self::getHeader($this->response, 'RateLimit-Limit');
-
-        if (null === $reset || null === $remaining || null === $limit) {
-            return null;
-        }
-
         return [
-            'reset' => (int) $reset,
-            'remaining' => (int) $remaining,
-            'limit' => (int) $limit,
+            'Content-Type' => $response->getHeader('Content-Type'),
+            'RateLimit-Reset' => $response->getHeader('RateLimit-Reset'),
+            'RateLimit-Remaining' => $response->getHeader('RateLimit-Remaining'),
+            'RateLimit-Limit' => $response->getHeader('RateLimit-Limit'),
         ];
-    }
-
-    /**
-     * @param ResponseInterface $response
-     * @param string            $name
-     *
-     * @return string|null
-     */
-    private static function getHeader(ResponseInterface $response, string $name)
-    {
-        /** @var string[] */
-        $headers = $response->getHeader($name);
-
-        return array_shift($headers);
     }
 }

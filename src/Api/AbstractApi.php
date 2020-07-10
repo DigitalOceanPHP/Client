@@ -13,8 +13,16 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
+use DigitalOceanV2\Client;
 use DigitalOceanV2\Entity\Meta;
-use DigitalOceanV2\HttpClient\HttpClientInterface;
+use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\Exception\RuntimeException;
+use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
+use DigitalOceanV2\HttpClient\Message\Response;
+use DigitalOceanV2\HttpClient\Message\ResponseMediator;
+use DigitalOceanV2\HttpClient\Util\JsonObject;
+use DigitalOceanV2\HttpClient\Util\QueryStringBuilder;
+use stdClass;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -23,56 +31,171 @@ use DigitalOceanV2\HttpClient\HttpClientInterface;
 abstract class AbstractApi
 {
     /**
+     * The URI prefix.
+     *
      * @var string
      */
-    public const ENDPOINT = 'https://api.digitalocean.com/v2';
+    private const URI_PREFIX = '/v2/';
 
     /**
-     * @var HttpClientInterface
+     * The HTTP methods client.
+     *
+     * @var HttpMethodsClientInterface
      */
-    protected $httpClient;
+    private $httpClient;
 
     /**
-     * @var string
-     */
-    protected $endpoint;
-
-    /**
-     * @var Meta|null
-     */
-    protected $meta;
-
-    /**
-     * @param HttpClientInterface $httpClient
-     * @param string|null         $endpoint
+     * @param Client $client
      *
      * @return void
      */
-    public function __construct(HttpClientInterface $httpClient, $endpoint = null)
+    public function __construct(Client $client)
     {
-        $this->httpClient = $httpClient;
-        $this->endpoint = $endpoint ?? static::ENDPOINT;
+        $this->httpClient = $client->getHttpClient();
     }
 
     /**
-     * @param array|object $data
+     * Send a GET request with query params.
      *
-     * @return Meta|null
+     * @param string               $uri
+     * @param array                $params
+     * @param array<string,string> $headers
+     *
+     * @throws ExceptionInterface
+     *
+     * @return stdClass
      */
-    protected function extractMeta($data)
+    protected function get(string $uri, array $params = [], array $headers = [])
     {
-        if (is_object($data) && isset($data->meta)) {
-            $this->meta = new Meta($data->meta);
+        $response = $this->httpClient->get(self::prepareUri($uri, $params), $headers);
+
+        return self::getContent($response);
+    }
+
+    /**
+     * Send a POST request with JSON-encoded params.
+     *
+     * @param string               $uri
+     * @param array                $params
+     * @param array<string,string> $headers
+     *
+     * @throws ExceptionInterface
+     *
+     * @return stdClass
+     */
+    protected function post(string $uri, array $params = [], array $headers = [])
+    {
+        $body = self::prepareJsonBody($params);
+
+        if (null !== $body) {
+            $headers = self::addJsonContentType($headers);
         }
 
-        return $this->meta;
+        $response = $this->httpClient->post(self::prepareUri($uri), $headers, $body ?? '');
+
+        return self::getContent($response);
     }
 
     /**
-     * @return Meta|null
+     * Send a PUT request with JSON-encoded params.
+     *
+     * @param string               $uri
+     * @param array                $params
+     * @param array<string,string> $headers
+     *
+     * @throws ExceptionInterface
+     *
+     * @return stdClass
      */
-    public function getMeta()
+    protected function put(string $uri, array $params = [], array $headers = [])
     {
-        return $this->meta;
+        $body = self::prepareJsonBody($params);
+
+        if (null !== $body) {
+            $headers = self::addJsonContentType($headers);
+        }
+
+        $response = $this->httpClient->put(self::prepareUri($uri), $headers, $body ?? '');
+
+        return self::getContent($response);
+    }
+
+    /**
+     * Send a DELETE request with JSON-encoded params.
+     *
+     * @param string               $uri
+     * @param array                $params
+     * @param array<string,string> $headers
+     *
+     * @throws ExceptionInterface
+     *
+     * @return void
+     */
+    protected function delete(string $uri, array $params = [], array $headers = [])
+    {
+        $body = self::prepareJsonBody($params);
+
+        if (null !== $body) {
+            $headers = self::addJsonContentType($headers);
+        }
+
+        $this->httpClient->delete(self::prepareUri($uri), $headers, $body ?? '');
+    }
+
+    /**
+     * Prepare the request URI.
+     *
+     * @param string $uri
+     * @param array  $query
+     *
+     * @return string
+     */
+    private static function prepareUri(string $uri, array $query = [])
+    {
+        return sprintf('%s%s%s', self::URI_PREFIX, $uri, QueryStringBuilder::build($query));
+    }
+
+    /**
+     * Prepare the request JSON body.
+     *
+     * @param array $params
+     *
+     * @return string|null
+     */
+    private static function prepareJsonBody(array $params)
+    {
+        if (0 === count($params)) {
+            return null;
+        }
+
+        return JsonObject::encode($params);
+    }
+
+    /**
+     * Add the JSON content type to the headers if one is not already present.
+     *
+     * @param array<string,string> $headers
+     *
+     * @return array<string,string>
+     */
+    private static function addJsonContentType(array $headers)
+    {
+        return array_merge(['Content-Type' => ResponseMediator::JSON_CONTENT_TYPE], $headers);
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @return stdClass
+     */
+    private static function getContent(Response $response)
+    {
+        $content = ResponseMediator::getContent($response);
+
+        if (null === $content) {
+            throw new RuntimeException('No content was provided.');
+        }
+
+        return $content;
     }
 }

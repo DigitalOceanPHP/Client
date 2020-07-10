@@ -19,9 +19,10 @@ use Buzz\Client\Curl;
 use Buzz\Client\FileGetContents;
 
 /**
+ * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BuzzFactory implements FactoryInterface
+final class BuzzFactory implements FactoryInterface
 {
     /**
      * @param string|null $token

@@ -30,11 +30,7 @@ class Action extends AbstractApi
      */
     public function getAll()
     {
-        $actions = $this->httpClient->get(sprintf('%s/actions?per_page=%d', $this->endpoint, 200));
-
-        $actions = JsonObject::decode($actions);
-
-        $this->extractMeta($actions);
+        $actions = $this->get('actions');
 
         return array_map(function ($action) {
             return new ActionEntity($action);
@@ -50,11 +46,7 @@ class Action extends AbstractApi
      */
     public function getById($id)
     {
-        $action = $this->httpClient->get(sprintf('%s/actions/%d', $this->endpoint, $id));
-
-        $action = JsonObject::decode($action);
-
-        $this->meta = null;
+        $action = $this->get(sprintf('actions/%d', $id));
 
         return new ActionEntity($action->action);
     }

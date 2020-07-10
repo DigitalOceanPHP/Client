@@ -30,11 +30,7 @@ class Size extends AbstractApi
      */
     public function getAll()
     {
-        $sizes = $this->httpClient->get(sprintf('%s/sizes?per_page=%d', $this->endpoint, 200));
-
-        $sizes = JsonObject::decode($sizes);
-
-        $this->extractMeta($sizes);
+        $sizes = $this->get('sizes');
 
         return array_map(function ($size) {
             return new SizeEntity($size);

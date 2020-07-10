@@ -104,8 +104,8 @@ $domainFooDk = $domain->getByName('foo.dk');
 // return the created Domain named 'bar.dk' and pointed to ip '127.0.0.1'
 $created = $domain->create('bar.dk', '127.0.0.1');
 
-// delete the domain named 'baz.dk'
-$domain->delete('baz.dk');
+// remove the domain named 'baz.dk'
+$domain->remove('baz.dk');
 ```
 
 ### Domain Record
@@ -127,8 +127,8 @@ $created = $domainRecord->create('bar.dk', 'AAAA', 'bar-name', '2001:db8::ff00:4
 // return the DomainRecord entity 123 of the domain 'baz.dk' updated with new-name, new-data, priority 1, port 2, weight 3, flags 0, tag issue (name, data, priority, port, weight, flags and tag are nullable)
 $updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', 1, 2, 3, 0, 'issue');
 
-// delete domain record 123 of the domain 'qmx.dk'
-$domainRecord->delete('qmx.dk', 123);
+// remove domain record 123 of the domain 'qmx.dk'
+$domainRecord->remove('qmx.dk', 123);
 ```
 
 ### Droplet
@@ -156,8 +156,8 @@ $created = $droplet->create('the-name', 'nyc1', '512mb', 449676388);
 // create and return the created Droplet entity using an image slug
 $created = $droplet->create('the-name', 'nyc1', '512mb', 'ubuntu-14-04-x64');
 
-// delete the droplet 123
-$droplet->delete(123);
+// remove the droplet 123
+$droplet->remove(123);
 
 // return a collection of Kernel entity
 $kernels = $droplet->getAvailableKernels(123);
@@ -251,8 +251,8 @@ $imageFoobar = $image->getBySlug('foobar');
 // return the updated Image entity
 $updatedImage = $image->update(123, 'new-name');
 
-// delete the image 123
-$image->delete(123);
+// remove the image 123
+$image->remove(123);
 
 // return the Action entity of the transferred image 123 to the given region slug
 $transferredImage = $image->transfer(123, 'region-slug');
@@ -283,8 +283,8 @@ $createdKey = $key->create('my-key', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPrt
 // return the updated Key entity
 $updatedKey = $key->update(123, 'new-key-name');
 
-// return void if deleted successfully
-$key->delete(123);
+// return void if removed successfully
+$key->remove(123);
 ```
 
 ### Load Balancer
@@ -335,17 +335,6 @@ $size = $client->size();
 $sizes = $size->getAll();
 ```
 
-### Rate Limit
-
-```php
-// ...
-// returns the rate limit api
-$rateLimit = $client->rateLimit();
-
-// returns the rate limit returned by the latest request
-$currentLimit = $rateLimit->getRateLimit();
-```
-
 ### Tag
 
 ```php
@@ -368,8 +357,8 @@ $tag->tagResources('awesome', [["resource_id" => "9569411", "resource_type" => "
 // untag resources
 $tag->untagResources('awesome', [["resource_id" => "9569411", "resource_type" => "droplet"]]);
 
-// delete tag
-$tag->delete('awesome');
+// remove tag
+$tag->remove('awesome');
 ```
 
 ### Volume
@@ -397,11 +386,11 @@ $mySnapshots = $volume->getSnapshots('506f78a4-e098-11e5-ad9f-000f53306ae1');
 // creates a volume
 $myvolume = $volume->create('example', 'Block store for examples', 10, 'nyc1');
 
-// deletes a volume by id
-$volume->delete('506f78a4-e098-11e5-ad9f-000f53306ae1');
+// removes a volume by id
+$volume->remove('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
-// deletes a volume by name and region
-$volume->delete('example', 'nyc1');
+// removes a volume by name and region
+$volume->remove('example', 'nyc1');
 
 // attach a volume to a Droplet 
 $volume->attach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');

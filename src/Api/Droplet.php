@@ -27,43 +27,19 @@ use DigitalOceanV2\HttpClient\Util\JsonObject;
 class Droplet extends AbstractApi
 {
     /**
-     * @param int         $per_page
-     * @param int         $page
      * @param string|null $tag
      *
      * @throws ExceptionInterface
      *
      * @return DropletEntity[]
      */
-    public function getAll($per_page = 200, $page = 1, $tag = null)
+    public function getAll($tag = null)
     {
-        $url = sprintf('%s/droplets?per_page=%d&page=%d', $this->endpoint, $per_page, $page);
-
-        if (null !== $tag) {
-            $url .= '&tag_name='.$tag;
-        }
-
-        $droplets = JsonObject::decode($this->httpClient->get($url));
-
-        $this->extractMeta($droplets);
+        $droplets = $this->get('droplets', null === $tag ? [] : ['tag_name' => $tag]);
 
         return array_map(function ($droplet) {
             return new DropletEntity($droplet);
         }, $droplets->droplets);
-    }
-
-    /**
-     * @throws ExceptionInterface
-     *
-     * @return int
-     */
-    public function getTotal()
-    {
-        $url = sprintf('%s/droplets?per_page=1&page=1', $this->endpoint);
-        $droplets = JsonObject::decode($this->httpClient->get($url));
-        $total = $droplets->meta->total;
-
-        return $total;
     }
 
     /**
@@ -75,9 +51,7 @@ class Droplet extends AbstractApi
      */
     public function getNeighborsById($id)
     {
-        $droplets = $this->httpClient->get(sprintf('%s/droplets/%d/neighbors', $this->endpoint, $id));
-
-        $droplets = JsonObject::decode($droplets);
+        $droplets = $this->get(sprintf('droplets/%d/neighbors', $id));
 
         return array_map(function ($droplet) {
             return new DropletEntity($droplet);
@@ -91,9 +65,7 @@ class Droplet extends AbstractApi
      */
     public function getAllNeighbors()
     {
-        $neighbors = $this->httpClient->get(sprintf('%s/reports/droplet_neighbors', $this->endpoint));
-
-        $neighbors = JsonObject::decode($neighbors);
+        $neighbors = $this->get(sprintf('reports/droplet_neighbors'));
 
         return array_map(function ($neighbor) {
             return new DropletEntity($neighbor);
@@ -109,9 +81,7 @@ class Droplet extends AbstractApi
      */
     public function getById($id)
     {
-        $droplet = $this->httpClient->get(sprintf('%s/droplets/%d', $this->endpoint, $id));
-
-        $droplet = JsonObject::decode($droplet);
+        $droplet = $this->get(sprintf('droplets/%d', $id));
 
         return new DropletEntity($droplet->droplet);
     }
@@ -164,9 +134,7 @@ class Droplet extends AbstractApi
             $data['tags'] = $tags;
         }
 
-        $droplet = $this->httpClient->post(sprintf('%s/droplets', $this->endpoint), $data);
-
-        $droplet = JsonObject::decode($droplet);
+        $droplet = $this->post('droplets', $data);
 
         if (is_array($names)) {
             return array_map(function ($droplet) {
@@ -186,9 +154,9 @@ class Droplet extends AbstractApi
      *
      * @return void
      */
-    public function delete($id)
+    public function remove($id)
     {
-        $this->httpClient->delete(sprintf('%s/droplets/%d', $this->endpoint, $id));
+        $this->delete(sprintf('droplets/%d', $id));
     }
 
     /**
@@ -200,11 +168,7 @@ class Droplet extends AbstractApi
      */
     public function getAvailableKernels($id)
     {
-        $kernels = $this->httpClient->get(sprintf('%s/droplets/%d/kernels', $this->endpoint, $id));
-
-        $kernels = JsonObject::decode($kernels);
-
-        $this->meta = $this->extractMeta($kernels);
+        $kernels = $this->get(sprintf('droplets/%d/kernels', $id));
 
         return array_map(function ($kernel) {
             return new KernelEntity($kernel);
@@ -220,16 +184,10 @@ class Droplet extends AbstractApi
      */
     public function getSnapshots($id)
     {
-        $snapshots = $this->httpClient->get(sprintf('%s/droplets/%d/snapshots?per_page=%d', $this->endpoint, $id, 200));
-
-        $snapshots = JsonObject::decode($snapshots);
-
-        $this->meta = $this->extractMeta($snapshots);
+        $snapshots = $this->get(sprintf('droplets/%d/snapshots', $id));
 
         return array_map(function ($snapshot) {
-            $snapshot = new ImageEntity($snapshot);
-
-            return $snapshot;
+            return new ImageEntity($snapshot);
         }, $snapshots->snapshots);
     }
 
@@ -242,11 +200,7 @@ class Droplet extends AbstractApi
      */
     public function getBackups($id)
     {
-        $backups = $this->httpClient->get(sprintf('%s/droplets/%d/backups?per_page=%d', $this->endpoint, $id, 200));
-
-        $backups = JsonObject::decode($backups);
-
-        $this->meta = $this->extractMeta($backups);
+        $backups = $this->get(sprintf('droplets/%d/backups', $id));
 
         return array_map(function ($backup) {
             return new ImageEntity($backup);
@@ -262,11 +216,7 @@ class Droplet extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->httpClient->get(sprintf('%s/droplets/%d/actions?per_page=%d', $this->endpoint, $id, 200));
-
-        $actions = JsonObject::decode($actions);
-
-        $this->meta = $this->extractMeta($actions);
+        $actions = $this->get(sprintf('droplets/%d/actions', $id));
 
         return array_map(function ($action) {
             return new ActionEntity($action);
@@ -283,9 +233,7 @@ class Droplet extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->httpClient->get(sprintf('%s/droplets/%d/actions/%d', $this->endpoint, $id, $actionId));
-
-        $action = JsonObject::decode($action);
+        $action = $this->get(sprintf('droplets/%d/actions/%d', $id, $actionId));
 
         return new ActionEntity($action->action);
     }
@@ -499,9 +447,7 @@ class Droplet extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $action = $this->httpClient->post(sprintf('%s/droplets/%d/actions', $this->endpoint, $id), $options);
-
-        $action = JsonObject::decode($action);
+        $action = $this->post(sprintf('droplets/%d/actions', $id), $options);
 
         return new ActionEntity($action->action);
     }

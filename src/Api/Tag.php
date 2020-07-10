@@ -29,9 +29,7 @@ class Tag extends AbstractApi
      */
     public function getAll()
     {
-        $tags = $this->httpClient->get(sprintf('%s/tags', $this->endpoint));
-
-        $tags = JsonObject::decode($tags);
+        $tags = $this->get('tags');
 
         return array_map(function ($tag) {
             return new TagEntity($tag);
@@ -47,9 +45,7 @@ class Tag extends AbstractApi
      */
     public function getByName($name)
     {
-        $tag = $this->httpClient->get(sprintf('%s/tags/%s', $this->endpoint, $name));
-
-        $tag = JsonObject::decode($tag);
+        $tag = $this->get(sprintf('tags/%s', $name));
 
         return new TagEntity($tag->tag);
     }
@@ -63,9 +59,7 @@ class Tag extends AbstractApi
      */
     public function create($name)
     {
-        $tag = $this->httpClient->post(sprintf('%s/tags', $this->endpoint), ['name' => $name]);
-
-        $tag = JsonObject::decode($tag);
+        $tag = $this->post('tags', ['name' => $name]);
 
         return new TagEntity($tag->tag);
     }
@@ -80,7 +74,7 @@ class Tag extends AbstractApi
      */
     public function tagResources($name, $resources)
     {
-        $this->httpClient->post(sprintf('%s/tags/%s/resources', $this->endpoint, $name), ['resources' => $resources]);
+        $this->post(sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
 
     /**
@@ -93,7 +87,7 @@ class Tag extends AbstractApi
      */
     public function untagResources($name, $resources)
     {
-        $this->httpClient->delete(sprintf('%s/tags/%s/resources', $this->endpoint, $name), ['resources' => $resources]);
+        $this->delete(sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
 
     /**
@@ -103,8 +97,8 @@ class Tag extends AbstractApi
      *
      * @return void
      */
-    public function delete($name)
+    public function remove($name)
     {
-        $this->httpClient->delete(sprintf('%s/tags/%s', $this->endpoint, $name));
+        $this->delete(sprintf('tags/%s', $name));
     }
 }

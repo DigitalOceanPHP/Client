@@ -30,11 +30,7 @@ class Key extends AbstractApi
      */
     public function getAll()
     {
-        $keys = $this->httpClient->get(sprintf('%s/account/keys?per_page=%d', $this->endpoint, 200));
-
-        $keys = JsonObject::decode($keys);
-
-        $this->extractMeta($keys);
+        $keys = $this->get(sprintf('account/keys'));
 
         return array_map(function ($key) {
             return new KeyEntity($key);
@@ -50,9 +46,7 @@ class Key extends AbstractApi
      */
     public function getById($id)
     {
-        $key = $this->httpClient->get(sprintf('%s/account/keys/%d', $this->endpoint, $id));
-
-        $key = JsonObject::decode($key);
+        $key = $this->get(sprintf('account/keys/%d', $id));
 
         return new KeyEntity($key->ssh_key);
     }
@@ -66,9 +60,7 @@ class Key extends AbstractApi
      */
     public function getByFingerprint($fingerprint)
     {
-        $key = $this->httpClient->get(sprintf('%s/account/keys/%s', $this->endpoint, $fingerprint));
-
-        $key = JsonObject::decode($key);
+        $key = $this->get(sprintf('account/keys/%s', $fingerprint));
 
         return new KeyEntity($key->ssh_key);
     }
@@ -83,9 +75,10 @@ class Key extends AbstractApi
      */
     public function create($name, $publicKey)
     {
-        $key = $this->httpClient->post(sprintf('%s/account/keys', $this->endpoint), ['name' => $name, 'public_key' => $publicKey]);
-
-        $key = JsonObject::decode($key);
+        $key = $this->post(sprintf('account/keys'), [
+            'name' => $name,
+            'public_key' => $publicKey,
+        ]);
 
         return new KeyEntity($key->ssh_key);
     }
@@ -100,9 +93,9 @@ class Key extends AbstractApi
      */
     public function update($id, $name)
     {
-        $key = $this->httpClient->put(sprintf('%s/account/keys/%s', $this->endpoint, $id), ['name' => $name]);
-
-        $key = JsonObject::decode($key);
+        $key = $this->put(sprintf('account/keys/%s', $id), [
+            'name' => $name,
+        ]);
 
         return new KeyEntity($key->ssh_key);
     }
@@ -114,8 +107,8 @@ class Key extends AbstractApi
      *
      * @return void
      */
-    public function delete($id)
+    public function remove($id)
     {
-        $this->httpClient->delete(sprintf('%s/account/keys/%s', $this->endpoint, $id));
+        $this->delete(sprintf('account/keys/%s', $id));
     }
 }
