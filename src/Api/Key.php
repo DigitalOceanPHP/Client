@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Key as KeyEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>

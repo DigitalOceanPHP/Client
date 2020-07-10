@@ -18,7 +18,6 @@ use DigitalOceanV2\Entity\Droplet as DropletEntity;
 use DigitalOceanV2\Entity\Image as ImageEntity;
 use DigitalOceanV2\Entity\Kernel as KernelEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>

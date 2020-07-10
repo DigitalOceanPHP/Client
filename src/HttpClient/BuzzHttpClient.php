@@ -17,7 +17,6 @@ use Buzz\Browser;
 use Buzz\Exception\ExceptionInterface as BuzzException;
 use Buzz\Message\Response as BuzzResponse;
 use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\Message\RateLimit;
 use DigitalOceanV2\HttpClient\Message\Response;
 
 /**

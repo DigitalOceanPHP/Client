@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Domain as DomainEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>

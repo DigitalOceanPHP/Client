@@ -16,7 +16,6 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Entity\DomainRecord as DomainRecordEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\InvalidRecordException;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>

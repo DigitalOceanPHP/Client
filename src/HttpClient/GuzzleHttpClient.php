@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\Message\RateLimit;
 use DigitalOceanV2\HttpClient\Message\Response;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;

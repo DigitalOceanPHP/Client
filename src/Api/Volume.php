@@ -17,7 +17,6 @@ use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Entity\Volume as VolumeEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -228,7 +227,7 @@ class Volume extends AbstractApi
      */
     public function snapshot($id, $name)
     {
-        $snapshot = $this->post(sprintf('volumes/%s/snapshots', $id), ['name' => $name,]);
+        $snapshot = $this->post(sprintf('volumes/%s/snapshots', $id), ['name' => $name]);
 
         return new SnapshotEntity($snapshot->snapshot);
     }

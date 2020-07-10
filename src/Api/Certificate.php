@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Certificate as CertificateEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>

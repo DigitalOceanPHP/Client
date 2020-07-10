@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Tests;
 
-use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Message\Response;
+use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use PHPUnit\Framework\TestCase;
 
 /**

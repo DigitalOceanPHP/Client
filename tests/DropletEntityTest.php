@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Tests;
 
-use DigitalOceanV2\Entity\Droplet;
 use DigitalOceanV2\Entity\AbstractEntity;
+use DigitalOceanV2\Entity\Droplet;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>

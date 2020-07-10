@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Client;
-use DigitalOceanV2\Entity\Meta;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;

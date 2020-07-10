@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Tag as TagEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Nicolas Beauvais <nicolas@bvs.email>

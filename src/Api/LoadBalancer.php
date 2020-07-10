@@ -19,7 +19,6 @@ use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
 use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
