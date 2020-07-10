@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Certificate as CertificateEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -29,11 +28,7 @@ class Certificate extends AbstractApi
      */
     public function getAll()
     {
-        $certificates = $this->httpClient->get(sprintf('%s/certificates', $this->endpoint));
-
-        $certificates = JsonObject::decode($certificates);
-
-        $this->extractMeta($certificates);
+        $certificates = $this->get('certificates');
 
         return array_map(function ($certificates) {
             return new CertificateEntity($certificates);
@@ -49,9 +44,7 @@ class Certificate extends AbstractApi
      */
     public function getById($id)
     {
-        $certificate = $this->httpClient->get(sprintf('%s/certificates/%s', $this->endpoint, $id));
-
-        $certificate = JsonObject::decode($certificate);
+        $certificate = $this->get(sprintf('certificates/%s', $id));
 
         return new CertificateEntity($certificate->certificate);
     }
@@ -68,16 +61,12 @@ class Certificate extends AbstractApi
      */
     public function create($name, $privateKey, $leafCertificate, $certificateChain)
     {
-        $data = [
+        $certificate = $this->post('certificates', [
             'name' => $name,
             'private_key' => $privateKey,
             'leaf_certificate' => $leafCertificate,
             'certificate_chain' => $certificateChain,
-        ];
-
-        $certificate = $this->httpClient->post(sprintf('%s/certificates', $this->endpoint), $data);
-
-        $certificate = JsonObject::decode($certificate);
+        ]);
 
         return new CertificateEntity($certificate->certificate);
     }
@@ -89,8 +78,8 @@ class Certificate extends AbstractApi
      *
      * @return void
      */
-    public function delete($id)
+    public function remove($id)
     {
-        $this->httpClient->delete(sprintf('%s/certificates/%s', $this->endpoint, $id));
+        $this->delete(sprintf('certificates/%s', $id));
     }
 }

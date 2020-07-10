@@ -23,7 +23,6 @@ use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\LoadBalancer;
-use DigitalOceanV2\Api\RateLimit;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
@@ -31,7 +30,8 @@ use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\HttpClient\Builder;
 use DigitalOceanV2\HttpClient\FactoryInterface;
-use DigitalOceanV2\HttpClient\HttpClientInterface;
+use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
+use DigitalOceanV2\HttpClient\Message\Response;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -39,6 +39,13 @@ use DigitalOceanV2\HttpClient\HttpClientInterface;
  */
 class Client
 {
+    /**
+     * The default base URL.
+     *
+     * @var string
+     */
+    private const BASE_URL = 'https://api.digitalocean.com';
+
     /**
      * @var Builder
      */
@@ -52,6 +59,8 @@ class Client
     public function __construct(Builder $httpClientBuilder = null)
     {
         $this->httpClientBuilder = $httpClientBuilder ?? new Builder();
+
+        $this->setUrl(self::BASE_URL);
     }
 
     /**
@@ -71,7 +80,7 @@ class Client
      */
     public function account()
     {
-        return new Account($this->getHttpClient());
+        return new Account($this);
     }
 
     /**
@@ -79,7 +88,7 @@ class Client
      */
     public function action()
     {
-        return new Action($this->getHttpClient());
+        return new Action($this);
     }
 
     /**
@@ -87,7 +96,7 @@ class Client
      */
     public function certificate()
     {
-        return new Certificate($this->getHttpClient());
+        return new Certificate($this);
     }
 
     /**
@@ -95,7 +104,7 @@ class Client
      */
     public function domain()
     {
-        return new Domain($this->getHttpClient());
+        return new Domain($this);
     }
 
     /**
@@ -103,7 +112,7 @@ class Client
      */
     public function domainRecord()
     {
-        return new DomainRecord($this->getHttpClient());
+        return new DomainRecord($this);
     }
 
     /**
@@ -111,7 +120,7 @@ class Client
      */
     public function droplet()
     {
-        return new Droplet($this->getHttpClient());
+        return new Droplet($this);
     }
 
     /**
@@ -119,7 +128,7 @@ class Client
      */
     public function floatingIp()
     {
-        return new FloatingIp($this->getHttpClient());
+        return new FloatingIp($this);
     }
 
     /**
@@ -127,7 +136,7 @@ class Client
      */
     public function image()
     {
-        return new Image($this->getHttpClient());
+        return new Image($this);
     }
 
     /**
@@ -135,7 +144,7 @@ class Client
      */
     public function key()
     {
-        return new Key($this->getHttpClient());
+        return new Key($this);
     }
 
     /**
@@ -143,15 +152,7 @@ class Client
      */
     public function loadBalancer()
     {
-        return new LoadBalancer($this->getHttpClient());
-    }
-
-    /**
-     * @return RateLimit
-     */
-    public function rateLimit()
-    {
-        return new RateLimit($this->getHttpClient());
+        return new LoadBalancer($this);
     }
 
     /**
@@ -159,7 +160,7 @@ class Client
      */
     public function region()
     {
-        return new Region($this->getHttpClient());
+        return new Region($this);
     }
 
     /**
@@ -167,7 +168,7 @@ class Client
      */
     public function size()
     {
-        return new Size($this->getHttpClient());
+        return new Size($this);
     }
 
     /**
@@ -175,7 +176,7 @@ class Client
      */
     public function snapshot()
     {
-        return new Snapshot($this->getHttpClient());
+        return new Snapshot($this);
     }
 
     /**
@@ -183,7 +184,7 @@ class Client
      */
     public function tag()
     {
-        return new Tag($this->getHttpClient());
+        return new Tag($this);
     }
 
     /**
@@ -191,21 +192,39 @@ class Client
      */
     public function volume()
     {
-        return new Volume($this->getHttpClient());
+        return new Volume($this);
     }
 
     /**
-     * @param string|null $token
+     * @param string $token
      *
      * @return void
      */
-    public function authenticate(string $token = null)
+    public function authenticate(string $token)
     {
         $this->getHttpClientBuilder()->setAuthToken($token);
     }
 
     /**
-     * @return HttpClientInterface
+     * @param string $url
+     *
+     * @return void
+     */
+    public function setUrl(string $url)
+    {
+        $this->getHttpClientBuilder()->setBaseUrl($url);
+    }
+
+    /**
+     * @return Response|null
+     */
+    public function getLastResponse()
+    {
+        return $this->getHttpClient()->getLastResponse();
+    }
+
+    /**
+     * @return HttpMethodsClientInterface
      */
     public function getHttpClient()
     {

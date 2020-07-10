@@ -13,55 +13,20 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\HttpClient\Message\Response;
 
 /**
- * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
 interface HttpClientInterface
 {
     /**
-     * @param string $url
+     * @param string               $method
+     * @param string               $url
+     * @param array<string,string> $headers
+     * @param string               $body
      *
-     * @throws ExceptionInterface
-     *
-     * @return string
+     * @return Response
      */
-    public function get(string $url);
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function post(string $url, $content = '');
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function put(string $url, $content = '');
-
-    /**
-     * @param string       $url
-     * @param array|string $content
-     *
-     * @throws ExceptionInterface
-     *
-     * @return string
-     */
-    public function delete(string $url, $content = '');
-
-    /**
-     * @return array<string,int>|null
-     */
-    public function getLatestResponseHeaders();
+    public function sendRequest(string $method, string $url, array $headers, string $body);
 }

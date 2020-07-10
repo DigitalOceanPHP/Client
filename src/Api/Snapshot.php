@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Snapshot as SnapshotEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -31,17 +30,13 @@ class Snapshot extends AbstractApi
      */
     public function getAll(array $criteria = [])
     {
-        $query = sprintf('%s/snapshots?per_page=%d', $this->endpoint, 200);
+        $query = [];
 
         if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'], true)) {
-            $query = sprintf('%s&resource_type=%s', $query, $criteria['type']);
+            $query['resource_type'] = $criteria['type'];
         }
 
-        $snapshots = $this->httpClient->get($query);
-
-        $snapshots = JsonObject::decode($snapshots);
-
-        $this->extractMeta($snapshots);
+        $snapshots = $this->get('snapshots', $query);
 
         return array_map(function ($snapshots) {
             return new SnapshotEntity($snapshots);
@@ -57,9 +52,7 @@ class Snapshot extends AbstractApi
      */
     public function getById($id)
     {
-        $snapshot = $this->httpClient->get(sprintf('%s/snapshots/%s', $this->endpoint, $id));
-
-        $snapshot = JsonObject::decode($snapshot);
+        $snapshot = $this->get(sprintf('snapshots/%s', $id));
 
         return new SnapshotEntity($snapshot->snapshot);
     }
@@ -71,8 +64,8 @@ class Snapshot extends AbstractApi
      *
      * @return void
      */
-    public function delete($id)
+    public function remove($id)
     {
-        $this->httpClient->delete(sprintf('%s/snapshots/%s', $this->endpoint, $id));
+        $this->delete(sprintf('snapshots/%s', $id));
     }
 }

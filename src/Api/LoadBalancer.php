@@ -19,7 +19,6 @@ use DigitalOceanV2\Entity\HealthCheck as HealthCheckEntity;
 use DigitalOceanV2\Entity\LoadBalancer as LoadBalancerEntity;
 use DigitalOceanV2\Entity\StickySession as StickySessionEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Jacob Holmes <jwh315@cox.net>
@@ -33,11 +32,7 @@ class LoadBalancer extends AbstractApi
      */
     public function getAll()
     {
-        $loadBalancers = $this->httpClient->get(sprintf('%s/load_balancers', $this->endpoint));
-
-        $loadBalancers = JsonObject::decode($loadBalancers);
-
-        $this->extractMeta($loadBalancers);
+        $loadBalancers = $this->get('load_balancers');
 
         return array_map(function ($key) {
             return new LoadBalancerEntity($key);
@@ -53,9 +48,7 @@ class LoadBalancer extends AbstractApi
      */
     public function getById($id)
     {
-        $loadBalancer = $this->httpClient->get(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
-
-        $loadBalancer = JsonObject::decode($loadBalancer);
+        $loadBalancer = $this->get(sprintf('load_balancers/%s', $id));
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -84,7 +77,7 @@ class LoadBalancer extends AbstractApi
         $dropletIds = [],
         $httpsRedirect = false
     ) {
-        $data = [
+        $loadBalancer = $this->post('load_balancers', [
             'name' => $name,
             'algorithm' => $algorithm,
             'region' => $region,
@@ -93,11 +86,7 @@ class LoadBalancer extends AbstractApi
             'sticky_sessions' => self::formatConfigurationOptions($stickySessions),
             'droplet_ids' => $dropletIds,
             'redirect_http_to_https' => $httpsRedirect,
-        ];
-
-        $loadBalancer = $this->httpClient->post(sprintf('%s/load_balancers', $this->endpoint), $data);
-
-        $loadBalancer = JsonObject::decode($loadBalancer);
+        ]);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -114,9 +103,7 @@ class LoadBalancer extends AbstractApi
     {
         $data = self::formatConfigurationOptions($loadBalancerSpec);
 
-        $loadBalancer = $this->httpClient->put(sprintf('%s/load_balancers/%s', $this->endpoint, $id), $data);
-
-        $loadBalancer = JsonObject::decode($loadBalancer);
+        $loadBalancer = $this->put(sprintf('load_balancers/%s', $id), $data);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -128,9 +115,9 @@ class LoadBalancer extends AbstractApi
      *
      * @return void
      */
-    public function delete($id)
+    public function remove($id)
     {
-        $this->httpClient->delete(sprintf('%s/load_balancers/%s', $this->endpoint, $id));
+        $this->delete(sprintf('load_balancers/%s', $id));
     }
 
     /**

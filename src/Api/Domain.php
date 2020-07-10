@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Domain as DomainEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Yassir Hannoun <yassir.hannoun@gmail.com>
@@ -24,20 +23,13 @@ use DigitalOceanV2\HttpClient\Util\JsonObject;
 class Domain extends AbstractApi
 {
     /**
-     * @param int $per_page
-     * @param int $page
-     *
      * @throws ExceptionInterface
      *
      * @return DomainEntity[]
      */
-    public function getAll($per_page = 200, $page = 1)
+    public function getAll()
     {
-        $domains = $this->httpClient->get(sprintf('%s/domains?per_page=%d&page=%d', $this->endpoint, $per_page, $page));
-
-        $domains = JsonObject::decode($domains);
-
-        $this->extractMeta($domains);
+        $domains = $this->get('domains');
 
         return array_map(function ($domain) {
             return new DomainEntity($domain);
@@ -53,9 +45,7 @@ class Domain extends AbstractApi
      */
     public function getByName($domainName)
     {
-        $domain = $this->httpClient->get(sprintf('%s/domains/%s', $this->endpoint, $domainName));
-
-        $domain = JsonObject::decode($domain);
+        $domain = $this->get(sprintf('domains/%s', $domainName));
 
         return new DomainEntity($domain->domain);
     }
@@ -70,11 +60,10 @@ class Domain extends AbstractApi
      */
     public function create($name, $ipAddress)
     {
-        $content = ['name' => $name, 'ip_address' => $ipAddress];
-
-        $domain = $this->httpClient->post(sprintf('%s/domains', $this->endpoint), $content);
-
-        $domain = JsonObject::decode($domain);
+        $domain = $this->post('domains', [
+            'name' => $name,
+            'ip_address' => $ipAddress,
+        ]);
 
         return new DomainEntity($domain->domain);
     }
@@ -86,8 +75,8 @@ class Domain extends AbstractApi
      *
      * @return void
      */
-    public function delete($domain)
+    public function remove($domain)
     {
-        $this->httpClient->delete(sprintf('%s/domains/%s', $this->endpoint, $domain));
+        $this->delete(sprintf('domains/%s', $domain));
     }
 }

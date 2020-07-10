@@ -16,6 +16,8 @@ CHANGE LOG
 * Added support for automatic discovery of Guzzle and Buzz
 * Removed old droplet upgrades endpoint
 * Removed wait for active: should be implemented at a higher level of abstraction
+* Renamed delete* API methods to remove*
+* Reworked rate limiting and pagination
 * Support only PHP 7.1-7.4
 
 

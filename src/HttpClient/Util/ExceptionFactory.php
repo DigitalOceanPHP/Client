@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace DigitalOceanV2\HttpClient;
+namespace DigitalOceanV2\HttpClient\Util;
 
 use DigitalOceanV2\Exception\ApiLimitExceededException;
 use DigitalOceanV2\Exception\ErrorException;
@@ -33,7 +33,7 @@ final class ExceptionFactory
      *
      * @return ErrorException|RuntimeException
      */
-    public static function create($status, $message)
+    public static function create(int $status, string $message)
     {
         if (400 === $status || 422 === $status) {
             return new ValidationFailedException($message, $status);

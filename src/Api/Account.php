@@ -15,7 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Entity\Account as AccountEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\HttpClient\Util\JsonObject;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -30,9 +29,7 @@ class Account extends AbstractApi
      */
     public function getUserInformation()
     {
-        $account = $this->httpClient->get(sprintf('%s/account', $this->endpoint));
-
-        $account = JsonObject::decode($account);
+        $account = $this->get('account');
 
         return new AccountEntity($account->account);
     }

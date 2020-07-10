@@ -1,8 +1,0 @@
-{
-    "require": {
-        "phpspec/phpspec": "^5.1|^6.0"
-    },
-    "config": {
-        "preferred-install": "dist"
-    }
-}

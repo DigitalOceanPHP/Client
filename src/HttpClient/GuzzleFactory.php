@@ -18,7 +18,7 @@ use GuzzleHttp\Client;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-class GuzzleFactory implements FactoryInterface
+final class GuzzleFactory implements FactoryInterface
 {
     /**
      * @param string|null $token
@@ -39,6 +39,12 @@ class GuzzleFactory implements FactoryInterface
      */
     private static function getOptions(?string $token)
     {
-        return null === $token ? [] : ['headers' => ['Authorization' => sprintf('Bearer %s', $token)]];
+        $options = ['http_errors' => false];
+
+        if (null !== $token) {
+            $options['headers'] = ['Authorization' => sprintf('Bearer %s', $token)];
+        }
+
+        return $options;
     }
 }
