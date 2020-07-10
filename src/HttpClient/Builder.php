@@ -19,14 +19,9 @@ namespace DigitalOceanV2\HttpClient;
 final class Builder
 {
     /**
-     * @var FactoryInterface
+     * @var HttpClientInterface
      */
-    private $factory;
-
-    /**
-     * @var string|null
-     */
-    private $authToken;
+    private $httpClient;
 
     /**
      * @var string|null
@@ -34,18 +29,40 @@ final class Builder
     private $baseUrl;
 
     /**
-     * @var HttpMethodsClientInterface|null
+     * @var array<string,string>
      */
-    private $httpClient;
+    private $defaultHeaders;
 
     /**
-     * @param FactoryInterface|null $factory
+     * @var HttpMethodsClientInterface|null
+     */
+    private $httpMethodsClient;
+
+    /**
+     * @param HttpClientInterface|null $httpClient
      *
      * @return void
      */
-    public function __construct(FactoryInterface $factory = null)
+    public function __construct(HttpClientInterface $httpClient = null)
     {
-        $this->factory = $factory ?? FactoryDiscovery::find();
+        $this->defaultHeaders = [];
+        $this->httpClient = $httpClient ?? Discovery::find();
+    }
+
+    /**
+     * @param string|null $agent
+     *
+     * @return void
+     */
+    public function setUserAgent(string $agent = null)
+    {
+        if (null === $agent) {
+            unset($this->defaultHeaders['User-Agent']);
+        } else {
+            $this->defaultHeaders['User-Agent'] = $agent;
+        }
+
+        $this->httpMethodsClient = null;
     }
 
     /**
@@ -55,8 +72,13 @@ final class Builder
      */
     public function setAuthToken(string $token = null)
     {
-        $this->authToken = $token;
-        $this->httpClient = null;
+        if (null === $token) {
+            unset($this->defaultHeaders['Authorization']);
+        } else {
+            $this->defaultHeaders['Authorization'] = sprintf('Bearer %s', $token);
+        }
+
+        $this->httpMethodsClient = null;
     }
 
     /**
@@ -67,7 +89,7 @@ final class Builder
     public function setBaseUrl(string $url = null)
     {
         $this->baseUrl = $url;
-        $this->httpClient = null;
+        $this->httpMethodsClient = null;
     }
 
     /**
@@ -75,13 +97,14 @@ final class Builder
      */
     public function getHttpClient()
     {
-        if (null === $this->httpClient) {
-            $this->httpClient = new HttpMethodsClient(
-                $this->factory->create($this->authToken),
-                $this->baseUrl ?? ''
+        if (null === $this->httpMethodsClient) {
+            $this->httpMethodsClient = new HttpMethodsClient(
+                $this->httpClient,
+                $this->baseUrl ?? '',
+                $this->defaultHeaders
             );
         }
 
-        return $this->httpClient;
+        return $this->httpMethodsClient;
     }
 }

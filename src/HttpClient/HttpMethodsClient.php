@@ -34,20 +34,27 @@ final class HttpMethodsClient implements HttpMethodsClientInterface
     private $baseUrl;
 
     /**
+     * @var array<string,string>
+     */
+    private $defaultHeaders;
+
+    /**
      * @var Response|null
      */
     private $lastResponse;
 
     /**
-     * @param HttpClientInterface $httpClient
-     * @param string              $baseUrl
+     * @param HttpClientInterface  $httpClient
+     * @param string               $baseUrl
+     * @param array<string,string> $defaultHeaders
      *
      * @return void
      */
-    public function __construct(HttpClientInterface $httpClient, string $baseUrl)
+    public function __construct(HttpClientInterface $httpClient, string $baseUrl, array $defaultHeaders = [])
     {
         $this->httpClient = $httpClient;
         $this->baseUrl = $baseUrl;
+        $this->defaultHeaders = $defaultHeaders;
     }
 
     /**
@@ -119,13 +126,17 @@ final class HttpMethodsClient implements HttpMethodsClientInterface
     {
         $url = sprintf('%s%s', $this->baseUrl, $uri);
 
+        $headers = array_merge($this->defaultHeaders, $headers);
+
         $this->lastResponse = $response = $this->httpClient->sendRequest($method, $url, $headers, $body);
 
         if ($response->getStatusCode() < 300) {
             return $response;
         }
 
-        throw ExceptionFactory::create($response->getStatusCode(), ResponseMediator::getErrorMessage($response) ?? $response->getReasonPhrase());
+        $message = ResponseMediator::getErrorMessage($response) ?? $response->getReasonPhrase();
+
+        throw ExceptionFactory::create($response->getStatusCode(), $message);
     }
 
     /**

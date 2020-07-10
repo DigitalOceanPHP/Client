@@ -29,7 +29,7 @@ use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\HttpClient\Builder;
-use DigitalOceanV2\HttpClient\FactoryInterface;
+use DigitalOceanV2\HttpClient\HttpClientInterface;
 use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
 use DigitalOceanV2\HttpClient\Message\Response;
 
@@ -47,6 +47,13 @@ class Client
     private const BASE_URL = 'https://api.digitalocean.com';
 
     /**
+     * The default user agent header.
+     *
+     * @var string
+     */
+    private const USER_AGENT = 'digitalocean-php-api-client/3.0';
+
+    /**
      * @var Builder
      */
     private $httpClientBuilder;
@@ -60,17 +67,19 @@ class Client
     {
         $this->httpClientBuilder = $httpClientBuilder ?? new Builder();
 
+        $this->httpClientBuilder->setUserAgent(self::USER_AGENT);
+
         $this->setUrl(self::BASE_URL);
     }
 
     /**
-     * @param FactoryInterface $factory
+     * @param HttpClientInterface $httpClient
      *
      * @return Client
      */
-    public static function createWithFactory(FactoryInterface $factory)
+    public static function createWithHttpClient(HttpClientInterface $httpClient)
     {
-        $builder = new Builder($factory);
+        $builder = new Builder($httpClient);
 
         return new self($builder);
     }
