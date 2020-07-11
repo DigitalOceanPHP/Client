@@ -50,7 +50,7 @@ $ composer require graham-campbell/digitalocean:^7.0
 
 ## Examples
 
-As of version 3.0, we will will automatically discover an HTTP client use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
+As of version 3.0, we will will automatically discover an HTTP client to use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
 
 ```php
 <?php
