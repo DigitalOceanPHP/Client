@@ -18,6 +18,7 @@ CHANGE LOG
 * Removed wait for active: should be implemented at a higher level of abstraction
 * Renamed delete* API methods to remove*
 * Reworked rate limiting and pagination
+* Encode URIs according to RFC 3986
 * Support only PHP 7.1-7.4
 
 
