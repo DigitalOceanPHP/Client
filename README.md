@@ -39,9 +39,9 @@ $ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0.1
 $ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16
 ```
 
-### Framework Installation
+### Framework Integration
 
-### Laravel 6+:
+#### Laravel 6+:
 
 ```
 $ composer require graham-campbell/digitalocean:^7.0
