@@ -32,7 +32,7 @@ In version 2.3, we used to provide a way to set the page and per page parameters
 
 ```php
 // get the first 200 droplets as an array
-$droplets = $droplet->getAll();
+$droplets = $client->droplet()->getAll();
 
 // get stuck...
 ```
@@ -41,7 +41,7 @@ $droplets = $droplet->getAll();
 
 ```php
 // get the first 20 droplets as an array
-$droplets = $droplet->getAll();
+$droplets = $client->droplet()->getAll();
 
 // create a new result pager
 $pager = new DigitalOceanV2\ResultPager($client);
