@@ -10,7 +10,7 @@ The `DigitalOceanV2\DigitalOceanV2` class has been renamed to `DigitalOceanV2\Cl
 
 #### 2.3 Code:
 
-```
+```php
 $adapter = new DigitalOceanV2\Adapter\BuzzAdapter('your_access_token');
 
 $digitalocean = new DigitalOceanV2\DigitalOceanV2($adapter);
@@ -18,7 +18,7 @@ $digitalocean = new DigitalOceanV2\DigitalOceanV2($adapter);
 
 #### 3.0 Code:
 
-```
+```php
 $client = new DigitalOceanV2\Client();
 
 $client->authenticate('your_access_token');
@@ -30,7 +30,7 @@ In version 2.3, we used to provide a way to set the page and per page parameters
 
 #### 2.3 Code:
 
-```
+```php
 // get the first 200 droplets as an array
 $droplets = $droplet->getAll();
 
@@ -39,7 +39,7 @@ $droplets = $droplet->getAll();
 
 #### 3.0 Code:
 
-```
+```php
 // get the first 20 droplets as an array
 $droplets = $droplet->getAll();
 
