@@ -13,7 +13,7 @@ The `DigitalOceanV2\DigitalOceanV2` class has been renamed to `DigitalOceanV2\Cl
 ```php
 $adapter = new DigitalOceanV2\Adapter\BuzzAdapter('your_access_token');
 
-$digitalocean = new DigitalOceanV2\DigitalOceanV2($adapter);
+$client = new DigitalOceanV2\DigitalOceanV2($adapter);
 ```
 
 #### 3.0 Code:
