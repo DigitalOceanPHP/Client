@@ -71,8 +71,12 @@ Version 3.0 also has a built-in paginator, and can be used on any of the APIs wh
 // create a new result pager
 $pager = new DigitalOceanV2\ResultPager($client);
 
-// get all droplets
+// get all droplets as an array
 $droplets = $pager->fetchAll($client->droplet(), 'getAll');
+
+// get all droplets as a Generator which yields new results
+// as they become available
+$droplets = $pager->fetchAllLazy($client->droplet(), 'getAll');
 ```
 
 ### Account

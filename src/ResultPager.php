@@ -91,15 +91,33 @@ final class ResultPager implements ResultPagerInterface
      */
     public function fetchAll(ApiInterface $api, string $method, array $parameters = [])
     {
+        return iterator_to_array($this->fetchAllLazy($api, $method, $parameters));
+    }
+
+    /**
+     * Lazily fetch all results from an api call.
+     *
+     * @param ApiInterface $api
+     * @param string       $method
+     * @param array        $parameters
+     *
+     * @throws ExceptionInterface
+     *
+     * @return \Generator
+     */
+    public function fetchAllLazy(ApiInterface $api, string $method, array $parameters = [])
+    {
         $currentPage = 1;
 
-        $result = $this->fetch($api->page($currentPage), $method, $parameters);
+        foreach ($this->fetch($api->page($currentPage), $method, $parameters) as $entry) {
+            yield $entry;
+        } 
 
         while ($this->hasNext()) {
-            $result = array_merge($result, $this->fetch($api->page(++$currentPage), $method, $parameters));
+            foreach ($this->fetch($api->page(++$currentPage), $method, $parameters) as $entry) {
+                yield $entry;
+            }
         }
-
-        return $result;
     }
 
     /**
