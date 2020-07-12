@@ -48,6 +48,10 @@ $ composer require graham-campbell/digitalocean:^7.0
 ```
 
 
+## Upgrading
+
+If you are upgrading from version 2.3 to 3.0, you can check out our [upgrading guide](UPGRADING.md). We highly recommend upgrading as soon as possible.
+
 ## Examples
 
 As of version 3.0, we will will automatically discover an HTTP client to use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
@@ -74,8 +78,8 @@ $pager = new DigitalOceanV2\ResultPager($client);
 // get all droplets as an array
 $droplets = $pager->fetchAll($client->droplet(), 'getAll');
 
-// get all droplets as a Generator which yields new results
-// as they become available
+// get all droplets as a Generator which lazily yields
+// new results as they become available
 $droplets = $pager->fetchAllLazy($client->droplet(), 'getAll');
 ```
 
