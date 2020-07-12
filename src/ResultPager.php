@@ -111,7 +111,7 @@ final class ResultPager implements ResultPagerInterface
 
         foreach ($this->fetch($api->page($currentPage), $method, $parameters) as $entry) {
             yield $entry;
-        } 
+        }
 
         while ($this->hasNext()) {
             foreach ($this->fetch($api->page(++$currentPage), $method, $parameters) as $entry) {
