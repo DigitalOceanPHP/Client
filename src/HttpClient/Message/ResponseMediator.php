@@ -90,12 +90,12 @@ final class ResponseMediator
             return [];
         }
 
-        if (!isset($content->meta->pages) || !is_object($content->meta->pages)) {
+        if (!isset($content->links->pages) || !is_object($content->links->pages)) {
             return [];
         }
 
         /** array<string,string> */
-        return array_filter(get_object_vars($content->meta->pages));
+        return array_filter(get_object_vars($content->links->pages));
     }
 
     /**
