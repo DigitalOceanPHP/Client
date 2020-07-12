@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 3.0.0 (Upcoming)
+## 3.0.0-RC1 (12/07/2020)
 
 * Add support for the Tag API
 * Added getTotal() to droplet API
