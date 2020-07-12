@@ -16,7 +16,6 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Client;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
 use DigitalOceanV2\HttpClient\Message\Response;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\HttpClient\Util\JsonObject;
@@ -65,7 +64,7 @@ abstract class AbstractApi implements ApiInterface
      *
      * @return void
      */
-    public final function __construct(Client $client, int $perPage = null, int $page = null)
+    final public function __construct(Client $client, int $perPage = null, int $page = null)
     {
         if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
             throw new ValueError(sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
