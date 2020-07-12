@@ -63,14 +63,21 @@ $client = new DigitalOceanV2\Client();
 // authenticate the client with your access token which can be
 // generated at https://cloud.digitalocean.com/settings/applications
 $client->authenticate('your_access_token');
+```
 
-// ...
+Version 3.0 also has a built-in paginator, and can be used on any of the APIs which return collections. By default, the pager will internally attempt to fetch 200 entries in each request, however this can be configured by passing a 2nd parameter to the constructor. We have included an example below which will fetch all droplets:
+
+```php
+// create a new result pager
+$pager = new DigitalOceanV2\ResultPager($client);
+
+// get all droplets
+$droplets = $pager->fetchAll($client->droplet(), 'getAll');
 ```
 
 ### Account
 
 ```php
-// ...
 // return the account api
 $account = $client->account();
 
@@ -81,7 +88,6 @@ $userInformation = $account->getUserInformation();
 ### Action
 
 ```php
-// ...
 // return the action api
 $action  = $client->action();
 
@@ -95,7 +101,6 @@ $action123 = $action->getById(123);
 ### Domain
 
 ```php
-// ...
 // return the domain api
 $domain = $client->domain();
 
@@ -115,7 +120,6 @@ $domain->remove('baz.dk');
 ### Domain Record
 
 ```php
-// ...
 // return the domain record api
 $domainRecord = $client->domainRecord();
 
@@ -138,7 +142,6 @@ $domainRecord->remove('qmx.dk', 123);
 ### Droplet
 
 ```php
-// ...
 // return the droplet api
 $droplet = $client->droplet();
 
@@ -227,7 +230,6 @@ $privateNetworkingEnabled = $droplet->enablePrivateNetworking(123);
 ### Image
 
 ```php
-// ...
 // return the image api
 $image = $client->image();
 
@@ -268,7 +270,6 @@ $actionImage = $image->getAction(123, 456);
 ### Key
 
 ```php
-// ...
 // return the key api
 $key = $client->key();
 
@@ -294,7 +295,6 @@ $key->remove(123);
 ### Load Balancer
 
 ```php
-// ...
 // return the load balancer api
 $loadBalancer = $client->loadbalancer();
 
@@ -320,7 +320,6 @@ $myNewLoadBalancer = $loadBalancer->create('my-new-load-balancer', 'nyc1');
 ### Region
 
 ```php
-// ...
 // return the region api
 $region = $client->region();
 
@@ -331,7 +330,6 @@ $regions = $region->getAll();
 ### Size
 
 ```php
-// ...
 // return the size api
 $size = $client->size();
 
@@ -342,7 +340,6 @@ $sizes = $size->getAll();
 ### Tag
 
 ```php
-// ...
 // return the tag api
 $tag = $client->tag();
 
@@ -368,7 +365,6 @@ $tag->remove('awesome');
 ### Volume
 
 ```php
-// ...
 // return the volume api
 $volume = $client->volume();
 

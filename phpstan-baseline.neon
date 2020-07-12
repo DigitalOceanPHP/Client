@@ -10,3 +10,8 @@ parameters:
 			count: 1
 			path: src/HttpClient/BuzzHttpClient.php
 
+		-
+			message: "#^Variable method call on DigitalOceanV2\\\\Api\\\\ApiInterface\\.$#"
+			count: 1
+			path: src/ResultPager.php
+

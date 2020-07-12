@@ -22,12 +22,13 @@ use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\HttpClient\Util\JsonObject;
 use DigitalOceanV2\HttpClient\Util\QueryStringBuilder;
 use stdClass;
+use ValueError;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-abstract class AbstractApi
+abstract class AbstractApi implements ApiInterface
 {
     /**
      * The URI prefix.
@@ -37,20 +38,74 @@ abstract class AbstractApi
     private const URI_PREFIX = '/v2/';
 
     /**
-     * The HTTP methods client.
+     * The client instance.
      *
-     * @var HttpMethodsClientInterface
+     * @var Client
      */
-    private $httpClient;
+    private $client;
 
     /**
-     * @param Client $client
+     * The per page parameter.
+     *
+     * @var int|null
+     */
+    private $perPage;
+
+    /**
+     * The page parameter.
+     *
+     * @var int|null
+     */
+    private $page;
+
+    /**
+     * @param Client   $client
+     * @param int|null $perPage
+     * @param int|null $page
      *
      * @return void
      */
-    public function __construct(Client $client)
+    public final function __construct(Client $client, int $perPage = null, int $page = null)
     {
-        $this->httpClient = $client->getHttpClient();
+        if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
+            throw new ValueError(sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
+        }
+
+        if (null !== $page && $page < 1) {
+            throw new ValueError(sprintf('%s::__construct(): Argument #3 ($page) must be greater than or equal to 1, or null', self::class));
+        }
+
+        $this->client = $client;
+        $this->perPage = $perPage;
+        $this->page = $page;
+    }
+
+    /**
+     * Create a new instance with the given page parameter.
+     *
+     * This must be an integer between 1 and 200.
+     *
+     * @param int|null $perPage
+     *
+     * @return static
+     */
+    public function perPage(?int $perPage)
+    {
+        return new static($this->client, $perPage, $this->page);
+    }
+
+    /**
+     * Create a new instance with the given page parameter.
+     *
+     * This must be an integer greater than or equal to 1.
+     *
+     * @param int|null $page
+     *
+     * @return static
+     */
+    public function page(?int $page)
+    {
+        return new static($this->client, $this->perPage, $page);
     }
 
     /**
@@ -66,7 +121,15 @@ abstract class AbstractApi
      */
     protected function get(string $uri, array $params = [], array $headers = [])
     {
-        $response = $this->httpClient->get(self::prepareUri($uri, $params), $headers);
+        if (null !== $this->perPage) {
+            $params = array_merge(['per_page' => $this->perPage], $params);
+        }
+
+        if (null !== $this->page) {
+            $params = array_merge(['page' => $this->page], $params);
+        }
+
+        $response = $this->client->getHttpClient()->get(self::prepareUri($uri, $params), $headers);
 
         return self::getContent($response);
     }
@@ -90,7 +153,7 @@ abstract class AbstractApi
             $headers = self::addJsonContentType($headers);
         }
 
-        $response = $this->httpClient->post(self::prepareUri($uri), $headers, $body ?? '');
+        $response = $this->client->getHttpClient()->post(self::prepareUri($uri), $headers, $body ?? '');
 
         return self::getContent($response);
     }
@@ -114,7 +177,7 @@ abstract class AbstractApi
             $headers = self::addJsonContentType($headers);
         }
 
-        $response = $this->httpClient->put(self::prepareUri($uri), $headers, $body ?? '');
+        $response = $this->client->getHttpClient()->put(self::prepareUri($uri), $headers, $body ?? '');
 
         return self::getContent($response);
     }
@@ -138,7 +201,7 @@ abstract class AbstractApi
             $headers = self::addJsonContentType($headers);
         }
 
-        $this->httpClient->delete(self::prepareUri($uri), $headers, $body ?? '');
+        $this->client->getHttpClient()->delete(self::prepareUri($uri), $headers, $body ?? '');
     }
 
     /**
