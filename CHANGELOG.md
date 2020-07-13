@@ -2,12 +2,18 @@ CHANGE LOG
 ==========
 
 
-## 3.0.0 (Upcoming)
+## 3.0.0-RC2 (UPCOMING)
+
+* Reworked pagination again
+* Corrected supported Guzzle versions
+
+
+## 3.0.0-RC1 (12/07/2020)
 
 * Add support for the Tag API
 * Added getTotal() to droplet API
 * Added support for newer properties for volumes
-* Support only Guzzle `^6.5.5` or `^7.0.1` or Buzz `^0.16.1`
+* Support only Guzzle `^6.3.1` or `^7.0` or Buzz `^0.16`
 * Reworked and renamed `DigitalOceanV2\DigitalOceanV2` to `DigitalOceanV2\Client`
 * Moved `DigitalOceanV2\Adapter` to `DigitalOceanV2\HttpClient`
 * Reworked and renamed `AdapterInterface` to `HttpClientInterface`

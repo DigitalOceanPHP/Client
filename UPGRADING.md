@@ -10,15 +10,15 @@ The `DigitalOceanV2\DigitalOceanV2` class has been renamed to `DigitalOceanV2\Cl
 
 #### 2.3 Code:
 
-```
+```php
 $adapter = new DigitalOceanV2\Adapter\BuzzAdapter('your_access_token');
 
-$digitalocean = new DigitalOceanV2\DigitalOceanV2($adapter);
+$client = new DigitalOceanV2\DigitalOceanV2($adapter);
 ```
 
 #### 3.0 Code:
 
-```
+```php
 $client = new DigitalOceanV2\Client();
 
 $client->authenticate('your_access_token');
@@ -26,22 +26,22 @@ $client->authenticate('your_access_token');
 
 ### Result Pager
 
-In version 2.3, we used to provide a way to set the page and per page parameters to the `getAll` API methods, defaulting the per page value to 200. In version 3.0, we no longer interfeer with this query parameter, and instead provide a proper way to page through results.
+In version 2.3, we used to provide a way to set the page and per page parameters to the `getAll` API methods, defaulting the per page value to 200. In version 3.0, we no longer interfeer with this query parameter, and instead provide a proper way to page through results. Our new result pager class with temporarily set the per page value to 100 while it does its work, rather than the API classes doing this, however you can customise this number when you create the result pager.
 
 #### 2.3 Code:
 
-```
+```php
 // get the first 200 droplets as an array
-$droplets = $droplet->getAll();
+$droplets = $client->droplet()->getAll();
 
 // get stuck...
 ```
 
 #### 3.0 Code:
 
-```
+```php
 // get the first 20 droplets as an array
-$droplets = $droplet->getAll();
+$droplets = $client->droplet()->getAll();
 
 // create a new result pager
 $pager = new DigitalOceanV2\ResultPager($client);

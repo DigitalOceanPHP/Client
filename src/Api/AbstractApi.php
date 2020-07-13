@@ -58,13 +58,15 @@ abstract class AbstractApi implements ApiInterface
     private $page;
 
     /**
+     * Create a new API instance.
+     *
      * @param Client   $client
      * @param int|null $perPage
      * @param int|null $page
      *
      * @return void
      */
-    final public function __construct(Client $client, int $perPage = null, int $page = null)
+    public function __construct(Client $client, ?int $perPage, ?int $page)
     {
         if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
             throw new ValueError(sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
@@ -90,7 +92,15 @@ abstract class AbstractApi implements ApiInterface
      */
     public function perPage(?int $perPage)
     {
-        return new static($this->client, $perPage, $this->page);
+        if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
+            throw new ValueError(sprintf('%s::perPage(): Argument #1 ($perPage) must be between 1 and 200, or null', self::class));
+        }
+
+        $copy = clone $this;
+
+        $copy->perPage = $perPage;
+
+        return $copy;
     }
 
     /**
@@ -104,7 +114,15 @@ abstract class AbstractApi implements ApiInterface
      */
     public function page(?int $page)
     {
-        return new static($this->client, $this->perPage, $page);
+        if (null !== $page && $page < 1) {
+            throw new ValueError(sprintf('%s::page(): Argument #1 ($page) must be greater than or equal to 1, or null', self::class));
+        }
+
+        $copy = clone $this;
+
+        $copy->page = $page;
+
+        return $copy;
     }
 
     /**
@@ -120,11 +138,11 @@ abstract class AbstractApi implements ApiInterface
      */
     protected function get(string $uri, array $params = [], array $headers = [])
     {
-        if (null !== $this->perPage) {
+        if (null !== $this->perPage && !isset($params['per_page'])) {
             $params = array_merge(['per_page' => $this->perPage], $params);
         }
 
-        if (null !== $this->page) {
+        if (null !== $this->page && !isset($params['page'])) {
             $params = array_merge(['page' => $this->page], $params);
         }
 
