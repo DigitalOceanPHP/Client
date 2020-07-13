@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 3.0.0-RC2 (UPCOMING)
+
+* Reworked pagination again
+* Corrected supported Guzzle versions
+
+
 ## 3.0.0-RC1 (12/07/2020)
 
 * Add support for the Tag API
