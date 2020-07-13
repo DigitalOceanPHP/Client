@@ -26,7 +26,7 @@ $client->authenticate('your_access_token');
 
 ### Result Pager
 
-In version 2.3, we used to provide a way to set the page and per page parameters to the `getAll` API methods, defaulting the per page value to 200. In version 3.0, we no longer interfeer with this query parameter, and instead provide a proper way to page through results. Our new result pager class with temporarily set the per page value to 200 while it does its work, rather than the API classes doing this.
+In version 2.3, we used to provide a way to set the page and per page parameters to the `getAll` API methods, defaulting the per page value to 200. In version 3.0, we no longer interfeer with this query parameter, and instead provide a proper way to page through results. Our new result pager class with temporarily set the per page value to 100 while it does its work, rather than the API classes doing this, however you can customise this number when you create the result pager.
 
 #### 2.3 Code:
 

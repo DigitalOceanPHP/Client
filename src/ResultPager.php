@@ -17,7 +17,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @var int
      */
-    private const PER_PAGE = 200;
+    private const PER_PAGE = 100;
 
     /**
      * The client to use for pagination.
