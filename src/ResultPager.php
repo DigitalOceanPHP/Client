@@ -8,6 +8,7 @@ use DigitalOceanV2\Api\ApiInterface;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
+use ValueError;
 
 final class ResultPager implements ResultPagerInterface
 {
@@ -49,6 +50,10 @@ final class ResultPager implements ResultPagerInterface
      */
     public function __construct(Client $client, int $perPage = null)
     {
+        if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
+            throw new ValueError(sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
+        }
+
         $this->client = $client;
         $this->perPage = $perPage ?? self::PER_PAGE;
         $this->pagination = [];
@@ -128,16 +133,6 @@ final class ResultPager implements ResultPagerInterface
     public function hasNext()
     {
         return isset($this->pagination['next']);
-    }
-
-    /**
-     * Check to determine the availability of a previous page.
-     *
-     * @return bool
-     */
-    public function hasPrevious()
-    {
-        return isset($this->pagination['prev']);
     }
 
     /**
