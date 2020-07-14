@@ -66,7 +66,7 @@ abstract class AbstractApi implements ApiInterface
      *
      * @return void
      */
-    public function __construct(Client $client, ?int $perPage, ?int $page)
+    public function __construct(Client $client, int $perPage = null, int $page = null)
     {
         if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
             throw new ValueError(sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
