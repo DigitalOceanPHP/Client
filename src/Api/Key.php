@@ -43,7 +43,7 @@ class Key extends AbstractApi
      *
      * @return KeyEntity
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $key = $this->get(\sprintf('account/keys/%d', $id));
 
@@ -57,7 +57,7 @@ class Key extends AbstractApi
      *
      * @return KeyEntity
      */
-    public function getByFingerprint($fingerprint)
+    public function getByFingerprint(string $fingerprint)
     {
         $key = $this->get(\sprintf('account/keys/%s', $fingerprint));
 
@@ -72,7 +72,7 @@ class Key extends AbstractApi
      *
      * @return KeyEntity
      */
-    public function create($name, $publicKey)
+    public function create(string $name, string $publicKey)
     {
         $key = $this->post(\sprintf('account/keys'), [
             'name' => $name,
@@ -90,7 +90,7 @@ class Key extends AbstractApi
      *
      * @return KeyEntity
      */
-    public function update($id, $name)
+    public function update(string $id, string $name)
     {
         $key = $this->put(\sprintf('account/keys/%s', $id), [
             'name' => $name,
@@ -106,7 +106,7 @@ class Key extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(string $id)
     {
         $this->delete(\sprintf('account/keys/%s', $id));
     }

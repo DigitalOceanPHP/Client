@@ -32,7 +32,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity[]
      */
-    public function getAll($tag = null)
+    public function getAll(?string $tag = null)
     {
         $droplets = $this->get('droplets', null === $tag ? [] : ['tag_name' => $tag]);
 
@@ -48,7 +48,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity[]
      */
-    public function getNeighborsById($id)
+    public function getNeighborsById(int $id)
     {
         $droplets = $this->get(\sprintf('droplets/%d/neighbors', $id));
 
@@ -78,7 +78,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $droplet = $this->get(\sprintf('droplets/%d', $id));
 
@@ -103,7 +103,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity|DropletEntity[]|null
      */
-    public function create($names, $region, $size, $image, $backups = false, $ipv6 = false, $privateNetworking = false, array $sshKeys = [], $userData = '', $monitoring = true, array $volumes = [], array $tags = [])
+    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, bool $privateNetworking = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [])
     {
         $data = \is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -151,7 +151,7 @@ class Droplet extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(int $id)
     {
         $this->delete(\sprintf('droplets/%d', $id));
     }
@@ -163,7 +163,7 @@ class Droplet extends AbstractApi
      *
      * @return KernelEntity[]
      */
-    public function getAvailableKernels($id)
+    public function getAvailableKernels(int $id)
     {
         $kernels = $this->get(\sprintf('droplets/%d/kernels', $id));
 
@@ -179,7 +179,7 @@ class Droplet extends AbstractApi
      *
      * @return ImageEntity[]
      */
-    public function getSnapshots($id)
+    public function getSnapshots(int $id)
     {
         $snapshots = $this->get(\sprintf('droplets/%d/snapshots', $id));
 
@@ -195,7 +195,7 @@ class Droplet extends AbstractApi
      *
      * @return ImageEntity[]
      */
-    public function getBackups($id)
+    public function getBackups(int $id)
     {
         $backups = $this->get(\sprintf('droplets/%d/backups', $id));
 
@@ -211,7 +211,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity[]
      */
-    public function getActions($id)
+    public function getActions(int $id)
     {
         $actions = $this->get(\sprintf('droplets/%d/actions', $id));
 
@@ -228,7 +228,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function getActionById($id, $actionId)
+    public function getActionById(int $id, int $actionId)
     {
         $action = $this->get(\sprintf('droplets/%d/actions/%d', $id, $actionId));
 
@@ -242,7 +242,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function reboot($id)
+    public function reboot(int $id)
     {
         return $this->executeAction($id, ['type' => 'reboot']);
     }
@@ -254,7 +254,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function powerCycle($id)
+    public function powerCycle(int $id)
     {
         return $this->executeAction($id, ['type' => 'power_cycle']);
     }
@@ -266,7 +266,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function shutdown($id)
+    public function shutdown(int $id)
     {
         return $this->executeAction($id, ['type' => 'shutdown']);
     }
@@ -278,7 +278,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function powerOff($id)
+    public function powerOff(int $id)
     {
         return $this->executeAction($id, ['type' => 'power_off']);
     }
@@ -290,7 +290,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function powerOn($id)
+    public function powerOn(int $id)
     {
         return $this->executeAction($id, ['type' => 'power_on']);
     }
@@ -302,7 +302,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function passwordReset($id)
+    public function passwordReset(int $id)
     {
         return $this->executeAction($id, ['type' => 'password_reset']);
     }
@@ -316,7 +316,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function resize($id, $size, $disk = true)
+    public function resize(int $id, string $size, bool $disk = true)
     {
         return $this->executeAction($id, ['type' => 'resize', 'size' => $size, 'disk' => $disk ? 'true' : 'false']);
     }
@@ -329,7 +329,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function restore($id, $image)
+    public function restore(int $id, int $image)
     {
         return $this->executeAction($id, ['type' => 'restore', 'image' => $image]);
     }
@@ -342,7 +342,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function rebuild($id, $image)
+    public function rebuild(int $id, $image)
     {
         return $this->executeAction($id, ['type' => 'rebuild', 'image' => $image]);
     }
@@ -355,7 +355,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function rename($id, $name)
+    public function rename(int $id, string $name)
     {
         return $this->executeAction($id, ['type' => 'rename', 'name' => $name]);
     }
@@ -368,7 +368,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function changeKernel($id, $kernel)
+    public function changeKernel(int $id, int $kernel)
     {
         return $this->executeAction($id, ['type' => 'change_kernel', 'kernel' => $kernel]);
     }
@@ -380,7 +380,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function enableIpv6($id)
+    public function enableIpv6(int $id)
     {
         return $this->executeAction($id, ['type' => 'enable_ipv6']);
     }
@@ -392,7 +392,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function enableBackups($id)
+    public function enableBackups(int $id)
     {
         return $this->executeAction($id, ['type' => 'enable_backups']);
     }
@@ -404,7 +404,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function disableBackups($id)
+    public function disableBackups(int $id)
     {
         return $this->executeAction($id, ['type' => 'disable_backups']);
     }
@@ -416,7 +416,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function enablePrivateNetworking($id)
+    public function enablePrivateNetworking(int $id)
     {
         return $this->executeAction($id, ['type' => 'enable_private_networking']);
     }
@@ -429,7 +429,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function snapshot($id, $name)
+    public function snapshot(int $id, string $name)
     {
         return $this->executeAction($id, ['type' => 'snapshot', 'name' => $name]);
     }
@@ -442,7 +442,7 @@ class Droplet extends AbstractApi
      *
      * @return ActionEntity
      */
-    private function executeAction($id, array $options)
+    private function executeAction(int $id, array $options)
     {
         $action = $this->post(\sprintf('droplets/%d/actions', $id), $options);
 

@@ -46,7 +46,7 @@ class LoadBalancer extends AbstractApi
      *
      * @return LoadBalancerEntity
      */
-    public function getById($id)
+    public function getById(string $id)
     {
         $loadBalancer = $this->get(\sprintf('load_balancers/%s', $id));
 
@@ -68,14 +68,14 @@ class LoadBalancer extends AbstractApi
      * @return LoadBalancerEntity
      */
     public function create(
-        $name,
-        $region,
-        $forwardRules = null,
-        $algorithm = 'round_robin',
-        $healthCheck = [],
-        $stickySessions = [],
-        $dropletIds = [],
-        $httpsRedirect = false
+        string $name,
+        string $region,
+        array $forwardRules = null,
+        string $algorithm = 'round_robin',
+        array $healthCheck = [],
+        array $stickySessions = [],
+        array $dropletIds = [],
+        bool $httpsRedirect = false
     ) {
         $loadBalancer = $this->post('load_balancers', [
             'name' => $name,
@@ -99,7 +99,7 @@ class LoadBalancer extends AbstractApi
      *
      * @return LoadBalancerEntity
      */
-    public function update($id, $loadBalancerSpec)
+    public function update(string $id, $loadBalancerSpec)
     {
         $data = self::formatConfigurationOptions($loadBalancerSpec);
 
@@ -115,7 +115,7 @@ class LoadBalancer extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(string $id)
     {
         $this->delete(\sprintf('load_balancers/%s', $id));
     }

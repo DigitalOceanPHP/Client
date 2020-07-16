@@ -43,7 +43,7 @@ class Domain extends AbstractApi
      *
      * @return DomainEntity
      */
-    public function getByName($domainName)
+    public function getByName(string $domainName)
     {
         $domain = $this->get(\sprintf('domains/%s', $domainName));
 
@@ -58,7 +58,7 @@ class Domain extends AbstractApi
      *
      * @return DomainEntity
      */
-    public function create($name, $ipAddress)
+    public function create(string $name, string $ipAddress)
     {
         $domain = $this->post('domains', [
             'name' => $name,
@@ -75,7 +75,7 @@ class Domain extends AbstractApi
      *
      * @return void
      */
-    public function remove($domain)
+    public function remove(string $domain)
     {
         $this->delete(\sprintf('domains/%s', $domain));
     }
