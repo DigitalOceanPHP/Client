@@ -53,14 +53,14 @@ class Discovery
     private static function discoverGuzzle()
     {
         // ensure Guzzle is installed version is at least 4.0.0
-        if (!class_exists(Client::class)) {
+        if (!\class_exists(Client::class)) {
             return null;
         }
 
         $version = self::getGuzzleVersion();
 
         // ensure Guzzle version is at least 6.3.1
-        if (null === $version || version_compare($version, '6.3.1') < 0) {
+        if (null === $version || \version_compare($version, '6.3.1') < 0) {
             return null;
         }
 
@@ -82,13 +82,13 @@ class Discovery
      */
     private static function readConstant(string $name)
     {
-        if (!defined($name)) {
+        if (!\defined($name)) {
             return null;
         }
 
-        $value = constant($name);
+        $value = \constant($name);
 
-        return is_scalar($value) ? (string) $value : null;
+        return \is_scalar($value) ? (string) $value : null;
     }
 
     /**
@@ -97,7 +97,7 @@ class Discovery
     private static function discoverBuzz()
     {
         // ensure Buzz is installed and version is less than 0.17.0
-        if (!class_exists(Browser::class) || !class_exists(Listener::class)) {
+        if (!\class_exists(Browser::class) || !\class_exists(Listener::class)) {
             return null;
         }
 

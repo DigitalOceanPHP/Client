@@ -74,7 +74,7 @@ final class Action extends AbstractEntity
         parent::build($parameters);
 
         foreach ($parameters as $property => $value) {
-            if ('region' === $property && is_object($value)) {
+            if ('region' === $property && \is_object($value)) {
                 $this->region = new Region($value);
             }
         }

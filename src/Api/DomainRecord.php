@@ -32,9 +32,9 @@ class DomainRecord extends AbstractApi
      */
     public function getAll($domainName)
     {
-        $domainRecords = $this->get(sprintf('domains/%s/records', $domainName));
+        $domainRecords = $this->get(\sprintf('domains/%s/records', $domainName));
 
-        return array_map(function ($domainRecord) {
+        return \array_map(function ($domainRecord) {
             return new DomainRecordEntity($domainRecord);
         }, $domainRecords->domain_records);
     }
@@ -49,7 +49,7 @@ class DomainRecord extends AbstractApi
      */
     public function getById($domainName, $id)
     {
-        $domainRecords = $this->get(sprintf('domains/%s/records/%d', $domainName, $id));
+        $domainRecords = $this->get(\sprintf('domains/%s/records/%d', $domainName, $id));
 
         return new DomainRecordEntity($domainRecords->domain_record);
     }
@@ -72,7 +72,7 @@ class DomainRecord extends AbstractApi
      */
     public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
     {
-        switch ($type = strtoupper($type)) {
+        switch ($type = \strtoupper($type)) {
             case 'A':
             case 'AAAA':
             case 'CNAME':
@@ -116,7 +116,7 @@ class DomainRecord extends AbstractApi
             $content['ttl'] = $ttl;
         }
 
-        $domainRecord = $this->post(sprintf('domains/%s/records', $domainName), $content);
+        $domainRecord = $this->post(\sprintf('domains/%s/records', $domainName), $content);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
@@ -150,7 +150,7 @@ class DomainRecord extends AbstractApi
             'ttl' => $ttl,
         ];
 
-        $content = array_filter($content, function ($val) {
+        $content = \array_filter($content, function ($val) {
             return null !== $val;
         });
 
@@ -182,7 +182,7 @@ class DomainRecord extends AbstractApi
      */
     public function updateFields($domainName, $recordId, $fields)
     {
-        $domainRecord = $this->put(sprintf('domains/%s/records/%d', $domainName, $recordId), $fields);
+        $domainRecord = $this->put(\sprintf('domains/%s/records/%d', $domainName, $recordId), $fields);
 
         return new DomainRecordEntity($domainRecord->domain_record);
     }
@@ -197,6 +197,6 @@ class DomainRecord extends AbstractApi
      */
     public function remove($domainName, $recordId)
     {
-        $this->delete(sprintf('domains/%s/records/%d', $domainName, $recordId));
+        $this->delete(\sprintf('domains/%s/records/%d', $domainName, $recordId));
     }
 }

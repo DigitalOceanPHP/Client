@@ -29,9 +29,9 @@ class Key extends AbstractApi
      */
     public function getAll()
     {
-        $keys = $this->get(sprintf('account/keys'));
+        $keys = $this->get(\sprintf('account/keys'));
 
-        return array_map(function ($key) {
+        return \array_map(function ($key) {
             return new KeyEntity($key);
         }, $keys->ssh_keys);
     }
@@ -45,7 +45,7 @@ class Key extends AbstractApi
      */
     public function getById($id)
     {
-        $key = $this->get(sprintf('account/keys/%d', $id));
+        $key = $this->get(\sprintf('account/keys/%d', $id));
 
         return new KeyEntity($key->ssh_key);
     }
@@ -59,7 +59,7 @@ class Key extends AbstractApi
      */
     public function getByFingerprint($fingerprint)
     {
-        $key = $this->get(sprintf('account/keys/%s', $fingerprint));
+        $key = $this->get(\sprintf('account/keys/%s', $fingerprint));
 
         return new KeyEntity($key->ssh_key);
     }
@@ -74,7 +74,7 @@ class Key extends AbstractApi
      */
     public function create($name, $publicKey)
     {
-        $key = $this->post(sprintf('account/keys'), [
+        $key = $this->post(\sprintf('account/keys'), [
             'name' => $name,
             'public_key' => $publicKey,
         ]);
@@ -92,7 +92,7 @@ class Key extends AbstractApi
      */
     public function update($id, $name)
     {
-        $key = $this->put(sprintf('account/keys/%s', $id), [
+        $key = $this->put(\sprintf('account/keys/%s', $id), [
             'name' => $name,
         ]);
 
@@ -108,6 +108,6 @@ class Key extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('account/keys/%s', $id));
+        $this->delete(\sprintf('account/keys/%s', $id));
     }
 }

@@ -34,7 +34,7 @@ class LoadBalancer extends AbstractApi
     {
         $loadBalancers = $this->get('load_balancers');
 
-        return array_map(function ($key) {
+        return \array_map(function ($key) {
             return new LoadBalancerEntity($key);
         }, $loadBalancers->load_balancers);
     }
@@ -48,7 +48,7 @@ class LoadBalancer extends AbstractApi
      */
     public function getById($id)
     {
-        $loadBalancer = $this->get(sprintf('load_balancers/%s', $id));
+        $loadBalancer = $this->get(\sprintf('load_balancers/%s', $id));
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -103,7 +103,7 @@ class LoadBalancer extends AbstractApi
     {
         $data = self::formatConfigurationOptions($loadBalancerSpec);
 
-        $loadBalancer = $this->put(sprintf('load_balancers/%s', $id), $data);
+        $loadBalancer = $this->put(\sprintf('load_balancers/%s', $id), $data);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);
     }
@@ -117,7 +117,7 @@ class LoadBalancer extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('load_balancers/%s', $id));
+        $this->delete(\sprintf('load_balancers/%s', $id));
     }
 
     /**
@@ -127,8 +127,8 @@ class LoadBalancer extends AbstractApi
      */
     private static function formatForwardRules($forwardRules)
     {
-        if (is_array($forwardRules)) {
-            return array_map(function ($rule) {
+        if (\is_array($forwardRules)) {
+            return \array_map(function ($rule) {
                 return self::formatConfigurationOptions($rule);
             }, $forwardRules);
         }

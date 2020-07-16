@@ -124,9 +124,9 @@ final class HttpMethodsClient implements HttpMethodsClientInterface
      */
     private function send(string $method, string $uri, array $headers, string $body)
     {
-        $url = sprintf('%s%s', $this->baseUrl, $uri);
+        $url = \sprintf('%s%s', $this->baseUrl, $uri);
 
-        $headers = array_merge($this->defaultHeaders, $headers);
+        $headers = \array_merge($this->defaultHeaders, $headers);
 
         $this->lastResponse = $response = $this->httpClient->sendRequest($method, $url, $headers, $body);
 

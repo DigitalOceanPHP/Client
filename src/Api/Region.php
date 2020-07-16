@@ -31,7 +31,7 @@ class Region extends AbstractApi
     {
         $regions = $this->get('regions');
 
-        return array_map(function ($region) {
+        return \array_map(function ($region) {
             return new RegionEntity($region);
         }, $regions->regions);
     }

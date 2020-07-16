@@ -1,0 +1,36 @@
+parameters:
+    autoload_paths:
+        - 'vendor/autoload.php'
+        - 'vendor-bin/phpunit/vendor/autoload.php'
+    auto_import_names: true
+    import_short_classes: false
+    import_doc_blocks: false
+    php_version_features: '7.1'
+    paths:
+        - 'src'
+        - 'tests'
+    sets:
+        - 'code-quality'
+        - 'dead-code'
+        - 'php52'
+        - 'php53'
+        - 'php54'
+        - 'php55'
+        - 'php56'
+        - 'php70'
+        - 'php71'
+        - 'phpunit40'
+        - 'phpunit50'
+        - 'phpunit60'
+        - 'phpunit70'
+        - 'phpunit75'
+
+services:
+    Rector\Performance\Rector\FuncCall\PreslashSimpleFunctionRector: ~
+    Rector\Php55\Rector\String_\StringClassNameToClassConstantRector: ~
+    Rector\SOLID\Rector\Foreach_\ChangeNestedForeachIfsToEarlyContinueRector: ~
+    Rector\SOLID\Rector\If_\ChangeIfElseValueAssignToEarlyReturnRector: ~
+    Rector\SOLID\Rector\If_\ChangeNestedIfsToEarlyReturnRector: ~
+    Rector\SOLID\Rector\If_\RemoveAlwaysElseRector: ~
+    Rector\SOLID\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector: ~
+    Rector\SOLID\Rector\ClassMethod\ChangeReadOnlyVariableWithDefaultValueToConstantRector: ~

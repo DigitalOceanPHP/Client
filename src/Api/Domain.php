@@ -31,7 +31,7 @@ class Domain extends AbstractApi
     {
         $domains = $this->get('domains');
 
-        return array_map(function ($domain) {
+        return \array_map(function ($domain) {
             return new DomainEntity($domain);
         }, $domains->domains);
     }
@@ -45,7 +45,7 @@ class Domain extends AbstractApi
      */
     public function getByName($domainName)
     {
-        $domain = $this->get(sprintf('domains/%s', $domainName));
+        $domain = $this->get(\sprintf('domains/%s', $domainName));
 
         return new DomainEntity($domain->domain);
     }
@@ -77,6 +77,6 @@ class Domain extends AbstractApi
      */
     public function remove($domain)
     {
-        $this->delete(sprintf('domains/%s', $domain));
+        $this->delete(\sprintf('domains/%s', $domain));
     }
 }

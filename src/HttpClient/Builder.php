@@ -75,7 +75,7 @@ final class Builder
         if (null === $token) {
             unset($this->defaultHeaders['Authorization']);
         } else {
-            $this->defaultHeaders['Authorization'] = sprintf('Bearer %s', $token);
+            $this->defaultHeaders['Authorization'] = \sprintf('Bearer %s', $token);
         }
 
         $this->httpMethodsClient = null;

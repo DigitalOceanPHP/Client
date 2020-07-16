@@ -30,7 +30,7 @@ class Certificate extends AbstractApi
     {
         $certificates = $this->get('certificates');
 
-        return array_map(function ($certificates) {
+        return \array_map(function ($certificates) {
             return new CertificateEntity($certificates);
         }, $certificates->certificates);
     }
@@ -44,7 +44,7 @@ class Certificate extends AbstractApi
      */
     public function getById($id)
     {
-        $certificate = $this->get(sprintf('certificates/%s', $id));
+        $certificate = $this->get(\sprintf('certificates/%s', $id));
 
         return new CertificateEntity($certificate->certificate);
     }
@@ -107,6 +107,6 @@ class Certificate extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('certificates/%s', $id));
+        $this->delete(\sprintf('certificates/%s', $id));
     }
 }

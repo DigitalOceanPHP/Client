@@ -36,7 +36,7 @@ class Volume extends AbstractApi
 
         $volumes = $this->get('volumes', $query);
 
-        return array_map(function ($volume) {
+        return \array_map(function ($volume) {
             return new VolumeEntity($volume);
         }, $volumes->volumes);
     }
@@ -51,9 +51,9 @@ class Volume extends AbstractApi
      */
     public function getByNameAndRegion($driveName, $regionSlug)
     {
-        $volumes = $this->get(sprintf('volumes&region=%s&name=%s', $regionSlug, $driveName));
+        $volumes = $this->get(\sprintf('volumes&region=%s&name=%s', $regionSlug, $driveName));
 
-        return array_map(function ($volume) {
+        return \array_map(function ($volume) {
             return new VolumeEntity($volume);
         }, $volumes->volumes);
     }
@@ -67,7 +67,7 @@ class Volume extends AbstractApi
      */
     public function getById($id)
     {
-        $volume = $this->get(sprintf('volumes/%s', $id));
+        $volume = $this->get(\sprintf('volumes/%s', $id));
 
         return new VolumeEntity($volume->volume);
     }
@@ -83,9 +83,9 @@ class Volume extends AbstractApi
      */
     public function getSnapshots($id)
     {
-        $snapshots = $this->get(sprintf('volumes/%s/snapshots', $id));
+        $snapshots = $this->get(\sprintf('volumes/%s/snapshots', $id));
 
-        return array_map(function ($snapshot) {
+        return \array_map(function ($snapshot) {
             return new SnapshotEntity($snapshot);
         }, $snapshots->snapshots);
     }
@@ -122,7 +122,7 @@ class Volume extends AbstractApi
             $data['filesystem_label'] = $filesystemLabel;
         }
 
-        $volume = $this->post(sprintf('volumes'), $data);
+        $volume = $this->post(\sprintf('volumes'), $data);
 
         return new VolumeEntity($volume->volume);
     }
@@ -136,7 +136,7 @@ class Volume extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('volumes/%s', $id));
+        $this->delete(\sprintf('volumes/%s', $id));
     }
 
     /**
@@ -166,7 +166,7 @@ class Volume extends AbstractApi
      */
     public function attach($id, $dropletId, $regionSlug)
     {
-        $action = $this->post(sprintf('volumes/%s/actions', $id), [
+        $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'attach',
             'droplet_id' => $dropletId,
             'region' => $regionSlug,
@@ -186,7 +186,7 @@ class Volume extends AbstractApi
      */
     public function detach($id, $dropletId, $regionSlug)
     {
-        $action = $this->post(sprintf('volumes/%s/actions', $id), [
+        $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'detach',
             'droplet_id' => $dropletId,
             'region' => $regionSlug,
@@ -206,7 +206,7 @@ class Volume extends AbstractApi
      */
     public function resize($id, $newSize, $regionSlug)
     {
-        $action = $this->post(sprintf('volumes/%s/actions', $id), [
+        $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'resize',
             'size_gigabytes' => $newSize,
             'region' => $regionSlug,
@@ -227,7 +227,7 @@ class Volume extends AbstractApi
      */
     public function snapshot($id, $name)
     {
-        $snapshot = $this->post(sprintf('volumes/%s/snapshots', $id), ['name' => $name]);
+        $snapshot = $this->post(\sprintf('volumes/%s/snapshots', $id), ['name' => $name]);
 
         return new SnapshotEntity($snapshot->snapshot);
     }
@@ -242,7 +242,7 @@ class Volume extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->get(sprintf('volumes/%s/actions/%d', $id, $actionId));
+        $action = $this->get(\sprintf('volumes/%s/actions/%d', $id, $actionId));
 
         return new ActionEntity($action->action);
     }
@@ -256,9 +256,9 @@ class Volume extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->get(sprintf('volumes/%s/actions', $id));
+        $actions = $this->get(\sprintf('volumes/%s/actions', $id));
 
-        return array_map(function ($action) {
+        return \array_map(function ($action) {
             return new ActionEntity($action);
         }, $actions->actions);
     }

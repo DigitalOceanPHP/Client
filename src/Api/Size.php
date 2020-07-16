@@ -31,7 +31,7 @@ class Size extends AbstractApi
     {
         $sizes = $this->get('sizes');
 
-        return array_map(function ($size) {
+        return \array_map(function ($size) {
             return new SizeEntity($size);
         }, $sizes->sizes);
     }
