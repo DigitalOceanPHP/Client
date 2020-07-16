@@ -149,16 +149,16 @@ final class Droplet extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'networks':
-                    if (is_object($value)) {
-                        if (property_exists($value, 'v4')) {
-                            foreach ($value->v4 as $subProperty => $subValue) {
+                    if (\is_object($value)) {
+                        if (\property_exists($value, 'v4')) {
+                            foreach ($value->v4 as $subValue) {
                                 $subValue->version = 4;
                                 $this->networks[] = new Network($subValue);
                             }
                         }
 
-                        if (property_exists($value, 'v6')) {
-                            foreach ($value->v6 as $subProperty => $subValue) {
+                        if (\property_exists($value, 'v6')) {
+                            foreach ($value->v6 as $subValue) {
                                 $subValue->version = 6;
                                 $subValue->cidr = $subValue->netmask;
                                 $subValue->netmask = null;
@@ -171,7 +171,7 @@ final class Droplet extends AbstractEntity
                     break;
 
                 case 'kernel':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->kernel = new Kernel($value);
                     }
                     unset($parameters[$property]);
@@ -179,7 +179,7 @@ final class Droplet extends AbstractEntity
                     break;
 
                 case 'size':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->size = new Size($value);
                     }
                     unset($parameters[$property]);
@@ -187,7 +187,7 @@ final class Droplet extends AbstractEntity
                     break;
 
                 case 'region':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);
@@ -195,7 +195,7 @@ final class Droplet extends AbstractEntity
                     break;
 
                 case 'image':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->image = new Image($value);
                     }
                     unset($parameters[$property]);
@@ -212,10 +212,10 @@ final class Droplet extends AbstractEntity
 
         parent::build($parameters);
 
-        $this->backupsEnabled = in_array('backups', $this->features, true);
-        $this->virtIOEnabled = in_array('virtio', $this->features, true);
-        $this->privateNetworkingEnabled = in_array('private_networking', $this->features, true);
-        $this->ipv6Enabled = in_array('ipv6', $this->features, true);
+        $this->backupsEnabled = \in_array('backups', $this->features, true);
+        $this->virtIOEnabled = \in_array('virtio', $this->features, true);
+        $this->privateNetworkingEnabled = \in_array('private_networking', $this->features, true);
+        $this->ipv6Enabled = \in_array('ipv6', $this->features, true);
     }
 
     /**

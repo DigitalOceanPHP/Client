@@ -31,7 +31,7 @@ class FloatingIp extends AbstractApi
     {
         $ips = $this->get('floating_ips');
 
-        return array_map(function ($ip) {
+        return \array_map(function ($ip) {
             return new FloatingIpEntity($ip);
         }, $ips->floating_ips);
     }
@@ -45,7 +45,7 @@ class FloatingIp extends AbstractApi
      */
     public function getById($id)
     {
-        $ip = $this->get(sprintf('floating_ips/%s', $id));
+        $ip = $this->get(\sprintf('floating_ips/%s', $id));
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -73,7 +73,7 @@ class FloatingIp extends AbstractApi
      */
     public function createReserved($regionSlug)
     {
-        $ip = $this->post(sprintf('floating_ips'), ['region' => $regionSlug]);
+        $ip = $this->post(\sprintf('floating_ips'), ['region' => $regionSlug]);
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -87,7 +87,7 @@ class FloatingIp extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('floating_ips/%s', $id));
+        $this->delete(\sprintf('floating_ips/%s', $id));
     }
 
     /**
@@ -99,9 +99,9 @@ class FloatingIp extends AbstractApi
      */
     public function getActions($id)
     {
-        $actions = $this->get(sprintf('floating_ips/%s/actions', $id));
+        $actions = $this->get(\sprintf('floating_ips/%s/actions', $id));
 
-        return array_map(function ($action) {
+        return \array_map(function ($action) {
             return new ActionEntity($action);
         }, $actions->actions);
     }
@@ -116,7 +116,7 @@ class FloatingIp extends AbstractApi
      */
     public function getActionById($id, $actionId)
     {
-        $action = $this->get(sprintf('floating_ips/%s/actions/%d', $id, $actionId));
+        $action = $this->get(\sprintf('floating_ips/%s/actions/%d', $id, $actionId));
 
         return new ActionEntity($action->action);
     }
@@ -156,7 +156,7 @@ class FloatingIp extends AbstractApi
      */
     private function executeAction($id, array $options)
     {
-        $action = $this->post(sprintf('floating_ips/%s/actions', $id), $options);
+        $action = $this->post(\sprintf('floating_ips/%s/actions', $id), $options);
 
         return new ActionEntity($action->action);
     }

@@ -30,7 +30,7 @@ class Tag extends AbstractApi
     {
         $tags = $this->get('tags');
 
-        return array_map(function ($tag) {
+        return \array_map(function ($tag) {
             return new TagEntity($tag);
         }, $tags->tags);
     }
@@ -44,7 +44,7 @@ class Tag extends AbstractApi
      */
     public function getByName($name)
     {
-        $tag = $this->get(sprintf('tags/%s', $name));
+        $tag = $this->get(\sprintf('tags/%s', $name));
 
         return new TagEntity($tag->tag);
     }
@@ -73,7 +73,7 @@ class Tag extends AbstractApi
      */
     public function tagResources($name, $resources)
     {
-        $this->post(sprintf('tags/%s/resources', $name), ['resources' => $resources]);
+        $this->post(\sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
 
     /**
@@ -86,7 +86,7 @@ class Tag extends AbstractApi
      */
     public function untagResources($name, $resources)
     {
-        $this->delete(sprintf('tags/%s/resources', $name), ['resources' => $resources]);
+        $this->delete(\sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
 
     /**
@@ -98,6 +98,6 @@ class Tag extends AbstractApi
      */
     public function remove($name)
     {
-        $this->delete(sprintf('tags/%s', $name));
+        $this->delete(\sprintf('tags/%s', $name));
     }
 }

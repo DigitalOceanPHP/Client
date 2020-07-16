@@ -32,8 +32,8 @@ abstract class AbstractEntity
             return;
         }
 
-        if (is_object($parameters)) {
-            $parameters = get_object_vars($parameters);
+        if (\is_object($parameters)) {
+            $parameters = \get_object_vars($parameters);
         }
 
         $this->build($parameters);
@@ -49,7 +49,7 @@ abstract class AbstractEntity
         foreach ($parameters as $property => $value) {
             $property = static::convertToCamelCase($property);
 
-            if (property_exists($this, $property)) {
+            if (\property_exists($this, $property)) {
                 $this->$property = $value;
             }
         }
@@ -61,7 +61,7 @@ abstract class AbstractEntity
     public function toArray()
     {
         $settings = [];
-        $called = get_called_class();
+        $called = \get_called_class();
 
         $reflection = new \ReflectionClass($called);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
@@ -84,7 +84,7 @@ abstract class AbstractEntity
     protected static function convertToIso8601(string $date)
     {
         $date = new \DateTime($date);
-        $date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $date->setTimezone(new \DateTimeZone(\date_default_timezone_get()));
 
         return $date->format(\DateTime::ISO8601);
     }
@@ -97,16 +97,16 @@ abstract class AbstractEntity
     protected static function convertToCamelCase(string $str)
     {
         $callback = function ($match) {
-            return strtoupper($match[2]);
+            return \strtoupper($match[2]);
         };
 
-        $replaced = preg_replace_callback('/(^|_)([a-z])/', $callback, $str);
+        $replaced = \preg_replace_callback('/(^|_)([a-z])/', $callback, $str);
 
         if (null === $replaced) {
-            throw new RuntimeException(sprintf('preg_replace_callback error: %s', \preg_last_error_msg()));
+            throw new RuntimeException(\sprintf('preg_replace_callback error: %s', \preg_last_error_msg()));
         }
 
-        return lcfirst($replaced);
+        return \lcfirst($replaced);
     }
 
     /**
@@ -116,12 +116,12 @@ abstract class AbstractEntity
      */
     protected static function convertToSnakeCase(string $str)
     {
-        $replaced = preg_split('/(?=[A-Z])/', $str);
+        $replaced = \preg_split('/(?=[A-Z])/', $str);
 
         if (false === $replaced) {
-            throw new RuntimeException(sprintf('preg_split error: %s', \preg_last_error_msg()));
+            throw new RuntimeException(\sprintf('preg_split error: %s', \preg_last_error_msg()));
         }
 
-        return strtolower(implode('_', $replaced));
+        return \strtolower(\implode('_', $replaced));
     }
 }

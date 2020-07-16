@@ -80,7 +80,7 @@ final class Volume extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'region':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);

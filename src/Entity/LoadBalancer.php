@@ -103,7 +103,7 @@ final class LoadBalancer extends AbstractEntity
                     break;
 
                 case 'health_check':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->healthCheck = new HealthCheck($value);
                     }
                     unset($parameters[$property]);
@@ -111,7 +111,7 @@ final class LoadBalancer extends AbstractEntity
                     break;
 
                 case 'sticky_sessions':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->stickySessions = new StickySession($value);
                     }
                     unset($parameters[$property]);
@@ -119,7 +119,7 @@ final class LoadBalancer extends AbstractEntity
                     break;
 
                 case 'region':
-                    if (is_object($value)) {
+                    if (\is_object($value)) {
                         $this->region = new Region($value);
                     }
                     unset($parameters[$property]);
@@ -140,7 +140,7 @@ final class LoadBalancer extends AbstractEntity
             'name' => $this->name,
             'region' => $this->region->slug,
             'algorithm' => $this->algorithm,
-            'forwarding_rules' => array_map(function ($rule) {
+            'forwarding_rules' => \array_map(function ($rule) {
                 return $rule->toArray();
             }, $this->forwardingRules),
             'health_check' => $this->healthCheck->toArray(),

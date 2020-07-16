@@ -34,7 +34,7 @@ class Image extends AbstractApi
     {
         $query = [];
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['distribution', 'application'], true)) {
+        if (isset($criteria['type']) && \in_array($criteria['type'], ['distribution', 'application'], true)) {
             $query['type'] = $criteria['type'];
         }
 
@@ -44,7 +44,7 @@ class Image extends AbstractApi
 
         $images = $this->get('images', $query);
 
-        return array_map(function ($image) {
+        return \array_map(function ($image) {
             return new ImageEntity($image);
         }, $images->images);
     }
@@ -58,7 +58,7 @@ class Image extends AbstractApi
      */
     public function getById($id)
     {
-        $image = $this->get(sprintf('images/%d', $id));
+        $image = $this->get(\sprintf('images/%d', $id));
 
         return new ImageEntity($image->image);
     }
@@ -72,7 +72,7 @@ class Image extends AbstractApi
      */
     public function getBySlug($slug)
     {
-        $image = $this->get(sprintf('images/%s', $slug));
+        $image = $this->get(\sprintf('images/%s', $slug));
 
         return new ImageEntity($image->image);
     }
@@ -87,7 +87,7 @@ class Image extends AbstractApi
      */
     public function update($id, $name)
     {
-        $image = $this->put(sprintf('images/%d', $id), ['name' => $name]);
+        $image = $this->put(\sprintf('images/%d', $id), ['name' => $name]);
 
         return new ImageEntity($image->image);
     }
@@ -101,7 +101,7 @@ class Image extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('images/%d', $id));
+        $this->delete(\sprintf('images/%d', $id));
     }
 
     /**
@@ -114,7 +114,7 @@ class Image extends AbstractApi
      */
     public function transfer($id, $regionSlug)
     {
-        $action = $this->post(sprintf('images/%d/actions', $id), ['type' => 'transfer', 'region' => $regionSlug]);
+        $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'transfer', 'region' => $regionSlug]);
 
         return new ActionEntity($action->action);
     }
@@ -128,7 +128,7 @@ class Image extends AbstractApi
      */
     public function convert($id)
     {
-        $action = $this->post(sprintf('images/%d/actions', $id), ['type' => 'convert']);
+        $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'convert']);
 
         return new ActionEntity($action->action);
     }
@@ -143,7 +143,7 @@ class Image extends AbstractApi
      */
     public function getAction($id, $actionId)
     {
-        $action = $this->get(sprintf('images/%d/actions/%d', $id, $actionId));
+        $action = $this->get(\sprintf('images/%d/actions/%d', $id, $actionId));
 
         return new ActionEntity($action->action);
     }

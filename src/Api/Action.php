@@ -31,7 +31,7 @@ class Action extends AbstractApi
     {
         $actions = $this->get('actions');
 
-        return array_map(function ($action) {
+        return \array_map(function ($action) {
             return new ActionEntity($action);
         }, $actions->actions);
     }
@@ -45,7 +45,7 @@ class Action extends AbstractApi
      */
     public function getById($id)
     {
-        $action = $this->get(sprintf('actions/%d', $id));
+        $action = $this->get(\sprintf('actions/%d', $id));
 
         return new ActionEntity($action->action);
     }

@@ -48,7 +48,7 @@ final class BuzzHttpClient implements HttpClientInterface
     private static function createBrowser()
     {
         return new Browser(
-            function_exists('curl_exec') ? new Curl() : new FileGetContents()
+            \function_exists('curl_exec') ? new Curl() : new FileGetContents()
         );
     }
 

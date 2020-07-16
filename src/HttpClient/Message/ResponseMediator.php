@@ -50,8 +50,8 @@ final class ResponseMediator
             return null;
         }
 
-        if (0 !== strpos(self::getHeader($response, 'Content-Type') ?? '', self::JSON_CONTENT_TYPE)) {
-            throw new RuntimeException(sprintf('The content type was not %s.', self::JSON_CONTENT_TYPE));
+        if (0 !== \strpos(self::getHeader($response, 'Content-Type') ?? '', self::JSON_CONTENT_TYPE)) {
+            throw new RuntimeException(\sprintf('The content type was not %s.', self::JSON_CONTENT_TYPE));
         }
 
         return JsonObject::decode($body);
@@ -72,7 +72,7 @@ final class ResponseMediator
             return null;
         }
 
-        return isset($content->message) && is_string($content->message) ? $content->message : null;
+        return isset($content->message) && \is_string($content->message) ? $content->message : null;
     }
 
     /**
@@ -90,12 +90,12 @@ final class ResponseMediator
             return [];
         }
 
-        if (!isset($content->links->pages) || !is_object($content->links->pages)) {
+        if (!isset($content->links->pages) || !\is_object($content->links->pages)) {
             return [];
         }
 
         /** array<string,string> */
-        return array_filter(get_object_vars($content->links->pages));
+        return \array_filter(\get_object_vars($content->links->pages));
     }
 
     /**
@@ -132,6 +132,6 @@ final class ResponseMediator
     {
         $headers = $response->getHeaders()[$name] ?? [];
 
-        return array_shift($headers);
+        return \array_shift($headers);
     }
 }

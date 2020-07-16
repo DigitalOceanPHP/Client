@@ -32,13 +32,13 @@ class Snapshot extends AbstractApi
     {
         $query = [];
 
-        if (isset($criteria['type']) && in_array($criteria['type'], ['droplet', 'volume'], true)) {
+        if (isset($criteria['type']) && \in_array($criteria['type'], ['droplet', 'volume'], true)) {
             $query['resource_type'] = $criteria['type'];
         }
 
         $snapshots = $this->get('snapshots', $query);
 
-        return array_map(function ($snapshots) {
+        return \array_map(function ($snapshots) {
             return new SnapshotEntity($snapshots);
         }, $snapshots->snapshots);
     }
@@ -52,7 +52,7 @@ class Snapshot extends AbstractApi
      */
     public function getById($id)
     {
-        $snapshot = $this->get(sprintf('snapshots/%s', $id));
+        $snapshot = $this->get(\sprintf('snapshots/%s', $id));
 
         return new SnapshotEntity($snapshot->snapshot);
     }
@@ -66,6 +66,6 @@ class Snapshot extends AbstractApi
      */
     public function remove($id)
     {
-        $this->delete(sprintf('snapshots/%s', $id));
+        $this->delete(\sprintf('snapshots/%s', $id));
     }
 }
