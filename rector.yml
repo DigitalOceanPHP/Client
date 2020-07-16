@@ -56,4 +56,3 @@ services:
     Rector\SOLID\Rector\If_\ChangeNestedIfsToEarlyReturnRector: ~
     Rector\SOLID\Rector\If_\RemoveAlwaysElseRector: ~
     Rector\SOLID\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector: ~
-    Rector\SOLID\Rector\ClassMethod\ChangeReadOnlyVariableWithDefaultValueToConstantRector: ~
