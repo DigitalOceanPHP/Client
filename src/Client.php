@@ -89,7 +89,7 @@ class Client
      */
     public function account()
     {
-        return new Account($this, null, null);
+        return new Account($this);
     }
 
     /**
@@ -97,7 +97,7 @@ class Client
      */
     public function action()
     {
-        return new Action($this, null, null);
+        return new Action($this);
     }
 
     /**
@@ -105,7 +105,7 @@ class Client
      */
     public function certificate()
     {
-        return new Certificate($this, null, null);
+        return new Certificate($this);
     }
 
     /**
@@ -113,7 +113,7 @@ class Client
      */
     public function domain()
     {
-        return new Domain($this, null, null);
+        return new Domain($this);
     }
 
     /**
@@ -121,7 +121,7 @@ class Client
      */
     public function domainRecord()
     {
-        return new DomainRecord($this, null, null);
+        return new DomainRecord($this);
     }
 
     /**
@@ -129,7 +129,7 @@ class Client
      */
     public function droplet()
     {
-        return new Droplet($this, null, null);
+        return new Droplet($this);
     }
 
     /**
@@ -137,7 +137,7 @@ class Client
      */
     public function floatingIp()
     {
-        return new FloatingIp($this, null, null);
+        return new FloatingIp($this);
     }
 
     /**
@@ -145,7 +145,7 @@ class Client
      */
     public function image()
     {
-        return new Image($this, null, null);
+        return new Image($this);
     }
 
     /**
@@ -153,7 +153,7 @@ class Client
      */
     public function key()
     {
-        return new Key($this, null, null);
+        return new Key($this);
     }
 
     /**
@@ -161,7 +161,7 @@ class Client
      */
     public function loadBalancer()
     {
-        return new LoadBalancer($this, null, null);
+        return new LoadBalancer($this);
     }
 
     /**
@@ -169,7 +169,7 @@ class Client
      */
     public function region()
     {
-        return new Region($this, null, null);
+        return new Region($this);
     }
 
     /**
@@ -177,7 +177,7 @@ class Client
      */
     public function size()
     {
-        return new Size($this, null, null);
+        return new Size($this);
     }
 
     /**
@@ -185,7 +185,7 @@ class Client
      */
     public function snapshot()
     {
-        return new Snapshot($this, null, null);
+        return new Snapshot($this);
     }
 
     /**
@@ -193,7 +193,7 @@ class Client
      */
     public function tag()
     {
-        return new Tag($this, null, null);
+        return new Tag($this);
     }
 
     /**
@@ -201,7 +201,7 @@ class Client
      */
     public function volume()
     {
-        return new Volume($this, null, null);
+        return new Volume($this);
     }
 
     /**

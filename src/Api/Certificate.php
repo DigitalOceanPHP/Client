@@ -50,23 +50,50 @@ class Certificate extends AbstractApi
     }
 
     /**
-     * @param string $name
-     * @param string $privateKey
-     * @param string $leafCertificate
-     * @param string $certificateChain
+     * @param string      $name
+     * @param string      $privateKey
+     * @param string      $leafCertificate
+     * @param string|null $certificateChain
      *
      * @throws ExceptionInterface
      *
      * @return CertificateEntity
      */
-    public function create($name, $privateKey, $leafCertificate, $certificateChain)
+    public function create($name, $privateKey, $leafCertificate, $certificateChain = null)
     {
-        $certificate = $this->post('certificates', [
+        $params = [
+            'type' => 'custom',
             'name' => $name,
             'private_key' => $privateKey,
             'leaf_certificate' => $leafCertificate,
-            'certificate_chain' => $certificateChain,
-        ]);
+        ];
+
+        if (null !== $certificateChain) {
+            $params['certificate_chain'] = $certificateChain;
+        }
+
+        $certificate = $this->post('certificates', $params);
+
+        return new CertificateEntity($certificate->certificate);
+    }
+
+    /**
+     * @param string   $name
+     * @param string[] $dnsNames
+     *
+     * @throws ExceptionInterface
+     *
+     * @return CertificateEntity
+     */
+    public function createLetsEncrypt($name, array $dnsNames)
+    {
+        $params = [
+            'type' => 'lets_encrypt',
+            'name' => $name,
+            'dns_names' => $dnsNames,
+        ];
+
+        $certificate = $this->post('certificates', $params);
 
         return new CertificateEntity($certificate->certificate);
     }

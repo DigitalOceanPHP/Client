@@ -69,7 +69,7 @@ $client = new DigitalOceanV2\Client();
 $client->authenticate('your_access_token');
 ```
 
-Version 3.0 also has a built-in paginator, and can be used on any of the APIs which return collections. By default, the pager will internally attempt to fetch 200 entries in each request, however this can be configured by passing a 2nd parameter to the constructor. We have included an example below which will fetch all droplets:
+Version 3.0 also has a built-in paginator, and can be used on any of the APIs which return collections. By default, the pager will internally attempt to fetch 100 entries in each request, however this can be configured by passing a 2nd parameter to the constructor. We have included an example below which will fetch all droplets:
 
 ```php
 // create a new result pager

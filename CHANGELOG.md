@@ -2,10 +2,11 @@ CHANGE LOG
 ==========
 
 
-## 3.0.0-RC2 (UPCOMING)
+## 3.0.0-RC2 (16/07/2020)
 
 * Reworked pagination again
 * Corrected supported Guzzle versions
+* Implemented let's encrypt certificate creation
 
 
 ## 3.0.0-RC1 (12/07/2020)
