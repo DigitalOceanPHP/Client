@@ -6,6 +6,7 @@ CHANGE LOG
 
 * Reworked pagination again
 * Corrected supported Guzzle versions
+* Implemented let's encrypt certificate creation
 
 
 ## 3.0.0-RC1 (12/07/2020)
