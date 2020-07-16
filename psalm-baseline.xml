@@ -5,7 +5,7 @@
   </file>
   <file src="src/HttpClient/Message/ResponseMediator.php">
     <PossiblyNullArgument occurrences="1">
-      <code>get_object_vars($content-&gt;links-&gt;pages)</code>
+      <code>\get_object_vars($content-&gt;links-&gt;pages)</code>
     </PossiblyNullArgument>
   </file>
 </files>
