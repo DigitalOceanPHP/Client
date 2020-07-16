@@ -87,11 +87,11 @@ class Certificate extends AbstractApi
      */
     public function createLetsEncrypt($name, array $dnsNames)
     {
-        $params = $this->post('certificates', [
+        $params = [
             'type' => 'lets_encrypt',
             'name' => $name,
             'dns_names' => $dnsNames,
-        ]);
+        ];
 
         $certificate = $this->post('certificates', $params);
 
