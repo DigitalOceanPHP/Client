@@ -30,7 +30,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity[]
      */
-    public function getAll($domainName)
+    public function getAll(string $domainName)
     {
         $domainRecords = $this->get(\sprintf('domains/%s/records', $domainName));
 
@@ -47,7 +47,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity
      */
-    public function getById($domainName, $id)
+    public function getById(string $domainName, int $id)
     {
         $domainRecords = $this->get(\sprintf('domains/%s/records/%d', $domainName, $id));
 
@@ -70,7 +70,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity
      */
-    public function create($domainName, $type, $name, $data, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
+    public function create(string $domainName, string $type, string $name, string $data, int $priority = null, int $port = null, int $weight = null, int $flags = null, int $tag = null, int $ttl = null)
     {
         switch ($type = \strtoupper($type)) {
             case 'A':
@@ -137,7 +137,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity
      */
-    public function update($domainName, $recordId, $name = null, $data = null, $priority = null, $port = null, $weight = null, $flags = null, $tag = null, $ttl = null)
+    public function update(string $domainName, int $recordId, ?string $name = null, ?string $data = null, ?int $priority = null, ?int $port = null, ?int $weight = null, ?int $flags = null, ?int $tag = null, ?int $ttl = null)
     {
         $content = [
             'name' => $name,
@@ -166,7 +166,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity
      */
-    public function updateData($domainName, $recordId, $data)
+    public function updateData(string $domainName, int $recordId, string $data)
     {
         return $this->updateFields($domainName, $recordId, ['data' => $data]);
     }
@@ -180,7 +180,7 @@ class DomainRecord extends AbstractApi
      *
      * @return DomainRecordEntity
      */
-    public function updateFields($domainName, $recordId, $fields)
+    public function updateFields(string $domainName, int $recordId, array $fields)
     {
         $domainRecord = $this->put(\sprintf('domains/%s/records/%d', $domainName, $recordId), $fields);
 
@@ -195,7 +195,7 @@ class DomainRecord extends AbstractApi
      *
      * @return void
      */
-    public function remove($domainName, $recordId)
+    public function remove(string $domainName, int $recordId)
     {
         $this->delete(\sprintf('domains/%s/records/%d', $domainName, $recordId));
     }

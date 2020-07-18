@@ -30,7 +30,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
-    public function getAll($regionSlug = null)
+    public function getAll(string $regionSlug = null)
     {
         $query = null === $regionSlug ? [] : ['region' => $regionSlug];
 
@@ -49,7 +49,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity[] Lists all of the Block Storage volumes available
      */
-    public function getByNameAndRegion($driveName, $regionSlug)
+    public function getByNameAndRegion(string $driveName, string $regionSlug)
     {
         $volumes = $this->get(\sprintf('volumes&region=%s&name=%s', $regionSlug, $driveName));
 
@@ -65,7 +65,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity the Block Storage volume with the specified id
      */
-    public function getById($id)
+    public function getById(string $id)
     {
         $volume = $this->get(\sprintf('volumes/%s', $id));
 
@@ -81,7 +81,7 @@ class Volume extends AbstractApi
      *
      * @return SnapshotEntity[]
      */
-    public function getSnapshots($id)
+    public function getSnapshots(string $id)
     {
         $snapshots = $this->get(\sprintf('volumes/%s/snapshots', $id));
 
@@ -103,7 +103,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity
      */
-    public function create($name, $description, $sizeInGigabytes, $regionSlug, $snapshotId = null, $filesystemType = null, $filesystemLabel = null)
+    public function create(string $name, string $description, string $sizeInGigabytes, string $regionSlug, string $snapshotId = null, string $filesystemType = null, string $filesystemLabel = null)
     {
         $data = [
             'size_gigabytes' => $sizeInGigabytes,
@@ -134,7 +134,7 @@ class Volume extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(string $id)
     {
         $this->delete(\sprintf('volumes/%s', $id));
     }
@@ -147,7 +147,7 @@ class Volume extends AbstractApi
      *
      * @return void
      */
-    public function removeWithNameAndRegion($driveName, $regionSlug)
+    public function removeWithNameAndRegion(string $driveName, string $regionSlug)
     {
         $this->delete('volumes', [
             'name' => $driveName,
@@ -164,7 +164,7 @@ class Volume extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function attach($id, $dropletId, $regionSlug)
+    public function attach(string $id, int $dropletId, string $regionSlug)
     {
         $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'attach',
@@ -184,7 +184,7 @@ class Volume extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function detach($id, $dropletId, $regionSlug)
+    public function detach(string $id, int $dropletId, string $regionSlug)
     {
         $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'detach',
@@ -204,7 +204,7 @@ class Volume extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function resize($id, $newSize, $regionSlug)
+    public function resize(string $id, int $newSize, string $regionSlug)
     {
         $action = $this->post(\sprintf('volumes/%s/actions', $id), [
             'type' => 'resize',
@@ -225,7 +225,7 @@ class Volume extends AbstractApi
      *
      * @return SnapshotEntity
      */
-    public function snapshot($id, $name)
+    public function snapshot(string $id, string $name)
     {
         $snapshot = $this->post(\sprintf('volumes/%s/snapshots', $id), ['name' => $name]);
 
@@ -240,7 +240,7 @@ class Volume extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function getActionById($id, $actionId)
+    public function getActionById(string $id, int $actionId)
     {
         $action = $this->get(\sprintf('volumes/%s/actions/%d', $id, $actionId));
 
@@ -254,7 +254,7 @@ class Volume extends AbstractApi
      *
      * @return ActionEntity[]
      */
-    public function getActions($id)
+    public function getActions(string $id)
     {
         $actions = $this->get(\sprintf('volumes/%s/actions', $id));
 

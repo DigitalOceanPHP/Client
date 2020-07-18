@@ -43,7 +43,7 @@ class FloatingIp extends AbstractApi
      *
      * @return FloatingIpEntity
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $ip = $this->get(\sprintf('floating_ips/%s', $id));
 
@@ -57,7 +57,7 @@ class FloatingIp extends AbstractApi
      *
      * @return FloatingIpEntity
      */
-    public function createAssigned($dropletId)
+    public function createAssigned(int $dropletId)
     {
         $ip = $this->post('floating_ips', ['droplet_id' => $dropletId]);
 
@@ -71,7 +71,7 @@ class FloatingIp extends AbstractApi
      *
      * @return FloatingIpEntity
      */
-    public function createReserved($regionSlug)
+    public function createReserved(string $regionSlug)
     {
         $ip = $this->post(\sprintf('floating_ips'), ['region' => $regionSlug]);
 
@@ -85,7 +85,7 @@ class FloatingIp extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(int $id)
     {
         $this->delete(\sprintf('floating_ips/%s', $id));
     }
@@ -97,7 +97,7 @@ class FloatingIp extends AbstractApi
      *
      * @return ActionEntity[]
      */
-    public function getActions($id)
+    public function getActions(int $id)
     {
         $actions = $this->get(\sprintf('floating_ips/%s/actions', $id));
 
@@ -114,7 +114,7 @@ class FloatingIp extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function getActionById($id, $actionId)
+    public function getActionById(int $id, int $actionId)
     {
         $action = $this->get(\sprintf('floating_ips/%s/actions/%d', $id, $actionId));
 
@@ -129,7 +129,7 @@ class FloatingIp extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function assign($id, $dropletId)
+    public function assign(int $id, int $dropletId)
     {
         return $this->executeAction($id, ['type' => 'assign', 'droplet_id' => $dropletId]);
     }
@@ -141,7 +141,7 @@ class FloatingIp extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function unassign($id)
+    public function unassign(int $id)
     {
         return $this->executeAction($id, ['type' => 'unassign']);
     }
@@ -154,7 +154,7 @@ class FloatingIp extends AbstractApi
      *
      * @return ActionEntity
      */
-    private function executeAction($id, array $options)
+    private function executeAction(int $id, array $options)
     {
         $action = $this->post(\sprintf('floating_ips/%s/actions', $id), $options);
 

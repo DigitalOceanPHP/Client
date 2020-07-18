@@ -43,7 +43,7 @@ class Action extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $action = $this->get(\sprintf('actions/%d', $id));
 

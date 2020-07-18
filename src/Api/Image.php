@@ -56,7 +56,7 @@ class Image extends AbstractApi
      *
      * @return ImageEntity
      */
-    public function getById($id)
+    public function getById(int $id)
     {
         $image = $this->get(\sprintf('images/%d', $id));
 
@@ -70,7 +70,7 @@ class Image extends AbstractApi
      *
      * @return ImageEntity
      */
-    public function getBySlug($slug)
+    public function getBySlug(string $slug)
     {
         $image = $this->get(\sprintf('images/%s', $slug));
 
@@ -85,7 +85,7 @@ class Image extends AbstractApi
      *
      * @return ImageEntity
      */
-    public function update($id, $name)
+    public function update(int $id, string $name)
     {
         $image = $this->put(\sprintf('images/%d', $id), ['name' => $name]);
 
@@ -99,7 +99,7 @@ class Image extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(int $id)
     {
         $this->delete(\sprintf('images/%d', $id));
     }
@@ -112,7 +112,7 @@ class Image extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function transfer($id, $regionSlug)
+    public function transfer(int $id, string $regionSlug)
     {
         $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'transfer', 'region' => $regionSlug]);
 
@@ -126,7 +126,7 @@ class Image extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function convert($id)
+    public function convert(int $id)
     {
         $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'convert']);
 
@@ -141,7 +141,7 @@ class Image extends AbstractApi
      *
      * @return ActionEntity
      */
-    public function getAction($id, $actionId)
+    public function getAction(int $id, int $actionId)
     {
         $action = $this->get(\sprintf('images/%d/actions/%d', $id, $actionId));
 

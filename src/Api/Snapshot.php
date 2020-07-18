@@ -50,7 +50,7 @@ class Snapshot extends AbstractApi
      *
      * @return SnapshotEntity
      */
-    public function getById($id)
+    public function getById(string $id)
     {
         $snapshot = $this->get(\sprintf('snapshots/%s', $id));
 
@@ -64,7 +64,7 @@ class Snapshot extends AbstractApi
      *
      * @return void
      */
-    public function remove($id)
+    public function remove(string $id)
     {
         $this->delete(\sprintf('snapshots/%s', $id));
     }
