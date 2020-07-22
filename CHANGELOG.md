@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.0.0 (22/07/2020)
+
+* Added scalar parameter types
+
+
 ## 3.0.0-RC2 (16/07/2020)
 
 * Reworked pagination again
