@@ -15,6 +15,8 @@ namespace DigitalOceanV2;
 
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
+use DigitalOceanV2\Api\Balance;
+use DigitalOceanV2\Api\BillingHistory;
 use DigitalOceanV2\Api\Certificate;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
@@ -82,6 +84,22 @@ class Client
         $builder = new Builder($httpClient);
 
         return new self($builder);
+    }
+
+    /**
+     * @return Balance
+     */
+    public function balance()
+    {
+        return new Balance($this);
+    }
+
+    /**
+     * @return Balance
+     */
+    public function billingHistory()
+    {
+        return new BillingHistory($this);
     }
 
     /**
