@@ -93,7 +93,6 @@ final class LoadBalancer extends AbstractEntity
         foreach ($parameters as $property => $value) {
             switch ($property) {
                 case 'forwarding_rules':
-
                     foreach ($value as $forwardingRule) {
                         $this->forwardingRules[] = new ForwardingRule($forwardingRule);
                     }
