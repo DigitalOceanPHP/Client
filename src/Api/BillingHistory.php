@@ -22,9 +22,9 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class BillingHistory extends AbstractApi
 {
     /**
-     * @return BillingHistoryEntity[]
-     *
      * @throws ExceptionInterface
+     *
+     * @return BillingHistoryEntity[]
      */
     public function listBillingHistory()
     {

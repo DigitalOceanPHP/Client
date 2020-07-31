@@ -95,7 +95,7 @@ class Client
     }
 
     /**
-     * @return Balance
+     * @return BillingHistory
      */
     public function billingHistory()
     {
