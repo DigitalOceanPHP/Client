@@ -23,6 +23,7 @@ use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
 use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
+use DigitalOceanV2\Api\Invoice;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\LoadBalancer;
 use DigitalOceanV2\Api\Region;
@@ -164,6 +165,14 @@ class Client
     public function image()
     {
         return new Image($this);
+    }
+
+    /**
+     * @return Invoice
+     */
+    public function invoice()
+    {
+        return new Invoice($this);
     }
 
     /**

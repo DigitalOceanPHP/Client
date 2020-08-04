@@ -30,13 +30,14 @@ final class ResponseMediator
      * @var string
      */
     public const JSON_CONTENT_TYPE = 'application/json';
+    public const CSV_CONTENT_TYPE = 'text/csv';
 
     /**
      * @param Response $response
      *
+     * @return stdClass|null
      * @throws RuntimeException
      *
-     * @return stdClass|null
      */
     public static function getContent(Response $response)
     {
@@ -48,6 +49,9 @@ final class ResponseMediator
 
         if ('' === $body) {
             return null;
+        }
+        if (0 === \strpos(self::getHeader($response, 'Content-Type') ?? '', self::CSV_CONTENT_TYPE)) {
+            return $body;
         }
 
         if (0 !== \strpos(self::getHeader($response, 'Content-Type') ?? '', self::JSON_CONTENT_TYPE)) {
@@ -116,15 +120,15 @@ final class ResponseMediator
         }
 
         return [
-            'reset' => (int) $reset,
-            'remaining' => (int) $remaining,
-            'limit' => (int) $limit,
+            'reset'     => (int)$reset,
+            'remaining' => (int)$remaining,
+            'limit'     => (int)$limit,
         ];
     }
 
     /**
      * @param Response $response
-     * @param string   $name
+     * @param string $name
      *
      * @return string|null
      */
