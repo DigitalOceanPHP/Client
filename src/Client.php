@@ -209,7 +209,7 @@ class Client
      *
      * @return void
      */
-    public function authenticate(string $token)
+    public function authenticate(string $token): void
     {
         $this->getHttpClientBuilder()->setAuthToken($token);
     }
@@ -219,7 +219,7 @@ class Client
      *
      * @return void
      */
-    public function setUrl(string $url)
+    public function setUrl(string $url): void
     {
         $this->getHttpClientBuilder()->setBaseUrl($url);
     }

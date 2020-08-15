@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ClientTest extends TestCase
 {
-    public function testCreateClient()
+    public function testCreateClient(): void
     {
         $client = new Client();
 
@@ -36,7 +36,7 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(HttpMethodsClientInterface::class, $client->getHttpClient());
     }
 
-    public function testCreateApis()
+    public function testCreateApis(): void
     {
         $client = new Client();
 

@@ -144,7 +144,7 @@ final class Droplet extends AbstractEntity
      *
      * @return void
      */
-    public function build(array $parameters)
+    public function build(array $parameters): void
     {
         foreach ($parameters as $property => $value) {
             switch ($property) {
@@ -223,7 +223,7 @@ final class Droplet extends AbstractEntity
      *
      * @return void
      */
-    public function setCreatedAt(string $createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = static::convertToIso8601($createdAt);
     }

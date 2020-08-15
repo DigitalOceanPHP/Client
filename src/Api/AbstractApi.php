@@ -210,7 +210,7 @@ abstract class AbstractApi implements ApiInterface
      *
      * @return void
      */
-    protected function delete(string $uri, array $params = [], array $headers = [])
+    protected function delete(string $uri, array $params = [], array $headers = []): void
     {
         $body = self::prepareJsonBody($params);
 

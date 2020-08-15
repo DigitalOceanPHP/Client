@@ -64,7 +64,7 @@ class Snapshot extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $id)
+    public function remove(string $id): void
     {
         $this->delete(\sprintf('snapshots/%s', $id));
     }

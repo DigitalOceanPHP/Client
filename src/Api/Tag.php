@@ -71,7 +71,7 @@ class Tag extends AbstractApi
      *
      * @return void
      */
-    public function tagResources(string $name, array $resources)
+    public function tagResources(string $name, array $resources): void
     {
         $this->post(\sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
@@ -84,7 +84,7 @@ class Tag extends AbstractApi
      *
      * @return void
      */
-    public function untagResources(string $name, array $resources)
+    public function untagResources(string $name, array $resources): void
     {
         $this->delete(\sprintf('tags/%s/resources', $name), ['resources' => $resources]);
     }
@@ -96,7 +96,7 @@ class Tag extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $name)
+    public function remove(string $name): void
     {
         $this->delete(\sprintf('tags/%s', $name));
     }

@@ -99,7 +99,7 @@ class Image extends AbstractApi
      *
      * @return void
      */
-    public function remove(int $id)
+    public function remove(int $id): void
     {
         $this->delete(\sprintf('images/%d', $id));
     }

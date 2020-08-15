@@ -85,7 +85,7 @@ class FloatingIp extends AbstractApi
      *
      * @return void
      */
-    public function remove(int $id)
+    public function remove(int $id): void
     {
         $this->delete(\sprintf('floating_ips/%s', $id));
     }

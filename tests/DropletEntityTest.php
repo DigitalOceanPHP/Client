@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DropletEntityTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $droplet = new Droplet([
             'id' => 123,

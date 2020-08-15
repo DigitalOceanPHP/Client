@@ -69,7 +69,7 @@ final class Action extends AbstractEntity
      *
      * @return void
      */
-    public function build(array $parameters)
+    public function build(array $parameters): void
     {
         parent::build($parameters);
 
@@ -85,7 +85,7 @@ final class Action extends AbstractEntity
      *
      * @return void
      */
-    public function setStartedAt(string $startedAt)
+    public function setStartedAt(string $startedAt): void
     {
         $this->startedAt = static::convertToIso8601($startedAt);
     }
@@ -95,7 +95,7 @@ final class Action extends AbstractEntity
      *
      * @return void
      */
-    public function setCompletedAt(?string $completedAt)
+    public function setCompletedAt(?string $completedAt): void
     {
         $this->completedAt = null === $completedAt ? null : static::convertToIso8601($completedAt);
     }

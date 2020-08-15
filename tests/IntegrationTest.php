@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class IntegrationTest extends TestCase
 {
-    public function testWithoutAuth()
+    public function testWithoutAuth(): void
     {
         $client = new Client();
 

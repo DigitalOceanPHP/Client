@@ -134,7 +134,7 @@ class Volume extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $id)
+    public function remove(string $id): void
     {
         $this->delete(\sprintf('volumes/%s', $id));
     }
@@ -147,7 +147,7 @@ class Volume extends AbstractApi
      *
      * @return void
      */
-    public function removeWithNameAndRegion(string $driveName, string $regionSlug)
+    public function removeWithNameAndRegion(string $driveName, string $regionSlug): void
     {
         $this->delete('volumes', [
             'name' => $driveName,

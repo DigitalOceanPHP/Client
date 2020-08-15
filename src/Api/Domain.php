@@ -75,7 +75,7 @@ class Domain extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $domain)
+    public function remove(string $domain): void
     {
         $this->delete(\sprintf('domains/%s', $domain));
     }

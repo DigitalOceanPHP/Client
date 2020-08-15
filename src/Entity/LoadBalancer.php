@@ -88,7 +88,7 @@ final class LoadBalancer extends AbstractEntity
      *
      * @return void
      */
-    public function build(array $parameters)
+    public function build(array $parameters): void
     {
         foreach ($parameters as $property => $value) {
             switch ($property) {

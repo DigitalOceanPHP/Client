@@ -73,7 +73,7 @@ final class Volume extends AbstractEntity
      *
      * @return void
      */
-    public function build(array $parameters)
+    public function build(array $parameters): void
     {
         parent::build($parameters);
 
@@ -95,7 +95,7 @@ final class Volume extends AbstractEntity
      *
      * @return void
      */
-    public function setCreatedAt(string $createdAt)
+    public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = static::convertToIso8601($createdAt);
     }

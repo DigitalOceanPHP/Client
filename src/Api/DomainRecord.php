@@ -195,7 +195,7 @@ class DomainRecord extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $domainName, int $recordId)
+    public function remove(string $domainName, int $recordId): void
     {
         $this->delete(\sprintf('domains/%s/records/%d', $domainName, $recordId));
     }

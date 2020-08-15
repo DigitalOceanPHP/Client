@@ -54,7 +54,7 @@ final class Builder
      *
      * @return void
      */
-    public function setUserAgent(string $agent = null)
+    public function setUserAgent(string $agent = null): void
     {
         if (null === $agent) {
             unset($this->defaultHeaders['User-Agent']);
@@ -70,7 +70,7 @@ final class Builder
      *
      * @return void
      */
-    public function setAuthToken(string $token = null)
+    public function setAuthToken(string $token = null): void
     {
         if (null === $token) {
             unset($this->defaultHeaders['Authorization']);
@@ -86,7 +86,7 @@ final class Builder
      *
      * @return void
      */
-    public function setBaseUrl(string $url = null)
+    public function setBaseUrl(string $url = null): void
     {
         $this->baseUrl = $url;
         $this->httpMethodsClient = null;

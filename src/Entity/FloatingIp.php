@@ -38,7 +38,7 @@ final class FloatingIp extends AbstractEntity
      *
      * @return void
      */
-    public function build(array $parameters)
+    public function build(array $parameters): void
     {
         parent::build($parameters);
 

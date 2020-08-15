@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ResponseMediatorTest extends TestCase
 {
-    public function testGetContent()
+    public function testGetContent(): void
     {
         $response = new Response(
             200,
@@ -26,7 +26,7 @@ class ResponseMediatorTest extends TestCase
         $this->assertEquals((object) ['foo' => 'bar'], ResponseMediator::getContent($response));
     }
 
-    public function testGetContentNotJson()
+    public function testGetContentNotJson(): void
     {
         $body = 'foobar';
         $response = new Response(
@@ -42,7 +42,7 @@ class ResponseMediatorTest extends TestCase
         ResponseMediator::getContent($response);
     }
 
-    public function testGetContentInvalidJson()
+    public function testGetContentInvalidJson(): void
     {
         $body = 'foobar';
         $response = new Response(
@@ -58,7 +58,7 @@ class ResponseMediatorTest extends TestCase
         ResponseMediator::getContent($response);
     }
 
-    public function testGetErrrorMessageInvalidJson()
+    public function testGetErrrorMessageInvalidJson(): void
     {
         $body = 'foobar';
         $response = new Response(
