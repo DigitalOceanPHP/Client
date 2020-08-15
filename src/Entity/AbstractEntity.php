@@ -61,7 +61,7 @@ abstract class AbstractEntity
     public function toArray()
     {
         $settings = [];
-        $called = \get_called_class();
+        $called = static::class;
 
         $reflection = new \ReflectionClass($called);
         $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
