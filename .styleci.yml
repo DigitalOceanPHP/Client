@@ -10,6 +10,7 @@ enabled:
   - native_constant_invocation
   - native_function_invocation
   - phpdoc_order
+  - void_return
 
 disabled:
   - native_constant_invocation_symfony
