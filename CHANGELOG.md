@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 4.0.0 (UPCOMING)
+
+* Added void return types to void methods
+* Switched to PSR-17 and PSR-18
+
+
 ## 3.0.0 (22/07/2020)
 
 * Added scalar parameter types
