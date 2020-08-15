@@ -24,19 +24,19 @@ This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply req
 #### Using Guzzle 6:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^6.3.1
+$ composer require toin0u/digitalocean-v2:^3.1 guzzlehttp/guzzle:^6.3.1
 ```
 
 #### Using Guzzle 7:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 guzzlehttp/guzzle:^7.0
+$ composer require toin0u/digitalocean-v2:^3.1 guzzlehttp/guzzle:^7.0
 ```
 
 #### Using Buzz 0.16:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.0 kriswallsmith/buzz:^0.16
+$ composer require toin0u/digitalocean-v2:^3.1 kriswallsmith/buzz:^0.16
 ```
 
 ### Framework Integration
