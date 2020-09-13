@@ -116,7 +116,7 @@ final class DatabaseCluster extends AbstractEntity
                 $this->privateConnection = new DatabaseConnection($value);
             }
 
-            if ('users' === $property) {
+            if ('users' === $property && \is_array($value)) {
                 $this->users = [];
                 foreach ($value as $user) {
                     if (\is_object($user)) {
