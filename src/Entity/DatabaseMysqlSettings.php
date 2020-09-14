@@ -16,7 +16,7 @@ namespace DigitalOceanV2\Entity;
 /**
  * @author Filippo Fortino <filippofortino@gmail.com>
  */
-final class MysqlSettings extends AbstractEntity
+final class DatabaseMysqlSettings extends AbstractEntity
 {
     /**
      * @var string

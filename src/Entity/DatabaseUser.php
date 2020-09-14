@@ -34,7 +34,7 @@ final class DatabaseUser extends AbstractEntity
     public $password;
 
     /**
-     * @var MysqlSettings
+     * @var DatabaseMysqlSettings
      */
     public $mysqlSettings;
 
@@ -49,7 +49,7 @@ final class DatabaseUser extends AbstractEntity
 
         foreach ($parameters as $property => $value) {
             if ('mysql_settings' === $property && \is_object($value)) {
-                $this->mysqlSettings = new MysqlSettings($value);
+                $this->mysqlSettings = new DatabaseMysqlSettings($value);
             }
         }
     }
