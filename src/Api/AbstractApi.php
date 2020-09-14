@@ -271,6 +271,6 @@ abstract class AbstractApi implements ApiInterface
     {
         $content = ResponseMediator::getContent($response);
 
-        return $content;
+        return (object)$content;
     }
 }
