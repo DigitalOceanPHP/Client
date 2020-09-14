@@ -121,17 +121,14 @@ class Database extends AbstractApi
 
     /**
      * @param string $clusterId
-     * @param array $rules
      *
      * @throws ExceptionInterface
      *
      * @return void
      */
-    public function updateFirewallRules(string $clusterId, array $rules)
+    public function remove(string $clusterId)
     {
-        $this->put(\sprintf('databases/%s/firewall', $clusterId), [
-            'rules' => $rules
-        ]);
+        $this->delete(\sprintf('databases/%s', $clusterId));
     }
 
     /**
@@ -148,6 +145,21 @@ class Database extends AbstractApi
         return \array_map(function ($rule) {
             return new DatabaseRuleEntity($rule);
         }, $rules->rules);
+    }
+
+    /**
+     * @param string $clusterId
+     * @param array $rules
+     *
+     * @throws ExceptionInterface
+     *
+     * @return void
+     */
+    public function updateFirewallRules(string $clusterId, array $rules)
+    {
+        $this->put(\sprintf('databases/%s/firewall', $clusterId), [
+            'rules' => $rules
+        ]);
     }
 
     /**
@@ -216,15 +228,34 @@ class Database extends AbstractApi
     }
 
     /**
-     * @param string $id
+     * @param string $clusterId
      *
      * @throws ExceptionInterface
      *
-     * @return void
+     * @return DatabaseReplicaEntity[]
      */
-    public function removeCluster(string $id)
+    public function getAllReplicas(string $clusterId)
     {
-        $this->delete(\sprintf('databases/%s', $id));
+        $replicas = $this->get(\sprintf('databases/%s/replicas', $clusterId));
+
+        return \array_map(function ($replica) {
+            return new DatabaseReplicaEntity($replica);
+        }, $replicas->replicas);
+    }
+
+    /**
+     * @param string $clusterId
+     * @param string $name
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DatabaseReplicaEntity
+     */
+    public function getReplicaByName(string $clusterId, string $name)
+    {
+        $replica = $this->get(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
+
+        return new DatabaseReplicaEntity($replica->replica);
     }
 
     /**
@@ -258,13 +289,11 @@ class Database extends AbstractApi
      *
      * @throws ExceptionInterface
      *
-     * @return DatabaseReplicaEntity
+     * @return void
      */
-    public function getReplicaByName(string $clusterId, string $name)
+    public function removeReplica(string $clusterId, string $name)
     {
-        $replica = $this->get(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
-
-        return new DatabaseReplicaEntity($replica->replica);
+        $this->delete(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
     }
 
     /**
@@ -272,15 +301,15 @@ class Database extends AbstractApi
      *
      * @throws ExceptionInterface
      *
-     * @return DatabaseReplicaEntity[]
+     * @return DatabaseUserEntity[]
      */
-    public function getAllReplicas(string $clusterId)
+    public function getAllUsers(string $clusterId)
     {
-        $replicas = $this->get(\sprintf('databases/%s/replicas', $clusterId));
+        $users = $this->get(\sprintf('databases/%s/users', $clusterId));
 
-        return \array_map(function ($replica) {
-            return new DatabaseReplicaEntity($replica);
-        }, $replicas->replicas);
+        return \array_map(function ($user) {
+            return new DatabaseUserEntity($user);
+        }, $users->users);
     }
 
     /**
@@ -289,11 +318,13 @@ class Database extends AbstractApi
      *
      * @throws ExceptionInterface
      *
-     * @return void
+     * @return DatabaseUserEntity
      */
-    public function removeReplica(string $clusterId, string $name)
+    public function getUserByName(string $clusterId, string $name)
     {
-        $this->delete(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
+        $user = $this->get(\sprintf('databases/%s/users/%s', $clusterId, $name));
+
+        return new DatabaseUserEntity($user->user);
     }
 
     /**
@@ -313,21 +344,6 @@ class Database extends AbstractApi
                 'auth_plugin' => $authPlugin
             ]
         ]);
-
-        return new DatabaseUserEntity($user->user);
-    }
-
-    /**
-     * @param string $clusterId
-     * @param string $name
-     *
-     * @throws ExceptionInterface
-     *
-     * @return DatabaseUserEntity
-     */
-    public function getUserByName(string $clusterId, string $name)
-    {
-        $user = $this->get(\sprintf('databases/%s/users/%s', $clusterId, $name));
 
         return new DatabaseUserEntity($user->user);
     }
@@ -354,22 +370,6 @@ class Database extends AbstractApi
 
     /**
      * @param string $clusterId
-     *
-     * @throws ExceptionInterface
-     *
-     * @return DatabaseUserEntity[]
-     */
-    public function getAllUsers(string $clusterId)
-    {
-        $users = $this->get(\sprintf('databases/%s/users', $clusterId));
-
-        return \array_map(function ($user) {
-            return new DatabaseUserEntity($user);
-        }, $users->users);
-    }
-
-    /**
-     * @param string $clusterId
      * @param string $name
      *
      * @throws ExceptionInterface
@@ -379,6 +379,37 @@ class Database extends AbstractApi
     public function removeUser(string $clusterId, string $name)
     {
         $this->delete(\sprintf('databases/%s/users/%s', $clusterId, $name));
+    }
+
+    /**
+     * @param string $clusterId
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DatabaseEntity[]
+     */
+    public function getAllDatabases(string $clusterId)
+    {
+        $databases = $this->get(\sprintf('databases/%s/dbs', $clusterId));
+
+        return \array_map(function ($database) {
+            return new DatabaseEntity($database);
+        }, $databases->dbs);
+    }
+
+    /**
+     * @param string $clusterId
+     * @param string $name
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DatabaseEntity
+     */
+    public function getDatabaseByName(string $clusterId, string $name)
+    {
+        $database = $this->get(\sprintf('databases/%s/dbs/%s', $clusterId, $name));
+
+        return new DatabaseEntity($database->db);
     }
 
     /**
@@ -404,67 +435,11 @@ class Database extends AbstractApi
      *
      * @throws ExceptionInterface
      *
-     * @return DatabaseEntity
-     */
-    public function getDatabaseByName(string $clusterId, string $name)
-    {
-        $database = $this->get(\sprintf('databases/%s/dbs/%s', $clusterId, $name));
-
-        return new DatabaseEntity($database->db);
-    }
-
-    /**
-     * @param string $clusterId
-     *
-     * @throws ExceptionInterface
-     *
-     * @return DatabaseEntity[]
-     */
-    public function getAllDatabases(string $clusterId)
-    {
-        $databases = $this->get(\sprintf('databases/%s/dbs', $clusterId));
-
-        return \array_map(function ($database) {
-            return new DatabaseEntity($database);
-        }, $databases->dbs);
-    }
-
-    /**
-     * @param string $clusterId
-     * @param string $name
-     *
-     * @throws ExceptionInterface
-     *
      * @return void
      */
     public function removeDatabase(string $clusterId, string $name)
     {
         $this->delete(\sprintf('databases/%s/dbs/%s', $clusterId, $name));
-    }
-
-    /**
-     * @param string $clusterId
-     * @param string $name
-     * @param string $mode
-     * @param int    $size
-     * @param string $db
-     * @param string $user
-     *
-     * @throws ExceptionInterface
-     *
-     * @return DatabasePoolEntity
-     */
-    public function createConnectionPool(string $clusterId, string $name, string $mode, int $size, string $db, string $user)
-    {
-        $pool = $this->post(\sprintf('databases/%s/pools', $clusterId), [
-            'name' => $name,
-            'mode' => $mode,
-            'size' => $size,
-            'db' => $db,
-            'user' => $user,
-        ]);
-
-        return new DatabasePoolEntity($pool->pool);
     }
 
     /**
@@ -494,6 +469,31 @@ class Database extends AbstractApi
     public function getConnectionPoolByName(string $clusterId, string $name)
     {
         $pool = $this->get(\sprintf('databases/%s/pools/%s', $clusterId, $name));
+
+        return new DatabasePoolEntity($pool->pool);
+    }
+
+    /**
+     * @param string $clusterId
+     * @param string $name
+     * @param string $mode
+     * @param int    $size
+     * @param string $db
+     * @param string $user
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DatabasePoolEntity
+     */
+    public function createConnectionPool(string $clusterId, string $name, string $mode, int $size, string $db, string $user)
+    {
+        $pool = $this->post(\sprintf('databases/%s/pools', $clusterId), [
+            'name' => $name,
+            'mode' => $mode,
+            'size' => $size,
+            'db' => $db,
+            'user' => $user,
+        ]);
 
         return new DatabasePoolEntity($pool->pool);
     }
@@ -547,11 +547,11 @@ class Database extends AbstractApi
      *
      * @return object
      */
-    public function getSqlModes(string $clusterId)
+    public function getSqlMode(string $clusterId)
     {
-        $modes = $this->get(\sprintf('databases/%s/sql_mode', $clusterId));
+        $mode = $this->get(\sprintf('databases/%s/sql_mode', $clusterId));
 
-        return (object)['sqlMode' => $modes->sql_mode];
+        return (object)['sqlMode' => $mode->sql_mode];
     }
 
     /**
