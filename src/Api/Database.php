@@ -36,11 +36,11 @@ class Database extends AbstractApi
      */
     public function getAllClusters(?string $tag = null)
     {
-        $databases = $this->get('databases', null === $tag ? [] : ['tag_name' => $tag]);
+        $clusters = $this->get('databases', null === $tag ? [] : ['tag_name' => $tag]);
 
-        return \array_map(function ($database) {
-            return new DatabaseClusterEntity($database);
-        }, $databases->databases);
+        return \array_map(function ($cluster) {
+            return new DatabaseClusterEntity($cluster);
+        }, $clusters->databases);
     }
 
     /**
@@ -52,9 +52,9 @@ class Database extends AbstractApi
      */
     public function getClusterById(string $id)
     {
-        $database = $this->get(\sprintf('databases/%s', $id));
+        $cluster = $this->get(\sprintf('databases/%s', $id));
 
-        return new DatabaseClusterEntity($database->database);
+        return new DatabaseClusterEntity($cluster->database);
     }
 
     /**
@@ -73,7 +73,7 @@ class Database extends AbstractApi
      */
     public function createCluster(string $name, string $engine, string $size, string $region, int $numNodes, string $version = null, array $tags = [], string $privateNetworkUuid = null)
     {
-        $database = $this->post('databases', [
+        $cluster = $this->post('databases', [
             'name' => $name,
             'engine' => $engine,
             'size' => $size,
@@ -84,11 +84,11 @@ class Database extends AbstractApi
             'private_network_uuid' => $privateNetworkUuid,
         ]);
 
-        return new DatabaseClusterEntity($database->database);
+        return new DatabaseClusterEntity($cluster->database);
     }
 
     /**
-     * @param string $id
+     * @param string $clusterId
      * @param string $size
      * @param int    $numNodes
      *
@@ -96,25 +96,25 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function resizeCluster(string $id, string $size, int $numNodes)
+    public function resize(string $clusterId, string $size, int $numNodes)
     {
-        $this->put(\sprintf('databases/%s/resize', $id), [
+        $this->put(\sprintf('databases/%s/resize', $clusterId), [
             'size' => $size,
             'num_nodes' => $numNodes
         ]);
     }
 
     /**
-     * @param string $id
+     * @param string $clusterId
      * @param string $region
      *
      * @throws ExceptionInterface
      *
      * @return void
      */
-    public function migrateCluster(string $id, string $region)
+    public function migrate(string $clusterId, string $region)
     {
-        $this->put(\sprintf('databases/%s/migrate', $id), [
+        $this->put(\sprintf('databases/%s/migrate', $clusterId), [
             'region' => $region
         ]);
     }
@@ -239,7 +239,7 @@ class Database extends AbstractApi
      *
      * @return DatabaseReplicaEntity
      */
-    public function createClusterReplica(string $clusterId, string $name, string $size, string $region = null, array $tags = [], string $privateNetworkUuid = null)
+    public function createReplica(string $clusterId, string $name, string $size, string $region = null, array $tags = [], string $privateNetworkUuid = null)
     {
         $replica = $this->post(\sprintf('databases/%s/replicas', $clusterId), [
             'name' => $name,
@@ -260,7 +260,7 @@ class Database extends AbstractApi
      *
      * @return DatabaseReplicaEntity
      */
-    public function getClusterReplicaByName(string $clusterId, string $name)
+    public function getReplicaByName(string $clusterId, string $name)
     {
         $replica = $this->get(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
 
@@ -275,7 +275,7 @@ class Database extends AbstractApi
      *
      * @return DatabaseReplicaEntity[]
      */
-    public function getAllClusterReplicas(string $clusterId)
+    public function getAllReplicas(string $clusterId)
     {
         $replicas = $this->get(\sprintf('databases/%s/replicas', $clusterId));
 
@@ -292,7 +292,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function removeClusterReplica(string $clusterId, string $name)
+    public function removeReplica(string $clusterId, string $name)
     {
         $this->delete(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
     }
@@ -541,7 +541,7 @@ class Database extends AbstractApi
             "eviction_policy" => $evictionPolicy
         ]);
     }
-    
+
     /**
      * @param string $clusterId
      *
