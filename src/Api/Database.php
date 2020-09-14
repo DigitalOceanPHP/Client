@@ -44,7 +44,7 @@ class Database extends AbstractApi
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @throws ExceptionInterface
      *
@@ -269,7 +269,6 @@ class Database extends AbstractApi
 
     /**
      * @param string $clusterId
-     * @param string $name
      *
      * @throws ExceptionInterface
      *
@@ -355,7 +354,6 @@ class Database extends AbstractApi
 
     /**
      * @param string $clusterId
-     * @param string $name
      *
      * @throws ExceptionInterface
      *
@@ -420,7 +418,7 @@ class Database extends AbstractApi
      *
      * @throws ExceptionInterface
      *
-     * @return DatabaseUserEntity[]
+     * @return DatabaseEntity[]
      */
     public function getAllDatabases(string $clusterId)
     {
@@ -458,7 +456,7 @@ class Database extends AbstractApi
      */
     public function createConnectionPool(string $clusterId, string $name, string $mode, int $size, string $db, string $user)
     {
-        $pool = $this->post(sprintf('databases/%s/pools', $clusterId), [
+        $pool = $this->post(\sprintf('databases/%s/pools', $clusterId), [
             'name' => $name,
             'mode' => $mode,
             'size' => $size,
