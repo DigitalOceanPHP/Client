@@ -271,6 +271,10 @@ abstract class AbstractApi implements ApiInterface
     {
         $content = ResponseMediator::getContent($response);
 
-        return (object)$content;
+        if (null === $content) {
+            throw new RuntimeException('No content was provided.');
+        }
+
+        return $content;
     }
 }
