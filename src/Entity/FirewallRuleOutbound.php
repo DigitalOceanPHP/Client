@@ -20,7 +20,7 @@ namespace DigitalOceanV2\Entity;
 final class FirewallRuleOutbound extends FirewallRule
 {
     /**
-     * @var object
+     * @var FirewallLocations
      */
     public $destinations;
 

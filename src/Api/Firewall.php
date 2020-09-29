@@ -24,11 +24,11 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Firewall extends AbstractApi
 {
     /**
-     * @param int $id
+     * @param string $id
      *
      * @throws ExceptionInterface
      *
-     * @return FirewallsEntity
+     * @return FirewallEntity
      */
     public function getById(string $id)
     {
@@ -39,14 +39,14 @@ class Firewall extends AbstractApi
 
 
     /**
-     * @param string                   $id
-     * @param array|FirewallEntity $firewall
+     * @param string $id
+     * @param FirewallEntity $firewall
      *
      * @throws ExceptionInterface
      *
      * @return FirewallEntity
      */
-    public function update($id, $firewall)
+    public function update(string $id, $firewall)
     {
         $data = $firewall->toArray();
 
