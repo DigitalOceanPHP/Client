@@ -63,14 +63,14 @@ class DomainRecord extends AbstractApi
      * @param int    $port
      * @param int    $weight
      * @param int    $flags
-     * @param int    $tag
+     * @param string $tag
      * @param int    $ttl
      *
      * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
-    public function create(string $domainName, string $type, string $name, string $data, int $priority = null, int $port = null, int $weight = null, int $flags = null, int $tag = null, int $ttl = null)
+    public function create(string $domainName, string $type, string $name, string $data, int $priority = null, int $port = null, int $weight = null, int $flags = null, string $tag = null, int $ttl = null)
     {
         switch ($type = \strtoupper($type)) {
             case 'A':
@@ -130,14 +130,14 @@ class DomainRecord extends AbstractApi
      * @param int|null    $port
      * @param int|null    $weight
      * @param int|null    $flags
-     * @param int|null    $tag
+     * @param string|null $tag
      * @param int|null    $ttl
      *
      * @throws ExceptionInterface
      *
      * @return DomainRecordEntity
      */
-    public function update(string $domainName, int $recordId, ?string $name = null, ?string $data = null, ?int $priority = null, ?int $port = null, ?int $weight = null, ?int $flags = null, ?int $tag = null, ?int $ttl = null)
+    public function update(string $domainName, int $recordId, ?string $name = null, ?string $data = null, ?int $priority = null, ?int $port = null, ?int $weight = null, ?int $flags = null, ?string $tag = null, ?int $ttl = null)
     {
         $content = [
             'name' => $name,

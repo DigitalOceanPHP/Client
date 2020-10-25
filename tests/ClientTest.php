@@ -7,6 +7,7 @@ namespace DigitalOceanV2\Tests;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Certificate;
+use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
@@ -43,6 +44,7 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(Account::class, $client->account());
         self::assertInstanceOf(Action::class, $client->action());
         self::assertInstanceOf(Certificate::class, $client->certificate());
+        self::assertInstanceOf(Database::class, $client->database());
         self::assertInstanceOf(Domain::class, $client->domain());
         self::assertInstanceOf(DomainRecord::class, $client->domainRecord());
         self::assertInstanceOf(Droplet::class, $client->droplet());

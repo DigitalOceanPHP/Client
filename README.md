@@ -91,7 +91,7 @@ $account = $client->account();
 
 // return the Account entity
 $userInformation = $account->getUserInformation();
-````
+```
 
 ### Action
 
@@ -104,6 +104,130 @@ $actions = $action->getAll();
 
 // return the Action entity 123
 $action123 = $action->getById(123);
+```
+
+### Database
+
+```php
+// return the database api
+$database = $client->database();
+
+// return a collection of DatabaseCluster entity
+$clusters = $database->getAllClusters();
+
+// return a collection of DatabaseCluster entity filtered by 'tag-name'
+$clusters = $database->getAllClusters('tag-name');
+
+// return the DatabaseCluster entity '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$myCluster = $database->getClusterById('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// return the created DatabaseCluster entity
+$createdCluster = $database->createCluster('my-redis-cluster', 'redis', 'db-s-1vcpu-1gb', 'fra1', 1);
+
+// return the created DatabaseCluster entity with optional parameters
+$anotherCluster = $database->createCluster('my-redis-cluster', 'redis', 'db-s-1vcpu-1gb', 'fra1', 1, "5", ['tag-1', 'tag-2'], 'daf994c2-1a34-4a94-beca-f43d09f63eb6');
+
+// resize database cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->resize('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'db-s-1vcpu-2gb', 2);
+
+// migrate database cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2' to the 'lon1' region
+$database->migrate('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'lon1');
+
+// remove database cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->remove('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// return the DatabaseRules entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$rules = $database->getFirewallRules('405427f6-393a-4744-817a-2ec6c1b2e2c2')
+
+// update firewall rules of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->updateFirewallRules('405427f6-393a-4744-817a-2ec6c1b2e2c2', [
+    ["type" => 'ip_addr', "value" => '192.168.1.1'],
+    ["type" => 'droplet', "value" => '163973392'],
+]);
+
+// update maintenance window of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->updateMaintenanceWindow('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'thursday', "21:00");
+
+// return a collection of DatabaseBackup entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$backups = $database->getBackups('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// create a new database cluster based on the 'origin-cluster' cluster backup and return a DatabaseCluster entity for the newly created cluster
+$restored = $database->createClusterFromBackup('cluster-from-backup', ["database_name" => 'origin-cluster', "backup_created_at" => '2020-09-14T08:11:29Z'], 'mysql', 'db-s-1vcpu-1gb', 'fra1', 1, null, ['tag-1', 'tag-2']);
+
+// return a collection of DatabaseReplica entity for cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$replicas = $database->getAllReplicas('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// return the DatabaseReplica enitity named 'my-replica' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$replica = $database->getReplicaByName('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-replica');
+
+// return the created DatabaseReplica entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$createdReplica = $database->createReplica('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-replica', 'db-s-1vcpu-1gb');
+
+// remove replica named 'my-replica' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->removeReplica('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-replica');
+
+// return a collection of DatabaseUser entity for cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$users = $database->getAllUsers('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// return the DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$user = $database->getUserByName('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user');
+
+// return the created DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$createdUser = $database->createUser('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user');
+
+// return the created DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2' with optional mysql auth plugin
+$createdUser2 = $database->createUser('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user-2', 'mysql_native_password');
+
+// return the updated DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$updatedUser = $database->updateUserMysqlAuthMethod('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user-2', 'caching_sha2_password');
+
+// remove user named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->removeUser('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user');
+
+// return a collection of Database entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$dbs = $database->getAllDatabases('405427f6-393a-4744-817a-2ec6c1b2e2c2');
+
+// return the Database entity named 'my-database' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$db = $database->getDatabaseByName('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-database');
+
+// return the created Database entity named 'my-database' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$createdDb = $database->createDatabase('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-database');
+
+// remove the database named 'my-database' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+$database->removeDatabase('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-database');
+
+
+// ** Only for PostgreSQL Database Clusters ** //
+
+// return a collection of DatabasePool entity of cluster 'cd2184a9-8f05-49f4-9700-293efb81c7fd'
+$pools = $database->getAllConnectionPools('cd2184a9-8f05-49f4-9700-293efb81c7fd');
+
+// return the DatabasePool entity named 'my-pool' of cluster 'cd2184a9-8f05-49f4-9700-293efb81c7fd'
+$pool = $database->getConnectionPoolByName('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool');
+
+// return the created DatabasePool entity for cluster 'cd2184a9-8f05-49f4-9700-293efb81c7fd'
+$createdPool = $database->createConnectionPool('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool', 'transaction', 1, 'defaultdb', 'doadmin');
+
+// remove pool named 'my-pool' of cluster 'cd2184a9-8f05-49f4-9700-293efb81c7fd'
+$pools = $database->removeConnectionPool('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool');
+
+
+// ** Only for Redis Database Clusters ** //
+
+// return an object with a 'evictionPolicy' key for cluster '3a9e419c-e38e-40ef-8f56-09b4254b80e2'
+$policy = $database->getEvictionPolicy('3a9e419c-e38e-40ef-8f56-09b4254b80e2');
+
+// update eviction policy for cluster '3a9e419c-e38e-40ef-8f56-09b4254b80e2'
+$database->updateEvictionPolicy('3a9e419c-e38e-40ef-8f56-09b4254b80e2', 'allkeys_random');
+
+
+// ** Only for MySQL Database Clusters ** //
+
+// return an object with a 'sqlMode' key for cluster 'd448b69d-3d06-411a-8ac7-c16132ba0f1e'
+$mode = $database->getSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e');
+
+// update sql mode for cluster 'd448b69d-3d06-411a-8ac7-c16132ba0f1e'
+$database->updateSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e', 'ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE');
 ```
 
 ### Domain
