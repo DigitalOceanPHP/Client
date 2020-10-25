@@ -22,5 +22,4 @@ final class Database extends AbstractEntity
      * @var string
      */
     public $name;
-
 }

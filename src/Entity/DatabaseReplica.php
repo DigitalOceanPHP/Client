@@ -57,7 +57,7 @@ final class DatabaseReplica extends AbstractEntity
      * @var string
      */
     public $privateNetworkUuid;
-    
+
     /**
      * @param array $parameters
      *

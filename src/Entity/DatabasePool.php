@@ -28,7 +28,7 @@ final class DatabasePool extends AbstractEntity
      */
     public $mode;
 
-     /**
+    /**
      * @var int
      */
     public $size;

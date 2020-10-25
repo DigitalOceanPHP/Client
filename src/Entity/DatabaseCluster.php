@@ -97,7 +97,7 @@ final class DatabaseCluster extends AbstractEntity
      * @var string
      */
     public $privateNetworkUuid;
-    
+
     /**
      * @param array $parameters
      *

@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Entity\DatabaseCluster as DatabaseClusterEntity;
-use DigitalOceanV2\Entity\DatabaseRule as DatabaseRuleEntity;
-use DigitalOceanV2\Entity\DatabaseBackup as DatabaseBackupEntity;
-use DigitalOceanV2\Entity\DatabaseReplica as DatabaseReplicaEntity;
-use DigitalOceanV2\Entity\DatabaseUser as DatabaseUserEntity;
 use DigitalOceanV2\Entity\Database as DatabaseEntity;
+use DigitalOceanV2\Entity\DatabaseBackup as DatabaseBackupEntity;
+use DigitalOceanV2\Entity\DatabaseCluster as DatabaseClusterEntity;
 use DigitalOceanV2\Entity\DatabasePool as DatabasePoolEntity;
+use DigitalOceanV2\Entity\DatabaseReplica as DatabaseReplicaEntity;
+use DigitalOceanV2\Entity\DatabaseRule as DatabaseRuleEntity;
+use DigitalOceanV2\Entity\DatabaseUser as DatabaseUserEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
@@ -100,7 +100,7 @@ class Database extends AbstractApi
     {
         $this->put(\sprintf('databases/%s/resize', $clusterId), [
             'size' => $size,
-            'num_nodes' => $numNodes
+            'num_nodes' => $numNodes,
         ]);
     }
 
@@ -115,7 +115,7 @@ class Database extends AbstractApi
     public function migrate(string $clusterId, string $region)
     {
         $this->put(\sprintf('databases/%s/migrate', $clusterId), [
-            'region' => $region
+            'region' => $region,
         ]);
     }
 
@@ -149,7 +149,7 @@ class Database extends AbstractApi
 
     /**
      * @param string $clusterId
-     * @param array $rules
+     * @param array  $rules
      *
      * @throws ExceptionInterface
      *
@@ -158,7 +158,7 @@ class Database extends AbstractApi
     public function updateFirewallRules(string $clusterId, array $rules)
     {
         $this->put(\sprintf('databases/%s/firewall', $clusterId), [
-            'rules' => $rules
+            'rules' => $rules,
         ]);
     }
 
@@ -175,7 +175,7 @@ class Database extends AbstractApi
     {
         $this->put(\sprintf('databases/%s/maintenance', $clusterId), [
             'day' => $day,
-            'hour' => $hour
+            'hour' => $hour,
         ]);
     }
 
@@ -341,8 +341,8 @@ class Database extends AbstractApi
         $user = $this->post(\sprintf('databases/%s/users', $clusterId), [
             'name' => $name,
             'mysql_settings' => [
-                'auth_plugin' => $authPlugin
-            ]
+                'auth_plugin' => $authPlugin,
+            ],
         ]);
 
         return new DatabaseUserEntity($user->user);
@@ -361,8 +361,8 @@ class Database extends AbstractApi
     {
         $user = $this->post(\sprintf('databases/%s/users/%s/reset_auth', $clusterId, $username), [
             'mysql_settings' => [
-                'auth_plugin' => $authPlugin
-            ]
+                'auth_plugin' => $authPlugin,
+            ],
         ]);
 
         return new DatabaseUserEntity($user->user);
@@ -423,7 +423,7 @@ class Database extends AbstractApi
     public function createDatabase(string $clusterId, string $name)
     {
         $database = $this->post(\sprintf('databases/%s/dbs', $clusterId), [
-            'name' => $name
+            'name' => $name,
         ]);
 
         return new DatabaseEntity($database->db);
@@ -522,7 +522,7 @@ class Database extends AbstractApi
     {
         $modes = $this->get(\sprintf('databases/%s/eviction_policy', $clusterId));
 
-        return (object)['evictionPolicy' => $modes->eviction_policy];
+        return (object) ['evictionPolicy' => $modes->eviction_policy];
     }
 
     /**
@@ -536,7 +536,7 @@ class Database extends AbstractApi
     public function updateEvictionPolicy(string $clusterId, $evictionPolicy)
     {
         $this->put(\sprintf('databases/%s/eviction_policy', $clusterId), [
-            "eviction_policy" => $evictionPolicy
+            'eviction_policy' => $evictionPolicy,
         ]);
     }
 
@@ -551,7 +551,7 @@ class Database extends AbstractApi
     {
         $mode = $this->get(\sprintf('databases/%s/sql_mode', $clusterId));
 
-        return (object)['sqlMode' => $mode->sql_mode];
+        return (object) ['sqlMode' => $mode->sql_mode];
     }
 
     /**
@@ -565,7 +565,7 @@ class Database extends AbstractApi
     public function updateSqlModes(string $clusterId, $sqlMode)
     {
         $this->put(\sprintf('databases/%s/sql_mode', $clusterId), [
-            "sql_mode" => $sqlMode
+            'sql_mode' => $sqlMode,
         ]);
     }
 }
