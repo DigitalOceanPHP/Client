@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\Api;
 
-use DigitalOceanV2\Entity\Action as ActionEntity;
 use DigitalOceanV2\Entity\Firewall as FirewallEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
 
@@ -37,9 +36,8 @@ class Firewall extends AbstractApi
         return new FirewallEntity($firewall->firewall);
     }
 
-
     /**
-     * @param string $id
+     * @param string         $id
      * @param FirewallEntity $firewall
      *
      * @throws ExceptionInterface

@@ -40,7 +40,6 @@ final class FirewallRuleOutbound extends FirewallRule
                     unset($parameters[$property]);
 
                     break;
-
             }
         }
 
@@ -54,6 +53,7 @@ final class FirewallRuleOutbound extends FirewallRule
     {
         $data = parent::toArray();
         $data['destinations'] = $this->destinations->toArray();
+
         return $data;
     }
 }

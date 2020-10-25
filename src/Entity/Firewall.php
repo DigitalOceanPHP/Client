@@ -75,7 +75,7 @@ final class Firewall extends AbstractEntity
             switch ($property) {
                 case 'inbound_rules':
                     if (\is_array($value)) {
-                        $this->inboundRules = array();
+                        $this->inboundRules = [];
                         foreach ($value as $key => $rule) {
                             if (\is_object($rule)) {
                                 $this->inboundRules[$key] = new FirewallRuleInbound($rule);
@@ -88,7 +88,7 @@ final class Firewall extends AbstractEntity
 
                 case 'outbound_rules':
                     if (\is_array($value)) {
-                        $this->outboundRules = array();
+                        $this->outboundRules = [];
                         foreach ($value as $key => $rule) {
                             if (\is_object($rule)) {
                                 $this->outboundRules[$key] = new FirewallRuleOutbound($rule);
@@ -98,7 +98,6 @@ final class Firewall extends AbstractEntity
                     unset($parameters[$property]);
 
                     break;
-
             }
         }
 
@@ -122,14 +121,14 @@ final class Firewall extends AbstractEntity
     {
         return [
             'name' => $this->name,
-            'inbound_rules' => \array_map(function($rule) {
+            'inbound_rules' => \array_map(function ($rule) {
                 return $rule->toArray();
             }, $this->inboundRules),
-            'outbound_rules' => \array_map(function($rule) {
+            'outbound_rules' => \array_map(function ($rule) {
                 return $rule->toArray();
             }, $this->outboundRules),
             'droplet_ids' => $this->dropletIds,
-            'tags' => $this->tags
+            'tags' => $this->tags,
         ];
     }
 }

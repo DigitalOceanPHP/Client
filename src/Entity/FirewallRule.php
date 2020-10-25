@@ -38,7 +38,7 @@ abstract class FirewallRule extends AbstractEntity
             'protocol' => $this->protocol,
         ];
 
-        if ( 'icmp' != $this->protocol ) {
+        if ('icmp' != $this->protocol) {
             $data['ports'] = ('0' === $this->ports) ? 'all' : $this->ports;
         }
 
