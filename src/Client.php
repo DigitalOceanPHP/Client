@@ -16,6 +16,7 @@ namespace DigitalOceanV2;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\Certificate;
+use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
@@ -106,6 +107,14 @@ class Client
     public function certificate()
     {
         return new Certificate($this);
+    }
+
+    /**
+     * @return Database
+     */
+    public function database()
+    {
+        return new Database($this);
     }
 
     /**
