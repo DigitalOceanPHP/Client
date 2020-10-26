@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 3.1.0 (26/10/2020)
+
+* Added database API support
+* Added partial firewall API support
+
+
 ## 3.0.1 (26/10/2020)
 
 * Fixed tag type for create/update domain records
