@@ -2,11 +2,22 @@ CHANGE LOG
 ==========
 
 
-## 4.0.0 (UPCOMING)
+## 4.0.0-RC1 (UPCOMING)
 
 * Added void return types to void methods
 * Dropped support for PHP 7.1
 * Switched to PSR-17 and PSR-18
+
+
+## 3.1.0 (26/10/2020)
+
+* Added database API support
+* Added partial firewall API support
+
+
+## 3.0.1 (26/10/2020)
+
+* Fixed tag type for create/update domain records
 
 
 ## 3.0.0 (22/07/2020)
