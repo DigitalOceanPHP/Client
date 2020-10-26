@@ -44,7 +44,7 @@ $ composer require toin0u/digitalocean-v2:^3.1 kriswallsmith/buzz:^0.16
 #### Laravel 6+:
 
 ```
-$ composer require graham-campbell/digitalocean:^7.0
+$ composer require graham-campbell/digitalocean:^7.1
 ```
 
 
