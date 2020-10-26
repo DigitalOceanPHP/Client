@@ -96,7 +96,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function resize(string $clusterId, string $size, int $numNodes)
+    public function resize(string $clusterId, string $size, int $numNodes): void
     {
         $this->put(\sprintf('databases/%s/resize', $clusterId), [
             'size' => $size,
@@ -112,7 +112,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function migrate(string $clusterId, string $region)
+    public function migrate(string $clusterId, string $region): void
     {
         $this->put(\sprintf('databases/%s/migrate', $clusterId), [
             'region' => $region,
@@ -126,7 +126,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function remove(string $clusterId)
+    public function remove(string $clusterId): void
     {
         $this->delete(\sprintf('databases/%s', $clusterId));
     }
@@ -155,7 +155,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function updateFirewallRules(string $clusterId, array $rules)
+    public function updateFirewallRules(string $clusterId, array $rules): void
     {
         $this->put(\sprintf('databases/%s/firewall', $clusterId), [
             'rules' => $rules,
@@ -171,7 +171,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function updateMaintenanceWindow(string $clusterId, string $day, string $hour)
+    public function updateMaintenanceWindow(string $clusterId, string $day, string $hour): void
     {
         $this->put(\sprintf('databases/%s/maintenance', $clusterId), [
             'day' => $day,
@@ -291,7 +291,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function removeReplica(string $clusterId, string $name)
+    public function removeReplica(string $clusterId, string $name): void
     {
         $this->delete(\sprintf('databases/%s/replicas/%s', $clusterId, $name));
     }
@@ -376,7 +376,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function removeUser(string $clusterId, string $name)
+    public function removeUser(string $clusterId, string $name): void
     {
         $this->delete(\sprintf('databases/%s/users/%s', $clusterId, $name));
     }
@@ -437,7 +437,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function removeDatabase(string $clusterId, string $name)
+    public function removeDatabase(string $clusterId, string $name): void
     {
         $this->delete(\sprintf('databases/%s/dbs/%s', $clusterId, $name));
     }
@@ -506,7 +506,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function removeConnectionPool(string $clusterId, string $name)
+    public function removeConnectionPool(string $clusterId, string $name): void
     {
         $this->delete(\sprintf('databases/%s/pools/%s', $clusterId, $name));
     }
@@ -533,7 +533,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function updateEvictionPolicy(string $clusterId, $evictionPolicy)
+    public function updateEvictionPolicy(string $clusterId, $evictionPolicy): void
     {
         $this->put(\sprintf('databases/%s/eviction_policy', $clusterId), [
             'eviction_policy' => $evictionPolicy,
@@ -562,7 +562,7 @@ class Database extends AbstractApi
      *
      * @return void
      */
-    public function updateSqlModes(string $clusterId, $sqlMode)
+    public function updateSqlModes(string $clusterId, $sqlMode): void
     {
         $this->put(\sprintf('databases/%s/sql_mode', $clusterId), [
             'sql_mode' => $sqlMode,
