@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.0.1 (26/10/2020)
+
+* Fixed tag type for create/update domain records
+
+
 ## 3.0.0 (22/07/2020)
 
 * Added scalar parameter types
