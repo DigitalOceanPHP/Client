@@ -5,6 +5,7 @@ CHANGE LOG
 ## 4.0.0 (UPCOMING)
 
 * Added void return types to void methods
+* Dropped support for PHP 7.1
 * Switched to PSR-17 and PSR-18
 
 
