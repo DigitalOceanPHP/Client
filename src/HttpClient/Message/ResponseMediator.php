@@ -36,18 +36,18 @@ final class ResponseMediator
      *
      * @throws RuntimeException
      *
-     * @return stdClass|null
+     * @return stdClass
      */
     public static function getContent(Response $response)
     {
         if (204 === $response->getStatusCode()) {
-            return null;
+            return JsonObject::empty();
         }
 
         $body = $response->getBody();
 
         if ('' === $body) {
-            return null;
+            return JsonObject::empty();
         }
 
         if (0 !== \strpos(self::getHeader($response, 'Content-Type') ?? '', self::JSON_CONTENT_TYPE)) {

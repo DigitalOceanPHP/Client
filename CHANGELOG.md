@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.2.1 (UPCOMING)
+
+* Allow empty response content
+
+
 ## 3.2.0 (27/11/2020)
 
 * Added PHP 8.0 support

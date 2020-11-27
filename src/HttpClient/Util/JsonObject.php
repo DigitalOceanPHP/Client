@@ -26,7 +26,17 @@ use stdClass;
 final class JsonObject
 {
     /**
-     * Decode a JSON string into a PHP array or object.
+     * Create an empty PHP object.
+     *
+     * @return stdClass
+     */
+    public static function empty()
+    {
+        return new stdClass();
+    }
+
+    /**
+     * Decode a JSON string into a PHP object.
      *
      * @param string $json
      *
