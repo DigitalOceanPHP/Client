@@ -6,9 +6,6 @@
       <code>\preg_last_error_msg()</code>
     </UndefinedFunction>
   </file>
-  <file src="src/HttpClient/BuzzHttpClient.php">
-    <InvalidCatch occurrences="1"/>
-  </file>
   <file src="src/HttpClient/Util/JsonObject.php">
     <UndefinedFunction occurrences="1">
       <code>\get_debug_type($data)</code>

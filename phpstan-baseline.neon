@@ -6,11 +6,6 @@ parameters:
 			path: src/Entity/AbstractEntity.php
 
 		-
-			message: "#^Method DigitalOceanV2\\\\HttpClient\\\\BuzzHttpClient\\:\\:getHeaders\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string, array\\|string\\>\\.$#"
-			count: 1
-			path: src/HttpClient/BuzzHttpClient.php
-
-		-
 			message: "#^Variable method call on DigitalOceanV2\\\\Api\\\\ApiInterface\\.$#"
 			count: 1
 			path: src/ResultPager.php

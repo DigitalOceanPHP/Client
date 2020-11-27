@@ -17,7 +17,7 @@ Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalO
 
 ## Installation
 
-This version supports [PHP](https://php.net) 7.2-8.0. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install either [Guzzle](https://docs.guzzlephp.org) or [Buzz](https://github.com/kriswallsmith/Buzz) to enable us to send HTTP requests. Laravel users should install [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
+This version supports [PHP](https://php.net) 7.2-8.0. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install [Guzzle](https://docs.guzzlephp.org) to enable us to send HTTP requests. Laravel users should install [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
 
 ### Standard Installation
 
@@ -31,12 +31,6 @@ $ composer require toin0u/digitalocean-v2:^4.0 guzzlehttp/guzzle:^6.3.1
 
 ```
 $ composer require toin0u/digitalocean-v2:^4.0 guzzlehttp/guzzle:^7.0
-```
-
-#### Using Buzz 0.16:
-
-```
-$ composer require toin0u/digitalocean-v2:^4.0 kriswallsmith/buzz:^0.16
 ```
 
 ### Framework Integration

@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
-use Buzz\Browser;
-use Buzz\Exception\RequestException;
-use Buzz\ListenerLogger\Listener;
 use DigitalOceanV2\Exception\DiscoveryFailedException;
 use GuzzleHttp\Client;
 use ReflectionClass;
@@ -40,15 +37,11 @@ class Discovery
             return $httpClient;
         }
 
-        if (null !== ($httpClient = self::discoverBuzz())) {
-            return $httpClient;
-        }
-
         if (\PHP_MAJOR_VERSION > 7) {
-            throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure a suitable version of Guzzle is installed: "guzzlehttp/guzzle:^7.2". Older versions of Guzzle and Buzz are not supported on PHP 8.');
+            throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure a suitable version of Guzzle is installed: "guzzlehttp/guzzle:^7.2". Older versions of Guzzle are not supported on PHP 8.');
         }
 
-        throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure one of the following is installed: "guzzlehttp/guzzle:^6.3.1", "guzzlehttp/guzzle:^7.0", or "kriswallsmith/buzz:^0.16".');
+        throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure a suitable version of Guzzle is installed: "guzzlehttp/guzzle:^6.3.1" or "guzzlehttp/guzzle:^7.0".');
     }
 
     /**
@@ -93,47 +86,5 @@ class Discovery
         $value = \constant($name);
 
         return \is_scalar($value) ? (string) $value : null;
-    }
-
-    /**
-     * @return HttpClientInterface|null
-     */
-    private static function discoverBuzz()
-    {
-        // do not allow Buzz on PHP 8
-        if (\PHP_MAJOR_VERSION > 7) {
-            return null;
-        }
-
-        // ensure Buzz is installed and version is less than 0.17.0
-        if (!\class_exists(Browser::class) || !\class_exists(Listener::class)) {
-            return null;
-        }
-
-        $param = self::getFirstParam(RequestException::class, 'setRequest');
-
-        // ensure Buzz version is at least 0.16.0
-        if (null === $param || $param->hasType()) {
-            return null;
-        }
-
-        return new BuzzHttpClient();
-    }
-
-    /**
-     * @param string $class
-     * @param string $method
-     *
-     * @return ReflectionParameter|null
-     */
-    private static function getFirstParam(string $class, string $method)
-    {
-        try {
-            $method = (new ReflectionClass(RequestException::class))->getMethod('setRequest');
-
-            return $method->getParameters()[0] ?? null;
-        } catch (ReflectionException $e) {
-            return null;
-        }
     }
 }
