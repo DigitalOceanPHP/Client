@@ -44,6 +44,10 @@ class Discovery
             return $httpClient;
         }
 
+        if (\PHP_MAJOR_VERSION > 7) {
+            throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure a suitable version of Guzzle is installed: "guzzlehttp/guzzle:^7.2". Older versions of Guzzle and Buzz are not supported on PHP 8.');
+        }
+
         throw new DiscoveryFailedException('Unable to find a suitable HTTP client. Please make sure one of the following is installed: "guzzlehttp/guzzle:^6.3.1", "guzzlehttp/guzzle:^7.0", or "kriswallsmith/buzz:^0.16".');
     }
 
@@ -59,8 +63,8 @@ class Discovery
 
         $version = self::getGuzzleVersion();
 
-        // ensure Guzzle version is at least 6.3.1
-        if (null === $version || \version_compare($version, '6.3.1') < 0) {
+        // ensure Guzzle version is at least 6.3.1 or at least 7 on PHP 8
+        if (null === $version || \version_compare($version, '6.3.1') < 0 || (\version_compare($version, '7') < 0 && \PHP_MAJOR_VERSION > 7)) {
             return null;
         }
 
@@ -96,6 +100,11 @@ class Discovery
      */
     private static function discoverBuzz()
     {
+        // do not allow Buzz on PHP 8
+        if (\PHP_MAJOR_VERSION > 7) {
+            return null;
+        }
+
         // ensure Buzz is installed and version is less than 0.17.0
         if (!\class_exists(Browser::class) || !\class_exists(Listener::class)) {
             return null;

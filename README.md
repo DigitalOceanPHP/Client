@@ -17,26 +17,26 @@ Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalO
 
 ## Installation
 
-This version supports [PHP](https://php.net) 7.1-7.4. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install either [Guzzle](https://docs.guzzlephp.org) or [Buzz](https://github.com/kriswallsmith/Buzz) to enable us to send HTTP requests. Laravel users should install [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
+This version supports [PHP](https://php.net) 7.1-8.0. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install either [Guzzle](https://docs.guzzlephp.org) or [Buzz](https://github.com/kriswallsmith/Buzz) to enable us to send HTTP requests. Laravel users should install [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) by [Graham Campbell](https://github.com/GrahamCampbell).
 
 ### Standard Installation
 
 #### Using Guzzle 6:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.1 guzzlehttp/guzzle:^6.3.1
+$ composer require toin0u/digitalocean-v2:^3.2 guzzlehttp/guzzle:^6.3.1
 ```
 
 #### Using Guzzle 7:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.1 guzzlehttp/guzzle:^7.0
+$ composer require toin0u/digitalocean-v2:^3.2 guzzlehttp/guzzle:^7.0
 ```
 
 #### Using Buzz 0.16:
 
 ```
-$ composer require toin0u/digitalocean-v2:^3.1 kriswallsmith/buzz:^0.16
+$ composer require toin0u/digitalocean-v2:^3.2 kriswallsmith/buzz:^0.16
 ```
 
 ### Framework Integration
@@ -44,7 +44,7 @@ $ composer require toin0u/digitalocean-v2:^3.1 kriswallsmith/buzz:^0.16
 #### Laravel 6+:
 
 ```
-$ composer require graham-campbell/digitalocean:^7.1
+$ composer require graham-campbell/digitalocean:^7.3
 ```
 
 
