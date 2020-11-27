@@ -15,9 +15,6 @@ namespace DigitalOceanV2\HttpClient;
 
 use DigitalOceanV2\Exception\DiscoveryFailedException;
 use GuzzleHttp\Client;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionParameter;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
