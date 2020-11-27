@@ -35,7 +35,7 @@
         "guzzlehttp/guzzle": "^6.3.1|^7.0"
     },
     "suggest": {
-        "guzzlehttp/guzzle": "To use GuzzleHttpClient, require guzzlehttp/guzzle:^6.3.1|^7.0"
+        "guzzlehttp/guzzle": "To use GuzzleHttpClient, require guzzlehttp/guzzle:^6.3.1|^7.0."
     },
     "autoload": {
         "psr-4": {
