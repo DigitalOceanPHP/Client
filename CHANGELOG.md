@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.2.0 (27/11/2020)
+
+* Added PHP 8.0 support
+
+
 ## 3.1.1 (27/11/2020)
 
 * Fixed typos in versions
