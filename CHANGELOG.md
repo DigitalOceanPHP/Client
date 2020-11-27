@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.1.1 (27/11/2020)
+
+* Fixed typos in versions
+
+
 ## 3.1.0 (26/10/2020)
 
 * Added database API support
