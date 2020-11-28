@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 3.2.1 (UPCOMING)
+## 3.2.1 (27/11/2020)
 
 * Allow empty response content
 
