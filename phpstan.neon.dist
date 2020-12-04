@@ -19,3 +19,11 @@ parameters:
     checkMissingIterableValueType: false
     ignoreErrors:
         - "#Anonymous function should have native return typehint#"
+    stubFiles:
+        - .stubs/Psr/Http/Message/StreamInterface.phpstub
+        - .stubs/Psr/Http/Message/UriInterface.phpstub
+        - .stubs/Psr/Http/Message/MessageInterface.phpstub
+        - .stubs/Psr/Http/Message/RequestInterface.phpstub
+        - .stubs/Psr/Http/Message/ResponseInterface.phpstub
+        - .stubs/Http/Promise/Promise.phpstub
+        - .stubs/Http/Client/Common/Plugin.phpstub

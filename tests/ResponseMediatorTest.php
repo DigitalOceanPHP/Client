@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace DigitalOceanV2\Tests;
 
 use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\Message\Response;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,9 +19,8 @@ class ResponseMediatorTest extends TestCase
     {
         $response = new Response(
             200,
-            'OK',
             ['Content-Type' => ['application/json']],
-            '{"foo": "bar"}'
+            Utils::streamFor('{"foo": "bar"}')
         );
 
         $this->assertEquals((object) ['foo' => 'bar'], ResponseMediator::getContent($response));
@@ -31,9 +31,8 @@ class ResponseMediatorTest extends TestCase
         $body = 'foobar';
         $response = new Response(
             200,
-            'OK',
             ['Content-Type' => ['text/html']],
-            $body
+            Utils::streamFor($body)
         );
 
         $this->expectException(RuntimeException::class);
@@ -47,9 +46,8 @@ class ResponseMediatorTest extends TestCase
         $body = 'foobar';
         $response = new Response(
             200,
-            'OK',
             ['Content-Type' => ['application/json']],
-            $body
+            Utils::streamFor($body)
         );
 
         $this->expectException(RuntimeException::class);
@@ -63,9 +61,8 @@ class ResponseMediatorTest extends TestCase
         $body = 'foobar';
         $response = new Response(
             200,
-            'OK',
             ['Content-Type' => ['application/json']],
-            $body
+            Utils::streamFor($body)
         );
 
         $this->assertNull(ResponseMediator::getErrorMessage($response));

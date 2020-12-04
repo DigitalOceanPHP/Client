@@ -10,4 +10,13 @@
     <projectFiles>
         <directory name="src" />
     </projectFiles>
+    <stubs>
+        <file name=".stubs/Psr/Http/Message/StreamInterface.phpstub" />
+        <file name=".stubs/Psr/Http/Message/UriInterface.phpstub" />
+        <file name=".stubs/Psr/Http/Message/MessageInterface.phpstub" />
+        <file name=".stubs/Psr/Http/Message/RequestInterface.phpstub" />
+        <file name=".stubs/Psr/Http/Message/ResponseInterface.phpstub" />
+        <file name=".stubs/Http/Promise/Promise.phpstub" />
+        <file name=".stubs/Http/Client/Common/Plugin.phpstub" />
+    </stubs>
 </psalm>

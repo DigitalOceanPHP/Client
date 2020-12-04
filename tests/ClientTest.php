@@ -21,7 +21,7 @@ use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\Client;
-use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
+use Http\Client\Common\HttpMethodsClientInterface;
 use PHPUnit\Framework\TestCase;
 
 /**

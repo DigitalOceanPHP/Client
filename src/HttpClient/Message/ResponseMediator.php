@@ -15,6 +15,7 @@ namespace DigitalOceanV2\HttpClient\Message;
 
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Util\JsonObject;
+use Psr\Http\Message\ResponseInterface;
 use stdClass;
 
 /**
@@ -39,19 +40,19 @@ final class ResponseMediator
     public const JSON_CONTENT_TYPE = 'application/json';
 
     /**
-     * @param Response $response
+     * @param ResponseInterface $response
      *
      * @throws RuntimeException
      *
      * @return stdClass
      */
-    public static function getContent(Response $response)
+    public static function getContent(ResponseInterface $response)
     {
         if (204 === $response->getStatusCode()) {
             return JsonObject::empty();
         }
 
-        $body = $response->getBody();
+        $body = (string) $response->getBody();
 
         if ('' === $body) {
             return JsonObject::empty();
@@ -67,11 +68,11 @@ final class ResponseMediator
     /**
      * Get the error message from the response if present.
      *
-     * @param Response $response
+     * @param ResponseInterface $response
      *
      * @return string|null
      */
-    public static function getErrorMessage(Response $response)
+    public static function getErrorMessage(ResponseInterface $response)
     {
         try {
             $content = self::getContent($response);
@@ -85,11 +86,11 @@ final class ResponseMediator
     /**
      * Get the pagination data from the response.
      *
-     * @param Response $response
+     * @param ResponseInterface $response
      *
      * @return array<string,string>
      */
-    public static function getPagination(Response $response)
+    public static function getPagination(ResponseInterface $response)
     {
         try {
             $content = self::getContent($response);
@@ -108,11 +109,11 @@ final class ResponseMediator
     /**
      * Get the rate limit data from the response.
      *
-     * @param Response $response
+     * @param ResponseInterface $response
      *
      * @return array<string,int>
      */
-    public static function getRateLimit(Response $response)
+    public static function getRateLimit(ResponseInterface $response)
     {
         $reset = self::getHeader($response, 'RateLimit-Reset');
         $remaining = self::getHeader($response, 'RateLimit-Remaining');
@@ -130,12 +131,12 @@ final class ResponseMediator
     }
 
     /**
-     * @param Response $response
+     * @param ResponseInterface $response
      * @param string   $name
      *
      * @return string|null
      */
-    private static function getHeader(Response $response, string $name)
+    private static function getHeader(ResponseInterface $response, string $name)
     {
         $headers = $response->getHeaders()[$name] ?? [];
 

@@ -13,83 +13,89 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2\HttpClient;
 
+use Http\Client\Common\HttpMethodsClient;
+use Http\Client\Common\HttpMethodsClientInterface;
+use Http\Client\Common\Plugin;
+use Http\Client\Common\PluginClientFactory;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
+
 /**
+ * The HTTP client builder class.
+ *
+ * This will allow you to fluently add and remove plugins.
+ *
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
  */
 final class Builder
 {
     /**
-     * @var HttpClientInterface
+     * The object that sends HTTP messages.
+     *
+     * @var ClientInterface
      */
     private $httpClient;
 
     /**
-     * @var string|null
+     * The HTTP request factory.
+     *
+     * @var RequestFactoryInterface
      */
-    private $baseUrl;
+    private $requestFactory;
 
     /**
-     * @var array<string,string>
+     * The HTTP stream factory.
+     *
+     * @var StreamFactoryInterface
      */
-    private $defaultHeaders;
+    private $streamFactory;
 
     /**
+     * The URI factory.
+     *
+     * @var UriFactoryInterface
+     */
+    private $uriFactory;
+
+    /**
+     * The currently registered plugins.
+     *
+     * @var Plugin[]
+     */
+    private $plugins = [];
+
+    /**
+     * A HTTP client with all our plugins.
+     *
      * @var HttpMethodsClientInterface|null
      */
-    private $httpMethodsClient;
+    private $pluginClient;
 
     /**
-     * @param HttpClientInterface|null $httpClient
+     * Create a new http client builder instance.
+     *
+     * @param ClientInterface|null         $httpClient
+     * @param RequestFactoryInterface|null $requestFactory
+     * @param StreamFactoryInterface|null  $streamFactory
+     * @param UriFactoryInterface|null     $uriFactory
      *
      * @return void
      */
-    public function __construct(HttpClientInterface $httpClient = null)
-    {
-        $this->defaultHeaders = [];
-        $this->httpClient = $httpClient ?? Discovery::find();
-    }
-
-    /**
-     * @param string|null $agent
-     *
-     * @return void
-     */
-    public function setUserAgent(string $agent = null): void
-    {
-        if (null === $agent) {
-            unset($this->defaultHeaders['User-Agent']);
-        } else {
-            $this->defaultHeaders['User-Agent'] = $agent;
-        }
-
-        $this->httpMethodsClient = null;
-    }
-
-    /**
-     * @param string|null $token
-     *
-     * @return void
-     */
-    public function setAuthToken(string $token = null): void
-    {
-        if (null === $token) {
-            unset($this->defaultHeaders['Authorization']);
-        } else {
-            $this->defaultHeaders['Authorization'] = \sprintf('Bearer %s', $token);
-        }
-
-        $this->httpMethodsClient = null;
-    }
-
-    /**
-     * @param string|null $url
-     *
-     * @return void
-     */
-    public function setBaseUrl(string $url = null): void
-    {
-        $this->baseUrl = $url;
-        $this->httpMethodsClient = null;
+    public function __construct(
+        ClientInterface $httpClient = null,
+        RequestFactoryInterface $requestFactory = null,
+        StreamFactoryInterface $streamFactory = null,
+        UriFactoryInterface $uriFactory = null
+    ) {
+        $this->httpClient = $httpClient ?? Psr18ClientDiscovery::find();
+        $this->requestFactory = $requestFactory ?? Psr17FactoryDiscovery::findRequestFactory();
+        $this->streamFactory = $streamFactory ?? Psr17FactoryDiscovery::findStreamFactory();
+        $this->uriFactory = $uriFactory ?? Psr17FactoryDiscovery::findUriFactory();
     }
 
     /**
@@ -97,14 +103,76 @@ final class Builder
      */
     public function getHttpClient()
     {
-        if (null === $this->httpMethodsClient) {
-            $this->httpMethodsClient = new HttpMethodsClient(
-                $this->httpClient,
-                $this->baseUrl ?? '',
-                $this->defaultHeaders
+        if (null === $this->pluginClient) {
+            $plugins = $this->plugins;
+
+            $this->pluginClient = new HttpMethodsClient(
+                (new PluginClientFactory())->createClient($this->httpClient, $plugins),
+                $this->requestFactory,
+                $this->streamFactory
             );
         }
 
-        return $this->httpMethodsClient;
+        return $this->pluginClient;
+    }
+
+    /**
+     * Get the request factory.
+     *
+     * @return RequestFactoryInterface
+     */
+    public function getRequestFactory()
+    {
+        return $this->requestFactory;
+    }
+
+    /**
+     * Get the stream factory.
+     *
+     * @return StreamFactoryInterface
+     */
+    public function getStreamFactory()
+    {
+        return $this->streamFactory;
+    }
+
+    /**
+     * Get the URI factory.
+     *
+     * @return UriFactoryInterface
+     */
+    public function getUriFactory()
+    {
+        return $this->uriFactory;
+    }
+
+    /**
+     * Add a new plugin to the end of the plugin chain.
+     *
+     * @param Plugin $plugin
+     *
+     * @return void
+     */
+    public function addPlugin(Plugin $plugin): void
+    {
+        $this->plugins[] = $plugin;
+        $this->pluginClient = null;
+    }
+
+    /**
+     * Remove a plugin by its fully qualified class name (FQCN).
+     *
+     * @param string $fqcn
+     *
+     * @return void
+     */
+    public function removePlugin(string $fqcn): void
+    {
+        foreach ($this->plugins as $idx => $plugin) {
+            if ($plugin instanceof $fqcn) {
+                unset($this->plugins[$idx]);
+                $this->pluginClient = null;
+            }
+        }
     }
 }

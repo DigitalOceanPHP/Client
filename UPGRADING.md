@@ -1,8 +1,12 @@
 # UPGRADING GUIDE
 
+## 3.3 to 4.0
+
+Version 4.0 requires PHP 7.2-8.0 and any HTTP client and HTTP client factory implementation. We are now decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. There are many good choices for HTTP clients, such as Guzzle 7. Upgrading from version 3.0 should be easy, once you have picked an HTTP client, as all of our other changes are purely internal.
+
 ## 2.3 to 3.0
 
-Version 3.0 requires PHP 7.1-7.4 and either Guzzle 6, Guzzle 7, or Buzz 0.16. We recommend using Guzzle 7.1 if you are running PHP 7.1, and Guzzle 7 if you are using PHP 7.2+. Version 3.0 provides some great internal changes since 2.3, which will allow us to fully move to PSR-7, PSR-17, and PSR-18 in version 4.0 (due for release in 2021). We recommend everyone using version 2.3 upgrades to version 3.0 as soon as possible. New features and breaking changes are documented in the change log. 
+Version 3.0 requires PHP 7.1-7.4 and either Guzzle 6, Guzzle 7, or Buzz 0.16. We recommend using Guzzle 7 if you are running PHP 7.1, and Guzzle 7 if you are using PHP 7.2+. Version 3.0 provides some great internal changes since 2.3, which will allow us to fully move to PSR-7, PSR-17, and PSR-18 in version 4.0. We recommend everyone using version 2.3 upgrades to version 3.0 as soon as possible. New features and breaking changes are documented in the change log. 
 
 ### New Client Class
 

@@ -30,9 +30,16 @@ use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\HttpClient\Builder;
-use DigitalOceanV2\HttpClient\HttpClientInterface;
-use DigitalOceanV2\HttpClient\HttpMethodsClientInterface;
-use DigitalOceanV2\HttpClient\Message\Response;
+use DigitalOceanV2\HttpClient\Message\ResponseMediator;
+use DigitalOceanV2\HttpClient\Plugin\Authentication;
+use DigitalOceanV2\HttpClient\Plugin\ExceptionThrower;
+use DigitalOceanV2\HttpClient\Plugin\History;
+use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
+use Http\Client\Common\Plugin\HistoryPlugin;
+use Http\Client\Common\Plugin\RedirectPlugin;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -60,25 +67,38 @@ class Client
     private $httpClientBuilder;
 
     /**
+     * @var History
+     */
+    private $responseHistory;
+
+    /**
      * @param Builder|null $httpClientBuilder
      *
      * @return void
      */
     public function __construct(Builder $httpClientBuilder = null)
     {
-        $this->httpClientBuilder = $httpClientBuilder ?? new Builder();
+        $this->httpClientBuilder = $builder = $httpClientBuilder ?? new Builder();
+        $this->responseHistory = new History();
 
-        $this->httpClientBuilder->setUserAgent(self::USER_AGENT);
+        $builder->addPlugin(new ExceptionThrower());
+        $builder->addPlugin(new HistoryPlugin($this->responseHistory));
+        $builder->addPlugin(new RedirectPlugin());
+
+        $builder->addPlugin(new HeaderDefaultsPlugin([
+            'Accept' => ResponseMediator::JSON_CONTENT_TYPE,
+            'User-Agent' => self::USER_AGENT,
+        ]));
 
         $this->setUrl(self::BASE_URL);
     }
 
     /**
-     * @param HttpClientInterface $httpClient
+     * @param ClientInterface $httpClient
      *
      * @return Client
      */
-    public static function createWithHttpClient(HttpClientInterface $httpClient)
+    public static function createWithHttpClient(ClientInterface $httpClient)
     {
         $builder = new Builder($httpClient);
 
@@ -220,29 +240,36 @@ class Client
      */
     public function authenticate(string $token): void
     {
-        $this->getHttpClientBuilder()->setAuthToken($token);
+        $this->getHttpClientBuilder()->addPlugin(new Authentication($token));
     }
 
     /**
+     * Set the base URL.
+     *
      * @param string $url
      *
      * @return void
      */
     public function setUrl(string $url): void
     {
-        $this->getHttpClientBuilder()->setBaseUrl($url);
+        $this->httpClientBuilder->removePlugin(AddHostPlugin::class);
+        $this->httpClientBuilder->addPlugin(new AddHostPlugin(Psr17FactoryDiscovery::findUriFactory()->createUri($url)));
     }
 
     /**
-     * @return Response|null
+     * Get the last response.
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
      */
     public function getLastResponse()
     {
-        return $this->getHttpClient()->getLastResponse();
+        return $this->responseHistory->getLastResponse();
     }
 
     /**
-     * @return HttpMethodsClientInterface
+     * Get the HTTP client.
+     *
+     * @return \Http\Client\Common\HttpMethodsClientInterface
      */
     public function getHttpClient()
     {
@@ -250,7 +277,9 @@ class Client
     }
 
     /**
-     * @return Builder
+     * Get the HTTP client builder.
+     *
+     * @return \DigitalOceanV2\HttpClient\Builder
      */
     protected function getHttpClientBuilder()
     {
