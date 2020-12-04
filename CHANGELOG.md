@@ -9,6 +9,11 @@ CHANGE LOG
 * Switched to PSR-17 and PSR-18
 
 
+## 3.2.1 (27/11/2020)
+
+* Allow empty response content
+
+
 ## 3.2.0 (27/11/2020)
 
 * Added PHP 8.0 support

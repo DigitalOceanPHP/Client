@@ -15,8 +15,6 @@ namespace DigitalOceanV2\Api;
 
 use DigitalOceanV2\Client;
 use DigitalOceanV2\Exception\ExceptionInterface;
-use DigitalOceanV2\Exception\RuntimeException;
-use DigitalOceanV2\HttpClient\Message\Response;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\HttpClient\Util\JsonObject;
 use DigitalOceanV2\HttpClient\Util\QueryStringBuilder;
@@ -148,7 +146,7 @@ abstract class AbstractApi implements ApiInterface
 
         $response = $this->client->getHttpClient()->get(self::prepareUri($uri, $params), $headers);
 
-        return self::getContent($response);
+        return ResponseMediator::getContent($response);
     }
 
     /**
@@ -172,7 +170,7 @@ abstract class AbstractApi implements ApiInterface
 
         $response = $this->client->getHttpClient()->post(self::prepareUri($uri), $headers, $body ?? '');
 
-        return self::getContent($response);
+        return ResponseMediator::getContent($response);
     }
 
     /**
@@ -196,7 +194,7 @@ abstract class AbstractApi implements ApiInterface
 
         $response = $this->client->getHttpClient()->put(self::prepareUri($uri), $headers, $body ?? '');
 
-        return self::getContent($response);
+        return ResponseMediator::getContent($response);
     }
 
     /**
@@ -259,22 +257,6 @@ abstract class AbstractApi implements ApiInterface
      */
     private static function addJsonContentType(array $headers)
     {
-        return \array_merge(['Content-Type' => ResponseMediator::JSON_CONTENT_TYPE], $headers);
-    }
-
-    /**
-     * @param Response $response
-     *
-     * @return stdClass
-     */
-    private static function getContent(Response $response)
-    {
-        $content = ResponseMediator::getContent($response);
-
-        if (null === $content) {
-            throw new RuntimeException('No content was provided.');
-        }
-
-        return $content;
+        return \array_merge([ResponseMediator::CONTENT_TYPE_HEADER => ResponseMediator::JSON_CONTENT_TYPE], $headers);
     }
 }

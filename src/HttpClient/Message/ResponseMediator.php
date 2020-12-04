@@ -25,6 +25,13 @@ use stdClass;
 final class ResponseMediator
 {
     /**
+     * The content type header.
+     *
+     * @var string
+     */
+    public const CONTENT_TYPE_HEADER = 'Content-Type';
+
+    /**
      * The JSON content type identifier.
      *
      * @var string
@@ -36,21 +43,21 @@ final class ResponseMediator
      *
      * @throws RuntimeException
      *
-     * @return stdClass|null
+     * @return stdClass
      */
     public static function getContent(Response $response)
     {
         if (204 === $response->getStatusCode()) {
-            return null;
+            return JsonObject::empty();
         }
 
         $body = $response->getBody();
 
         if ('' === $body) {
-            return null;
+            return JsonObject::empty();
         }
 
-        if (0 !== \strpos(self::getHeader($response, 'Content-Type') ?? '', self::JSON_CONTENT_TYPE)) {
+        if (0 !== \strpos(self::getHeader($response, self::CONTENT_TYPE_HEADER) ?? '', self::JSON_CONTENT_TYPE)) {
             throw new RuntimeException(\sprintf('The content type was not %s.', self::JSON_CONTENT_TYPE));
         }
 
