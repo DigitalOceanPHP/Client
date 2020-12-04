@@ -257,6 +257,6 @@ abstract class AbstractApi implements ApiInterface
      */
     private static function addJsonContentType(array $headers)
     {
-        return \array_merge(['Content-Type' => ResponseMediator::JSON_CONTENT_TYPE], $headers);
+        return \array_merge([ResponseMediator::CONTENT_TYPE_HEADER => ResponseMediator::JSON_CONTENT_TYPE], $headers);
     }
 }
