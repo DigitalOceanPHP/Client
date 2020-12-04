@@ -132,7 +132,7 @@ final class ResponseMediator
 
     /**
      * @param ResponseInterface $response
-     * @param string   $name
+     * @param string            $name
      *
      * @return string|null
      */
