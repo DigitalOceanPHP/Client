@@ -103,7 +103,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity
      */
-    public function create(string $name, string $description, string $sizeInGigabytes, string $regionSlug, string $snapshotId = null, string $filesystemType = null, string $filesystemLabel = null)
+    public function create(string $name, string $description, int $sizeInGigabytes, string $regionSlug, string $snapshotId = null, string $filesystemType = null, string $filesystemLabel = null)
     {
         $data = [
             'size_gigabytes' => $sizeInGigabytes,
