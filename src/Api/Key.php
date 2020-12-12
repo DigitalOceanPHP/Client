@@ -29,7 +29,7 @@ class Key extends AbstractApi
      */
     public function getAll()
     {
-        $keys = $this->get(\sprintf('account/keys'));
+        $keys = $this->get('account/keys');
 
         return \array_map(function ($key) {
             return new KeyEntity($key);
@@ -74,7 +74,7 @@ class Key extends AbstractApi
      */
     public function create(string $name, string $publicKey)
     {
-        $key = $this->post(\sprintf('account/keys'), [
+        $key = $this->post('account/keys', [
             'name' => $name,
             'public_key' => $publicKey,
         ]);

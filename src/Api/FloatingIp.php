@@ -73,7 +73,7 @@ class FloatingIp extends AbstractApi
      */
     public function createReserved(string $regionSlug)
     {
-        $ip = $this->post(\sprintf('floating_ips'), ['region' => $regionSlug]);
+        $ip = $this->post('floating_ips', ['region' => $regionSlug]);
 
         return new FloatingIpEntity($ip->floating_ip);
     }

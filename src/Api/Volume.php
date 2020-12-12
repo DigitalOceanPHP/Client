@@ -122,7 +122,7 @@ class Volume extends AbstractApi
             $data['filesystem_label'] = $filesystemLabel;
         }
 
-        $volume = $this->post(\sprintf('volumes'), $data);
+        $volume = $this->post('volumes', $data);
 
         return new VolumeEntity($volume->volume);
     }
