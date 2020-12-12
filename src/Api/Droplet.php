@@ -64,7 +64,7 @@ class Droplet extends AbstractApi
      */
     public function getAllNeighbors()
     {
-        $neighbors = $this->get(\sprintf('reports/droplet_neighbors'));
+        $neighbors = $this->get('reports/droplet_neighbors');
 
         return \array_map(function ($neighbor) {
             return new DropletEntity($neighbor);
