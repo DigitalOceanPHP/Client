@@ -12,6 +12,11 @@ CHANGE LOG
 * Added additional return type enforcement
 
 
+## 3.2.2 (12/12/2020)
+
+* Fixed type of `$sizeInGigabytes`
+
+
 ## 3.2.1 (27/11/2020)
 
 * Allow empty response content

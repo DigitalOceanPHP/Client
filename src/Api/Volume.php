@@ -94,7 +94,7 @@ class Volume extends AbstractApi
     /**
      * @param string $name            A human-readable name for the Block Storage volume
      * @param string $description     Free-form text field to describe a Block Storage volume
-     * @param string $sizeInGigabytes The size of the Block Storage volume in GiB
+     * @param int    $sizeInGigabytes The size of the Block Storage volume in GiB
      * @param string $regionSlug      The region where the Block Storage volume will be created
      * @param string $snapshotId      The unique identifier for the volume snapshot from which to create the volume. Should not be specified with a region_id.
      * @param string $filesystemType  the name of the filesystem type to be used on the volume
@@ -104,7 +104,7 @@ class Volume extends AbstractApi
      *
      * @return VolumeEntity
      */
-    public function create(string $name, string $description, string $sizeInGigabytes, string $regionSlug, string $snapshotId = null, string $filesystemType = null, string $filesystemLabel = null)
+    public function create(string $name, string $description, int $sizeInGigabytes, string $regionSlug, string $snapshotId = null, string $filesystemType = null, string $filesystemLabel = null)
     {
         $data = [
             'size_gigabytes' => $sizeInGigabytes,
