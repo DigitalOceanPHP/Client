@@ -47,7 +47,7 @@ final class ResponseMediator
      *
      * @return stdClass
      */
-    public static function getContent(ResponseInterface $response)
+    public static function getContent(ResponseInterface $response): stdClass
     {
         if (204 === $response->getStatusCode()) {
             return JsonObject::empty();
@@ -73,7 +73,7 @@ final class ResponseMediator
      *
      * @return string|null
      */
-    public static function getErrorMessage(ResponseInterface $response)
+    public static function getErrorMessage(ResponseInterface $response): ?string
     {
         try {
             $content = self::getContent($response);
@@ -91,7 +91,7 @@ final class ResponseMediator
      *
      * @return array<string,string>
      */
-    public static function getPagination(ResponseInterface $response)
+    public static function getPagination(ResponseInterface $response): array
     {
         try {
             $content = self::getContent($response);
@@ -114,7 +114,7 @@ final class ResponseMediator
      *
      * @return array<string,int>
      */
-    public static function getRateLimit(ResponseInterface $response)
+    public static function getRateLimit(ResponseInterface $response): array
     {
         $reset = self::getHeader($response, 'RateLimit-Reset');
         $remaining = self::getHeader($response, 'RateLimit-Remaining');
@@ -137,7 +137,7 @@ final class ResponseMediator
      *
      * @return string|null
      */
-    private static function getHeader(ResponseInterface $response, string $name)
+    private static function getHeader(ResponseInterface $response, string $name): ?string
     {
         $headers = $response->getHeaders()[$name] ?? [];
 

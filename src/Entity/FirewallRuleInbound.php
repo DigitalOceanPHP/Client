@@ -50,7 +50,7 @@ final class FirewallRuleInbound extends FirewallRule
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = parent::toArray();
         $data['sources'] = $this->sources->toArray();

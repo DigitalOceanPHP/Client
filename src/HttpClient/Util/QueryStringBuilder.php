@@ -30,7 +30,7 @@ final class QueryStringBuilder
      *
      * @return string
      */
-    public static function build(array $query)
+    public static function build(array $query): string
     {
         if (0 === \count($query)) {
             return '';

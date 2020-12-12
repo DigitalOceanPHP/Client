@@ -31,7 +31,7 @@ final class JsonObject
      *
      * @return stdClass
      */
-    public static function empty()
+    public static function empty(): stdClass
     {
         return new stdClass();
     }
@@ -45,7 +45,7 @@ final class JsonObject
      *
      * @return stdClass
      */
-    public static function decode(string $json)
+    public static function decode(string $json): stdClass
     {
         /** @var scalar|array|stdClass|null */
         $data = \json_decode($json);
@@ -70,7 +70,7 @@ final class JsonObject
      *
      * @return string
      */
-    public static function encode(array $value)
+    public static function encode(array $value): string
     {
         $json = \json_encode($value);
 

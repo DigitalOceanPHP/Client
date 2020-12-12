@@ -50,7 +50,7 @@ final class FirewallRuleOutbound extends FirewallRule
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = parent::toArray();
         $data['destinations'] = $this->destinations->toArray();

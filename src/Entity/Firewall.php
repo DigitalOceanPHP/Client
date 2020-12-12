@@ -118,14 +118,14 @@ final class Firewall extends AbstractEntity
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'name' => $this->name,
-            'inbound_rules' => \array_map(function ($rule) {
+            'inbound_rules' => \array_map(function ($rule): array {
                 return $rule->toArray();
             }, $this->inboundRules),
-            'outbound_rules' => \array_map(function ($rule) {
+            'outbound_rules' => \array_map(function ($rule): array {
                 return $rule->toArray();
             }, $this->outboundRules),
             'droplet_ids' => $this->dropletIds,

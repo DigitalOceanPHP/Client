@@ -33,7 +33,7 @@ abstract class FirewallRule extends AbstractEntity
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $data = [
             'protocol' => $this->protocol,

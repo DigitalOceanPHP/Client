@@ -16,6 +16,7 @@ namespace DigitalOceanV2;
 
 use DigitalOceanV2\Api\AbstractApi;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use Generator;
 
 interface ResultPagerInterface
 {
@@ -30,7 +31,7 @@ interface ResultPagerInterface
      *
      * @return array
      */
-    public function fetch(AbstractApi $api, string $method, array $parameters = []);
+    public function fetch(AbstractApi $api, string $method, array $parameters = []): array;
 
     /**
      * Fetch all results from an api call.
@@ -43,7 +44,7 @@ interface ResultPagerInterface
      *
      * @return array
      */
-    public function fetchAll(AbstractApi $api, string $method, array $parameters = []);
+    public function fetchAll(AbstractApi $api, string $method, array $parameters = []): array;
 
     /**
      * Lazily fetch all results from an api call.
@@ -56,12 +57,12 @@ interface ResultPagerInterface
      *
      * @return \Generator
      */
-    public function fetchAllLazy(AbstractApi $api, string $method, array $parameters = []);
+    public function fetchAllLazy(AbstractApi $api, string $method, array $parameters = []): Generator;
 
     /**
      * Check to determine the availability of a next page.
      *
      * @return bool
      */
-    public function hasNext();
+    public function hasNext(): bool;
 }

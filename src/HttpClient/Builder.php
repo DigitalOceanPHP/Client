@@ -102,7 +102,7 @@ final class Builder
     /**
      * @return HttpMethodsClientInterface
      */
-    public function getHttpClient()
+    public function getHttpClient(): HttpMethodsClientInterface
     {
         if (null === $this->pluginClient) {
             $plugins = $this->plugins;
@@ -122,7 +122,7 @@ final class Builder
      *
      * @return RequestFactoryInterface
      */
-    public function getRequestFactory()
+    public function getRequestFactory(): RequestFactoryInterface
     {
         return $this->requestFactory;
     }
@@ -132,7 +132,7 @@ final class Builder
      *
      * @return StreamFactoryInterface
      */
-    public function getStreamFactory()
+    public function getStreamFactory(): StreamFactoryInterface
     {
         return $this->streamFactory;
     }
@@ -142,7 +142,7 @@ final class Builder
      *
      * @return UriFactoryInterface
      */
-    public function getUriFactory()
+    public function getUriFactory(): UriFactoryInterface
     {
         return $this->uriFactory;
     }

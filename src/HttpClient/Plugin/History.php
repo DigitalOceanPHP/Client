@@ -41,7 +41,7 @@ final class History implements Journal
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function getLastResponse()
+    public function getLastResponse(): ?ResponseInterface
     {
         return $this->lastResponse;
     }

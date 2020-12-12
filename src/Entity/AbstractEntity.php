@@ -59,7 +59,7 @@ abstract class AbstractEntity
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $settings = [];
         $called = static::class;
@@ -80,9 +80,9 @@ abstract class AbstractEntity
     /**
      * @param string $date DateTime string
      *
-     * @return string DateTime in ISO8601 format
+     * @return string
      */
-    protected static function convertToIso8601(string $date)
+    protected static function convertToIso8601(string $date): string
     {
         $date = new \DateTime($date);
         $date->setTimezone(new \DateTimeZone(\date_default_timezone_get()));
@@ -95,9 +95,9 @@ abstract class AbstractEntity
      *
      * @return string
      */
-    protected static function convertToCamelCase(string $str)
+    protected static function convertToCamelCase(string $str): string
     {
-        $callback = function ($match) {
+        $callback = function ($match): string {
             return \strtoupper($match[2]);
         };
 
@@ -115,7 +115,7 @@ abstract class AbstractEntity
      *
      * @return string
      */
-    protected static function convertToSnakeCase(string $str)
+    protected static function convertToSnakeCase(string $str): string
     {
         $replaced = \preg_split('/(?=[A-Z])/', $str);
 

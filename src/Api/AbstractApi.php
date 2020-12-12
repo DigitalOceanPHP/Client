@@ -78,7 +78,7 @@ abstract class AbstractApi
      *
      * @return stdClass
      */
-    protected function get(string $uri, array $params = [], array $headers = [])
+    protected function get(string $uri, array $params = [], array $headers = []): stdClass
     {
         if (null !== $this->perPage && !isset($params['per_page'])) {
             $params = \array_merge(['per_page' => $this->perPage], $params);
@@ -104,7 +104,7 @@ abstract class AbstractApi
      *
      * @return stdClass
      */
-    protected function post(string $uri, array $params = [], array $headers = [])
+    protected function post(string $uri, array $params = [], array $headers = []): stdClass
     {
         $body = self::prepareJsonBody($params);
 
@@ -128,7 +128,7 @@ abstract class AbstractApi
      *
      * @return stdClass
      */
-    protected function put(string $uri, array $params = [], array $headers = [])
+    protected function put(string $uri, array $params = [], array $headers = []): stdClass
     {
         $body = self::prepareJsonBody($params);
 
@@ -171,7 +171,7 @@ abstract class AbstractApi
      *
      * @return string
      */
-    private static function prepareUri(string $uri, array $query = [])
+    private static function prepareUri(string $uri, array $query = []): string
     {
         return \sprintf('%s%s%s', self::URI_PREFIX, $uri, QueryStringBuilder::build($query));
     }
@@ -183,7 +183,7 @@ abstract class AbstractApi
      *
      * @return string|null
      */
-    private static function prepareJsonBody(array $params)
+    private static function prepareJsonBody(array $params): ?string
     {
         if (0 === \count($params)) {
             return null;
@@ -199,7 +199,7 @@ abstract class AbstractApi
      *
      * @return array<string,string>
      */
-    private static function addJsonContentType(array $headers)
+    private static function addJsonContentType(array $headers): array
     {
         return \array_merge([ResponseMediator::CONTENT_TYPE_HEADER => ResponseMediator::JSON_CONTENT_TYPE], $headers);
     }

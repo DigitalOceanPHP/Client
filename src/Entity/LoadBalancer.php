@@ -134,13 +134,13 @@ final class LoadBalancer extends AbstractEntity
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'name' => $this->name,
             'region' => $this->region->slug,
             'algorithm' => $this->algorithm,
-            'forwarding_rules' => \array_map(function ($rule) {
+            'forwarding_rules' => \array_map(function ($rule): array {
                 return $rule->toArray();
             }, $this->forwardingRules),
             'health_check' => $this->healthCheck->toArray(),

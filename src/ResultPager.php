@@ -19,6 +19,7 @@ use DigitalOceanV2\Api\AbstractApi;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
+use Generator;
 use ValueError;
 
 final class ResultPager implements ResultPagerInterface
@@ -81,7 +82,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return array
      */
-    public function fetch(AbstractApi $api, string $method, array $parameters = [])
+    public function fetch(AbstractApi $api, string $method, array $parameters = []): array
     {
         $result = self::bindPerPage($api, $this->perPage)->$method(...$parameters);
 
@@ -105,7 +106,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return array
      */
-    public function fetchAll(AbstractApi $api, string $method, array $parameters = [])
+    public function fetchAll(AbstractApi $api, string $method, array $parameters = []): array
     {
         return \iterator_to_array($this->fetchAllLazy($api, $method, $parameters));
     }
@@ -121,7 +122,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return \Generator
      */
-    public function fetchAllLazy(AbstractApi $api, string $method, array $parameters = [])
+    public function fetchAllLazy(AbstractApi $api, string $method, array $parameters = []): Generator
     {
         $currentPage = 1;
 
@@ -141,7 +142,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return bool
      */
-    public function hasNext()
+    public function hasNext(): bool
     {
         return isset($this->pagination['next']);
     }
@@ -168,7 +169,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return AbstractApi
      */
-    private static function bindPage(AbstractApi $api, int $page)
+    private static function bindPage(AbstractApi $api, int $page): AbstractApi
     {
         $closure = Closure::bind(static function (AbstractApi $api) use ($page): AbstractApi {
             $clone = clone $api;
@@ -188,7 +189,7 @@ final class ResultPager implements ResultPagerInterface
      *
      * @return AbstractApi
      */
-    private static function bindPerPage(AbstractApi $api, int $perPage)
+    private static function bindPerPage(AbstractApi $api, int $perPage): AbstractApi
     {
         $closure = Closure::bind(static function (AbstractApi $api) use ($perPage): AbstractApi {
             $clone = clone $api;

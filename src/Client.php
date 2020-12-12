@@ -35,12 +35,14 @@ use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\HttpClient\Plugin\Authentication;
 use DigitalOceanV2\HttpClient\Plugin\ExceptionThrower;
 use DigitalOceanV2\HttpClient\Plugin\History;
+use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
@@ -99,7 +101,7 @@ class Client
      *
      * @return Client
      */
-    public static function createWithHttpClient(ClientInterface $httpClient)
+    public static function createWithHttpClient(ClientInterface $httpClient): self
     {
         $builder = new Builder($httpClient);
 
@@ -109,7 +111,7 @@ class Client
     /**
      * @return Account
      */
-    public function account()
+    public function account(): Account
     {
         return new Account($this);
     }
@@ -117,7 +119,7 @@ class Client
     /**
      * @return Action
      */
-    public function action()
+    public function action(): Action
     {
         return new Action($this);
     }
@@ -125,7 +127,7 @@ class Client
     /**
      * @return Certificate
      */
-    public function certificate()
+    public function certificate(): Certificate
     {
         return new Certificate($this);
     }
@@ -133,7 +135,7 @@ class Client
     /**
      * @return Database
      */
-    public function database()
+    public function database(): Database
     {
         return new Database($this);
     }
@@ -141,7 +143,7 @@ class Client
     /**
      * @return Domain
      */
-    public function domain()
+    public function domain(): Domain
     {
         return new Domain($this);
     }
@@ -149,7 +151,7 @@ class Client
     /**
      * @return DomainRecord
      */
-    public function domainRecord()
+    public function domainRecord(): DomainRecord
     {
         return new DomainRecord($this);
     }
@@ -157,7 +159,7 @@ class Client
     /**
      * @return Droplet
      */
-    public function droplet()
+    public function droplet(): Droplet
     {
         return new Droplet($this);
     }
@@ -165,7 +167,7 @@ class Client
     /**
      * @return FloatingIp
      */
-    public function floatingIp()
+    public function floatingIp(): FloatingIp
     {
         return new FloatingIp($this);
     }
@@ -173,7 +175,7 @@ class Client
     /**
      * @return Image
      */
-    public function image()
+    public function image(): Image
     {
         return new Image($this);
     }
@@ -181,7 +183,7 @@ class Client
     /**
      * @return Key
      */
-    public function key()
+    public function key(): Key
     {
         return new Key($this);
     }
@@ -189,7 +191,7 @@ class Client
     /**
      * @return LoadBalancer
      */
-    public function loadBalancer()
+    public function loadBalancer(): LoadBalancer
     {
         return new LoadBalancer($this);
     }
@@ -197,7 +199,7 @@ class Client
     /**
      * @return Region
      */
-    public function region()
+    public function region(): Region
     {
         return new Region($this);
     }
@@ -205,7 +207,7 @@ class Client
     /**
      * @return Size
      */
-    public function size()
+    public function size(): Size
     {
         return new Size($this);
     }
@@ -213,7 +215,7 @@ class Client
     /**
      * @return Snapshot
      */
-    public function snapshot()
+    public function snapshot(): Snapshot
     {
         return new Snapshot($this);
     }
@@ -221,7 +223,7 @@ class Client
     /**
      * @return Tag
      */
-    public function tag()
+    public function tag(): Tag
     {
         return new Tag($this);
     }
@@ -229,7 +231,7 @@ class Client
     /**
      * @return Volume
      */
-    public function volume()
+    public function volume(): Volume
     {
         return new Volume($this);
     }
@@ -262,7 +264,7 @@ class Client
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function getLastResponse()
+    public function getLastResponse(): ?ResponseInterface
     {
         return $this->responseHistory->getLastResponse();
     }
@@ -272,7 +274,7 @@ class Client
      *
      * @return \Http\Client\Common\HttpMethodsClientInterface
      */
-    public function getHttpClient()
+    public function getHttpClient(): HttpMethodsClientInterface
     {
         return $this->getHttpClientBuilder()->getHttpClient();
     }
@@ -282,7 +284,7 @@ class Client
      *
      * @return \DigitalOceanV2\HttpClient\Builder
      */
-    protected function getHttpClientBuilder()
+    protected function getHttpClientBuilder(): Builder
     {
         return $this->httpClientBuilder;
     }

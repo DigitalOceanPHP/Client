@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient\Plugin;
 
 use DigitalOceanV2\Exception\ApiLimitExceededException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\ErrorException;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\Exception\ValidationFailedException;
@@ -65,7 +66,7 @@ final class ExceptionThrower implements Plugin
      *
      * @return ErrorException|RuntimeException
      */
-    private static function createException(int $status, string $message)
+    private static function createException(int $status, string $message): ExceptionInterface
     {
         if (400 === $status || 422 === $status) {
             return new ValidationFailedException($message, $status);

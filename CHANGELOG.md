@@ -9,6 +9,7 @@ CHANGE LOG
 * Switched to PSR-17 and PSR-18
 * Made builder class final
 * Re-worked pagination
+* Added additional return type enforcement
 
 
 ## 3.2.1 (27/11/2020)
