@@ -58,7 +58,7 @@ abstract class AbstractApi
     /**
      * Create a new API instance.
      *
-     * @param Client   $client
+     * @param Client $client
      *
      * @return void
      */
