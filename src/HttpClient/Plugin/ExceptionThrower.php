@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace DigitalOceanV2\HttpClient\Plugin;
 
 use DigitalOceanV2\Exception\ApiLimitExceededException;
-use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\ErrorException;
+use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\Exception\ValidationFailedException;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
