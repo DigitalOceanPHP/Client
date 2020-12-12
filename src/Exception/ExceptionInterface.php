@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the DigitalOceanV2 library.
+ * This file is part of the DigitalOcean API library.
  *
  * (c) Antoine Corcy <contact@sbin.dk>
  * (c) Graham Campbell <graham@alt-three.com>
