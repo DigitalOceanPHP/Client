@@ -19,13 +19,12 @@ use DigitalOceanV2\HttpClient\Message\ResponseMediator;
 use DigitalOceanV2\HttpClient\Util\JsonObject;
 use DigitalOceanV2\HttpClient\Util\QueryStringBuilder;
 use stdClass;
-use ValueError;
 
 /**
  * @author Antoine Corcy <contact@sbin.dk>
  * @author Graham Campbell <graham@alt-three.com>
  */
-abstract class AbstractApi implements ApiInterface
+abstract class AbstractApi
 {
     /**
      * The URI prefix.
@@ -59,68 +58,12 @@ abstract class AbstractApi implements ApiInterface
      * Create a new API instance.
      *
      * @param Client   $client
-     * @param int|null $perPage
-     * @param int|null $page
      *
      * @return void
      */
-    public function __construct(Client $client, int $perPage = null, int $page = null)
+    public function __construct(Client $client)
     {
-        if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
-            throw new ValueError(\sprintf('%s::__construct(): Argument #2 ($perPage) must be between 1 and 200, or null', self::class));
-        }
-
-        if (null !== $page && $page < 1) {
-            throw new ValueError(\sprintf('%s::__construct(): Argument #3 ($page) must be greater than or equal to 1, or null', self::class));
-        }
-
         $this->client = $client;
-        $this->perPage = $perPage;
-        $this->page = $page;
-    }
-
-    /**
-     * Create a new instance with the given page parameter.
-     *
-     * This must be an integer between 1 and 200.
-     *
-     * @param int|null $perPage
-     *
-     * @return static
-     */
-    public function perPage(?int $perPage)
-    {
-        if (null !== $perPage && ($perPage < 1 || $perPage > 200)) {
-            throw new ValueError(\sprintf('%s::perPage(): Argument #1 ($perPage) must be between 1 and 200, or null', self::class));
-        }
-
-        $copy = clone $this;
-
-        $copy->perPage = $perPage;
-
-        return $copy;
-    }
-
-    /**
-     * Create a new instance with the given page parameter.
-     *
-     * This must be an integer greater than or equal to 1.
-     *
-     * @param int|null $page
-     *
-     * @return static
-     */
-    public function page(?int $page)
-    {
-        if (null !== $page && $page < 1) {
-            throw new ValueError(\sprintf('%s::page(): Argument #1 ($page) must be greater than or equal to 1, or null', self::class));
-        }
-
-        $copy = clone $this;
-
-        $copy->page = $page;
-
-        return $copy;
     }
 
     /**

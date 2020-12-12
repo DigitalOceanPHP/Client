@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace DigitalOceanV2;
 
-use DigitalOceanV2\Api\ApiInterface;
+use Closure;
+use DigitalOceanV2\Api\AbstractApi;
 use DigitalOceanV2\Exception\ExceptionInterface;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
@@ -62,17 +63,17 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Fetch a single result from an api call.
      *
-     * @param ApiInterface $api
-     * @param string       $method
-     * @param array        $parameters
+     * @param AbstractApi $api
+     * @param string      $method
+     * @param array       $parameters
      *
      * @throws ExceptionInterface
      *
      * @return array
      */
-    public function fetch(ApiInterface $api, string $method, array $parameters = [])
+    public function fetch(AbstractApi $api, string $method, array $parameters = [])
     {
-        $result = $api->perPage($this->perPage)->$method(...$parameters);
+        $result = self::bindPerPage($api, $this->perPage)->$method(...$parameters);
 
         if (!\is_array($result)) {
             throw new RuntimeException('Pagination of this endpoint is not supported.');
@@ -86,15 +87,15 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Fetch all results from an api call.
      *
-     * @param ApiInterface $api
-     * @param string       $method
-     * @param array        $parameters
+     * @param AbstractApi $api
+     * @param string      $method
+     * @param array       $parameters
      *
      * @throws ExceptionInterface
      *
      * @return array
      */
-    public function fetchAll(ApiInterface $api, string $method, array $parameters = [])
+    public function fetchAll(AbstractApi $api, string $method, array $parameters = [])
     {
         return \iterator_to_array($this->fetchAllLazy($api, $method, $parameters));
     }
@@ -102,24 +103,24 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Lazily fetch all results from an api call.
      *
-     * @param ApiInterface $api
-     * @param string       $method
-     * @param array        $parameters
+     * @param AbstractApi $api
+     * @param string      $method
+     * @param array       $parameters
      *
      * @throws ExceptionInterface
      *
      * @return \Generator
      */
-    public function fetchAllLazy(ApiInterface $api, string $method, array $parameters = [])
+    public function fetchAllLazy(AbstractApi $api, string $method, array $parameters = [])
     {
         $currentPage = 1;
 
-        foreach ($this->fetch($api->page($currentPage), $method, $parameters) as $entry) {
+        foreach ($this->fetch(self::bindPage($api, $currentPage), $method, $parameters) as $entry) {
             yield $entry;
         }
 
         while ($this->hasNext()) {
-            foreach ($this->fetch($api->page(++$currentPage), $method, $parameters) as $entry) {
+            foreach ($this->fetch(self::bindPage($api, ++$currentPage), $method, $parameters) as $entry) {
                 yield $entry;
             }
         }
@@ -149,5 +150,45 @@ final class ResultPager implements ResultPagerInterface
         } else {
             $this->pagination = ResponseMediator::getPagination($response);
         }
+    }
+
+    /**
+     * @param AbstractApi $api
+     * @param int         $page
+     *
+     * @return AbstractApi
+     */
+    private static function bindPage(AbstractApi $api, int $page)
+    {
+        $closure = Closure::bind(static function (AbstractApi $api) use ($page): AbstractApi {
+            $clone = clone $api;
+
+            $clone->page = $page;
+
+            return $clone;
+        }, null, AbstractApi::class);
+
+        /** @var AbstractApi */
+        return $closure($api);
+    }
+
+    /**
+     * @param AbstractApi $api
+     * @param int         $perPage
+     *
+     * @return AbstractApi
+     */
+    private static function bindPerPage(AbstractApi $api, int $perPage)
+    {
+        $closure = Closure::bind(static function (AbstractApi $api) use ($perPage): AbstractApi {
+            $clone = clone $api;
+
+            $clone->perPage = $perPage;
+
+            return $clone;
+        }, null, AbstractApi::class);
+
+        /** @var AbstractApi */
+        return $closure($api);
     }
 }

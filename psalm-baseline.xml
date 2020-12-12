@@ -11,4 +11,14 @@
       <code>\get_debug_type($data)</code>
     </UndefinedFunction>
   </file>
+  <file src="src/ResultPager.php">
+    <InaccessibleProperty occurrences="2">
+      <code>$clone-&gt;page</code>
+      <code>$clone-&gt;perPage</code>
+    </InaccessibleProperty>
+    <PossiblyInvalidFunctionCall occurrences="2">
+      <code>$closure($api)</code>
+      <code>$closure($api)</code>
+    </PossiblyInvalidFunctionCall>
+  </file>
 </files>
