@@ -59,7 +59,7 @@ class Certificate extends AbstractApi
      *
      * @return CertificateEntity
      */
-    public function create(string $name, string $privateKey, string $leafCertificate, ?string $certificateChain = null)
+    public function create(string $name, string $privateKey, string $leafCertificate, string $certificateChain = null)
     {
         $params = [
             'type' => 'custom',
