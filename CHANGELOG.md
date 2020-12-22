@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.0.0 (UPCOMING)
+## 4.0.0 (22/12/2020)
 
 * Added void return types to void methods
 * Dropped support for PHP 7.1
