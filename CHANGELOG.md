@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 3.2.3 (UPCOMING)
+## 3.2.3 (02/01/2021)
 
 * Fixed issues with headers
 
