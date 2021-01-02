@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.0.1 (UPCOMING)
+## 4.0.1 (02/01/2021)
 
 * Fixed issues with headers
 
