@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 3.2.3 (UPCOMING)
+
+* Fixed issues with headers
+
+
 ## 3.2.2 (12/12/2020)
 
 * Fixed type of `$sizeInGigabytes`
