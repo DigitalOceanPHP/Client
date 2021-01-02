@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.0.1 (UPCOMING)
+
+* Fixed issues with headers
+
+
 ## 4.0.0 (22/12/2020)
 
 * Added void return types to void methods
