@@ -139,7 +139,7 @@ final class ResponseMediator
      */
     private static function getHeader(ResponseInterface $response, string $name): ?string
     {
-        $headers = \array_change_key_case($response->getHeaders())[\strtolower($name)] ?? [];
+        $headers = $response->getHeader($name);
 
         return \array_shift($headers);
     }
