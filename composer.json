@@ -1,5 +1,5 @@
 {
-    "name": "shihjay2/digitalocean-v2",
+    "name": "toin0u/digitalocean-v2",
     "description": "DigitalOcean API v2 client for PHP",
     "keywords": ["DigitalOcean", "API", "Cloud Hosting", "SSD", "VPS"],
     "license": "MIT",
