@@ -74,7 +74,7 @@ class App extends AbstractApi
 
     /**
      * @param string $appID
-     * @param array $spec
+     * @param array  $spec
      *
      * @throws ExceptionInterface
      *
@@ -133,7 +133,7 @@ class App extends AbstractApi
 
     /**
      * @param string $appID
-     * @param bool $force_build
+     * @param bool   $force_build
      *
      * @throws ExceptionInterface
      *
