@@ -17,9 +17,9 @@ namespace DigitalOceanV2\Api;
 use DigitalOceanV2\Entity\App as AppEntity;
 use DigitalOceanV2\Entity\AppDeployment as AppDeploymentEntity;
 use DigitalOceanV2\Entity\AppDeploymentLog as AppDeploymentLogEntity;
+use DigitalOceanV2\Entity\AppInstanceSize as AppInstanceSizeEntity;
 use DigitalOceanV2\Entity\AppRegion as AppRegionEntity;
 use DigitalOceanV2\Entity\AppTier as AppTierEntity;
-use DigitalOceanV2\Entity\AppInstanceSize as AppInstanceSizeEntity;
 use DigitalOceanV2\Exception\ExceptionInterface;
 
 /**
@@ -83,7 +83,7 @@ class App extends AbstractApi
     public function update(string $appID, array $spec)
     {
         $result = $this->put(\sprintf('apps/%s', $appID), [
-            'spec' => $spec
+            'spec' => $spec,
         ]);
 
         return new AppEntity($result->app);
@@ -133,16 +133,16 @@ class App extends AbstractApi
 
     /**
      * @param string $appID
-     * @param boolean $force_build
+     * @param bool $force_build
      *
      * @throws ExceptionInterface
      *
      * @return AppDeploymentEntity
      */
-    public function createAppDeployment(string $appID, $force_build=true)
+    public function createAppDeployment(string $appID, $force_build = true)
     {
         $deployment = $this->post(\sprintf('apps/%s/deployments', $appID), [
-            'force_build' => $force_build
+            'force_build' => $force_build,
         ]);
 
         return new AppDeploymentEntity($deployment->deployment);

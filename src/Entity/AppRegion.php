@@ -41,7 +41,7 @@ final class AppRegion extends AbstractEntity
     public $continent;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $disabled;
 
@@ -56,7 +56,7 @@ final class AppRegion extends AbstractEntity
     public $reason;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $default;
 }
