@@ -247,7 +247,7 @@ class App extends AbstractApi
 
         return \array_map(function ($instance_size) {
             return new AppInstanceSizeEntity($instance_size);
-        }, $instance_sizes->$instance_sizes);
+        }, $instance_sizes->instance_sizes);
     }
 
     /**
