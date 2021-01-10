@@ -98,7 +98,7 @@ $action123 = $action->getById(123);
 
 ```php
 // return the app api
-$app  = $client->app();
+$app = $client->app();
 
 // return a collection of Apps
 $apps = $app->getAll();
@@ -131,28 +131,28 @@ $spec = [
 ];
 $app = $app->create($spec);
 
-// update an App
+// update an App with App entity 123
 $app = $app->update(123, $spec);
 
-// delete an App
+// delete an App with App entity 123
 $app->remove(123);
 
-// list App deployments
+// retrieve App deployments with App entity 123
 $deployments = $app->getAppDeployments(123);
 
-// retrieve an App deployment
+// return an App deployment with App entity 123, deployment ID of 456
 $deployment = $app->getAppDeployment(123,456);
 
-// create an App deployment
+// create an App deployment with App entity 123
 $deployment = $app->createAppDeployment(123);
 
 // cancel an App deployment
 $deployment = $app->cancelAppDeployment(123,456);
 
-// retrieve deployment logs by component
+// retrieve deployment logs by component for entity 123, deployment ID of 456, component name of "test_component"
 $logs = $app->getDeploymentLogs(123,456,"test_component");
 
-// retrieve aggregate deployment logs
+// retrieve aggregate deployment logs for entity 123, deployment ID of 456
 $logs = $app->getAggregateDeploymentLogs(123,456);
 
 // retrieve App regions
@@ -161,13 +161,13 @@ $regions = $app->getRegions();
 // retrieve App tiers
 $tiers = $app->getTiers();
 
-// retrieve an App tier by slug
+// return an App tier by slug with slug name of "test_slug"
 $tier = $app->getTierBySlug("test_slug");
 
 // retrieve App instance sizes
 $instance_sizes = $app->getInstanceSizes();
 
-//  retrieve App instance size by slug
+// return App instance size by slug with slug name of "test_slug"
 $instance_size = $app->getInstanceSizeBySlug("test_slug");
 ```
 
