@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.1.0 (UPCOMING)
+
+* Added app platform API support
+
+
 ## 4.0.1 (02/01/2021)
 
 * Fixed issues with headers
