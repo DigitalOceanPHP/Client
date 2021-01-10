@@ -16,6 +16,7 @@ namespace DigitalOceanV2;
 
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
+use DigitalOceanV2\Api\App;
 use DigitalOceanV2\Api\Certificate;
 use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
@@ -122,6 +123,14 @@ class Client
     public function action(): Action
     {
         return new Action($this);
+    }
+
+    /**
+     * @return App
+     */
+    public function app(): App
+    {
+        return new App($this);
     }
 
     /**

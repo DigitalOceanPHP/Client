@@ -94,6 +94,83 @@ $actions = $action->getAll();
 $action123 = $action->getById(123);
 ```
 
+### App
+
+```php
+// return the app api
+$app  = $client->app();
+
+// return a collection of Apps
+$apps = $app->getAll();
+
+// return the App entity 123
+$app123 = $app->getById(123);
+
+// create a new App
+$spec = [
+    "name" => "sample-golang",
+    "services" => [
+        [
+            "name" => "web",
+            "github" => [
+              "repo" => "digitalocean/sample-golang",
+              "branch" => "branch"
+            ],
+            "run_command" => "bin/sample-golang",
+            "environment_slug" => "go",
+            "instance_size_slug" => "basic-xxs",
+            "instance_count" => 2,
+            "routes" => [
+                [
+                    "path" => "/"
+                ]
+            ]
+        ]
+    ],
+    "region" => "ams"
+];
+$app = $app->create($spec);
+
+// update an App
+$app = $app->update(123, $spec);
+
+// delete an App
+$app->remove(123);
+
+// list App deployments
+$deployments = $app->getAppDeployments(123);
+
+// retrieve an App deployment
+$deployment = $app->getAppDeployment(123,456);
+
+// create an App deployment
+$deployment = $app->createAppDeployment(123);
+
+// cancel an App deployment
+$deployment = $app->cancelAppDeployment(123,456);
+
+// retrieve deployment logs by component
+$logs = $app->getDeploymentLogs(123,456,"test_component");
+
+// retrieve aggregate deployment logs
+$logs = $app->getAggregateDeploymentLogs(123,456);
+
+// retrieve App regions
+$regions = $app->getRegions();
+
+// retrieve App tiers
+$tiers = $app->getTiers();
+
+// retrieve an App tier by slug
+$tier = $app->getTierBySlug("test_slug");
+
+// retrieve App instance sizes
+$instance_sizes = $app->getInstanceSizes();
+
+//  retrieve App instance size by slug
+$instance_size = $app->getInstanceSizeBySlug("test_slug");
+```
+
 ### Database
 
 ```php
@@ -512,19 +589,19 @@ $volume->remove('506f78a4-e098-11e5-ad9f-000f53306ae1');
 // removes a volume by name and region
 $volume->remove('example', 'nyc1');
 
-// attach a volume to a Droplet 
+// attach a volume to a Droplet
 $volume->attach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
 
-// detach a volume from a Droplet 
+// detach a volume from a Droplet
 $volume->detach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
 
-// resize a volume 
+// resize a volume
 $volume->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc1');
 
 // take a snapshot of volume and name it 'my-snapshot'. Returns the Snapshot entity
 $snapshot = $volume->snapshot('506f78a4-e098-11e5-ad9f-000f53306ae1', 'my-snapshot');
 
-// get a volume action by its id 
+// get a volume action by its id
 $volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 // get all actions related to a volume
