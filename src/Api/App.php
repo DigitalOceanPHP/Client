@@ -57,7 +57,7 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $spec
+     * @param array $spec
      *
      * @throws ExceptionInterface
      *
