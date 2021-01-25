@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.2.0 (UPCOMING)
+
+* UPCOMING
+
+
 ## 4.1.0 (UPCOMING)
 
 * Added app platform API support
