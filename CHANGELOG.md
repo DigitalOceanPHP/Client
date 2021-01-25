@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.1.0 (UPCOMING)
+## 4.1.0 (25/01/2021)
 
 * Added app platform API support
 
