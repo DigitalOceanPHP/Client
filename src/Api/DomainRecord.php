@@ -78,7 +78,7 @@ class DomainRecord extends AbstractApi
             case 'AAAA':
             case 'CNAME':
             case 'TXT':
-			case 'NS':
+            case 'NS':
                 $content = ['name' => $name, 'type' => $type, 'data' => $data];
 
                 break;
