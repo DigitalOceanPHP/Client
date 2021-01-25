@@ -7,7 +7,7 @@ CHANGE LOG
 * Added app platform API support
 
 
-## 4.0.2 (UPCOMING)
+## 4.0.2 (25/01/2021)
 
 * Fixed creating NS records
 
