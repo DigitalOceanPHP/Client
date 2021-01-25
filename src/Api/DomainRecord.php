@@ -85,7 +85,7 @@ class DomainRecord extends AbstractApi
             case 'NS':
                 $content = ['type' => $type, 'data' => $data];
                 if (null === $name) {
-                    $name = "@";
+                    $name = '@';
                 }
                 $content['name'] = $name;
 
