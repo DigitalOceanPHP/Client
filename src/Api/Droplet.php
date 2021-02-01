@@ -125,7 +125,7 @@ class Droplet extends AbstractApi
             $data['user_data'] = $userData;
         }
 
-        if (is_bool($vpcUuid)) {
+        if (\is_bool($vpcUuid)) {
             $data['private_networking'] = $vpcUuid ? 'true' : 'false';
         } elseif ('' !== $vpcUuid) {
             $data['vpc_uuid'] = $vpcUuid;
