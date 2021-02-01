@@ -38,7 +38,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
@@ -52,7 +52,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param int    $dropletId
+     * @param int $dropletId
      *
      * @throws ExceptionInterface
      *
@@ -66,7 +66,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $regionSlug
+     * @param string $regionSlug
      *
      * @throws ExceptionInterface
      *
@@ -80,7 +80,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
@@ -92,7 +92,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
@@ -108,7 +108,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      * @param int    $actionId
      *
      * @throws ExceptionInterface
@@ -123,7 +123,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      * @param int    $dropletId
      *
      * @throws ExceptionInterface
@@ -136,7 +136,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
@@ -148,8 +148,8 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string    $ipAddress
-     * @param array    $options
+     * @param string $ipAddress
+     * @param array  $options
      *
      * @throws ExceptionInterface
      *
