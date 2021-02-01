@@ -99,7 +99,7 @@ class Droplet extends AbstractApi
      * @param bool         $monitoring
      * @param array        $volumes
      * @param array        $tags
-	 * @param string       $vpcUuid
+     * @param string       $vpcUuid
      *
      * @throws ExceptionInterface
      *
