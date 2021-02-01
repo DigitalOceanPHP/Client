@@ -126,7 +126,7 @@ class Droplet extends AbstractApi
         }
 
         if (is_bool($vpcUuid)) {
-            $data['private_networking'] = $vpcUuid ? 'true' : 'false'
+            $data['private_networking'] = $vpcUuid ? 'true' : 'false';
         } elseif ('' !== $vpcUuid) {
             $data['vpc_uuid'] = $vpcUuid;
         }
