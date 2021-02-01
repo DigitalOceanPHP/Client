@@ -4,7 +4,7 @@ CHANGE LOG
 
 ## 4.2.0 (UPCOMING)
 
-* UPCOMING
+* Support VPCs when creating droplets
 
 
 ## 4.1.1 (UPCOMING)
