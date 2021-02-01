@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.1.1 (UPCOMING)
+
+* Fixed incorrect floating IP IDs
+
+
 ## 4.1.0 (25/01/2021)
 
 * Added app platform API support
