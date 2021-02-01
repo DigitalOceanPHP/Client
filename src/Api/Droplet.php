@@ -93,19 +93,18 @@ class Droplet extends AbstractApi
      * @param string|int   $image
      * @param bool         $backups
      * @param bool         $ipv6
-     * @param bool         $privateNetworking Deprecated, use vpcUuid
+     * @param string|bool  $vpcUuid
      * @param int[]        $sshKeys
      * @param string       $userData
      * @param bool         $monitoring
      * @param array        $volumes
      * @param array        $tags
-     * @param string       $vpcUuid
      *
      * @throws ExceptionInterface
      *
      * @return DropletEntity|DropletEntity[]|null
      */
-    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, bool $privateNetworking = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [], string $vpcUuid = '')
+    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, $vpcUuid, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [], string $vpcUuid = '')
     {
         $data = \is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -126,7 +125,9 @@ class Droplet extends AbstractApi
             $data['user_data'] = $userData;
         }
 
-        if ('' !== $vpcUuid) {
+        if (is_bool($vpcUuid)) {
+            $data['private_networking'] = $vpcUuid ? 'true' : 'false'
+        } elseif ('' !== $vpcUuid) {
             $data['vpc_uuid'] = $vpcUuid;
         }
 
