@@ -38,15 +38,15 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
      * @return FloatingIpEntity
      */
-    public function getById(int $id)
+    public function getById(string $ipAddress)
     {
-        $ip = $this->get(\sprintf('floating_ips/%s', $id));
+        $ip = $this->get(\sprintf('floating_ips/%s', $ipAddress));
 
         return new FloatingIpEntity($ip->floating_ip);
     }
@@ -80,27 +80,27 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
      * @return void
      */
-    public function remove(int $id): void
+    public function remove(string $ipAddress): void
     {
-        $this->delete(\sprintf('floating_ips/%s', $id));
+        $this->delete(\sprintf('floating_ips/%s', $ipAddress));
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
      * @return ActionEntity[]
      */
-    public function getActions(int $id)
+    public function getActions(string $ipAddress)
     {
-        $actions = $this->get(\sprintf('floating_ips/%s/actions', $id));
+        $actions = $this->get(\sprintf('floating_ips/%s/actions', $ipAddress));
 
         return \array_map(function ($action) {
             return new ActionEntity($action);
@@ -108,56 +108,56 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      * @param int $actionId
      *
      * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
-    public function getActionById(int $id, int $actionId)
+    public function getActionById(string $ipAddress, int $actionId)
     {
-        $action = $this->get(\sprintf('floating_ips/%s/actions/%d', $id, $actionId));
+        $action = $this->get(\sprintf('floating_ips/%s/actions/%d', $ipAddress, $actionId));
 
         return new ActionEntity($action->action);
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      * @param int $dropletId
      *
      * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
-    public function assign(int $id, int $dropletId)
+    public function assign(string $ipAddress, int $dropletId)
     {
-        return $this->executeAction($id, ['type' => 'assign', 'droplet_id' => $dropletId]);
+        return $this->executeAction($ipAddress, ['type' => 'assign', 'droplet_id' => $dropletId]);
     }
 
     /**
-     * @param int $id
+     * @param string $ipAddress
      *
      * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
-    public function unassign(int $id)
+    public function unassign(string $ipAddress)
     {
-        return $this->executeAction($id, ['type' => 'unassign']);
+        return $this->executeAction($ipAddress, ['type' => 'unassign']);
     }
 
     /**
-     * @param int   $id
+     * @param string $ipAddress
      * @param array $options
      *
      * @throws ExceptionInterface
      *
      * @return ActionEntity
      */
-    private function executeAction(int $id, array $options)
+    private function executeAction(string $ipAddress, array $options)
     {
-        $action = $this->post(\sprintf('floating_ips/%s/actions', $id), $options);
+        $action = $this->post(\sprintf('floating_ips/%s/actions', $ipAddress), $options);
 
         return new ActionEntity($action->action);
     }
