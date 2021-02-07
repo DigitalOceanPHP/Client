@@ -22,6 +22,7 @@ use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
+use DigitalOceanV2\Api\Firewall;
 use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
@@ -171,6 +172,14 @@ class Client
     public function droplet(): Droplet
     {
         return new Droplet($this);
+    }
+
+    /**
+     * @return Firewall
+     */
+    public function firewall(): Firewall
+    {
+        return new Firewall($this);
     }
 
     /**
