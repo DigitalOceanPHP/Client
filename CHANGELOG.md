@@ -5,6 +5,7 @@ CHANGE LOG
 ## 4.1.1 (UPCOMING)
 
 * Fixed incorrect floating IP IDs
+* Fixed missing firewall client method
 
 
 ## 4.1.0 (25/01/2021)
