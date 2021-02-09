@@ -424,6 +424,58 @@ $backupsDisabled = $droplet->disableBackups(123);
 $privateNetworkingEnabled = $droplet->enablePrivateNetworking(123);
 ```
 
+### Firewall
+
+```php
+// return the firewall api
+$firewall = $client->firewall();
+
+// return the Firewall entity 'abc-123'
+$firewall_abc123 = $firewall->getById('abc-123');
+
+// create a firewall with some defaults, assign it to a droplet, and return the Firewall entity
+$inboundRules = [
+    ['protocol' => 'tcp', 'ports' => '22', 'sources' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+    ['protocol' => 'tcp', 'ports' => 'all', 'sources' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+    ['protocol' => 'udp', 'ports' => 'all', 'sources' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+    ['protocol' => 'icmp', 'sources' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+];
+$outboundRules = [
+    ['protocol' => 'tcp', 'ports' => 'all', 'destinations' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+    ['protocol' => 'udp', 'ports' => 'all', 'destinations' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+    ['protocol' => 'icmp', 'destinations' => ['addresses' => ['0.0.0.0/0', '::/0']]],
+];
+
+$dropletId = 123;
+$firewall = $firewall->create(
+    strval($dropletId) . '-firewall', $inboundRules, $outboundRules, [$dropletId]
+);
+
+// Add inbound rule to firewall id abc-123 from an array of address sources.
+$firewallId = 'abc-123';
+$type = 'inbound_rules';
+$protocol = 'tcp';
+$ports = '22';
+$addresses = ['0.0.0.0/0', '::/0'];
+
+if ($type == 'inbound_rules') {
+    $locations = 'sources'
+} elseif($type == 'outbound_rules'){
+    $locations = 'destinations';
+}
+
+$rules[$type] = [
+    ['protocol' => $protocol, 'ports' => $ports, $locations => ['addresses' => $addresses])
+);
+$firewall->addRules($firewallId, $rules);
+
+// remove above rule
+$firewall->removeRules($firewallId, $rules)
+
+// remove firewall id 123-abc
+$firewall->remove('123-abc');
+```
+
 ### Image
 
 ```php
