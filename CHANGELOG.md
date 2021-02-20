@@ -5,7 +5,8 @@ CHANGE LOG
 ## 4.2.0 (UPCOMING)
 
 * Support VPCs when creating droplets
-* Fixed missing firewall client method
+* Added missing firewall methods
+
 
 ## 4.1.1 (UPCOMING)
 
