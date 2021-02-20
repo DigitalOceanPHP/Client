@@ -21,6 +21,7 @@ use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
 use DigitalOceanV2\Api\DomainRecord;
 use DigitalOceanV2\Api\Droplet;
+use DigitalOceanV2\Api\Firewall;
 use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
@@ -58,6 +59,7 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(Domain::class, $client->domain());
         self::assertInstanceOf(DomainRecord::class, $client->domainRecord());
         self::assertInstanceOf(Droplet::class, $client->droplet());
+        self::assertInstanceOf(Firewall::class, $client->firewall());
         self::assertInstanceOf(FloatingIp::class, $client->floatingIp());
         self::assertInstanceOf(Image::class, $client->image());
         self::assertInstanceOf(Key::class, $client->key());
