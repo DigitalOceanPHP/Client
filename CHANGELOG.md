@@ -8,7 +8,7 @@ CHANGE LOG
 * Added missing firewall methods
 
 
-## 4.1.1 (UPCOMING)
+## 4.1.1 (20/02/2021)
 
 * Fixed incorrect floating IP IDs
 * Fixed missing firewall client method
