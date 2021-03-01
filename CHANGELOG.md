@@ -7,6 +7,11 @@ CHANGE LOG
 * TBC
 
 
+## 4.2.1 (UPCOMING)
+
+* Add missing `$vpcUuid` default value
+
+
 ## 4.2.0 (20/02/2021)
 
 * Support VPCs when creating droplets
