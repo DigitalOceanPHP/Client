@@ -64,4 +64,9 @@ final class Size extends AbstractEntity
      * @var string[]
      */
     public $regions = [];
+
+    /**
+     * @var string
+     */
+    public $description;
 }
