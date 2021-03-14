@@ -64,7 +64,7 @@ class Client
      *
      * @var string
      */
-    private const USER_AGENT = 'digitalocean-php-api-client/4.3';
+    private const USER_AGENT = 'digitalocean-php-api-client/4.4';
 
     /**
      * @var Builder

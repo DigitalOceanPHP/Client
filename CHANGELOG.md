@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.4.0 (UPCOMING)
+
+* TBC
+
+
 ## 4.3.0 (14/03/2021)
 
 * Added description field to Size entity
