@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.2.1 (UPCOMING)
+## 4.2.1 (14/03/2021)
 
 * Add missing `$vpcUuid` default value
 
