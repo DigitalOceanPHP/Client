@@ -4,7 +4,7 @@ CHANGE LOG
 
 ## 4.3.0 (UPCOMING)
 
-* TBC
+* Added description field to Size entity
 
 
 ## 4.2.1 (UPCOMING)
