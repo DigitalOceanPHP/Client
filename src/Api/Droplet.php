@@ -163,6 +163,18 @@ class Droplet extends AbstractApi
     }
 
     /**
+     * @param string $tag
+     *
+     * @throws ExceptionInterface
+     *
+     * @return void
+     */
+    public function removeAll(string $tag): void
+    {
+        $this->delete('droplets', [], [], ['tag_name' => $tag]);
+    }
+
+    /**
      * @param int $id
      *
      * @throws ExceptionInterface
