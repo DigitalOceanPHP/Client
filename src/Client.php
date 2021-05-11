@@ -17,6 +17,7 @@ namespace DigitalOceanV2;
 use DigitalOceanV2\Api\Account;
 use DigitalOceanV2\Api\Action;
 use DigitalOceanV2\Api\App;
+use DigitalOceanV2\Api\CdnEndpoint;
 use DigitalOceanV2\Api\Certificate;
 use DigitalOceanV2\Api\Database;
 use DigitalOceanV2\Api\Domain;
@@ -132,6 +133,14 @@ class Client
     public function app(): App
     {
         return new App($this);
+    }
+
+    /**
+     * @return CdnEndpoint
+     */
+    public function cdnEndpoint(): CdnEndpoint
+    {
+        return new CdnEndpoint($this);
     }
 
     /**
