@@ -295,7 +295,7 @@ $mode = $database->getSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e');
 $database->updateSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e', 'ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE');
 ```
 
-### Cdn Endpoint
+### CDN Endpoint
 
 ```php
 // return the cdn endpoint api
