@@ -364,7 +364,7 @@ $created = $droplet->create('the-name', 'nyc1', '512mb', 'ubuntu-14-04-x64');
 $droplet->remove(123);
 
 // remove all droplets with a given tag
-$droplet->removeAll('awesome');
+$droplet->removeTagged('awesome');
 
 // return a collection of Kernel entity
 $kernels = $droplet->getAvailableKernels(123);
