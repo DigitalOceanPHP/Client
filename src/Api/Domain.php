@@ -52,19 +52,24 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param string $name
-     * @param string $ipAddress
+     * @param string      $name
+     * @param string|null $ipAddress
      *
      * @throws ExceptionInterface
      *
      * @return DomainEntity
      */
-    public function create(string $name, string $ipAddress)
+    public function create(string $name, ?string $ipAddress = null)
     {
-        $domain = $this->post('domains', [
+        $data = [
             'name' => $name,
-            'ip_address' => $ipAddress,
-        ]);
+        ];
+
+        if (null !== $ipAddress) {
+            $data['ip_address'] = $ipAddress;
+        }
+
+        $domain = $this->post('domains', $data);
 
         return new DomainEntity($domain->domain);
     }
