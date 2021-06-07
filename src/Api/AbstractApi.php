@@ -147,12 +147,13 @@ abstract class AbstractApi
      * @param string               $uri
      * @param array                $params
      * @param array<string,string> $headers
+     * @param array<string,string> $queryParams
      *
      * @throws ExceptionInterface
      *
      * @return void
      */
-    protected function delete(string $uri, array $params = [], array $headers = []): void
+    protected function delete(string $uri, array $params = [], array $headers = [], array $queryParams = []): void
     {
         $body = self::prepareJsonBody($params);
 
@@ -160,7 +161,7 @@ abstract class AbstractApi
             $headers = self::addJsonContentType($headers);
         }
 
-        $this->client->getHttpClient()->delete(self::prepareUri($uri), $headers, $body ?? '');
+        $this->client->getHttpClient()->delete(self::prepareUri($uri, $queryParams), $headers, $body ?? '');
     }
 
     /**
