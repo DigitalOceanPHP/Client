@@ -295,6 +295,34 @@ $mode = $database->getSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e');
 $database->updateSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e', 'ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE');
 ```
 
+### Cdn Endpoint
+
+```php
+// return the cdn endpoint api
+$cdnEndpoint = $client->cdnEndpoint();
+
+// return a collection of CdnEndpoint entity
+$cdnEndpoints = $cdnEndpoint->getAll();
+
+// return the CdnEndpoint entity '8d077fd4-e67e-409c-b927-aa92dfaf0e69'
+$cdnEndpoint8d077fd4 = $cdnEndpoint->getById('8d077fd4-e67e-409c-b927-aa92dfaf0e69');
+
+// return the created CdnEndpoint with origin 'fake-cdn.nyc3.digitaloceanspaces.com', ttl 1800, certificate id '892071a0-bb95-49bc-8021-3afd67a210bf' and custom domain 'fake-cdn.example.com'
+$created = $cdnEndpoint->create('fake-cdn.nyc3.digitaloceanspaces.com', 1800, '892071a0-bb95-49bc-8021-3afd67a210bf', 'fake-cdn.example.com');
+
+// return the CdnEndpoint with id '8d077fd4-e67e-409c-b927-aa92dfaf0e69' updated with ttl 3600, certificate id '08dad2a2-a588-4558-976a-18fc36076520' and custom domain 'fake-cdn-2.example.com'
+$updated = $cdnEndpoint->update('8d077fd4-e67e-409c-b927-aa92dfaf0e69', 3600, '08dad2a2-a588-4558-976a-18fc36076520', 'fake-cdn-2.example.com');
+
+// remove the cdnEndpoint identified by '8d077fd4-e67e-409c-b927-aa92dfaf0e69'
+$cdnEndpoint->remove('8d077fd4-e67e-409c-b927-aa92dfaf0e69');
+
+// purge the cache of cdnEndpoint identified by '8d077fd4-e67e-409c-b927-aa92dfaf0e69'
+$cdnEndpoint->purgeCache('8d077fd4-e67e-409c-b927-aa92dfaf0e69');
+
+// purge the following files in the cache of cdnEndpoint identified by '8d077fd4-e67e-409c-b927-aa92dfaf0e69'
+$cdnEndpoint->purgeCache('8d077fd4-e67e-409c-b927-aa92dfaf0e69', ["assets/img/hero.png", "assets/css/*"]);
+```
+
 ### Domain
 
 ```php
