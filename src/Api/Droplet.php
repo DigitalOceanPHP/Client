@@ -169,7 +169,7 @@ class Droplet extends AbstractApi
      *
      * @return void
      */
-    public function removeAll(string $tag): void
+    public function removeTagged(string $tag): void
     {
         $this->delete('droplets', [], [], ['tag_name' => $tag]);
     }
