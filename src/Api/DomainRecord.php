@@ -25,15 +25,20 @@ use DigitalOceanV2\Exception\InvalidRecordException;
 class DomainRecord extends AbstractApi
 {
     /**
-     * @param string $domainName
+     * @param string   $domainName
+     * @param int|null $per_page
      *
      * @throws ExceptionInterface
      *
      * @return DomainRecordEntity[]
      */
-    public function getAll(string $domainName)
+    public function getAll(string $domainName, ?int $per_page = null)
     {
-        $domainRecords = $this->get(\sprintf('domains/%s/records', $domainName));
+        if (null !== $per_page) {
+            $domainRecords = $this->get(\sprintf('domains/%s/records?per_page=%d', $domainName, $per_page));
+        } else {
+            $domainRecords = $this->get(\sprintf('domains/%s/records', $domainName));
+        }
 
         return \array_map(function ($domainRecord) {
             return new DomainRecordEntity($domainRecord);
