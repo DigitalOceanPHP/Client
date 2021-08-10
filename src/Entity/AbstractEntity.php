@@ -41,6 +41,29 @@ abstract class AbstractEntity
     }
 
     /**
+     * @param $property
+     *
+     * @return mixed
+     */
+    public function __get($property)
+    {
+        $property = static::convertToCamelCase($property);
+        if (\property_exists($this, $property)) {
+            return $this->{$property};
+        }
+
+        $trace = debug_backtrace();
+        trigger_error(
+            'Undefined property '.$property.
+            ' in '.$trace[0]['file'].
+            ' on line '.$trace[0]['line'],
+            E_USER_NOTICE
+        );
+
+        return null;
+    }
+
+    /**
      * @param array $parameters
      *
      * @return void

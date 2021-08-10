@@ -28,7 +28,7 @@ final class App extends AbstractEntity
     /**
      * @var string
      */
-    public $owner_uuid;
+    public $ownerUuid;
 
     /**
      * @var array
@@ -38,37 +38,37 @@ final class App extends AbstractEntity
     /**
      * @var string
      */
-    public $default_ingress;
+    public $defaultIngress;
 
     /**
      * @var string
      */
-    public $created_at;
+    public $createdAt;
 
     /**
      * @var string
      */
-    public $updated_at;
+    public $updatedAt;
 
     /**
      * @var array
      */
-    public $active_deployment;
+    public $activeDeployment;
 
     /**
      * @var array
      */
-    public $in_progress_deployment;
+    public $inProgressDeployment;
 
     /**
      * @var string
      */
-    public $last_deployment_created_at;
+    public $lastDeploymentCreatedAt;
 
     /**
      * @var string
      */
-    public $live_url;
+    public $liveUrl;
 
     /**
      * @var array
@@ -78,17 +78,17 @@ final class App extends AbstractEntity
     /**
      * @var string
      */
-    public $tier_slug;
+    public $tierSlug;
 
     /**
      * @var string
      */
-    public $live_url_base;
+    public $liveUrlBase;
 
     /**
      * @var string
      */
-    public $live_domain;
+    public $liveDomain;
 
     /**
      * @var array

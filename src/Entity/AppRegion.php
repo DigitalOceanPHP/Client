@@ -48,7 +48,7 @@ final class AppRegion extends AbstractEntity
     /**
      * @var array
      */
-    public $data_centers;
+    public $dataCenters;
 
     /**
      * @var string
