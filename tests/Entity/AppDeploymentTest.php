@@ -59,7 +59,6 @@ class AppDeploymentTest extends TestCase
         $this->assertSame($values['phase'], $entity->phase);
         $this->assertSame($values['tierSlug'], $entity->tierSlug);
 
-
         $this->assertSame($values['staticSites'], $entity->static_sites);
         $this->assertSame($values['createdAt'], $entity->created_at);
         $this->assertSame($values['updatedAt'], $entity->updated_at);
