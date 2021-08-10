@@ -35,7 +35,7 @@ class AppInstanceSizeTest extends TestCase
             'usdPerSecond' => 'usdPerSecond',
             'tierSlug' => 'tierSlug',
             'tierUpgradeTo' => 'tierUpgradeTo',
-            'tierDowngradeTo' => 'tierDowngradeTo'
+            'tierDowngradeTo' => 'tierDowngradeTo',
         ];
 
         $entity = new AppInstanceSize($values);

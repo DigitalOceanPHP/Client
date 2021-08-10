@@ -40,7 +40,7 @@ class AppTest extends TestCase
             'tierSlug' => 'tierSlug',
             'liveUrlBase' => 'liveUrlBase',
             'liveDomain' => 'liveDomain',
-            'domains' => []
+            'domains' => [],
         ];
 
         $entity = new App($values);

@@ -52,12 +52,12 @@ abstract class AbstractEntity
             return $this->{$property};
         }
 
-        $trace = debug_backtrace();
-        trigger_error(
+        $trace = \debug_backtrace();
+        \trigger_error(
             'Undefined property '.$property.
             ' in '.$trace[0]['file'].
             ' on line '.$trace[0]['line'],
-            E_USER_NOTICE
+            \E_USER_NOTICE
         );
 
         return null;

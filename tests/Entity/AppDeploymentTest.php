@@ -38,7 +38,7 @@ class AppDeploymentTest extends TestCase
             'clonedFrom' => 'clonedFrom',
             'progress' => [],
             'phase' => 'phase',
-            'tierSlug' => 'basic'
+            'tierSlug' => 'basic',
         ];
 
         $entity = new AppDeployment($values);

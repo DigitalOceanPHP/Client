@@ -27,7 +27,7 @@ class AppDeploymentLogTest extends TestCase
     {
         $values = [
             'liveUrl' => 'liveUrl',
-            'historicUrls' => []
+            'historicUrls' => [],
         ];
 
         $entity = new AppDeploymentLog($values);
