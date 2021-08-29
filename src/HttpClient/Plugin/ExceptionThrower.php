@@ -17,6 +17,7 @@ namespace DigitalOceanV2\HttpClient\Plugin;
 use DigitalOceanV2\Exception\ApiLimitExceededException;
 use DigitalOceanV2\Exception\ErrorException;
 use DigitalOceanV2\Exception\ExceptionInterface;
+use DigitalOceanV2\Exception\ResourceNotFoundException;
 use DigitalOceanV2\Exception\RuntimeException;
 use DigitalOceanV2\Exception\ValidationFailedException;
 use DigitalOceanV2\HttpClient\Message\ResponseMediator;
@@ -74,6 +75,10 @@ final class ExceptionThrower implements Plugin
 
         if (429 === $status) {
             return new ApiLimitExceededException($message, $status);
+        }
+
+        if (404 === $status) {
+            return new ResourceNotFoundException($message, $status);
         }
 
         return new RuntimeException($message, $status);
