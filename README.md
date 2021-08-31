@@ -35,6 +35,13 @@ $ composer require "graham-campbell/digitalocean:^8.2" "guzzlehttp/guzzle:^7.2" 
 
 We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. The framework integration [`graham-campbell/digitalocean`](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell).
 
+#### Symfony 4+:
+
+```bash
+$ composer require dunglas/digital-ocean-bundle symfony/http-client nyholm/psr7 guzzlehttp/promises
+```
+
+The framework integration [`dunglas/digital-ocean-bundle`](https://github.com/dunglas/DunglasDigitalOceanBundle) is by [Kévin Dunglas](https://dunglas.fr).
 
 ## Upgrading
 
