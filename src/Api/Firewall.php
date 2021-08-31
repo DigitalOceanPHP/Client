@@ -36,6 +36,18 @@ class Firewall extends AbstractApi
 
         return new FirewallEntity($firewall->firewall);
     }
+    
+    /**
+     * @throws ExceptionInterface
+     * 
+     * @return array
+     */
+    public function getAll()
+    {
+        return array_map(function($firewall) {
+            return new FirewallEntity($firewall);
+        }, $this->get('firewalls')->firewalls);
+    }
 
     /**
      * @param string $name
