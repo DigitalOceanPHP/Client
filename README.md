@@ -597,6 +597,42 @@ $myUpdatedLoadBalancer = $loadBalancer->update('506f78a4-e098-11e5-ad9f-000f5330
 $myNewLoadBalancer = $loadBalancer->create('my-new-load-balancer', 'nyc1');
 ```
 
+### Monitoring
+
+```php
+// return the monitoring api
+$monitoring = $client->monitoring();
+
+// return a collection of alerts
+$alerts = $monitoring->getAlerts();
+
+// return alert uuid 123e4567-e89b-12d3-a456-426655440000
+$alert = $monitoring->getAlert('123e4567-e89b-12d3-a456-426655440000');
+
+// return inbound bandwidth metrics on the public interface of droplet id 123 from the past hour
+$bandwidth = $monitoring->getDropletBandwidth(
+    '123', 
+    time() - 3600, 
+    time(),
+)->data;
+
+// return outbound droplet bandwidth metrics on the private interface of droplet id 123 from the past hour
+$bandwidth = $monitoring->getDropletBandwidth(
+    '123', 
+    time() - 3600, 
+    time(),
+    'outbound',
+    'private'
+)->data;
+
+// Get current available storage for droplet id 123
+$freeStorage = $monitoring->getDropletFilesystemFree(
+    '123',
+    time(),
+    time()
+)->data;
+```
+
 ### Region
 
 ```php

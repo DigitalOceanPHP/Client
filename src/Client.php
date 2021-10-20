@@ -28,6 +28,7 @@ use DigitalOceanV2\Api\FloatingIp;
 use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\LoadBalancer;
+use DigitalOceanV2\Api\Monitoring;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
@@ -221,6 +222,14 @@ class Client
     public function loadBalancer(): LoadBalancer
     {
         return new LoadBalancer($this);
+    }
+
+    /**
+     * @return Monitoring
+     */
+    public function monitoring(): Monitoring
+    {
+        return new Monitoring($this);
     }
 
     /**
