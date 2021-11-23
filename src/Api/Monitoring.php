@@ -54,10 +54,10 @@ class Monitoring extends AbstractApi
 
     /**
      * @param string $hostId
-     * @param string $interface
-     * @param string $direction
      * @param string $start
      * @param string $end
+     * @param string $direction
+     * @param string $interface
      *
      * @throws ExceptionInterface
      *
