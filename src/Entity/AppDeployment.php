@@ -38,7 +38,7 @@ final class AppDeployment extends AbstractEntity
     /**
      * @var array
      */
-    public $static_sites;
+    public $staticSites;
 
     /**
      * @var array
@@ -53,17 +53,17 @@ final class AppDeployment extends AbstractEntity
     /**
      * @var string
      */
-    public $phase_last_updated_at;
+    public $phaseLastUpdatedAt;
 
     /**
      * @var string
      */
-    public $created_at;
+    public $createdAt;
 
     /**
      * @var string
      */
-    public $updated_at;
+    public $updatedAt;
 
     /**
      * @var string
@@ -73,7 +73,7 @@ final class AppDeployment extends AbstractEntity
     /**
      * @var string
      */
-    public $cloned_from;
+    public $clonedFrom;
 
     /**
      * @var array
@@ -88,5 +88,5 @@ final class AppDeployment extends AbstractEntity
     /**
      * @var string
      */
-    public $tier_slug;
+    public $tierSlug;
 }

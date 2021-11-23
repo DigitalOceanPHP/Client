@@ -33,15 +33,15 @@ final class AppTier extends AbstractEntity
     /**
      * @var string
      */
-    public $storage_bytes;
+    public $storageBytes;
 
     /**
      * @var string
      */
-    public $egress_bandwidth_bytes;
+    public $egressBandwidthBytes;
 
     /**
      * @var string
      */
-    public $build_seconds;
+    public $buildSeconds;
 }

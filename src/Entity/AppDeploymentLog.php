@@ -23,10 +23,10 @@ final class AppDeploymentLog extends AbstractEntity
     /**
      * @var string
      */
-    public $live_url;
+    public $liveUrl;
 
     /**
      * @var array
      */
-    public $historic_urls;
+    public $historicUrls;
 }

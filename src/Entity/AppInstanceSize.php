@@ -33,7 +33,7 @@ final class AppInstanceSize extends AbstractEntity
     /**
      * @var string
      */
-    public $cpu_type;
+    public $cpuType;
 
     /**
      * @var string
@@ -43,30 +43,30 @@ final class AppInstanceSize extends AbstractEntity
     /**
      * @var string
      */
-    public $memory_bytes;
+    public $memoryBytes;
 
     /**
      * @var string
      */
-    public $usd_per_month;
+    public $usdPerMonth;
 
     /**
      * @var string
      */
-    public $usd_per_second;
+    public $usdPerSecond;
 
     /**
      * @var string
      */
-    public $tier_slug;
+    public $tierSlug;
 
     /**
      * @var string
      */
-    public $tier_upgrade_to;
+    public $tierUpgradeTo;
 
     /**
      * @var string
      */
-    public $tier_downgrade_to;
+    public $tierDowngradeTo;
 }
