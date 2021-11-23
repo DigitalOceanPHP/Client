@@ -25,14 +25,14 @@ class Firewall extends AbstractApi
 {
     /**
      * @throws ExceptionInterface
-     * 
+     *
      * @return FirewallEntity[]
      */
     public function getAll()
     {
         $firewalls = $this->get('firewalls');
-        
-        return \array_map(function($firewall) {
+
+        return \array_map(function ($firewall) {
             return new FirewallEntity($firewall);
         }, $firewalls->firewalls);
     }
