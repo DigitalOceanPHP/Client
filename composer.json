@@ -5,24 +5,19 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Antoine Corcy",
-            "email": "contact@sbin.dk"
-        },
-        {
             "name": "Graham Campbell",
-            "email": "graham@alt-three.com"
+            "email": "hello@gjcampbell.co.uk",
+            "homepage": "https://github.com/GrahamCampbell"
         },
         {
             "name": "Yassir Hannoun",
-            "email": "yassir.hannoun@gmail.com"
+            "email": "yassir.hannoun@gmail.com",
+            "homepage": "https://github.com/yassirh"
         },
         {
-            "name": "Glenn Jacobs",
-            "email": "glenn@neondigital.co.uk"
-        },
-        {
-            "name": "Cameron Van Orman",
-            "email": "cameron@efelle.com"
+            "name": "Antoine Kirk",
+            "email": "contact@sbin.dk",
+            "homepage": "https://github.com/toin0u"
         }
     ],
     "require": {
