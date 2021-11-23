@@ -1,9 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property DigitalOceanV2\\\\Api\\\\AbstractApi\\:\\:\\$page is never written, only read\\.$#"
+			count: 1
+			path: src/Api/AbstractApi.php
+
+		-
+			message: "#^Property DigitalOceanV2\\\\Api\\\\AbstractApi\\:\\:\\$perPage is never written, only read\\.$#"
+			count: 1
+			path: src/Api/AbstractApi.php
+
+		-
 			message: "#^Variable property access on \\$this\\(DigitalOceanV2\\\\Entity\\\\AbstractEntity\\)\\.$#"
-			count: 3
+			count: 4
 			path: src/Entity/AbstractEntity.php
+
+		-
+			message: "#^Method DigitalOceanV2\\\\HttpClient\\\\Message\\\\ResponseMediator\\:\\:getPagination\\(\\) should return array\\<string, string\\> but returns array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: src/HttpClient/Message/ResponseMediator.php
 
 		-
 			message: "#^Variable method call on DigitalOceanV2\\\\Api\\\\AbstractApi\\.$#"

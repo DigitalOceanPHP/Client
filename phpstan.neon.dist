@@ -17,8 +17,6 @@ parameters:
     paths:
         - src
     checkMissingIterableValueType: false
-    ignoreErrors:
-        - "#Anonymous function should have native return typehint#"
     stubFiles:
         - .stubs/Psr/Http/Message/StreamInterface.phpstub
         - .stubs/Psr/Http/Message/UriInterface.phpstub
