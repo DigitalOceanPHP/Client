@@ -22,7 +22,7 @@ This version supports [PHP](https://php.net) 7.2-8.1. To get started, simply req
 ### Standard Installation
 
 ```bash
-$ composer require "toin0u/digitalocean-v2:^4.4" "guzzlehttp/guzzle:^7.4" "http-interop/http-factory-guzzle:^1.2"
+$ composer require "toin0u/digitalocean-v2:^4.4" "guzzlehttp/guzzle:^7.4" "http-interop/http-factory-guzzle:^1.1"
 ```
 
 ### Framework Integration
@@ -30,7 +30,7 @@ $ composer require "toin0u/digitalocean-v2:^4.4" "guzzlehttp/guzzle:^7.4" "http-
 #### Laravel:
 
 ```bash
-$ composer require "graham-campbell/digitalocean:^8.4" "guzzlehttp/guzzle:^7.4" "http-interop/http-factory-guzzle:^1.2"
+$ composer require "graham-campbell/digitalocean:^8.4" "guzzlehttp/guzzle:^7.4" "http-interop/http-factory-guzzle:^1.1"
 ```
 
 #### Symfony:

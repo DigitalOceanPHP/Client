@@ -39,7 +39,7 @@
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.4.1",
         "guzzlehttp/guzzle": "^7.4",
-        "http-interop/http-factory-guzzle": "^1.2"
+        "http-interop/http-factory-guzzle": "^1.1"
     },
     "autoload": {
         "psr-4": {
