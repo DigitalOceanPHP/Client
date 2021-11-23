@@ -24,6 +24,20 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Firewall extends AbstractApi
 {
     /**
+     * @throws ExceptionInterface
+     *
+     * @return FirewallEntity[]
+     */
+    public function getAll()
+    {
+        $firewalls = $this->get('firewalls');
+
+        return \array_map(function ($firewall) {
+            return new FirewallEntity($firewall);
+        }, $firewalls->firewalls);
+    }
+
+    /**
      * @param string $id
      *
      * @throws ExceptionInterface
