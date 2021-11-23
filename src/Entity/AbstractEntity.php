@@ -41,7 +41,7 @@ abstract class AbstractEntity
     }
 
     /**
-     * @param $property
+     * @param string $property
      *
      * @return mixed
      */
