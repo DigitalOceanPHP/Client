@@ -16,8 +16,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
-          tools: composer:v2
+          php-version: '8.0'
+          tools: composer:2.1
           coverage: none
 
       - name: Install Dependencies
@@ -48,8 +48,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
-          tools: composer:v2
+          php-version: '8.0'
+          tools: composer:2.1
           coverage: none
 
       - name: Install Dependencies

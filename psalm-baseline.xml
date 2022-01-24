@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.x-dev@">
-  <file src="src/Entity/AbstractEntity.php">
-    <UndefinedFunction occurrences="2">
-      <code>\preg_last_error_msg()</code>
-      <code>\preg_last_error_msg()</code>
-    </UndefinedFunction>
-  </file>
-  <file src="src/HttpClient/Util/JsonObject.php">
-    <UndefinedFunction occurrences="1">
-      <code>\get_debug_type($data)</code>
-    </UndefinedFunction>
-  </file>
   <file src="src/ResultPager.php">
     <InaccessibleProperty occurrences="2">
       <code>$clone-&gt;page</code>
