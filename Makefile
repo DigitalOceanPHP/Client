@@ -20,13 +20,7 @@ psalm-baseline:
 psalm-show-info:
 	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/psalm.phar --rm registry.gitlab.com/grahamcampbell/php:7.4-cli --show-info=true
 
-rector-dry-run:
-	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/rector --rm registry.gitlab.com/grahamcampbell/php:7.4-cli process --dry-run
-
-rector-fix:
-	@docker run -it -w /data -v ${PWD}:/data:delegated --entrypoint vendor/bin/rector --rm registry.gitlab.com/grahamcampbell/php:7.4-cli process
-
-test: phpunit phpstan-analyze psalm-analyze rector-dry-run
+test: phpunit phpstan-analyze psalm-analyze
 
 clean:
 	@rm -rf .phpunit.result.cache composer.lock vendor vendor-bin/*/composer.lock vendor-bin/*/vendor

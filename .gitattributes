@@ -16,5 +16,4 @@
 /psalm.xml export-ignore
 /CHANGELOG.md export-ignore
 /README.md export-ignore
-/rector.php export-ignore
 /UPGRADING.md export-ignore
