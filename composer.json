@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": "^7.2.5 || ^8.0",
+        "php": "^7.4.15 || ^8.0.2",
         "ext-json": "*",
         "php-http/client-common": "^2.5",
         "php-http/discovery": "^1.14",
