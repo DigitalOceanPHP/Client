@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.4.0 (UPCOMING)
+## 4.4.0 (24/01/2022)
 
 * Allow domains to be created without an IP
 * Added support for deleting droplets by tag name
@@ -11,6 +11,7 @@ CHANGE LOG
 * Added support for monitoring API
 * Added support for PHP 8.1
 * Fixed `AppPlatform` entity properties
+
 
 ## 4.3.0 (14/03/2021)
 
