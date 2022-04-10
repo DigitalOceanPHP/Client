@@ -71,6 +71,26 @@ final class Image extends AbstractEntity
     public $regions = [];
 
     /**
+     * @var string
+     */
+    public $description;
+
+    /**
+     * @var string[]
+     */
+    public $tags = [];
+
+    /**
+     * @var string
+     */
+    public $status;
+
+    /**
+     * @var string
+     */
+    public $error_message;
+
+    /**
      * @param string $createdAt
      *
      * @return void
