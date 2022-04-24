@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.5.1 (24/04/2022)
+
+* Added missing properties to the image entity
+
+
 ## 4.5.0 (24/01/2022)
 
 * Dropped PHP 7.2 and 7.3 support
