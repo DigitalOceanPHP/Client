@@ -30,9 +30,9 @@ class ProjectResourceEntityTest extends TestCase
             'urn' => 'do:droplet:123456789',
             'assignedAt' => '2022-08-04T04:26:24Z',
             'links' => [
-                'self' => 'https://api.digitalocean.com/v2/droplets/123456789'
+                'self' => 'https://api.digitalocean.com/v2/droplets/123456789',
             ],
-            'status' => 'already_assigned'
+            'status' => 'already_assigned',
         ]);
 
         $this->assertInstanceOf(AbstractEntity::class, $projectResource);

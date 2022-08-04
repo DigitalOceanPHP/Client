@@ -32,7 +32,7 @@ class ProjectResource extends AbstractApi
      */
     public function getProjectResources(string $id)
     {
-        $resources = $this->get(sprintf('projects/%s/resources', $id));
+        $resources = $this->get(\sprintf('projects/%s/resources', $id));
 
         return \array_map(function ($resource) {
             return new ProjectResourceEntity($resource);
@@ -40,18 +40,17 @@ class ProjectResource extends AbstractApi
     }
 
     /**
-     * @param string $id
+     * @param string        $id
      * @param array<string> $resources
-     *
-     * @return ProjectResourceEntity[]
      *
      * @throws ExceptionInterface
      *
+     * @return ProjectResourceEntity[]
      */
     public function assignResources(string $id, array $resources)
     {
-        $resources = $this->post(sprintf('projects/%s/resources', $id), [
-            'resources' => $resources
+        $resources = $this->post(\sprintf('projects/%s/resources', $id), [
+            'resources' => $resources,
         ]);
 
         return \array_map(function ($resource) {
@@ -60,9 +59,9 @@ class ProjectResource extends AbstractApi
     }
 
     /**
-     * @return ProjectResourceEntity[]
-     *
      * @throws ExceptionInterface
+     *
+     * @return ProjectResourceEntity[]
      */
     public function getDefaultProjectResources()
     {
@@ -76,15 +75,14 @@ class ProjectResource extends AbstractApi
     /**
      * @param array<string> $resources
      *
-     * @return ProjectResourceEntity[]
-     *
      * @throws ExceptionInterface
      *
+     * @return ProjectResourceEntity[]
      */
     public function assignResourcesToDefaultProject(array $resources)
     {
         $resources = $this->post('projects/default/resources', [
-            'resources' => $resources
+            'resources' => $resources,
         ]);
 
         return \array_map(function ($resource) {
