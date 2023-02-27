@@ -63,6 +63,7 @@ class LoadBalancer extends AbstractApi
      * @param array|StickySessionEntity[] $stickySessions
      * @param array                       $dropletIds
      * @param bool                        $httpsRedirect
+     * @param int<30, 600>                $httpIdleTimeoutSeconds
      *
      * @throws ExceptionInterface
      *
@@ -76,7 +77,8 @@ class LoadBalancer extends AbstractApi
         array $healthCheck = [],
         array $stickySessions = [],
         array $dropletIds = [],
-        bool $httpsRedirect = false
+        bool $httpsRedirect = false,
+        int $httpIdleTimeoutSeconds = 60
     ) {
         $loadBalancer = $this->post('load_balancers', [
             'name' => $name,
@@ -87,6 +89,7 @@ class LoadBalancer extends AbstractApi
             'sticky_sessions' => self::formatConfigurationOptions($stickySessions),
             'droplet_ids' => $dropletIds,
             'redirect_http_to_https' => $httpsRedirect,
+            'http_idle_timeout_seconds' => $httpIdleTimeoutSeconds,
         ]);
 
         return new LoadBalancerEntity($loadBalancer->load_balancer);

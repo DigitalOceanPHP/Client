@@ -85,6 +85,11 @@ final class LoadBalancer extends AbstractEntity
     public $redirectHttpToHttps;
 
     /**
+     * @var int<30, 600>
+     */
+    public $httpIdleTimeoutSeconds;
+
+    /**
      * @param array $parameters
      *
      * @return void
@@ -147,6 +152,7 @@ final class LoadBalancer extends AbstractEntity
             'sticky_sessions' => $this->stickySessions->toArray(),
             'droplet_ids' => $this->dropletIds,
             'redirect_http_to_https' => $this->redirectHttpToHttps,
+            'http_idle_timeout_seconds' => $this->httpIdleTimeoutSeconds,
         ];
     }
 }
