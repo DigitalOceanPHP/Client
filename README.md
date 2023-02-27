@@ -5,7 +5,7 @@ We present a modern [DigitalOcean API v2](https://developers.digitalocean.com/do
 ![Banner](https://user-images.githubusercontent.com/2829600/86969008-fcc6d180-c164-11ea-9864-5ffd9caf2c6b.png)
 
 <p align="center">
-<a href="https://github.com/DigitalOceanPHP/Client/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/DigitalOceanPHP/Client/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
+<a href="https://github.com/DigitalOceanPHP/Client/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/actions/workflow/status/DigitalOceanPHP/Client/tests.yml?label=Tests&style=flat-square" alt="Build Status"></img></a>
 <a href="https://github.styleci.io/repos/20703714"><img src="https://github.styleci.io/repos/20703714/shield" alt="StyleCI Status"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
 <a href="https://packagist.org/packages/toin0u/digitalocean-v2"><img src="https://img.shields.io/packagist/dt/toin0u/digitalocean-v2?style=flat-square" alt="Packagist Downloads"></img></a>

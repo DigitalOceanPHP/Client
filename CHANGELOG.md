@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## 4.6.0 (27/02/2023)
+
+* Added support for PHP 8.2
+* Added support for project resource APIs
+* Added support for `http_idle_timeout_seconds` in load balancers API
+
+
 ## 4.5.1 (24/04/2022)
 
 * Added missing properties to the image entity
