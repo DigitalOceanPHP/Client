@@ -29,6 +29,7 @@ use DigitalOceanV2\Api\Image;
 use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\LoadBalancer;
 use DigitalOceanV2\Api\Monitoring;
+use DigitalOceanV2\Api\ProjectResource;
 use DigitalOceanV2\Api\Region;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
@@ -230,6 +231,14 @@ class Client
     public function monitoring(): Monitoring
     {
         return new Monitoring($this);
+    }
+
+    /**
+     * @return ProjectResource
+     */
+    public function projectResource(): ProjectResource
+    {
+        return new ProjectResource($this);
     }
 
     /**

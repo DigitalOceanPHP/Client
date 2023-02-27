@@ -638,6 +638,24 @@ $freeStorage = $monitoring->getDropletFilesystemFree(
 )->data;
 ```
 
+### Project Resources
+```php
+// return the project resources api
+$projectResources = $client->projectResource();
+
+// return the resources of the specified project
+$projectResource = $projectResources->getProjectResources('1a111a1a-1aa1-1a1a-11a1-1111a11a11a1');
+
+// assign a list of resources to the specified project
+$projectResource = $projectResources->assignResources('1a111a1a-1aa1-1a1a-11a1-1111a11a11a1', ['do:droplet:123456789']);
+
+// return the resources of the default project
+$projectResource = $projectResources->getDefaultProjectResources();
+
+// assign a list of resources to the default project
+$projectResource = $projectResources->assignResourcesToDefaultProject(['do:droplet:123456789']);
+```
+
 ### Region
 
 ```php
