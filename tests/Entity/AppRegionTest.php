@@ -38,16 +38,16 @@ class AppRegionTest extends TestCase
 
         $entity = new AppRegion($values);
 
-        $this->assertInstanceOf(AbstractEntity::class, $entity);
-        $this->assertInstanceOf(AppRegion::class, $entity);
-        $this->assertSame($values['slug'], $entity->slug);
-        $this->assertSame($values['label'], $entity->label);
-        $this->assertSame($values['flag'], $entity->flag);
-        $this->assertSame($values['continent'], $entity->continent);
-        $this->assertSame($values['dataCenters'], $entity->dataCenters);
-        $this->assertSame($values['reason'], $entity->reason);
-        $this->assertSame($values['default'], $entity->default);
+        self::assertInstanceOf(AbstractEntity::class, $entity);
+        self::assertInstanceOf(AppRegion::class, $entity);
+        self::assertSame($values['slug'], $entity->slug);
+        self::assertSame($values['label'], $entity->label);
+        self::assertSame($values['flag'], $entity->flag);
+        self::assertSame($values['continent'], $entity->continent);
+        self::assertSame($values['dataCenters'], $entity->dataCenters);
+        self::assertSame($values['reason'], $entity->reason);
+        self::assertSame($values['default'], $entity->default);
 
-        $this->assertSame($values['dataCenters'], $entity->data_centers);
+        self::assertSame($values['dataCenters'], $entity->data_centers);
     }
 }

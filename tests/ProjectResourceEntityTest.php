@@ -35,11 +35,11 @@ class ProjectResourceEntityTest extends TestCase
             'status' => 'already_assigned',
         ]);
 
-        $this->assertInstanceOf(AbstractEntity::class, $projectResource);
-        $this->assertInstanceOf(ProjectResource::class, $projectResource);
-        $this->assertSame('do:droplet:123456789', $projectResource->urn);
-        $this->assertSame('2022-08-04T04:26:24Z', $projectResource->assignedAt);
-        $this->assertSame(['self' => 'https://api.digitalocean.com/v2/droplets/123456789'], $projectResource->links);
-        $this->assertSame('already_assigned', $projectResource->status);
+        self::assertInstanceOf(AbstractEntity::class, $projectResource);
+        self::assertInstanceOf(ProjectResource::class, $projectResource);
+        self::assertSame('do:droplet:123456789', $projectResource->urn);
+        self::assertSame('2022-08-04T04:26:24Z', $projectResource->assignedAt);
+        self::assertSame(['self' => 'https://api.digitalocean.com/v2/droplets/123456789'], $projectResource->links);
+        self::assertSame('already_assigned', $projectResource->status);
     }
 }

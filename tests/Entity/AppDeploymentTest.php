@@ -43,26 +43,26 @@ class AppDeploymentTest extends TestCase
 
         $entity = new AppDeployment($values);
 
-        $this->assertInstanceOf(AbstractEntity::class, $entity);
-        $this->assertInstanceOf(AppDeployment::class, $entity);
-        $this->assertSame($values['id'], $entity->id);
-        $this->assertSame($values['spec'], $entity->spec);
-        $this->assertSame($values['services'], $entity->services);
-        $this->assertSame($values['staticSites'], $entity->staticSites);
-        $this->assertSame($values['workers'], $entity->workers);
-        $this->assertSame($values['jobs'], $entity->jobs);
-        $this->assertSame($values['createdAt'], $entity->createdAt);
-        $this->assertSame($values['updatedAt'], $entity->updatedAt);
-        $this->assertSame($values['cause'], $entity->cause);
-        $this->assertSame($values['clonedFrom'], $entity->clonedFrom);
-        $this->assertSame($values['progress'], $entity->progress);
-        $this->assertSame($values['phase'], $entity->phase);
-        $this->assertSame($values['tierSlug'], $entity->tierSlug);
+        self::assertInstanceOf(AbstractEntity::class, $entity);
+        self::assertInstanceOf(AppDeployment::class, $entity);
+        self::assertSame($values['id'], $entity->id);
+        self::assertSame($values['spec'], $entity->spec);
+        self::assertSame($values['services'], $entity->services);
+        self::assertSame($values['staticSites'], $entity->staticSites);
+        self::assertSame($values['workers'], $entity->workers);
+        self::assertSame($values['jobs'], $entity->jobs);
+        self::assertSame($values['createdAt'], $entity->createdAt);
+        self::assertSame($values['updatedAt'], $entity->updatedAt);
+        self::assertSame($values['cause'], $entity->cause);
+        self::assertSame($values['clonedFrom'], $entity->clonedFrom);
+        self::assertSame($values['progress'], $entity->progress);
+        self::assertSame($values['phase'], $entity->phase);
+        self::assertSame($values['tierSlug'], $entity->tierSlug);
 
-        $this->assertSame($values['staticSites'], $entity->static_sites);
-        $this->assertSame($values['createdAt'], $entity->created_at);
-        $this->assertSame($values['updatedAt'], $entity->updated_at);
-        $this->assertSame($values['clonedFrom'], $entity->cloned_from);
-        $this->assertSame($values['tierSlug'], $entity->tier_slug);
+        self::assertSame($values['staticSites'], $entity->static_sites);
+        self::assertSame($values['createdAt'], $entity->created_at);
+        self::assertSame($values['updatedAt'], $entity->updated_at);
+        self::assertSame($values['clonedFrom'], $entity->cloned_from);
+        self::assertSame($values['tierSlug'], $entity->tier_slug);
     }
 }

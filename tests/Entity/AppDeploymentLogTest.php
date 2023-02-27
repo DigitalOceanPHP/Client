@@ -32,12 +32,12 @@ class AppDeploymentLogTest extends TestCase
 
         $entity = new AppDeploymentLog($values);
 
-        $this->assertInstanceOf(AbstractEntity::class, $entity);
-        $this->assertInstanceOf(AppDeploymentLog::class, $entity);
-        $this->assertSame($values['liveUrl'], $entity->liveUrl);
-        $this->assertSame($values['historicUrls'], $entity->historicUrls);
+        self::assertInstanceOf(AbstractEntity::class, $entity);
+        self::assertInstanceOf(AppDeploymentLog::class, $entity);
+        self::assertSame($values['liveUrl'], $entity->liveUrl);
+        self::assertSame($values['historicUrls'], $entity->historicUrls);
 
-        $this->assertSame($values['liveUrl'], $entity->live_url);
-        $this->assertSame($values['historicUrls'], $entity->historic_urls);
+        self::assertSame($values['liveUrl'], $entity->live_url);
+        self::assertSame($values['historicUrls'], $entity->historic_urls);
     }
 }

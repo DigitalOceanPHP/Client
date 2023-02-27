@@ -35,16 +35,16 @@ class AppTierTest extends TestCase
 
         $entity = new AppTier($values);
 
-        $this->assertInstanceOf(AbstractEntity::class, $entity);
-        $this->assertInstanceOf(AppTier::class, $entity);
-        $this->assertSame($values['name'], $entity->name);
-        $this->assertSame($values['slug'], $entity->slug);
-        $this->assertSame($values['storageBytes'], $entity->storageBytes);
-        $this->assertSame($values['egressBandwidthBytes'], $entity->egressBandwidthBytes);
-        $this->assertSame($values['buildSeconds'], $entity->buildSeconds);
+        self::assertInstanceOf(AbstractEntity::class, $entity);
+        self::assertInstanceOf(AppTier::class, $entity);
+        self::assertSame($values['name'], $entity->name);
+        self::assertSame($values['slug'], $entity->slug);
+        self::assertSame($values['storageBytes'], $entity->storageBytes);
+        self::assertSame($values['egressBandwidthBytes'], $entity->egressBandwidthBytes);
+        self::assertSame($values['buildSeconds'], $entity->buildSeconds);
 
-        $this->assertSame($values['storageBytes'], $entity->storage_bytes);
-        $this->assertSame($values['egressBandwidthBytes'], $entity->egress_bandwidth_bytes);
-        $this->assertSame($values['buildSeconds'], $entity->build_seconds);
+        self::assertSame($values['storageBytes'], $entity->storage_bytes);
+        self::assertSame($values['egressBandwidthBytes'], $entity->egress_bandwidth_bytes);
+        self::assertSame($values['buildSeconds'], $entity->build_seconds);
     }
 }

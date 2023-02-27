@@ -17,12 +17,13 @@ Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalO
 
 ## Installation
 
-This version supports [PHP](https://php.net) 7.4-8.1. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).
+This version supports [PHP](https://php.net) 7.4-8.2. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).
 
 ### Standard Installation
 
 ```bash
-$ composer require "toin0u/digitalocean-v2:^4.5" "guzzlehttp/guzzle:^7.4" "http-interop/http-factory-guzzle:^1.2"
+$ composer require "toin0u/digitalocean-v2:^4.6" \
+  "guzzlehttp/guzzle:^7.5" "http-interop/http-factory-guzzle:^1.2"
 ```
 
 ### Framework Integration
@@ -30,13 +31,13 @@ $ composer require "toin0u/digitalocean-v2:^4.5" "guzzlehttp/guzzle:^7.4" "http-
 #### Laravel:
 
 ```bash
-$ composer require "graham-campbell/digitalocean:^9.0"
+$ composer require "graham-campbell/digitalocean:^10.0"
 ```
 
 #### Symfony:
 
 ```bash
-$ composer require "dunglas/digital-ocean-bundle:^1.0" "symfony/http-client:^5.4" "nyholm/psr7:^1.4" "guzzlehttp/promises:^1.5"
+$ composer require "dunglas/digital-ocean-bundle:^1.0" "symfony/http-client:^5.4" "nyholm/psr7:^1.5" "guzzlehttp/promises:^1.5"
 ```
 
 We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. The framework integration [graham-campbell/gitlab](https://github.com/GrahamCampbell/Laravel-GitLab) is by [Graham Campbell](https://github.com/GrahamCampbell) and [dunglas/digital-ocean-bundle](https://github.com/dunglas/DunglasDigitalOceanBundle) is by [Kévin Dunglas](https://github.com/dunglas).

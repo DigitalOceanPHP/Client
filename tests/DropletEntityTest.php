@@ -30,9 +30,9 @@ class DropletEntityTest extends TestCase
             'name' => 'Dave',
         ]);
 
-        $this->assertInstanceOf(AbstractEntity::class, $droplet);
-        $this->assertInstanceOf(Droplet::class, $droplet);
-        $this->assertSame(123, $droplet->id);
-        $this->assertSame('Dave', $droplet->name);
+        self::assertInstanceOf(AbstractEntity::class, $droplet);
+        self::assertInstanceOf(Droplet::class, $droplet);
+        self::assertSame(123, $droplet->id);
+        self::assertSame('Dave', $droplet->name);
     }
 }

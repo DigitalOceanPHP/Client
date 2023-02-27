@@ -11,6 +11,16 @@ parameters:
 			path: src/Api/AbstractApi.php
 
 		-
+			message: "#^Offset 'file' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
+			message: "#^Offset 'line' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
 			message: "#^Variable property access on \\$this\\(DigitalOceanV2\\\\Entity\\\\AbstractEntity\\)\\.$#"
 			count: 4
 			path: src/Entity/AbstractEntity.php

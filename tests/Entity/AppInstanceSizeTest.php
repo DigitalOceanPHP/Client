@@ -40,25 +40,25 @@ class AppInstanceSizeTest extends TestCase
 
         $entity = new AppInstanceSize($values);
 
-        $this->assertInstanceOf(AbstractEntity::class, $entity);
-        $this->assertInstanceOf(AppInstanceSize::class, $entity);
-        $this->assertSame($values['name'], $entity->name);
-        $this->assertSame($values['slug'], $entity->slug);
-        $this->assertSame($values['cpuType'], $entity->cpuType);
-        $this->assertSame($values['cpus'], $entity->cpus);
-        $this->assertSame($values['memoryBytes'], $entity->memoryBytes);
-        $this->assertSame($values['usdPerMonth'], $entity->usdPerMonth);
-        $this->assertSame($values['usdPerSecond'], $entity->usdPerSecond);
-        $this->assertSame($values['tierSlug'], $entity->tierSlug);
-        $this->assertSame($values['tierUpgradeTo'], $entity->tierUpgradeTo);
-        $this->assertSame($values['tierDowngradeTo'], $entity->tierDowngradeTo);
+        self::assertInstanceOf(AbstractEntity::class, $entity);
+        self::assertInstanceOf(AppInstanceSize::class, $entity);
+        self::assertSame($values['name'], $entity->name);
+        self::assertSame($values['slug'], $entity->slug);
+        self::assertSame($values['cpuType'], $entity->cpuType);
+        self::assertSame($values['cpus'], $entity->cpus);
+        self::assertSame($values['memoryBytes'], $entity->memoryBytes);
+        self::assertSame($values['usdPerMonth'], $entity->usdPerMonth);
+        self::assertSame($values['usdPerSecond'], $entity->usdPerSecond);
+        self::assertSame($values['tierSlug'], $entity->tierSlug);
+        self::assertSame($values['tierUpgradeTo'], $entity->tierUpgradeTo);
+        self::assertSame($values['tierDowngradeTo'], $entity->tierDowngradeTo);
 
-        $this->assertSame($values['cpuType'], $entity->cpu_type);
-        $this->assertSame($values['memoryBytes'], $entity->memory_bytes);
-        $this->assertSame($values['usdPerMonth'], $entity->usd_per_month);
-        $this->assertSame($values['usdPerSecond'], $entity->usd_per_second);
-        $this->assertSame($values['tierSlug'], $entity->tier_slug);
-        $this->assertSame($values['tierUpgradeTo'], $entity->tier_upgrade_to);
-        $this->assertSame($values['tierDowngradeTo'], $entity->tier_downgrade_to);
+        self::assertSame($values['cpuType'], $entity->cpu_type);
+        self::assertSame($values['memoryBytes'], $entity->memory_bytes);
+        self::assertSame($values['usdPerMonth'], $entity->usd_per_month);
+        self::assertSame($values['usdPerSecond'], $entity->usd_per_second);
+        self::assertSame($values['tierSlug'], $entity->tier_slug);
+        self::assertSame($values['tierUpgradeTo'], $entity->tier_upgrade_to);
+        self::assertSame($values['tierDowngradeTo'], $entity->tier_downgrade_to);
     }
 }

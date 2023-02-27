@@ -35,14 +35,14 @@ class CdnEndpointEntityTest extends TestCase
             'custom_domain' => 'fake-cdn.example.com',
         ]);
 
-        $this->assertInstanceOf(AbstractEntity::class, $endpoint);
-        $this->assertInstanceOf(CdnEndpoint::class, $endpoint);
-        $this->assertSame('8d077fd4-e67e-409c-b927-aa92dfaf0e69', $endpoint->id);
-        $this->assertSame('fake-cdn.nyc3.digitaloceanspaces.com', $endpoint->origin);
-        $this->assertSame('fake-cdn.nyc3.cdn.digitaloceanspaces.com', $endpoint->endpoint);
-        $this->assertSame('2018-07-19T15:04:16Z', $endpoint->createdAt);
-        $this->assertSame(1800, $endpoint->ttl);
-        $this->assertSame('892071a0-bb95-49bc-8021-3afd67a210bf', $endpoint->certificateId);
-        $this->assertSame('fake-cdn.example.com', $endpoint->customDomain);
+        self::assertInstanceOf(AbstractEntity::class, $endpoint);
+        self::assertInstanceOf(CdnEndpoint::class, $endpoint);
+        self::assertSame('8d077fd4-e67e-409c-b927-aa92dfaf0e69', $endpoint->id);
+        self::assertSame('fake-cdn.nyc3.digitaloceanspaces.com', $endpoint->origin);
+        self::assertSame('fake-cdn.nyc3.cdn.digitaloceanspaces.com', $endpoint->endpoint);
+        self::assertSame('2018-07-19T15:04:16Z', $endpoint->createdAt);
+        self::assertSame(1800, $endpoint->ttl);
+        self::assertSame('892071a0-bb95-49bc-8021-3afd67a210bf', $endpoint->certificateId);
+        self::assertSame('fake-cdn.example.com', $endpoint->customDomain);
     }
 }
