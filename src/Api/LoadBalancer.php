@@ -78,7 +78,7 @@ class LoadBalancer extends AbstractApi
         array $stickySessions = [],
         array $dropletIds = [],
         bool $httpsRedirect = false,
-        int $httpIdleTimeoutSeconds = 60,
+        int $httpIdleTimeoutSeconds = 60
     ) {
         $loadBalancer = $this->post('load_balancers', [
             'name' => $name,
