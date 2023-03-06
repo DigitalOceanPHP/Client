@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.x-dev@">
+<files psalm-version="5.7.6@ae4ec68e00e4880e3f00b1edd2da891236d749ab">
   <file src="src/ResultPager.php">
-    <InaccessibleProperty occurrences="2">
-      <code>$clone-&gt;page</code>
-      <code>$clone-&gt;perPage</code>
+    <InaccessibleProperty>
+      <code><![CDATA[$clone->page]]></code>
+      <code><![CDATA[$clone->perPage]]></code>
     </InaccessibleProperty>
-    <PossiblyInvalidFunctionCall occurrences="2">
-      <code>$closure($api)</code>
-      <code>$closure($api)</code>
-    </PossiblyInvalidFunctionCall>
   </file>
 </files>

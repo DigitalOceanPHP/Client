@@ -19,6 +19,8 @@ jobs:
           php-version: '8.1'
           tools: composer:v2
           coverage: none
+        env:
+          update: true
 
       - name: Install Dependencies
         uses: nick-invision/retry@v2
@@ -51,6 +53,8 @@ jobs:
           php-version: '8.1'
           tools: composer:v2
           coverage: none
+        env:
+          update: true
 
       - name: Install Dependencies
         uses: nick-invision/retry@v2
