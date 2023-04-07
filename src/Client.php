@@ -290,7 +290,6 @@ class Client
         return new Vpc($this);
     }
 
-
     /**
      * @param string $token
      *

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * This file is part of the DigitalOcean API library.
@@ -37,7 +39,7 @@ class VpcTest extends TestCase
             ->willReturn(new Response(
                 200,
                 ['Content-Type' => ['application/json']],
-                Utils::streamFor(json_encode(['vpcs' => [
+                Utils::streamFor(\json_encode(['vpcs' => [
                     [
                         'name' => 'env.prod-vpc',
                         'description' => 'VPC for production environment',

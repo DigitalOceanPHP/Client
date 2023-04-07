@@ -23,8 +23,9 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Vpc extends AbstractApi
 {
     /**
-     * @return VpcEntity[]
      * @throws ExceptionInterface
+     *
+     * @return VpcEntity[]
      */
     public function getAll(): array
     {
