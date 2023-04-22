@@ -31,6 +31,7 @@ use DigitalOceanV2\Api\LoadBalancer;
 use DigitalOceanV2\Api\Monitoring;
 use DigitalOceanV2\Api\ProjectResource;
 use DigitalOceanV2\Api\Region;
+use DigitalOceanV2\Api\ReservedIp;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
@@ -247,6 +248,11 @@ class Client
     public function region(): Region
     {
         return new Region($this);
+    }
+
+    public function reservedIp(): ReservedIp
+    {
+        return new ReservedIp($this);
     }
 
     /**
