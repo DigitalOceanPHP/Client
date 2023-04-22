@@ -53,7 +53,7 @@ class DropletEntityTest extends TestCase
             'snapshot_ids' => [
                 67512819,
             ],
-            'image' => (object)[
+            'image' => (object) [
                 'id' => 63663980,
                 'name' => '20.04 (LTS) x64',
                 'distribution' => 'Ubuntu',
@@ -76,7 +76,7 @@ class DropletEntityTest extends TestCase
                 'error_message' => '',
             ],
             'volume_ids' => [],
-            'size' => (object)[
+            'size' => (object) [
                 'slug' => 's-1vcpu-1gb',
                 'memory' => 1024,
                 'vcpus' => 1,
@@ -95,7 +95,7 @@ class DropletEntityTest extends TestCase
                 'description' => 'Basic',
             ],
             'size_slug' => 's-1vcpu-1gb',
-            'region' => (object)[
+            'region' => (object) [
                 'name' => 'New York 3',
                 'slug' => 'nyc3',
                 'features' => [
