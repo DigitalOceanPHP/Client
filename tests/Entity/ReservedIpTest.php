@@ -27,7 +27,6 @@ class ReservedIpTest extends TestCase
 {
     public function testConstructor(): void
     {
-
         $values = [
             'ip' => '45.55.96.47',
             'droplet' => null,
@@ -37,19 +36,18 @@ class ReservedIpTest extends TestCase
                 'features' => [
                     'private_networking',
                     'backups',
-                    'image_transfer'
+                    'image_transfer',
                 ],
                 'available' => true,
                 'sizes' => [
                     's-1vcpu-1gb',
                     's-1vcpu-2gb',
-                    's-32vcpu-192g'
-                ]
+                    's-32vcpu-192g',
+                ],
             ],
             'locked' => false,
-            'project_id' => '746c6152-2fa2-11ed-92d3-27aaa54e4988'
+            'project_id' => '746c6152-2fa2-11ed-92d3-27aaa54e4988',
         ];
-
 
         $entity = new ReservedIpEntity($values);
 

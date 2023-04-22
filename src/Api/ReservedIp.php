@@ -25,8 +25,9 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class ReservedIp extends AbstractApi
 {
     /**
-     * @return ReservedIpEntity[]
      * @throws ExceptionInterface
+     *
+     * @return ReservedIpEntity[]
      */
     public function getAll(): array
     {
