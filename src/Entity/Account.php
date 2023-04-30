@@ -54,4 +54,31 @@ final class Account extends AbstractEntity
      * @var string
      */
     public $statusMessage;
+
+    /**
+     * @var Team
+     */
+    public $team;
+
+    /**
+     * @param array $parameters
+     *
+     * @return void
+     */
+    public function build(array $parameters): void
+    {
+        foreach ($parameters as $property => $value) {
+            switch ($property) {
+                case 'team':
+                    if (\is_object($value)) {
+                        $this->team = new Team($value);
+                    }
+                    unset($parameters[$property]);
+
+                    break;
+            }
+        }
+
+        parent::build($parameters);
+    }
 }
