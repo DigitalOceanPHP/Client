@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 4.7.0 (UPCOMING)
+
+* Add support for Reserved IPs
+* Add support for VPC `getAll`
+
+
 ## 4.6.1 (30/04/2023)
 
 * Add missing team info to `Account` entity
