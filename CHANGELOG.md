@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 4.6.1 (30/04/2023)
+
+* Add missing team info to `Account` entity
+* Add missing VPC UUID to `Droplet` entity
+
+
 ## 4.6.0 (27/02/2023)
 
 * Added support for PHP 8.2
