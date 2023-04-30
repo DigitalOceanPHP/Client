@@ -141,6 +141,11 @@ final class Droplet extends AbstractEntity
     public $nextBackupWindow;
 
     /**
+     * @var string
+     */
+    public $vpcUuid;
+
+    /**
      * @param array $parameters
      *
      * @return void
