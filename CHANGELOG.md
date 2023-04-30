@@ -6,6 +6,7 @@ CHANGE LOG
 
 * Add support for Reserved IPs
 * Add support for VPC `getAll`
+* Added support for `psr/http-message` v2
 
 
 ## 4.6.1 (30/04/2023)
