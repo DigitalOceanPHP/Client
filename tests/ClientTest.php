@@ -33,6 +33,7 @@ use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
+use DigitalOceanV2\Api\Vpc;
 use DigitalOceanV2\Client;
 use Http\Client\Common\HttpMethodsClientInterface;
 use PHPUnit\Framework\TestCase;
@@ -73,5 +74,6 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(Snapshot::class, $client->snapshot());
         self::assertInstanceOf(Tag::class, $client->tag());
         self::assertInstanceOf(Volume::class, $client->volume());
+        self::assertInstanceOf(Vpc::class, $client->vpc());
     }
 }
