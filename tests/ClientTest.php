@@ -29,6 +29,7 @@ use DigitalOceanV2\Api\Key;
 use DigitalOceanV2\Api\LoadBalancer;
 use DigitalOceanV2\Api\ProjectResource;
 use DigitalOceanV2\Api\Region;
+use DigitalOceanV2\Api\ReservedIp;
 use DigitalOceanV2\Api\Size;
 use DigitalOceanV2\Api\Snapshot;
 use DigitalOceanV2\Api\Tag;
@@ -70,6 +71,7 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(LoadBalancer::class, $client->loadBalancer());
         self::assertInstanceOf(ProjectResource::class, $client->projectResource());
         self::assertInstanceOf(Region::class, $client->region());
+        self::assertInstanceOf(ReservedIp::class, $client->reservedIp());
         self::assertInstanceOf(Size::class, $client->size());
         self::assertInstanceOf(Snapshot::class, $client->snapshot());
         self::assertInstanceOf(Tag::class, $client->tag());
