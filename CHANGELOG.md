@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.7.0 (UPCOMING)
+## 4.7.0 (30/04/2023)
 
 * Add support for Reserved IPs
 * Add support for VPC `getAll`
