@@ -99,12 +99,13 @@ class Droplet extends AbstractApi
      * @param bool         $monitoring
      * @param array        $volumes
      * @param array        $tags
+     * @param bool         $disable_agent
      *
      * @throws ExceptionInterface
      *
      * @return DropletEntity|DropletEntity[]|null
      */
-    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, $vpcUuid = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [])
+    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, $vpcUuid = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [], $disable_agent = false)
     {
         $data = \is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -116,6 +117,10 @@ class Droplet extends AbstractApi
             'ipv6' => $ipv6 ? 'true' : 'false',
             'monitoring' => $monitoring ? 'true' : 'false',
         ]);
+
+        if ($disable_agent) {
+            $data['with_droplet_agent'] = false;
+        }
 
         if (0 < \count($sshKeys)) {
             $data['ssh_keys'] = $sshKeys;
