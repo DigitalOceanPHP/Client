@@ -119,7 +119,7 @@ class Droplet extends AbstractApi
         ]);
 
         if ($disable_agent) {
-            $data['with_droplet_agent'] = false;
+            $data['with_droplet_agent'] = 'false';
         }
 
         if (0 < \count($sshKeys)) {
