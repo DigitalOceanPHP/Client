@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 4.8.0 (XX/10/2023)
+
+* Added support for PHP 8.3
+* Add support for disabling installation of DO agent
+
+
 ## 4.7.0 (30/04/2023)
 
 * Add support for Reserved IPs

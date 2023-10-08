@@ -31,7 +31,7 @@ $ composer require "toin0u/digitalocean-v2:^4.8" \
 #### Laravel:
 
 ```bash
-$ composer require "graham-campbell/digitalocean:^10.1"
+$ composer require "graham-campbell/digitalocean:^10.2"
 ```
 
 We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. The framework integration [graham-campbell/gitlab](https://github.com/GrahamCampbell/Laravel-GitLab) is by [Graham Campbell](https://github.com/GrahamCampbell) and [dunglas/digital-ocean-bundle](https://github.com/dunglas/DunglasDigitalOceanBundle) is by [Kévin Dunglas](https://github.com/dunglas).
