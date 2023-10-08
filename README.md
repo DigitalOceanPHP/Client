@@ -23,7 +23,7 @@ This version supports [PHP](https://php.net) 7.4-8.3. To get started, simply req
 
 ```bash
 $ composer require "toin0u/digitalocean-v2:^4.8" \
-  "guzzlehttp/guzzle:^7.5.1" "http-interop/http-factory-guzzle:^1.2"
+  "guzzlehttp/guzzle:^7.8" "http-interop/http-factory-guzzle:^1.2"
 ```
 
 ### Framework Integration
