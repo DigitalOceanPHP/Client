@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 4.8.0 (XX/10/2023)
+## 4.8.0 (08/10/2023)
 
 * Added support for PHP 8.3
 * Add support for disabling installation of DO agent
