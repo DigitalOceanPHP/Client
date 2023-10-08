@@ -23,8 +23,8 @@
     "require": {
         "php": "^7.4.15 || ^8.0.2",
         "ext-json": "*",
-        "php-http/client-common": "^2.6.1",
-        "php-http/discovery": "^1.17",
+        "php-http/client-common": "^2.7",
+        "php-http/discovery": "^1.19",
         "php-http/httplug": "^2.4",
         "psr/http-client-implementation": "^1.0",
         "psr/http-factory-implementation": "^1.0",
@@ -33,7 +33,7 @@
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.8.2",
-        "guzzlehttp/guzzle": "^7.5.1",
+        "guzzlehttp/guzzle": "^7.8",
         "http-interop/http-factory-guzzle": "^1.2"
     },
     "autoload": {
