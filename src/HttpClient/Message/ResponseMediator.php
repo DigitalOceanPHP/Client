@@ -132,6 +132,31 @@ final class ResponseMediator
     }
 
     /**
+     * Get the HTTP Response code.
+     * 
+     * @param ResponseInterface $response
+     *
+     * @return int
+     */
+    public static function getResponseCode(ResponseInterface $response): int {
+        return $response->getStatusCode();
+    }
+
+    /**
+     * Get the response reason phrase associated with the status code.
+     *
+     * @param ResponseInterface $response
+     *
+     * @return string
+     */
+    public static function getResponsePhrase(ResponseInterface $response): string {
+        if (strlen($response->getReasonPhrase()) > 0) {
+            return $response->getReasonPhrase();
+        }
+        return "";
+    }
+
+    /**
      * @param ResponseInterface $response
      * @param string            $name
      *
