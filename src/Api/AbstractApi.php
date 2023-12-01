@@ -56,6 +56,13 @@ abstract class AbstractApi
     private $page;
 
     /**
+     * HTTP Response code. 
+     *
+     * @var int
+     */
+    private $httpResponseCode;
+
+    /**
      * Create a new API instance.
      *
      * @param Client $client
@@ -90,6 +97,7 @@ abstract class AbstractApi
 
         $response = $this->client->getHttpClient()->get(self::prepareUri($uri, $params), $headers);
 
+        $this->httpResponseCode = ResponseMediator::getResponseCode($response);
         return ResponseMediator::getContent($response);
     }
 
@@ -114,6 +122,7 @@ abstract class AbstractApi
 
         $response = $this->client->getHttpClient()->post(self::prepareUri($uri), $headers, $body ?? '');
 
+        $this->httpResponseCode = ResponseMediator::getResponseCode($response);
         return ResponseMediator::getContent($response);
     }
 
@@ -138,6 +147,7 @@ abstract class AbstractApi
 
         $response = $this->client->getHttpClient()->put(self::prepareUri($uri), $headers, $body ?? '');
 
+        $this->httpResponseCode = ResponseMediator::getResponseCode($response);
         return ResponseMediator::getContent($response);
     }
 
@@ -203,5 +213,15 @@ abstract class AbstractApi
     private static function addJsonContentType(array $headers): array
     {
         return \array_merge([ResponseMediator::CONTENT_TYPE_HEADER => ResponseMediator::JSON_CONTENT_TYPE], $headers);
+    }
+
+    /**
+     * Returns the HTTP Response code from the Mediator.
+     *
+     * @return int
+     */
+    public function getHttpResponseCode(): int
+    {
+        return $this->httpResponseCode;
     }
 }
