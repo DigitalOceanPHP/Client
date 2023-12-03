@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.7.6@ae4ec68e00e4880e3f00b1edd2da891236d749ab">
+<files psalm-version="5.16.0@2897ba636551a8cb61601cc26f6ccfbba6c36591">
+  <file src="src/Entity/AbstractEntity.php">
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$trace[0]['file']]]></code>
+      <code><![CDATA[$trace[0]['line']]]></code>
+    </PossiblyUndefinedArrayOffset>
+  </file>
   <file src="src/ResultPager.php">
     <InaccessibleProperty>
       <code><![CDATA[$clone->page]]></code>

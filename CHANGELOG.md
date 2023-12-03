@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 4.9.0 (03/12/2023)
+
+* Add support for `symfony/options-resolver:^7.0`
+
+
 ## 4.8.0 (08/10/2023)
 
 * Added support for PHP 8.3
