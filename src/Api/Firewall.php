@@ -94,18 +94,16 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string         $id
-     * @param FirewallEntity $firewall
+     * @param string $id
+     * @param array  $firewall
      *
      * @throws ExceptionInterface
      *
      * @return FirewallEntity
      */
-    public function update(string $id, $firewall)
+    public function update(string $id, array $firewall)
     {
-        $data = $firewall->toArray();
-
-        $result = $this->put(\sprintf('firewalls/%s', $id), $data);
+        $result = $this->put(\sprintf('firewalls/%s', $id), $firewall);
 
         return new FirewallEntity($result->firewall);
     }
