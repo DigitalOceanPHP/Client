@@ -19,8 +19,5 @@ namespace DigitalOceanV2\Entity;
  */
 final class DatabaseMysqlSettings extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $authPlugin;
+    public string $authPlugin;
 }

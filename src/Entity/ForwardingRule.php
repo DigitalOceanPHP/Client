@@ -19,40 +19,22 @@ namespace DigitalOceanV2\Entity;
  */
 class ForwardingRule extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $entryProtocol;
+    public string $entryProtocol;
 
-    /**
-     * @var int
-     */
-    public $entryPort;
+    public int $entryPort;
 
-    /**
-     * @var string
-     */
-    public $targetProtocol;
+    public string $targetProtocol;
 
-    /**
-     * @var int
-     */
-    public $targetPort;
+    public int $targetPort;
 
-    /**
-     * @var string|null
-     */
-    public $certificateId;
+    public ?string $certificateId;
 
-    /**
-     * @var bool|null
-     */
-    public $tlsPassthrough;
+    public ?bool $tlsPassthrough;
 
     /**
      * @return $this
      */
-    public function setStandardHttpRules()
+    public function setStandardHttpRules(): self
     {
         $this->entryProtocol = 'http';
         $this->targetProtocol = 'http';
@@ -65,7 +47,7 @@ class ForwardingRule extends AbstractEntity
     /**
      * @return $this
      */
-    public function setStandardHttpsRules()
+    public function setStandardHttpsRules(): self
     {
         $this->entryProtocol = 'https';
         $this->targetProtocol = 'https';

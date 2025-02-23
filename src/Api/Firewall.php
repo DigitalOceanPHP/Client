@@ -28,7 +28,7 @@ class Firewall extends AbstractApi
      *
      * @return FirewallEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $firewalls = $this->get('firewalls');
 
@@ -38,29 +38,16 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return FirewallEntity
      */
-    public function getById(string $id)
+    public function getById(string $id): FirewallEntity
     {
         $firewall = $this->get(\sprintf('firewalls/%s', $id));
 
         return new FirewallEntity($firewall->firewall);
     }
 
-    /**
-     * @param string $name
-     * @param array  $inboundRules
-     * @param array  $outboundRules
-     * @param array  $dropletIds
-     * @param array  $tags
-     *
-     * @return FirewallEntity
-     */
-    public function create(string $name, array $inboundRules, array $outboundRules, array $dropletIds = [], array $tags = [])
+    public function create(string $name, array $inboundRules, array $outboundRules, array $dropletIds = [], array $tags = []): FirewallEntity
     {
         $data = [
             'name' => $name,
@@ -82,11 +69,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(string $id): void
     {
@@ -94,14 +77,9 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string         $id
-     * @param FirewallEntity $firewall
-     *
      * @throws ExceptionInterface
-     *
-     * @return FirewallEntity
      */
-    public function update(string $id, $firewall)
+    public function update(string $id, FirewallEntity $firewall): FirewallEntity
     {
         $data = $firewall->toArray();
 
@@ -111,12 +89,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $rules
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function addRules(string $id, array $rules): void
     {
@@ -124,12 +97,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $rules
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function removeRules(string $id, array $rules): void
     {
@@ -137,12 +105,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $droplets
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function addDroplets(string $id, array $droplets): void
     {
@@ -150,12 +113,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $droplets
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function removeDroplets(string $id, array $droplets): void
     {
@@ -163,12 +121,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $tags
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function addTags(string $id, array $tags): void
     {
@@ -176,12 +129,7 @@ class Firewall extends AbstractApi
     }
 
     /**
-     * @param string $id
-     * @param array  $tags
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function removeTags(string $id, array $tags): void
     {

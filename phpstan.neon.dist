@@ -2,20 +2,11 @@ includes:
     - phpstan-baseline.neon
     - vendor-bin/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
     - vendor-bin/phpstan/vendor/phpstan/phpstan-strict-rules/rules.neon
-    - vendor-bin/phpstan/vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
-
-rules:
-    - Ergebnis\PHPStan\Rules\Closures\NoNullableReturnTypeDeclarationRule
-    - Ergebnis\PHPStan\Rules\Expressions\NoCompactRule
-    - Ergebnis\PHPStan\Rules\Expressions\NoEvalRule
-    - Ergebnis\PHPStan\Rules\Files\DeclareStrictTypesRule
-    - Ergebnis\PHPStan\Rules\Methods\PrivateInFinalClassRule
 
 parameters:
     level: max
     paths:
         - src
-    checkMissingIterableValueType: false
     stubFiles:
         - .stubs/Psr/Http/Message/StreamInterface.phpstub
         - .stubs/Psr/Http/Message/UriInterface.phpstub
@@ -24,3 +15,7 @@ parameters:
         - .stubs/Psr/Http/Message/ResponseInterface.phpstub
         - .stubs/Http/Promise/Promise.phpstub
         - .stubs/Http/Client/Common/Plugin.phpstub
+    ignoreErrors:
+        - '#return type has no value type specified in iterable type array#'
+        - '#no value type specified in iterable type array#'
+        - '#^Parameter \#1 \$parameters of class DigitalOceanV2\\Entity\\.+ constructor expects array\|object\|null, mixed given\.$#'

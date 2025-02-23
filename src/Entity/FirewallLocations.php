@@ -20,23 +20,11 @@ namespace DigitalOceanV2\Entity;
  */
 final class FirewallLocations extends AbstractEntity
 {
-    /**
-     * @var array
-     */
-    public $addresses;
+    public array $addresses;
 
-    /**
-     * @var array
-     */
-    public $dropletIds;
+    public array $dropletIds;
 
-    /**
-     * @var array
-     */
-    public $loadBalancerUids;
+    public array $loadBalancerUids;
 
-    /**
-     * @var array
-     */
-    public $tags;
+    public array $tags;
 }

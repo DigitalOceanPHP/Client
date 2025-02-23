@@ -41,11 +41,7 @@ final class ResponseMediator
     public const JSON_CONTENT_TYPE = 'application/json';
 
     /**
-     * @param ResponseInterface $response
-     *
      * @throws RuntimeException
-     *
-     * @return stdClass
      */
     public static function getContent(ResponseInterface $response): stdClass
     {
@@ -68,10 +64,6 @@ final class ResponseMediator
 
     /**
      * Get the error message from the response if present.
-     *
-     * @param ResponseInterface $response
-     *
-     * @return string|null
      */
     public static function getErrorMessage(ResponseInterface $response): ?string
     {
@@ -86,8 +78,6 @@ final class ResponseMediator
 
     /**
      * Get the pagination data from the response.
-     *
-     * @param ResponseInterface $response
      *
      * @return array<string,string>
      */
@@ -110,8 +100,6 @@ final class ResponseMediator
     /**
      * Get the rate limit data from the response.
      *
-     * @param ResponseInterface $response
-     *
      * @return array<string,int>
      */
     public static function getRateLimit(ResponseInterface $response): array
@@ -131,12 +119,6 @@ final class ResponseMediator
         ];
     }
 
-    /**
-     * @param ResponseInterface $response
-     * @param string            $name
-     *
-     * @return string|null
-     */
     private static function getHeader(ResponseInterface $response, string $name): ?string
     {
         $headers = $response->getHeader($name);

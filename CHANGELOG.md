@@ -2,6 +2,13 @@ CHANGE LOG
 ==========
 
 
+## 5.0.0 (UPCOMING)
+
+* Add PHP 8.4 support
+* Drop support for PHP earlier than 8.1
+* Moved various param types to native PHP types
+
+
 ## 4.9.0 (03/12/2023)
 
 * Add support for `symfony/options-resolver:^7.0`

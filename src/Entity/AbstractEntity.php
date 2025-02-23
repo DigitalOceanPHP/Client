@@ -22,12 +22,7 @@ use DigitalOceanV2\Exception\RuntimeException;
  */
 abstract class AbstractEntity
 {
-    /**
-     * @param object|array|null $parameters
-     *
-     * @return void
-     */
-    public function __construct($parameters = null)
+    public function __construct(object|array|null $parameters = null)
     {
         if (null === $parameters) {
             return;
@@ -40,12 +35,7 @@ abstract class AbstractEntity
         $this->build($parameters);
     }
 
-    /**
-     * @param string $property
-     *
-     * @return mixed
-     */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $property = static::convertToCamelCase($property);
         if (\property_exists($this, $property)) {
@@ -63,11 +53,6 @@ abstract class AbstractEntity
         return null;
     }
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         foreach ($parameters as $property => $value) {
@@ -79,9 +64,6 @@ abstract class AbstractEntity
         }
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $settings = [];
@@ -100,11 +82,6 @@ abstract class AbstractEntity
         return $settings;
     }
 
-    /**
-     * @param string $date DateTime string
-     *
-     * @return string
-     */
     protected static function convertToIso8601(string $date): string
     {
         $date = new \DateTime($date);
@@ -113,11 +90,6 @@ abstract class AbstractEntity
         return $date->format(\DateTime::ISO8601);
     }
 
-    /**
-     * @param string $str
-     *
-     * @return string
-     */
     protected static function convertToCamelCase(string $str): string
     {
         $callback = function ($match): string {
@@ -133,11 +105,6 @@ abstract class AbstractEntity
         return \lcfirst($replaced);
     }
 
-    /**
-     * @param string $str
-     *
-     * @return string
-     */
     protected static function convertToSnakeCase(string $str): string
     {
         $replaced = \preg_split('/(?=[A-Z])/', $str);

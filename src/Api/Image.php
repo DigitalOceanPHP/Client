@@ -25,13 +25,11 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Image extends AbstractApi
 {
     /**
-     * @param array $criteria
-     *
      * @throws ExceptionInterface
      *
      * @return ImageEntity[]
      */
-    public function getAll(array $criteria = [])
+    public function getAll(array $criteria = []): array
     {
         $query = [];
 
@@ -51,13 +49,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ImageEntity
      */
-    public function getById(int $id)
+    public function getById(int $id): ImageEntity
     {
         $image = $this->get(\sprintf('images/%d', $id));
 
@@ -65,13 +59,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param string $slug
-     *
      * @throws ExceptionInterface
-     *
-     * @return ImageEntity
      */
-    public function getBySlug(string $slug)
+    public function getBySlug(string $slug): ImageEntity
     {
         $image = $this->get(\sprintf('images/%s', $slug));
 
@@ -79,14 +69,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int    $id
-     * @param string $name
-     *
      * @throws ExceptionInterface
-     *
-     * @return ImageEntity
      */
-    public function update(int $id, string $name)
+    public function update(int $id, string $name): ImageEntity
     {
         $image = $this->put(\sprintf('images/%d', $id), ['name' => $name]);
 
@@ -94,11 +79,7 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(int $id): void
     {
@@ -106,14 +87,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int    $id
-     * @param string $regionSlug
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function transfer(int $id, string $regionSlug)
+    public function transfer(int $id, string $regionSlug): ActionEntity
     {
         $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'transfer', 'region' => $regionSlug]);
 
@@ -121,13 +97,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function convert(int $id)
+    public function convert(int $id): ActionEntity
     {
         $action = $this->post(\sprintf('images/%d/actions', $id), ['type' => 'convert']);
 
@@ -135,14 +107,9 @@ class Image extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param int $actionId
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function getAction(int $id, int $actionId)
+    public function getAction(int $id, int $actionId): ActionEntity
     {
         $action = $this->get(\sprintf('images/%d/actions/%d', $id, $actionId));
 

@@ -19,18 +19,9 @@ namespace DigitalOceanV2\Entity;
  */
 class StickySession extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var string
-     */
-    public $cookieName;
+    public string $cookieName;
 
-    /**
-     * @var string
-     */
-    public $cookieTtlSeconds;
+    public string $cookieTtlSeconds;
 }

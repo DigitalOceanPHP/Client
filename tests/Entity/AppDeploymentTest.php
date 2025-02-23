@@ -26,7 +26,7 @@ class AppDeploymentTest extends TestCase
     public function testConstructor(): void
     {
         $values = [
-            'id' => 123,
+            'id' => 'b6bdf840-2854-4f87-a36c-5f231c617c84',
             'spec' => [],
             'services' => [],
             'staticSites' => [],

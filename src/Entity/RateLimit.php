@@ -20,18 +20,9 @@ namespace DigitalOceanV2\Entity;
  */
 final class RateLimit extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    public $limit;
+    public int $limit;
 
-    /**
-     * @var int
-     */
-    public $remaining;
+    public int $remaining;
 
-    /**
-     * @var int
-     */
-    public $reset;
+    public int $reset;
 }

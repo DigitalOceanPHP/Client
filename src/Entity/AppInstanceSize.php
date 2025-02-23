@@ -20,53 +20,23 @@ namespace DigitalOceanV2\Entity;
  */
 final class AppInstanceSize extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var string
-     */
-    public $slug;
+    public string $slug;
 
-    /**
-     * @var string
-     */
-    public $cpuType;
+    public string $cpuType;
 
-    /**
-     * @var string
-     */
-    public $cpus;
+    public string $cpus;
 
-    /**
-     * @var string
-     */
-    public $memoryBytes;
+    public string $memoryBytes;
 
-    /**
-     * @var string
-     */
-    public $usdPerMonth;
+    public string $usdPerMonth;
 
-    /**
-     * @var string
-     */
-    public $usdPerSecond;
+    public string $usdPerSecond;
 
-    /**
-     * @var string
-     */
-    public $tierSlug;
+    public string $tierSlug;
 
-    /**
-     * @var string
-     */
-    public $tierUpgradeTo;
+    public string $tierUpgradeTo;
 
-    /**
-     * @var string
-     */
-    public $tierDowngradeTo;
+    public string $tierDowngradeTo;
 }

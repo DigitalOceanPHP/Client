@@ -69,23 +69,11 @@ class Client
      *
      * @var string
      */
-    private const USER_AGENT = 'digitalocean-php-api-client/4.9';
+    private const USER_AGENT = 'digitalocean-php-api-client/5.0';
 
-    /**
-     * @var Builder
-     */
-    private $httpClientBuilder;
+    private readonly Builder $httpClientBuilder;
+    private readonly History $responseHistory;
 
-    /**
-     * @var History
-     */
-    private $responseHistory;
-
-    /**
-     * @param Builder|null $httpClientBuilder
-     *
-     * @return void
-     */
     public function __construct(Builder $httpClientBuilder = null)
     {
         $this->httpClientBuilder = $builder = $httpClientBuilder ?? new Builder();
@@ -103,11 +91,6 @@ class Client
         $this->setUrl(self::BASE_URL);
     }
 
-    /**
-     * @param ClientInterface $httpClient
-     *
-     * @return Client
-     */
     public static function createWithHttpClient(ClientInterface $httpClient): self
     {
         $builder = new Builder($httpClient);
@@ -115,137 +98,86 @@ class Client
         return new self($builder);
     }
 
-    /**
-     * @return Account
-     */
     public function account(): Account
     {
         return new Account($this);
     }
 
-    /**
-     * @return Action
-     */
     public function action(): Action
     {
         return new Action($this);
     }
 
-    /**
-     * @return App
-     */
     public function app(): App
     {
         return new App($this);
     }
 
-    /**
-     * @return CdnEndpoint
-     */
     public function cdnEndpoint(): CdnEndpoint
     {
         return new CdnEndpoint($this);
     }
 
-    /**
-     * @return Certificate
-     */
     public function certificate(): Certificate
     {
         return new Certificate($this);
     }
 
-    /**
-     * @return Database
-     */
     public function database(): Database
     {
         return new Database($this);
     }
 
-    /**
-     * @return Domain
-     */
     public function domain(): Domain
     {
         return new Domain($this);
     }
 
-    /**
-     * @return DomainRecord
-     */
     public function domainRecord(): DomainRecord
     {
         return new DomainRecord($this);
     }
 
-    /**
-     * @return Droplet
-     */
     public function droplet(): Droplet
     {
         return new Droplet($this);
     }
 
-    /**
-     * @return Firewall
-     */
     public function firewall(): Firewall
     {
         return new Firewall($this);
     }
 
-    /**
-     * @return FloatingIp
-     */
     public function floatingIp(): FloatingIp
     {
         return new FloatingIp($this);
     }
 
-    /**
-     * @return Image
-     */
     public function image(): Image
     {
         return new Image($this);
     }
 
-    /**
-     * @return Key
-     */
     public function key(): Key
     {
         return new Key($this);
     }
 
-    /**
-     * @return LoadBalancer
-     */
     public function loadBalancer(): LoadBalancer
     {
         return new LoadBalancer($this);
     }
 
-    /**
-     * @return Monitoring
-     */
     public function monitoring(): Monitoring
     {
         return new Monitoring($this);
     }
 
-    /**
-     * @return ProjectResource
-     */
     public function projectResource(): ProjectResource
     {
         return new ProjectResource($this);
     }
 
-    /**
-     * @return Region
-     */
     public function region(): Region
     {
         return new Region($this);
@@ -256,51 +188,31 @@ class Client
         return new ReservedIp($this);
     }
 
-    /**
-     * @return Size
-     */
     public function size(): Size
     {
         return new Size($this);
     }
 
-    /**
-     * @return Snapshot
-     */
     public function snapshot(): Snapshot
     {
         return new Snapshot($this);
     }
 
-    /**
-     * @return Tag
-     */
     public function tag(): Tag
     {
         return new Tag($this);
     }
 
-    /**
-     * @return Volume
-     */
     public function volume(): Volume
     {
         return new Volume($this);
     }
 
-    /**
-     * @return Vpc
-     */
     public function vpc(): Vpc
     {
         return new Vpc($this);
     }
 
-    /**
-     * @param string $token
-     *
-     * @return void
-     */
     public function authenticate(string $token): void
     {
         $this->getHttpClientBuilder()->addPlugin(new Authentication($token));
@@ -308,10 +220,6 @@ class Client
 
     /**
      * Set the base URL.
-     *
-     * @param string $url
-     *
-     * @return void
      */
     public function setUrl(string $url): void
     {
@@ -321,8 +229,6 @@ class Client
 
     /**
      * Get the last response.
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
      */
     public function getLastResponse(): ?ResponseInterface
     {
@@ -331,8 +237,6 @@ class Client
 
     /**
      * Get the HTTP client.
-     *
-     * @return \Http\Client\Common\HttpMethodsClientInterface
      */
     public function getHttpClient(): HttpMethodsClientInterface
     {
@@ -341,8 +245,6 @@ class Client
 
     /**
      * Get the HTTP client builder.
-     *
-     * @return \DigitalOceanV2\HttpClient\Builder
      */
     protected function getHttpClientBuilder(): Builder
     {
