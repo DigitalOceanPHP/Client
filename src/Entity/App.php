@@ -20,78 +20,33 @@ namespace DigitalOceanV2\Entity;
  */
 final class App extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $id;
+    public string $id;
 
-    /**
-     * @var string
-     */
-    public $ownerUuid;
+    public string $ownerUuid;
 
-    /**
-     * @var array
-     */
-    public $spec;
+    public array $spec;
 
-    /**
-     * @var string
-     */
-    public $defaultIngress;
+    public string $defaultIngress;
 
-    /**
-     * @var string
-     */
-    public $createdAt;
+    public string $createdAt;
 
-    /**
-     * @var string
-     */
-    public $updatedAt;
+    public string $updatedAt;
 
-    /**
-     * @var array
-     */
-    public $activeDeployment;
+    public array $activeDeployment;
 
-    /**
-     * @var array
-     */
-    public $inProgressDeployment;
+    public array $inProgressDeployment;
 
-    /**
-     * @var string
-     */
-    public $lastDeploymentCreatedAt;
+    public string $lastDeploymentCreatedAt;
 
-    /**
-     * @var string
-     */
-    public $liveUrl;
+    public string $liveUrl;
 
-    /**
-     * @var array
-     */
-    public $region;
+    public array $region;
 
-    /**
-     * @var string
-     */
-    public $tierSlug;
+    public string $tierSlug;
 
-    /**
-     * @var string
-     */
-    public $liveUrlBase;
+    public string $liveUrlBase;
 
-    /**
-     * @var string
-     */
-    public $liveDomain;
+    public string $liveDomain;
 
-    /**
-     * @var array
-     */
-    public $domains;
+    public array $domains;
 }

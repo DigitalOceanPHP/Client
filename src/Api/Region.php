@@ -28,7 +28,7 @@ class Region extends AbstractApi
      *
      * @return RegionEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $regions = $this->get('regions');
 

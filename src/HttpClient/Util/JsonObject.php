@@ -28,8 +28,6 @@ final class JsonObject
 {
     /**
      * Create an empty PHP object.
-     *
-     * @return stdClass
      */
     public static function empty(): stdClass
     {
@@ -39,11 +37,7 @@ final class JsonObject
     /**
      * Decode a JSON string into a PHP object.
      *
-     * @param string $json
-     *
      * @throws RuntimeException
-     *
-     * @return stdClass
      */
     public static function decode(string $json): stdClass
     {
@@ -64,11 +58,7 @@ final class JsonObject
     /**
      * Encode a PHP array into a JSON string.
      *
-     * @param array $value
-     *
      * @throws RuntimeException
-     *
-     * @return string
      */
     public static function encode(array $value): string
     {

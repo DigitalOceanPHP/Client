@@ -33,23 +33,19 @@ class App extends AbstractApi
      *
      * @return AppEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $apps = $this->get('apps');
 
         return \array_map(function ($app) {
             return new AppEntity($app);
-        }, $apps->apps);
+        }, $apps->apps ?? []);
     }
 
     /**
-     * @param string $appID
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppEntity
      */
-    public function getByID(string $appID)
+    public function getByID(string $appID): AppEntity
     {
         $app = $this->get(\sprintf('apps/%s', $appID));
 
@@ -57,13 +53,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param array $spec
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppEntity
      */
-    public function create(array $spec)
+    public function create(array $spec): AppEntity
     {
         $app = $this->post('apps', [
             'spec' => $spec,
@@ -73,14 +65,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     * @param array  $spec
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppEntity
      */
-    public function update(string $appID, array $spec)
+    public function update(string $appID, array $spec): AppEntity
     {
         $result = $this->put(\sprintf('apps/%s', $appID), [
             'spec' => $spec,
@@ -90,11 +77,7 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(string $appID): void
     {
@@ -102,13 +85,11 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     *
      * @throws ExceptionInterface
      *
      * @return AppDeploymentEntity[]
      */
-    public function getAppDeployments(string $appID)
+    public function getAppDeployments(string $appID): array
     {
         $deployments = $this->get(\sprintf('apps/%s/deployments', $appID));
 
@@ -118,13 +99,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $deploymentID
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppDeploymentEntity
      */
-    public function getAppDeployment(string $appID, string $deploymentID)
+    public function getAppDeployment(string $appID, string $deploymentID): AppDeploymentEntity
     {
         $deployment = $this->get(\sprintf('apps/%s/deployments/%s', $appID, $deploymentID));
 
@@ -132,14 +109,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     * @param bool   $force_build
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppDeploymentEntity
      */
-    public function createAppDeployment(string $appID, $force_build = true)
+    public function createAppDeployment(string $appID, bool $force_build = true): AppDeploymentEntity
     {
         $deployment = $this->post(\sprintf('apps/%s/deployments', $appID), [
             'force_build' => $force_build,
@@ -149,14 +121,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     * @param string $deploymentID
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppDeploymentEntity
      */
-    public function cancelAppDeployment(string $appID, string $deploymentID)
+    public function cancelAppDeployment(string $appID, string $deploymentID): AppDeploymentEntity
     {
         $deployment = $this->post(\sprintf('apps/%s/deployments/%s/cancel', $appID, $deploymentID));
 
@@ -164,15 +131,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     * @param string $deploymentID
-     * @param string $componentName
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppDeploymentLogEntity
      */
-    public function getDeploymentLogs(string $appID, string $deploymentID, string $componentName)
+    public function getDeploymentLogs(string $appID, string $deploymentID, string $componentName): AppDeploymentLogEntity
     {
         $logs = $this->get(\sprintf('apps/%s/deployments/%s/components/%s/logs', $appID, $deploymentID, $componentName));
 
@@ -180,14 +141,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $appID
-     * @param string $deploymentID
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppDeploymentLogEntity
      */
-    public function getAggregateDeploymentLogs(string $appID, string $deploymentID)
+    public function getAggregateDeploymentLogs(string $appID, string $deploymentID): AppDeploymentLogEntity
     {
         $logs = $this->get(\sprintf('apps/%s/deployments/%s/logs', $appID, $deploymentID));
 
@@ -199,7 +155,7 @@ class App extends AbstractApi
      *
      * @return AppRegionEntity[]
      */
-    public function getRegions()
+    public function getRegions(): array
     {
         $regions = $this->get('apps/regions');
 
@@ -213,7 +169,7 @@ class App extends AbstractApi
      *
      * @return AppTierEntity[]
      */
-    public function getTiers()
+    public function getTiers(): array
     {
         $tiers = $this->get('apps/tiers');
 
@@ -223,13 +179,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $slug
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppTierEntity
      */
-    public function getTierBySlug(string $slug)
+    public function getTierBySlug(string $slug): AppTierEntity
     {
         $tier = $this->get(\sprintf('apps/tiers/%s', $slug));
 
@@ -241,7 +193,7 @@ class App extends AbstractApi
      *
      * @return AppInstanceSizeEntity[]
      */
-    public function getInstanceSizes()
+    public function getInstanceSizes(): array
     {
         $instance_sizes = $this->get('apps/tiers/instance_sizes');
 
@@ -251,13 +203,9 @@ class App extends AbstractApi
     }
 
     /**
-     * @param string $slug
-     *
      * @throws ExceptionInterface
-     *
-     * @return AppInstanceSizeEntity
      */
-    public function getInstanceSizeBySlug(string $slug)
+    public function getInstanceSizeBySlug(string $slug): AppInstanceSizeEntity
     {
         $instance_size = $this->get(\sprintf('apps/tiers/instance_sizes/%s', $slug));
 

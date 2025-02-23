@@ -20,48 +20,21 @@ namespace DigitalOceanV2\Entity;
  */
 final class MonitoringAlert extends AbstractEntity
 {
-    /**
-     * @var array
-     */
-    public $alerts;
+    public array $alerts;
 
-    /**
-     * @var string
-     */
-    public $compare;
+    public string $compare;
 
-    /**
-     * @var string
-     */
-    public $description;
+    public string $description;
 
-    /**
-     * @var bool
-     */
-    public $enabled;
+    public bool $enabled;
 
-    /**
-     * @var array
-     */
-    public $entities;
+    public array $entities;
 
-    /**
-     * @var array
-     */
-    public $tags;
+    public array $tags;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $type;
 
-    /**
-     * @var int
-     */
-    public $value;
+    public int $value;
 
-    /**
-     * @var string
-     */
-    public $window;
+    public string $window;
 }

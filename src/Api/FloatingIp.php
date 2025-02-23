@@ -28,7 +28,7 @@ class FloatingIp extends AbstractApi
      *
      * @return FloatingIpEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $ips = $this->get('floating_ips');
 
@@ -38,13 +38,9 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $ipAddress
-     *
      * @throws ExceptionInterface
-     *
-     * @return FloatingIpEntity
      */
-    public function getById(string $ipAddress)
+    public function getById(string $ipAddress): FloatingIpEntity
     {
         $ip = $this->get(\sprintf('floating_ips/%s', $ipAddress));
 
@@ -52,13 +48,9 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param int $dropletId
-     *
      * @throws ExceptionInterface
-     *
-     * @return FloatingIpEntity
      */
-    public function createAssigned(int $dropletId)
+    public function createAssigned(int $dropletId): FloatingIpEntity
     {
         $ip = $this->post('floating_ips', ['droplet_id' => $dropletId]);
 
@@ -66,13 +58,9 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $regionSlug
-     *
      * @throws ExceptionInterface
-     *
-     * @return FloatingIpEntity
      */
-    public function createReserved(string $regionSlug)
+    public function createReserved(string $regionSlug): FloatingIpEntity
     {
         $ip = $this->post('floating_ips', ['region' => $regionSlug]);
 
@@ -80,11 +68,7 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $ipAddress
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(string $ipAddress): void
     {
@@ -92,13 +76,11 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $ipAddress
-     *
      * @throws ExceptionInterface
      *
      * @return ActionEntity[]
      */
-    public function getActions(string $ipAddress)
+    public function getActions(string $ipAddress): array
     {
         $actions = $this->get(\sprintf('floating_ips/%s/actions', $ipAddress));
 
@@ -108,14 +90,9 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $ipAddress
-     * @param int    $actionId
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function getActionById(string $ipAddress, int $actionId)
+    public function getActionById(string $ipAddress, int $actionId): ActionEntity
     {
         $action = $this->get(\sprintf('floating_ips/%s/actions/%d', $ipAddress, $actionId));
 
@@ -123,39 +100,25 @@ class FloatingIp extends AbstractApi
     }
 
     /**
-     * @param string $ipAddress
-     * @param int    $dropletId
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function assign(string $ipAddress, int $dropletId)
+    public function assign(string $ipAddress, int $dropletId): ActionEntity
     {
         return $this->executeAction($ipAddress, ['type' => 'assign', 'droplet_id' => $dropletId]);
     }
 
     /**
-     * @param string $ipAddress
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function unassign(string $ipAddress)
+    public function unassign(string $ipAddress): ActionEntity
     {
         return $this->executeAction($ipAddress, ['type' => 'unassign']);
     }
 
     /**
-     * @param string $ipAddress
-     * @param array  $options
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    private function executeAction(string $ipAddress, array $options)
+    private function executeAction(string $ipAddress, array $options): ActionEntity
     {
         $action = $this->post(\sprintf('floating_ips/%s/actions', $ipAddress), $options);
 

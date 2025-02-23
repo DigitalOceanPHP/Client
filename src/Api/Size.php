@@ -28,7 +28,7 @@ class Size extends AbstractApi
      *
      * @return SizeEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $sizes = $this->get('sizes');
 

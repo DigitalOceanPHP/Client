@@ -28,7 +28,7 @@ class Domain extends AbstractApi
      *
      * @return DomainEntity[]
      */
-    public function getAll()
+    public function getAll(): array
     {
         $domains = $this->get('domains');
 
@@ -38,13 +38,9 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param string $domainName
-     *
      * @throws ExceptionInterface
-     *
-     * @return DomainEntity
      */
-    public function getByName(string $domainName)
+    public function getByName(string $domainName): DomainEntity
     {
         $domain = $this->get(\sprintf('domains/%s', $domainName));
 
@@ -52,14 +48,9 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param string      $name
-     * @param string|null $ipAddress
-     *
      * @throws ExceptionInterface
-     *
-     * @return DomainEntity
      */
-    public function create(string $name, ?string $ipAddress = null)
+    public function create(string $name, ?string $ipAddress = null): DomainEntity
     {
         $data = [
             'name' => $name,
@@ -75,11 +66,7 @@ class Domain extends AbstractApi
     }
 
     /**
-     * @param string $domain
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(string $domain): void
     {

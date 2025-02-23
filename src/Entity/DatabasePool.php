@@ -19,46 +19,20 @@ namespace DigitalOceanV2\Entity;
  */
 final class DatabasePool extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var string
-     */
-    public $mode;
+    public string $mode;
 
-    /**
-     * @var int
-     */
-    public $size;
+    public int $size;
 
-    /**
-     * @var string
-     */
-    public $db;
+    public string $db;
 
-    /**
-     * @var string
-     */
-    public $user;
+    public string $user;
 
-    /**
-     * @var DatabaseConnection
-     */
-    public $connection;
+    public DatabaseConnection $connection;
 
-    /**
-     * @var DatabaseConnection
-     */
-    public $privateConnection;
+    public DatabaseConnection $privateConnection;
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         parent::build($parameters);

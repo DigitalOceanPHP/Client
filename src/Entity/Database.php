@@ -19,8 +19,5 @@ namespace DigitalOceanV2\Entity;
  */
 final class Database extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 }

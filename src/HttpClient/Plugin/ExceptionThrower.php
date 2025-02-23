@@ -40,7 +40,6 @@ final class ExceptionThrower implements Plugin
     /**
      * Handle the request and return the response coming from the next callable.
      *
-     * @param \Psr\Http\Message\RequestInterface                     $request
      * @param callable(RequestInterface): Promise<ResponseInterface> $next
      * @param callable(RequestInterface): Promise<ResponseInterface> $first
      *
@@ -61,9 +60,6 @@ final class ExceptionThrower implements Plugin
 
     /**
      * Create an exception from a status code and error message.
-     *
-     * @param int    $status
-     * @param string $message
      *
      * @return ErrorException|RuntimeException
      */

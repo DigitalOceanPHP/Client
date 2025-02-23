@@ -20,23 +20,11 @@ namespace DigitalOceanV2\Entity;
  */
 final class Key extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    public $id;
+    public int $id;
 
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var string
-     */
-    public $fingerprint;
+    public string $fingerprint;
 
-    /**
-     * @var string
-     */
-    public $publicKey;
+    public string $publicKey;
 }

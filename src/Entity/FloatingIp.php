@@ -19,26 +19,12 @@ namespace DigitalOceanV2\Entity;
  */
 final class FloatingIp extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $ip;
+    public string $ip;
 
-    /**
-     * @var Droplet|null
-     */
-    public $droplet;
+    public ?Droplet $droplet;
 
-    /**
-     * @var Region
-     */
-    public $region;
+    public Region $region;
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         parent::build($parameters);

@@ -25,10 +25,6 @@ final class QueryStringBuilder
 {
     /**
      * Encode a query as a query string according to RFC 3986.
-     *
-     * @param array $query
-     *
-     * @return string
      */
     public static function build(array $query): string
     {

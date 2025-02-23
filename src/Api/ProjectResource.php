@@ -24,13 +24,11 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class ProjectResource extends AbstractApi
 {
     /**
-     * @param string $id
-     *
      * @throws ExceptionInterface
      *
      * @return ProjectResourceEntity[]
      */
-    public function getProjectResources(string $id)
+    public function getProjectResources(string $id): array
     {
         $resources = $this->get(\sprintf('projects/%s/resources', $id));
 
@@ -40,14 +38,13 @@ class ProjectResource extends AbstractApi
     }
 
     /**
-     * @param string        $id
      * @param array<string> $resources
      *
      * @throws ExceptionInterface
      *
      * @return ProjectResourceEntity[]
      */
-    public function assignResources(string $id, array $resources)
+    public function assignResources(string $id, array $resources): array
     {
         $resources = $this->post(\sprintf('projects/%s/resources', $id), [
             'resources' => $resources,
@@ -63,7 +60,7 @@ class ProjectResource extends AbstractApi
      *
      * @return ProjectResourceEntity[]
      */
-    public function getDefaultProjectResources()
+    public function getDefaultProjectResources(): array
     {
         $resources = $this->get('projects/default/resources');
 
@@ -79,7 +76,7 @@ class ProjectResource extends AbstractApi
      *
      * @return ProjectResourceEntity[]
      */
-    public function assignResourcesToDefaultProject(array $resources)
+    public function assignResourcesToDefaultProject(array $resources): array
     {
         $resources = $this->post('projects/default/resources', [
             'resources' => $resources,

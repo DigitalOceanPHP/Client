@@ -20,18 +20,9 @@ namespace DigitalOceanV2\Entity;
  */
 final class Domain extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var int
-     */
-    public $ttl;
+    public int $ttl;
 
-    /**
-     * @var string
-     */
-    public $zoneFile;
+    public string $zoneFile;
 }

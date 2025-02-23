@@ -20,8 +20,5 @@ namespace DigitalOceanV2\Entity;
  */
 final class Meta extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    public $total;
+    public int $total;
 }

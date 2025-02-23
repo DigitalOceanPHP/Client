@@ -20,16 +20,8 @@ namespace DigitalOceanV2\Entity;
  */
 final class FirewallRuleOutbound extends FirewallRule
 {
-    /**
-     * @var FirewallLocations
-     */
-    public $destinations;
+    public FirewallLocations $destinations;
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         foreach ($parameters as $property => $value) {
@@ -47,9 +39,6 @@ final class FirewallRuleOutbound extends FirewallRule
         parent::build($parameters);
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $data = parent::toArray();

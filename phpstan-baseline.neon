@@ -1,37 +1,278 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property DigitalOceanV2\\\\Api\\\\AbstractApi\\:\\:\\$page is never written, only read\\.$#"
+			message: '#^Property DigitalOceanV2\\Api\\AbstractApi\:\:\$page \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
 			count: 1
 			path: src/Api/AbstractApi.php
 
 		-
-			message: "#^Property DigitalOceanV2\\\\Api\\\\AbstractApi\\:\\:\\$perPage is never written, only read\\.$#"
+			message: '#^Property DigitalOceanV2\\Api\\AbstractApi\:\:\$perPage \(int\|null\) is never assigned int so it can be removed from the property type\.$#'
+			identifier: property.unusedType
 			count: 1
 			path: src/Api/AbstractApi.php
 
 		-
-			message: "#^Offset 'file' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Action.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 5
+			path: src/Api/App.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/CdnEndpoint.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Certificate.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 7
+			path: src/Api/Database.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Domain.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/DomainRecord.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 8
+			path: src/Api/Droplet.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Firewall.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Api/FloatingIp.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Image.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Key.php
+
+		-
+			message: '#^Parameter \#1 \$config of static method DigitalOceanV2\\Api\\LoadBalancer\:\:formatConfigurationOptions\(\) expects array\|DigitalOceanV2\\Entity\\AbstractEntity, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/LoadBalancer.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/LoadBalancer.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Monitoring.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: src/Api/ProjectResource.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Region.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Api/ReservedIp.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Size.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Snapshot.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Tag.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: src/Api/Volume.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_map expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Api/Vpc.php
+
+		-
+			message: '#^Cannot access offset 2 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: src/Entity/AbstractEntity.php
 
 		-
-			message: "#^Offset 'line' does not exist on array\\{function\\: string, line\\?\\: int, file\\?\\: string, class\\?\\: class\\-string, type\\?\\: '\\-\\>'\\|'\\:\\:', args\\?\\: array, object\\?\\: object\\}\\.$#"
+			message: '#^Loose comparison via "\=\=" is not allowed\.$#'
+			identifier: equal.notAllowed
 			count: 1
 			path: src/Entity/AbstractEntity.php
 
 		-
-			message: "#^Variable property access on \\$this\\(DigitalOceanV2\\\\Entity\\\\AbstractEntity\\)\\.$#"
+			message: '#^Offset ''file'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: ''\-\>''\|''\:\:'', args\?\: array\<mixed\>, object\?\: object\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
+			message: '#^Offset ''line'' might not exist on array\{function\: string, line\?\: int, file\?\: string, class\?\: class\-string, type\?\: ''\-\>''\|''\:\:'', args\?\: array\<mixed\>, object\?\: object\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strtoupper expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Entity/AbstractEntity.php
+
+		-
+			message: '#^Variable property access on \$this\(DigitalOceanV2\\Entity\\AbstractEntity\)\.$#'
+			identifier: property.dynamicName
 			count: 4
 			path: src/Entity/AbstractEntity.php
 
 		-
-			message: "#^Method DigitalOceanV2\\\\HttpClient\\\\Message\\\\ResponseMediator\\:\\:getPagination\\(\\) should return array\\<string, string\\> but returns array\\<string, mixed\\>\\.$#"
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: src/Entity/Droplet.php
+
+		-
+			message: '#^Cannot access property \$cidr on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/Entity/Droplet.php
+
+		-
+			message: '#^Cannot access property \$netmask on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/Entity/Droplet.php
+
+		-
+			message: '#^Cannot access property \$version on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: src/Entity/Droplet.php
+
+		-
+			message: '#^Anonymous function should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Entity/Firewall.php
+
+		-
+			message: '#^Cannot call method toArray\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/Entity/Firewall.php
+
+		-
+			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
+			identifier: notEqual.notAllowed
+			count: 1
+			path: src/Entity/FirewallRule.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: src/Entity/LoadBalancer.php
+
+		-
+			message: '#^Call to function array_filter\(\) requires parameter \#2 to be passed to avoid loose comparison semantics\.$#'
+			identifier: arrayFilter.strict
 			count: 1
 			path: src/HttpClient/Message/ResponseMediator.php
 
 		-
-			message: "#^Variable method call on DigitalOceanV2\\\\Api\\\\AbstractApi\\.$#"
+			message: '#^Cannot access property \$pages on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: src/HttpClient/Message/ResponseMediator.php
+
+		-
+			message: '#^Method DigitalOceanV2\\HttpClient\\Message\\ResponseMediator\:\:getPagination\(\) should return array\<string, string\> but returns array\<string, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/HttpClient/Message/ResponseMediator.php
+
+		-
+			message: '#^Property DigitalOceanV2\\HttpClient\\Plugin\\History\:\:\$lastResponse \(Psr\\Http\\Message\\ResponseInterface\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: src/HttpClient/Plugin/History.php
+
+		-
+			message: '#^PHPDoc tag @var with type string is not subtype of native type non\-empty\-string\|false\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: src/HttpClient/Util/JsonObject.php
+
+		-
+			message: '#^PHPDoc tag @var with type Closure\(DigitalOceanV2\\Api\\AbstractApi\)\: DigitalOceanV2\\Api\\AbstractApi is not subtype of type Closure\(DigitalOceanV2\\Api\\AbstractApi\)\: DigitalOceanV2\\Api\\AbstractApi\.$#'
+			identifier: varTag.type
+			count: 2
+			path: src/ResultPager.php
+
+		-
+			message: '#^Variable method call on DigitalOceanV2\\Api\\AbstractApi\.$#'
+			identifier: method.dynamicName
 			count: 1
 			path: src/ResultPager.php
 

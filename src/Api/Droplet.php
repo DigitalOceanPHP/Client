@@ -27,13 +27,11 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Droplet extends AbstractApi
 {
     /**
-     * @param string|null $tag
-     *
      * @throws ExceptionInterface
      *
      * @return DropletEntity[]
      */
-    public function getAll(?string $tag = null)
+    public function getAll(?string $tag = null): array
     {
         $droplets = $this->get('droplets', null === $tag ? [] : ['tag_name' => $tag]);
 
@@ -43,13 +41,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
      *
      * @return DropletEntity[]
      */
-    public function getNeighborsById(int $id)
+    public function getNeighborsById(int $id): array
     {
         $droplets = $this->get(\sprintf('droplets/%d/neighbors', $id));
 
@@ -63,7 +59,7 @@ class Droplet extends AbstractApi
      *
      * @return DropletEntity[]
      */
-    public function getAllNeighbors()
+    public function getAllNeighbors(): array
     {
         $neighbors = $this->get('reports/droplet_neighbors');
 
@@ -73,13 +69,9 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return DropletEntity
      */
-    public function getById(int $id)
+    public function getById(int $id): DropletEntity
     {
         $droplet = $this->get(\sprintf('droplets/%d', $id));
 
@@ -87,25 +79,13 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param array|string $names
-     * @param string       $region
-     * @param string       $size
-     * @param string|int   $image
-     * @param bool         $backups
-     * @param bool         $ipv6
-     * @param string|bool  $vpcUuid
-     * @param int[]        $sshKeys
-     * @param string       $userData
-     * @param bool         $monitoring
-     * @param array        $volumes
-     * @param array        $tags
-     * @param bool         $disableAgent
+     * @param int[] $sshKeys
      *
      * @throws ExceptionInterface
      *
      * @return DropletEntity|DropletEntity[]|null
      */
-    public function create($names, string $region, string $size, $image, bool $backups = false, bool $ipv6 = false, $vpcUuid = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [], bool $disableAgent = false)
+    public function create(array|string $names, string $region, string $size, string|int $image, bool $backups = false, bool $ipv6 = false, string|bool $vpcUuid = false, array $sshKeys = [], string $userData = '', bool $monitoring = true, array $volumes = [], array $tags = [], bool $disableAgent = false): DropletEntity|array|null
     {
         $data = \is_array($names) ? ['names' => $names] : ['name' => $names];
 
@@ -156,11 +136,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function remove(int $id): void
     {
@@ -168,11 +144,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param string $tag
-     *
      * @throws ExceptionInterface
-     *
-     * @return void
      */
     public function removeTagged(string $tag): void
     {
@@ -180,13 +152,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
      *
      * @return KernelEntity[]
      */
-    public function getAvailableKernels(int $id)
+    public function getAvailableKernels(int $id): array
     {
         $kernels = $this->get(\sprintf('droplets/%d/kernels', $id));
 
@@ -196,13 +166,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
      *
      * @return ImageEntity[]
      */
-    public function getSnapshots(int $id)
+    public function getSnapshots(int $id): array
     {
         $snapshots = $this->get(\sprintf('droplets/%d/snapshots', $id));
 
@@ -212,13 +180,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
      *
      * @return ImageEntity[]
      */
-    public function getBackups(int $id)
+    public function getBackups(int $id): array
     {
         $backups = $this->get(\sprintf('droplets/%d/backups', $id));
 
@@ -228,13 +194,11 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
      *
      * @return ActionEntity[]
      */
-    public function getActions(int $id)
+    public function getActions(int $id): array
     {
         $actions = $this->get(\sprintf('droplets/%d/actions', $id));
 
@@ -244,14 +208,9 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     * @param int $actionId
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function getActionById(int $id, int $actionId)
+    public function getActionById(int $id, int $actionId): ActionEntity
     {
         $action = $this->get(\sprintf('droplets/%d/actions/%d', $id, $actionId));
 
@@ -259,213 +218,137 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function reboot(int $id)
+    public function reboot(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'reboot']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function powerCycle(int $id)
+    public function powerCycle(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'power_cycle']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function shutdown(int $id)
+    public function shutdown(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'shutdown']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function powerOff(int $id)
+    public function powerOff(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'power_off']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function powerOn(int $id)
+    public function powerOn(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'power_on']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function passwordReset(int $id)
+    public function passwordReset(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'password_reset']);
     }
 
     /**
-     * @param int    $id
-     * @param string $size
-     * @param bool   $disk
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function resize(int $id, string $size, bool $disk = true)
+    public function resize(int $id, string $size, bool $disk = true): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'resize', 'size' => $size, 'disk' => $disk ? 'true' : 'false']);
     }
 
     /**
-     * @param int $id
-     * @param int $image
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function restore(int $id, int $image)
+    public function restore(int $id, int $image): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'restore', 'image' => $image]);
     }
 
     /**
-     * @param int        $id
-     * @param int|string $image
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function rebuild(int $id, $image)
+    public function rebuild(int $id, int|string $image): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'rebuild', 'image' => $image]);
     }
 
     /**
-     * @param int    $id
-     * @param string $name
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function rename(int $id, string $name)
+    public function rename(int $id, string $name): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'rename', 'name' => $name]);
     }
 
     /**
-     * @param int $id
-     * @param int $kernel
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function changeKernel(int $id, int $kernel)
+    public function changeKernel(int $id, int $kernel): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'change_kernel', 'kernel' => $kernel]);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function enableIpv6(int $id)
+    public function enableIpv6(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'enable_ipv6']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function enableBackups(int $id)
+    public function enableBackups(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'enable_backups']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function disableBackups(int $id)
+    public function disableBackups(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'disable_backups']);
     }
 
     /**
-     * @param int $id
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function enablePrivateNetworking(int $id)
+    public function enablePrivateNetworking(int $id): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'enable_private_networking']);
     }
 
     /**
-     * @param int    $id
-     * @param string $name
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    public function snapshot(int $id, string $name)
+    public function snapshot(int $id, string $name): ActionEntity
     {
         return $this->executeAction($id, ['type' => 'snapshot', 'name' => $name]);
     }
 
     /**
-     * @param int   $id
-     * @param array $options
-     *
      * @throws ExceptionInterface
-     *
-     * @return ActionEntity
      */
-    private function executeAction(int $id, array $options)
+    private function executeAction(int $id, array $options): ActionEntity
     {
         $action = $this->post(\sprintf('droplets/%d/actions', $id), $options);
 

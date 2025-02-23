@@ -20,136 +20,74 @@ namespace DigitalOceanV2\Entity;
  */
 final class Droplet extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    public $id;
+    public int $id;
 
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var int
-     */
-    public $memory;
+    public int $memory;
 
-    /**
-     * @var int
-     */
-    public $vcpus;
+    public int $vcpus;
 
-    /**
-     * @var int
-     */
-    public $disk;
+    public int $disk;
 
-    /**
-     * @var Region
-     */
-    public $region;
+    public Region $region;
 
-    /**
-     * @var Image
-     */
-    public $image;
+    public Image $image;
 
-    /**
-     * @var Kernel
-     */
-    public $kernel;
+    public Kernel $kernel;
 
-    /**
-     * @var Size
-     */
-    public $size;
+    public Size $size;
 
-    /**
-     * @var string
-     */
-    public $sizeSlug;
+    public string $sizeSlug;
 
-    /**
-     * @var bool
-     */
-    public $locked;
+    public bool $locked;
 
-    /**
-     * @var string
-     */
-    public $createdAt;
+    public string $createdAt;
 
-    /**
-     * @var string
-     */
-    public $status;
+    public string $status;
 
     /**
      * @var string[]
      */
-    public $tags = [];
+    public array $tags = [];
 
     /**
      * @var Network[]
      */
-    public $networks = [];
+    public array $networks = [];
 
     /**
      * @var int[]
      */
-    public $backupIds = [];
+    public array $backupIds = [];
 
     /**
      * @var string[]
      */
-    public $volumeIds = [];
+    public array $volumeIds = [];
 
     /**
      * @var int[]
      */
-    public $snapshotIds = [];
+    public array $snapshotIds = [];
 
     /**
      * @var string[]
      */
-    public $features = [];
+    public array $features = [];
 
-    /**
-     * @var bool
-     */
-    public $backupsEnabled;
+    public bool $backupsEnabled;
 
-    /**
-     * @var bool
-     */
-    public $privateNetworkingEnabled;
+    public bool $privateNetworkingEnabled;
 
-    /**
-     * @var bool
-     */
-    public $ipv6Enabled;
+    public bool $ipv6Enabled;
 
-    /**
-     * @var bool
-     */
-    public $virtIOEnabled;
+    public bool $virtIOEnabled;
 
-    /**
-     * @var NextBackupWindow
-     */
-    public $nextBackupWindow;
+    public NextBackupWindow $nextBackupWindow;
 
-    /**
-     * @var string
-     */
-    public $vpcUuid;
+    public string $vpcUuid;
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         foreach ($parameters as $property => $value) {
@@ -224,11 +162,6 @@ final class Droplet extends AbstractEntity
         $this->ipv6Enabled = \in_array('ipv6', $this->features, true);
     }
 
-    /**
-     * @param string $createdAt
-     *
-     * @return void
-     */
     public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = static::convertToIso8601($createdAt);

@@ -19,90 +19,48 @@ namespace DigitalOceanV2\Entity;
  */
 final class DatabaseCluster extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $id;
+    public string $id;
 
-    /**
-     * @var string
-     */
-    public $name;
+    public string $name;
 
-    /**
-     * @var string
-     */
-    public $engine;
+    public string $engine;
 
-    /**
-     * @var string
-     */
-    public $version;
+    public string $version;
 
-    /**
-     * @var DatabaseConnection
-     */
-    public $connection;
+    public DatabaseConnection $connection;
 
-    /**
-     * @var DatabaseConnection
-     */
-    public $privateConnection;
+    public DatabaseConnection $privateConnection;
 
     /**
      * @var DatabaseUser[]
      */
-    public $users = [];
+    public array $users = [];
 
     /**
      * @var string[]
      */
-    public $dbNames = [];
+    public array $dbNames = [];
 
-    /**
-     * @var int
-     */
-    public $numNodes;
+    public int $numNodes;
 
-    /**
-     * @var string
-     */
-    public $size;
+    public string $size;
 
-    /**
-     * @var string
-     */
-    public $region;
+    public string $region;
 
-    /**
-     * @var string
-     */
-    public $status;
+    public string $status;
 
-    /**
-     * @var DatabaseMaintenanceWindow
-     */
-    public $maintenanceWindow;
+    public DatabaseMaintenanceWindow $maintenanceWindow;
 
-    /**
-     * @var string
-     */
-    public $createdAt;
+    public string $createdAt;
 
     /**
      * @var string[]
      */
-    public $tags = [];
+    public array $tags = [];
 
-    /**
-     * @var string
-     */
-    public $privateNetworkUuid;
+    public string $privateNetworkUuid;
 
-    /**
-     * @var int|null
-     */
-    public $storageSizeMib;
+    public ?int $storageSizeMib;
 
     /**
      * @param array $parameters
@@ -137,11 +95,6 @@ final class DatabaseCluster extends AbstractEntity
         }
     }
 
-    /**
-     * @param string $createdAt
-     *
-     * @return void
-     */
     public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = static::convertToIso8601($createdAt);

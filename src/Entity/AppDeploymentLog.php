@@ -20,13 +20,7 @@ namespace DigitalOceanV2\Entity;
  */
 final class AppDeploymentLog extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $liveUrl;
+    public string $liveUrl;
 
-    /**
-     * @var array
-     */
-    public $historicUrls;
+    public array $historicUrls;
 }

@@ -19,21 +19,10 @@ namespace DigitalOceanV2\Entity;
  */
 final class DatabaseBackup extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $createdAt;
+    public string $createdAt;
 
-    /**
-     * @var float
-     */
-    public $sizeGigabytes;
+    public float $sizeGigabytes;
 
-    /**
-     * @param string $createdAt
-     *
-     * @return void
-     */
     public function setCreatedAt(string $createdAt): void
     {
         $this->createdAt = static::convertToIso8601($createdAt);

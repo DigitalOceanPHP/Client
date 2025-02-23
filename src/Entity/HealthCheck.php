@@ -19,38 +19,17 @@ namespace DigitalOceanV2\Entity;
  */
 class HealthCheck extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    public $protocol;
+    public string $protocol;
 
-    /**
-     * @var int
-     */
-    public $port;
+    public int $port;
 
-    /**
-     * @var string
-     */
-    public $path;
+    public string $path;
 
-    /**
-     * @var int
-     */
-    public $checkIntervalSeconds;
+    public int $checkIntervalSeconds;
 
-    /**
-     * @var int
-     */
-    public $responseTimeoutSeconds;
+    public int $responseTimeoutSeconds;
 
-    /**
-     * @var int
-     */
-    public $healthyThreshold;
+    public int $healthyThreshold;
 
-    /**
-     * @var int
-     */
-    public $unhealthyThreshold;
+    public int $unhealthyThreshold;
 }

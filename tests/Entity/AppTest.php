@@ -26,7 +26,7 @@ class AppTest extends TestCase
     public function testConstructor(): void
     {
         $values = [
-            'id' => 123,
+            'id' => '4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf',
             'ownerUuid' => 'uuid',
             'spec' => [],
             'defaultIngress' => 'defaultIngress',
