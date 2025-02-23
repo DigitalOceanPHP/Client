@@ -62,11 +62,6 @@ final class DatabaseCluster extends AbstractEntity
 
     public ?int $storageSizeMib;
 
-    /**
-     * @param array $parameters
-     *
-     * @return void
-     */
     public function build(array $parameters): void
     {
         parent::build($parameters);
