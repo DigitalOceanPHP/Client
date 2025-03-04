@@ -28,7 +28,7 @@ final class Image extends AbstractEntity
 
     public string $distribution;
 
-    public string $slug;
+    public ?string $slug;
 
     public int $minDiskSize;
 

@@ -30,7 +30,7 @@ final class Size extends AbstractEntity
 
     public int $disk;
 
-    public int $transfer;
+    public int|float $transfer;
 
     public int|float $priceMonthly;
 
