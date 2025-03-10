@@ -95,6 +95,24 @@ class DropletEntityTest extends TestCase
                 'description' => 'Basic',
             ],
             'size_slug' => 's-1vcpu-1gb',
+            'networks' => (object) [
+                'v4' => [
+                    (object) [
+                        'ip_address' => '10.135.0.3',
+                        'netmask' => '255.255.0.0',
+                        'gateway' => '10.135.0.1',
+                        'type' => 'private',
+                    ],
+                ],
+                'v6' => [
+                    (object) [
+                        'ip_address' => '2001:db8:a::1234:5678',
+                        'netmask' => 64,
+                        'gateway' => '2001:db8:a::1',
+                        'type' => 'public',
+                    ],
+                ],
+            ],
             'region' => (object) [
                 'name' => 'New York 3',
                 'slug' => 'nyc3',
