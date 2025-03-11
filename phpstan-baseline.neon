@@ -193,21 +193,9 @@ parameters:
 			path: src/Entity/Droplet.php
 
 		-
-			message: '#^Cannot access property \$cidr on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Entity/Droplet.php
-
-		-
-			message: '#^Cannot access property \$netmask on mixed\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/Entity/Droplet.php
-
-		-
 			message: '#^Cannot access property \$version on mixed\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/Entity/Droplet.php
 
 		-
