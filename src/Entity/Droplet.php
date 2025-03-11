@@ -109,7 +109,7 @@ final class Droplet extends AbstractEntity
                                     'netmask' => null,
                                     'gateway' => $subValue->gateway,
                                     'type' => $subValue->type,
-                                    'cidr' => match(\is_int($subValue->netmask)) {
+                                    'cidr' => match (\is_int($subValue->netmask)) {
                                         true => \sprintf('%s/%d', $subValue->ip_address, $subValue->netmask),
                                         default => $subValue->netmask,
                                     },
