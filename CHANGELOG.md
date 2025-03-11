@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 5.0.3 (UPCOMING)
+
+* Fixed hydration of the Network class with IPv6 addresses
+
+
 ## 5.0.2 (04/03/2025)
 
 * Fixed a couple of incorrect property types
