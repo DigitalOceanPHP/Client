@@ -30,11 +30,11 @@ final class Action extends AbstractEntity
 
     public ?string $completedAt;
 
-    public string $resourceId;
+    public int $resourceId;
 
     public string $resourceType;
 
-    public Region $region;
+    public object $region;
 
     public string $regionSlug;
 
