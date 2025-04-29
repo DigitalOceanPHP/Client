@@ -26,17 +26,17 @@ final class DomainRecord extends AbstractEntity
 
     public string $name;
 
-    public string $data;
+    public ?string $data;
 
-    public int $priority;
+    public ?int $priority;
 
-    public int $port;
+    public ?int $port;
 
     public int $ttl;
 
-    public int $weight;
+    public ?int $weight;
 
-    public int $flags;
+    public ?int $flags;
 
-    public string $tag;
+    public ?string $tag;
 }
