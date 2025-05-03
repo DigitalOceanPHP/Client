@@ -33,8 +33,6 @@ final class FirewallRuleOutbound extends FirewallRule
                 $this->$property = $value;
             }
         }
-
-        parent::build($parameters);
     }
 
     public function toArray(): array
