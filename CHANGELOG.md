@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 5.0.5 (UPCOMING)
+
+* Fixed `FirewallRuleOutbound` hydration
+
+
 ## 5.0.4 (30/04/2025)
 
 * Fixed a bunch of entity hydration bugs
