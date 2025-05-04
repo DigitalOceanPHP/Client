@@ -86,7 +86,7 @@ final class Droplet extends AbstractEntity
 
     public NextBackupWindow $nextBackupWindow;
 
-    public string $vpcUuid;
+    public ?string $vpcUuid = null;
 
     public function build(array $parameters): void
     {
