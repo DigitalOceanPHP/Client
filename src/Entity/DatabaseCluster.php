@@ -72,9 +72,11 @@ final class DatabaseCluster extends AbstractEntity
             } elseif ('privateConnection' === $property) {
                 $this->privateConnection = new DatabaseConnection($value);
             } elseif ('users' === $property) {
-                $this->users = \array_map(fn ($v) => new DatabaseUser($v), $value);
+                $this->users = \array_map(fn ($v) => new DatabaseUser($v), $value ?? []);
             } elseif ('maintenanceWindow' === $property) {
                 $this->maintenanceWindow = new DatabaseMaintenanceWindow($value);
+            } elseif('dbNames' === $property) {
+                $this->dbNames = $value ?? [];
             } elseif (\property_exists($this, $property)) {
                 $this->$property = $value;
             }
