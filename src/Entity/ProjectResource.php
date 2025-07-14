@@ -27,4 +27,17 @@ final class ProjectResource extends AbstractEntity
     public array $links;
 
     public string $status;
+
+    public function build(array $parameters): void
+    {
+        foreach ($parameters as $property => $value) {
+            $property = static::convertToCamelCase($property);
+
+            if ('links' === $property) {
+                $this->links = get_object_vars($value);
+            } elseif (\property_exists($this, $property)) {
+                $this->$property = $value;
+            }
+        }
+    }
 }
