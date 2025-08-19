@@ -21,7 +21,7 @@ final class LoadBalancer extends AbstractEntity
 {
     public string $id;
 
-    public int $name;
+    public string $name;
 
     public string $ip;
 
