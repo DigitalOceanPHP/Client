@@ -63,11 +63,8 @@ abstract class AbstractEntity
             }
 
             try {
-
                 $this->$property = $value;
-
             } catch (\Error $error) {
-
                 // If the reason for the error was attempting to set a \stdClass
                 // instance to an array property, try to type cast it to an
                 // array ourselves.
@@ -75,14 +72,13 @@ abstract class AbstractEntity
                 $reflectedProperty = new \ReflectionProperty($this, $property);
 
                 if (
-                    $reflectedProperty->getType()->getName() !== 'array' ||
+                    'array' !== $reflectedProperty->getType()->getName() ||
                     !($value instanceof \stdClass)
                 ) {
                     continue;
                 }
 
                 $this->$property = (array) $value;
-
             }
         }
     }
