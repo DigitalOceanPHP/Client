@@ -58,8 +58,31 @@ abstract class AbstractEntity
         foreach ($parameters as $property => $value) {
             $property = static::convertToCamelCase($property);
 
-            if (\property_exists($this, $property)) {
+            if (!\property_exists($this, $property)) {
+                continue;
+            }
+
+            try {
+
                 $this->$property = $value;
+
+            } catch (\Error $error) {
+
+                // If the reason for the error was attempting to set a \stdClass
+                // instance to an array property, try to type cast it to an
+                // array ourselves.
+
+                $reflectedProperty = new \ReflectionProperty($this, $property);
+
+                if (
+                    $reflectedProperty->getType()->getName() !== 'array' ||
+                    !($value instanceof \stdClass)
+                ) {
+                    continue;
+                }
+
+                $this->$property = (array) $value;
+
             }
         }
     }
