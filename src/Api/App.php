@@ -45,7 +45,7 @@ class App extends AbstractApi
     /**
      * @throws ExceptionInterface
      */
-    public function getByID(string $appID): AppEntity
+    public function getById(string $appID): AppEntity
     {
         $app = $this->get(\sprintf('apps/%s', $appID));
 

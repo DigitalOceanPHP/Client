@@ -247,12 +247,6 @@ parameters:
 			path: src/Entity/Droplet.php
 
 		-
-			message: '#^Cannot access property \$version on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/Entity/Droplet.php
-
-		-
 			message: '#^Parameter \#1 \$object_or_class of function property_exists expects object\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -371,4 +365,3 @@ parameters:
 			identifier: method.dynamicName
 			count: 1
 			path: src/ResultPager.php
-

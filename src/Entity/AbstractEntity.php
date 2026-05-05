@@ -87,7 +87,7 @@ abstract class AbstractEntity
         $date = new \DateTime($date);
         $date->setTimezone(new \DateTimeZone(\date_default_timezone_get()));
 
-        return $date->format(\DateTime::ISO8601);
+        return $date->format('Y-m-d\TH:i:sO');
     }
 
     protected static function convertToCamelCase(string $str): string
