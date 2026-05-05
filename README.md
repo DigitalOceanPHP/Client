@@ -17,7 +17,7 @@ Check out the [change log](CHANGELOG.md), [releases](https://github.com/DigitalO
 
 ## Installation
 
-This version supports [PHP](https://php.net) 8.1-8.4. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).
+This version supports [PHP](https://php.net) 8.1-8.5. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).
 
 ### Standard Installation
 
@@ -201,7 +201,7 @@ $database->migrate('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'lon1');
 $database->remove('405427f6-393a-4744-817a-2ec6c1b2e2c2');
 
 // return the DatabaseRules entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
-$rules = $database->getFirewallRules('405427f6-393a-4744-817a-2ec6c1b2e2c2')
+$rules = $database->getFirewallRules('405427f6-393a-4744-817a-2ec6c1b2e2c2');
 
 // update firewall rules of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
 $database->updateFirewallRules('405427f6-393a-4744-817a-2ec6c1b2e2c2', [
@@ -291,7 +291,7 @@ $database->updateEvictionPolicy('3a9e419c-e38e-40ef-8f56-09b4254b80e2', 'allkeys
 $mode = $database->getSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e');
 
 // update sql mode for cluster 'd448b69d-3d06-411a-8ac7-c16132ba0f1e'
-$database->updateSqlMode('d448b69d-3d06-411a-8ac7-c16132ba0f1e', 'ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE');
+$database->updateSqlModes('d448b69d-3d06-411a-8ac7-c16132ba0f1e', 'ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE');
 ```
 
 ### CDN Endpoint
@@ -489,18 +489,18 @@ $ports = '22';
 $addresses = ['0.0.0.0/0', '::/0'];
 
 if ($type == 'inbound_rules') {
-    $locations = 'sources'
-} elseif($type == 'outbound_rules'){
+    $locations = 'sources';
+} elseif ($type == 'outbound_rules') {
     $locations = 'destinations';
 }
 
 $rules[$type] = [
-    ['protocol' => $protocol, 'ports' => $ports, $locations => ['addresses' => $addresses])
-);
+    ['protocol' => $protocol, 'ports' => $ports, $locations => ['addresses' => $addresses]],
+];
 $firewall->addRules($firewallId, $rules);
 
 // remove above rule
-$firewall->removeRules($firewallId, $rules)
+$firewall->removeRules($firewallId, $rules);
 
 // remove firewall id 123-abc
 $firewall->remove('123-abc');
@@ -575,7 +575,7 @@ $key->remove(123);
 
 ```php
 // return the load balancer api
-$loadBalancer = $client->loadbalancer();
+$loadBalancer = $client->loadBalancer();
 
 //returns a collection of Load Balancer entities
 $loadBalancers = $loadBalancer->getAll();
@@ -611,15 +611,15 @@ $alert = $monitoring->getAlert('123e4567-e89b-12d3-a456-426655440000');
 // return inbound bandwidth metrics on the public interface of droplet id 123 from the past hour
 $bandwidth = $monitoring->getDropletBandwidth(
     '123', 
-    time() - 3600, 
-    time(),
+    (string) (time() - 3600), 
+    (string) time(),
 )->data;
 
 // return outbound droplet bandwidth metrics on the private interface of droplet id 123 from the past hour
 $bandwidth = $monitoring->getDropletBandwidth(
     '123', 
-    time() - 3600, 
-    time(),
+    (string) (time() - 3600), 
+    (string) time(),
     'outbound',
     'private'
 )->data;
@@ -627,8 +627,8 @@ $bandwidth = $monitoring->getDropletBandwidth(
 // Get current available storage for droplet id 123
 $freeStorage = $monitoring->getDropletFilesystemFree(
     '123',
-    time(),
-    time()
+    (string) time(),
+    (string) time()
 )->data;
 ```
 
@@ -680,7 +680,7 @@ $tag = $client->tag();
 $tags = $tag->getAll();
 
 // return a Tag entity by name
-$tag = $tag->getByName();
+$tag = $tag->getByName('awesome');
 
 // create a tag
 $tag = $tag->create('awesome');
@@ -723,7 +723,7 @@ $myvolume = $volume->create('example', 'Block store for examples', 10, 'nyc1');
 $volume->remove('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 // removes a volume by name and region
-$volume->remove('example', 'nyc1');
+$volume->removeWithNameAndRegion('example', 'nyc1');
 
 // attach a volume to a Droplet
 $volume->attach('506f78a4-e098-11e5-ad9f-000f53306ae1', 123, 'nyc1');
@@ -748,10 +748,10 @@ $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 ```php
 // return the VPC api
-vpc = $client->vpc();
+$vpc = $client->vpc();
 
 // returns the all VPCs
-vpcs = $vpc->getAll();
+$vpcs = $vpc->getAll();
 ```
 
 
