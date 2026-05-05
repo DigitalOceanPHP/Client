@@ -79,7 +79,7 @@ class Droplet extends AbstractApi
     }
 
     /**
-     * @param int[] $sshKeys
+     * @param (int|string)[] $sshKeys
      *
      * @throws ExceptionInterface
      *

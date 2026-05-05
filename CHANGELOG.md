@@ -5,6 +5,7 @@ CHANGE LOG
 ## 5.1.0 (UPCOMING)
 
 * Add PHP 8.5 support
+* Fixed the `Droplet::create` SSH keys parameter type documentation
 
 
 ## 5.0.5 (03/05/2025)
