@@ -5,6 +5,7 @@ CHANGE LOG
 ## 5.1.0 (06/05/2026)
 
 * Add PHP 8.5 support
+* Add sensitive parameter annotations for authentication tokens
 * Add support for listing Droplets by name or type
 * Fixed the `Droplet::create` SSH keys parameter type documentation
 * Fixed hydration of object-backed App Platform and project resource fields
