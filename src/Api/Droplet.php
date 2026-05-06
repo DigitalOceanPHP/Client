@@ -33,7 +33,59 @@ class Droplet extends AbstractApi
      */
     public function getAll(?string $tag = null): array
     {
-        $droplets = $this->get('droplets', null === $tag ? [] : ['tag_name' => $tag]);
+        return $this->getAllWithQuery(null === $tag ? [] : ['tag_name' => $tag]);
+    }
+
+    /**
+     * @throws ExceptionInterface
+     *
+     * @return DropletEntity[]
+     */
+    public function getAllByTag(string $tag): array
+    {
+        return $this->getAllWithQuery(['tag_name' => $tag]);
+    }
+
+    /**
+     * @param 'droplets'|'gpus'|null $type
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DropletEntity[]
+     */
+    public function getAllByName(string $name, ?string $type = null): array
+    {
+        $query = ['name' => $name];
+
+        if (null !== $type && \in_array($type, ['droplets', 'gpus'], true)) {
+            $query['type'] = $type;
+        }
+
+        return $this->getAllWithQuery($query);
+    }
+
+    /**
+     * @param 'droplets'|'gpus' $type
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DropletEntity[]
+     */
+    public function getAllByType(string $type): array
+    {
+        return $this->getAllWithQuery(\in_array($type, ['droplets', 'gpus'], true) ? ['type' => $type] : []);
+    }
+
+    /**
+     * @param array<string,string> $query
+     *
+     * @throws ExceptionInterface
+     *
+     * @return DropletEntity[]
+     */
+    private function getAllWithQuery(array $query): array
+    {
+        $droplets = $this->get('droplets', $query);
 
         return \array_map(function ($droplet) {
             return new DropletEntity($droplet);

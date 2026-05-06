@@ -9,6 +9,7 @@ CHANGE LOG
 * Fixed hydration of object-backed App Platform and project resource fields
 * Fixed `LoadBalancer` hydration and update serialization
 * Fixed `Volume` hydration when `droplet_ids` is null
+* Add support for listing Droplets by name or type
 
 
 ## 5.0.5 (03/05/2025)
