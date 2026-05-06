@@ -52,6 +52,8 @@ final class Volume extends AbstractEntity
 
             if ('region' === $property) {
                 $this->region = new Region($value);
+            } elseif ('dropletIds' === $property && null === $value) {
+                $this->dropletIds = [];
             } elseif (\property_exists($this, $property)) {
                 $this->$property = $value;
             }
