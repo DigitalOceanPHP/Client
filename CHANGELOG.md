@@ -5,11 +5,11 @@ CHANGE LOG
 ## 5.1.0 (UPCOMING)
 
 * Add PHP 8.5 support
+* Add support for listing Droplets by name or type
 * Fixed the `Droplet::create` SSH keys parameter type documentation
 * Fixed hydration of object-backed App Platform and project resource fields
 * Fixed `LoadBalancer` hydration and update serialization
 * Fixed `Volume` hydration when `droplet_ids` is null
-* Add support for listing Droplets by name or type
 
 
 ## 5.0.5 (03/05/2025)
