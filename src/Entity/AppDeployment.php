@@ -47,4 +47,33 @@ final class AppDeployment extends AbstractEntity
     public string $phase;
 
     public string $tierSlug;
+
+    public function build(array $parameters): void
+    {
+        foreach ($parameters as $property => $value) {
+            if (
+                \in_array(static::convertToCamelCase($property), ['spec', 'services', 'staticSites', 'workers', 'jobs', 'progress'], true) &&
+                ($value instanceof \stdClass || \is_array($value))
+            ) {
+                $parameters[$property] = self::normalizeArray($value);
+            }
+        }
+
+        parent::build($parameters);
+    }
+
+    private static function normalizeArray(array|\stdClass $value): array
+    {
+        if ($value instanceof \stdClass) {
+            $value = \get_object_vars($value);
+        }
+
+        foreach ($value as $key => $subValue) {
+            if ($subValue instanceof \stdClass || \is_array($subValue)) {
+                $value[$key] = self::normalizeArray($subValue);
+            }
+        }
+
+        return $value;
+    }
 }
