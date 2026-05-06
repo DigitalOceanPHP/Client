@@ -33,15 +33,15 @@ $ composer require "toin0u/digitalocean-v2:^5.1" "guzzlehttp/guzzle:^7.9.2"
 $ composer require "graham-campbell/digitalocean:^11.1"
 ```
 
-We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. The framework integration [graham-campbell/gitlab](https://github.com/GrahamCampbell/Laravel-GitLab) is by [Graham Campbell](https://github.com/GrahamCampbell) and [dunglas/digital-ocean-bundle](https://github.com/dunglas/DunglasDigitalOceanBundle) is by [Kévin Dunglas](https://github.com/dunglas).
+We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages. The framework integration [graham-campbell/digitalocean](https://github.com/GrahamCampbell/Laravel-DigitalOcean) is by [Graham Campbell](https://github.com/GrahamCampbell) and [dunglas/digital-ocean-bundle](https://github.com/dunglas/DunglasDigitalOceanBundle) is by [Kévin Dunglas](https://github.com/dunglas).
 
 ## Upgrading
 
-If you are upgrading from version 2.3 to 3.0, or from 3.2 to 4.0, you can check out our [upgrading guide](UPGRADING.md). We highly recommend upgrading as soon as possible.
+If you are upgrading from version 2.3 to 3.0, or from 3.3 to 4.0, you can check out our [upgrading guide](UPGRADING.md). We highly recommend upgrading as soon as possible.
 
 ## Examples
 
-As of version 3.0, we will will automatically discover an HTTP client to use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
+As of version 3.0, we will automatically discover an HTTP client to use, from what you have available. Simply create a new DigitalOcean client, provide your access token, then you're good to go:
 
 ```php
 <?php
@@ -103,7 +103,7 @@ $app = $client->app();
 $apps = $app->getAll();
 
 // return the App entity 123
-$app123 = $app->getById(123);
+$app123 = $app->getById('123');
 
 // create a new App
 $spec = [
@@ -128,31 +128,31 @@ $spec = [
     ],
     "region" => "ams"
 ];
-$app = $app->create($spec);
+$createdApp = $app->create($spec);
 
 // update an App with App entity 123
-$app = $app->update(123, $spec);
+$updatedApp = $app->update('123', $spec);
 
 // delete an App with App entity 123
-$app->remove(123);
+$app->remove('123');
 
 // retrieve App deployments with App entity 123
-$deployments = $app->getAppDeployments(123);
+$deployments = $app->getAppDeployments('123');
 
 // return an App deployment with App entity 123, deployment ID of 456
-$deployment = $app->getAppDeployment(123,456);
+$deployment = $app->getAppDeployment('123', '456');
 
 // create an App deployment with App entity 123
-$deployment = $app->createAppDeployment(123);
+$deployment = $app->createAppDeployment('123');
 
 // cancel an App deployment
-$deployment = $app->cancelAppDeployment(123,456);
+$deployment = $app->cancelAppDeployment('123', '456');
 
 // retrieve deployment logs by component for entity 123, deployment ID of 456, component name of "test_component"
-$logs = $app->getDeploymentLogs(123,456,"test_component");
+$logs = $app->getDeploymentLogs('123', '456', 'test_component');
 
 // retrieve aggregate deployment logs for entity 123, deployment ID of 456
-$logs = $app->getAggregateDeploymentLogs(123,456);
+$logs = $app->getAggregateDeploymentLogs('123', '456');
 
 // retrieve App regions
 $regions = $app->getRegions();
@@ -161,13 +161,13 @@ $regions = $app->getRegions();
 $tiers = $app->getTiers();
 
 // return an App tier by slug with slug name of "test_slug"
-$tier = $app->getTierBySlug("test_slug");
+$tier = $app->getTierBySlug('test_slug');
 
 // retrieve App instance sizes
 $instance_sizes = $app->getInstanceSizes();
 
 // return App instance size by slug with slug name of "test_slug"
-$instance_size = $app->getInstanceSizeBySlug("test_slug");
+$instanceSize = $app->getInstanceSizeBySlug('test_slug');
 ```
 
 ### Database
@@ -221,7 +221,7 @@ $restored = $database->createClusterFromBackup('cluster-from-backup', ["database
 // return a collection of DatabaseReplica entity for cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
 $replicas = $database->getAllReplicas('405427f6-393a-4744-817a-2ec6c1b2e2c2');
 
-// return the DatabaseReplica enitity named 'my-replica' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+// return the DatabaseReplica entity named 'my-replica' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
 $replica = $database->getReplicaByName('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-replica');
 
 // return the created DatabaseReplica entity of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
@@ -239,10 +239,10 @@ $user = $database->getUserByName('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-use
 // return the created DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
 $createdUser = $database->createUser('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user');
 
-// return the created DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2' with optional mysql auth plugin
+// return the created DatabaseUser entity named 'my-user-2' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2' with optional mysql auth plugin
 $createdUser2 = $database->createUser('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user-2', 'mysql_native_password');
 
-// return the updated DatabaseUser entity named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
+// return the updated DatabaseUser entity named 'my-user-2' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
 $updatedUser = $database->updateUserMysqlAuthMethod('405427f6-393a-4744-817a-2ec6c1b2e2c2', 'my-user-2', 'caching_sha2_password');
 
 // remove user named 'my-user' of cluster '405427f6-393a-4744-817a-2ec6c1b2e2c2'
@@ -273,7 +273,7 @@ $pool = $database->getConnectionPoolByName('cd2184a9-8f05-49f4-9700-293efb81c7fd
 $createdPool = $database->createConnectionPool('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool', 'transaction', 1, 'defaultdb', 'doadmin');
 
 // remove pool named 'my-pool' of cluster 'cd2184a9-8f05-49f4-9700-293efb81c7fd'
-$pools = $database->removeConnectionPool('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool');
+$database->removeConnectionPool('cd2184a9-8f05-49f4-9700-293efb81c7fd', 'my-pool');
 
 
 // ** Only for Redis Database Clusters ** //
@@ -356,7 +356,7 @@ $domainRecord123 = $domainRecord->getById('foo.dk', 123);
 // return the created DomainRecord entity of the domain 'bar.dk'
 $created = $domainRecord->create('bar.dk', 'AAAA', 'bar-name', '2001:db8::ff00:42:8329');
 
-// return the DomainRecord entity 123 of the domain 'baz.dk' updated with new-name, new-data, priority 1, port 2, weight 3, flags 0, tag issue (name, data, priority, port, weight, flags and tag are nullable)
+// return the DomainRecord entity 123 of the domain 'baz.dk' updated with new-name, new-data, priority 1, port 2, weight 3, flags 0, tag issue (name, data, priority, port, weight, flags, tag, and ttl are nullable)
 $updated = $domainRecord->update('baz.dk', 123, 'new-name', 'new-data', 1, 2, 3, 0, 'issue');
 
 // remove domain record 123 of the domain 'qmx.dk'
@@ -371,6 +371,15 @@ $droplet = $client->droplet();
 
 // return a collection of Droplet entity
 $droplets = $droplet->getAll();
+
+// return a collection of Droplet entity filtered by tag
+$droplets = $droplet->getAllByTag('awesome');
+
+// return a collection of Droplet entity filtered by exact name
+$droplets = $droplet->getAllByName('example.com');
+
+// return a collection of GPU Droplet entity
+$droplets = $droplet->getAllByType('gpus');
 
 // return a collection of Droplet neighbor to Droplet entity 123
 $droplets = $droplet->getNeighborsById(123);
@@ -406,7 +415,7 @@ $backups = $droplet->getBackups(123);
 $actions = $droplet->getActions(123);
 
 // return the Action entity 456 of the droplet 123
-$action123 = $droplet->getActionById(123, 456);
+$action456 = $droplet->getActionById(123, 456);
 
 // reboot droplet 123 and return the Action entity
 $rebooted = $droplet->reboot(123);
@@ -426,8 +435,8 @@ $powerOn = $droplet->powerOn(123);
 // reset password droplet 123 and return the Action entity
 $passwordReseted = $droplet->passwordReset(123);
 
-// resize droplet 123 with the image 789 and return the Action entity
-$resized = $droplet->resize(123, 789);
+// resize droplet 123 to size s-1vcpu-2gb and return the Action entity
+$resized = $droplet->resize(123, 's-1vcpu-2gb');
 
 // restore droplet 123 with the image 789 and return the Action entity
 $restored = $droplet->restore(123, 789);
@@ -438,7 +447,7 @@ $rebuilt = $droplet->rebuild(123, 789);
 // rename droplet 123 to 'new-name' and return the Action entity
 $renamed = $droplet->rename(123, 'new-name');
 
-// take a snapshot of droplet 123 and name it 'my-snapshot'. Returns the an Action entity
+// take a snapshot of droplet 123 and name it 'my-snapshot'. Returns an Action entity
 $snapshot = $droplet->snapshot(123, 'my-snapshot');
 
 // change kernel to droplet 123 with kernel 321 and return the Action entity
@@ -477,7 +486,7 @@ $outboundRules = [
 ];
 
 $dropletId = 123;
-$firewall = $firewall->create(
+$createdFirewall = $firewall->create(
     strval($dropletId) . '-firewall', $inboundRules, $outboundRules, [$dropletId]
 );
 
@@ -559,16 +568,16 @@ $keys = $key->getAll();
 $key123 = $key->getById(123);
 
 // return the Key entity with the given fingerprint
-$key = $key->getByFingerprint('f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2');
+$keyByFingerprint = $key->getByFingerprint('f5:de:eb:64:2d:6a:b6:d5:bb:06:47:7f:04:4b:f8:e2');
 
 // return the created Key entity
 $createdKey = $key->create('my-key', 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPrtBjQaNBwDSV3ePC86zaEWu0....');
 
 // return the updated Key entity
-$updatedKey = $key->update(123, 'new-key-name');
+$updatedKey = $key->update('123', 'new-key-name');
 
 // return void if removed successfully
-$key->remove(123);
+$key->remove('123');
 ```
 
 ### Load Balancer
@@ -584,15 +593,15 @@ $loadBalancers = $loadBalancer->getAll();
 $myLoadBalancer = $loadBalancer->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 /**
-* updates an existing load balancer, the method will except a LoadBalancer
-* entity or a load balancer representation in array form, the digitial
-* Ocean API requires a full representation of your load
+* updates an existing load balancer, the method will accept a LoadBalancer
+* entity or a load balancer representation in array form, the DigitalOcean
+* API requires a full representation of your load
 * balancer, any attribute that is missing will
-* be reset to it's default setting.
+* be reset to its default setting.
 */
 $myUpdatedLoadBalancer = $loadBalancer->update('506f78a4-e098-11e5-ad9f-000f53306ae1', $myLoadBalancer);
 
-//create a standard load balancer that listens on port 80 and 443 with ssl passthrough enabled
+//create a standard load balancer
 $myNewLoadBalancer = $loadBalancer->create('my-new-load-balancer', 'nyc1');
 ```
 
@@ -680,10 +689,10 @@ $tag = $client->tag();
 $tags = $tag->getAll();
 
 // return a Tag entity by name
-$tag = $tag->getByName('awesome');
+$tagEntity = $tag->getByName('awesome');
 
 // create a tag
-$tag = $tag->create('awesome');
+$createdTag = $tag->create('awesome');
 
 // tag resources
 $tag->tagResources('awesome', [["resource_id" => "9569411", "resource_type" => "droplet"]]);
@@ -701,10 +710,10 @@ $tag->remove('awesome');
 // return the volume api
 $volume = $client->volume();
 
-// returns the all volumes
+// returns all volumes
 $volumes = $volume->getAll();
 
-// returns the all volumes by region
+// returns all volumes by region
 $volumes = $volume->getAll('nyc1');
 
 // returns volumes by name and region
@@ -713,7 +722,7 @@ $volumes = $volume->getByNameAndRegion('example', 'nyc1');
 // returns a volume by id
 $myvolume = $volume->getById('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
-// returns a volumes snapshots by volume id
+// returns a volume's snapshots by volume id
 $mySnapshots = $volume->getSnapshots('506f78a4-e098-11e5-ad9f-000f53306ae1');
 
 // creates a volume
@@ -738,7 +747,7 @@ $volume->resize('506f78a4-e098-11e5-ad9f-000f53306ae1', 20, 'nyc1');
 $snapshot = $volume->snapshot('506f78a4-e098-11e5-ad9f-000f53306ae1', 'my-snapshot');
 
 // get a volume action by its id
-$volume->getActionById(123, '506f78a4-e098-11e5-ad9f-000f53306ae1');
+$volume->getActionById('506f78a4-e098-11e5-ad9f-000f53306ae1', 123);
 
 // get all actions related to a volume
 $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
@@ -750,7 +759,7 @@ $volume->getActions('506f78a4-e098-11e5-ad9f-000f53306ae1');
 // return the VPC api
 $vpc = $client->vpc();
 
-// returns the all VPCs
+// returns all VPCs
 $vpcs = $vpc->getAll();
 ```
 
