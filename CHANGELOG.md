@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 5.1.0 (UPCOMING)
+## 5.1.0 (06/05/2026)
 
 * Add PHP 8.5 support
 * Add support for listing Droplets by name or type
