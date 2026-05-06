@@ -43,9 +43,17 @@ class DropletTest extends TestCase
         self::assertSame('example.com', $droplets[0]->name);
     }
 
+    public function testItFiltersDropletsByTagNameMethod(): void
+    {
+        $droplets = $this->createApiExpectingGet('/v2/droplets?tag_name=awesome')->getAllByTag('awesome');
+
+        self::assertInstanceOf(DropletEntity::class, $droplets[0]);
+        self::assertSame('example.com', $droplets[0]->name);
+    }
+
     public function testItFiltersDropletsByName(): void
     {
-        $droplets = $this->createApiExpectingGet('/v2/droplets?name=example.com')->getAll(name: 'example.com');
+        $droplets = $this->createApiExpectingGet('/v2/droplets?name=example.com')->getAllByName('example.com');
 
         self::assertInstanceOf(DropletEntity::class, $droplets[0]);
         self::assertSame('example.com', $droplets[0]->name);
@@ -53,7 +61,7 @@ class DropletTest extends TestCase
 
     public function testItFiltersDropletsByType(): void
     {
-        $droplets = $this->createApiExpectingGet('/v2/droplets?type=gpus')->getAll(type: 'gpus');
+        $droplets = $this->createApiExpectingGet('/v2/droplets?type=gpus')->getAllByType('gpus');
 
         self::assertInstanceOf(DropletEntity::class, $droplets[0]);
         self::assertSame('example.com', $droplets[0]->name);
@@ -61,7 +69,7 @@ class DropletTest extends TestCase
 
     public function testItFiltersDropletsByStandardType(): void
     {
-        $droplets = $this->createApiExpectingGet('/v2/droplets?type=droplets')->getAll(type: 'droplets');
+        $droplets = $this->createApiExpectingGet('/v2/droplets?type=droplets')->getAllByType('droplets');
 
         self::assertInstanceOf(DropletEntity::class, $droplets[0]);
         self::assertSame('example.com', $droplets[0]->name);
@@ -70,7 +78,7 @@ class DropletTest extends TestCase
     public function testItFiltersDropletsByNameAndType(): void
     {
         $droplets = $this->createApiExpectingGet('/v2/droplets?name=example.com&type=gpus')
-            ->getAll(name: 'example.com', type: 'gpus');
+            ->getAllByName('example.com', 'gpus');
 
         self::assertInstanceOf(DropletEntity::class, $droplets[0]);
         self::assertSame('example.com', $droplets[0]->name);
