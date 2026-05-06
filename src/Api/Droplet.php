@@ -27,13 +27,29 @@ use DigitalOceanV2\Exception\ExceptionInterface;
 class Droplet extends AbstractApi
 {
     /**
+     * @param 'droplets'|'gpus'|null $type
+     *
      * @throws ExceptionInterface
      *
      * @return DropletEntity[]
      */
-    public function getAll(?string $tag = null): array
+    public function getAll(?string $tag = null, ?string $name = null, ?string $type = null): array
     {
-        $droplets = $this->get('droplets', null === $tag ? [] : ['tag_name' => $tag]);
+        $query = [];
+
+        if (null !== $tag) {
+            $query['tag_name'] = $tag;
+        }
+
+        if (null !== $name) {
+            $query['name'] = $name;
+        }
+
+        if (null !== $type && \in_array($type, ['droplets', 'gpus'], true)) {
+            $query['type'] = $type;
+        }
+
+        $droplets = $this->get('droplets', $query);
 
         return \array_map(function ($droplet) {
             return new DropletEntity($droplet);
