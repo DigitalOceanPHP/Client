@@ -7,6 +7,7 @@ CHANGE LOG
 * Add PHP 8.5 support
 * Fixed the `Droplet::create` SSH keys parameter type documentation
 * Fixed hydration of object-backed App Platform and project resource fields
+* Fixed `LoadBalancer` hydration and update serialization
 
 
 ## 5.0.5 (03/05/2025)

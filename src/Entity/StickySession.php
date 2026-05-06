@@ -23,5 +23,5 @@ class StickySession extends AbstractEntity
 
     public string $cookieName;
 
-    public string $cookieTtlSeconds;
+    public int $cookieTtlSeconds;
 }
