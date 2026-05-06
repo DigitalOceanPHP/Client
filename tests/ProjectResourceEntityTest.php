@@ -42,4 +42,23 @@ class ProjectResourceEntityTest extends TestCase
         self::assertSame(['self' => 'https://api.digitalocean.com/v2/droplets/123456789'], $projectResource->links);
         self::assertSame('already_assigned', $projectResource->status);
     }
+
+    public function testConstructorAcceptsApiShapedLinksObject(): void
+    {
+        $projectResource = new ProjectResource([
+            'urn' => 'do:droplet:123456789',
+            'assigned_at' => '2022-08-04T04:26:24Z',
+            'links' => (object) [
+                'self' => 'https://api.digitalocean.com/v2/droplets/123456789',
+            ],
+            'status' => 'already_assigned',
+        ]);
+
+        self::assertInstanceOf(AbstractEntity::class, $projectResource);
+        self::assertInstanceOf(ProjectResource::class, $projectResource);
+        self::assertSame('do:droplet:123456789', $projectResource->urn);
+        self::assertSame('2022-08-04T04:26:24Z', $projectResource->assignedAt);
+        self::assertSame(['self' => 'https://api.digitalocean.com/v2/droplets/123456789'], $projectResource->links);
+        self::assertSame('already_assigned', $projectResource->status);
+    }
 }
