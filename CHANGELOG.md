@@ -8,6 +8,7 @@ CHANGE LOG
 * Fixed the `Droplet::create` SSH keys parameter type documentation
 * Fixed hydration of object-backed App Platform and project resource fields
 * Fixed `LoadBalancer` hydration and update serialization
+* Fixed `Volume` hydration when `droplet_ids` is null
 
 
 ## 5.0.5 (03/05/2025)
