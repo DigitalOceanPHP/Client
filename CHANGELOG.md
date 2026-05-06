@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 5.1.1 (UPCOMING)
+## 5.1.1 (06/05/2026)
 
 * Add sensitive parameter annotations for authentication tokens
 
