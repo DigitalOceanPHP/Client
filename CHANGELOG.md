@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 5.1.1 (UPCOMING)
+
+* Add sensitive parameter annotations for authentication tokens
+
+
 ## 5.1.0 (06/05/2026)
 
 * Add PHP 8.5 support

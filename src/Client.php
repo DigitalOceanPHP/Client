@@ -213,7 +213,7 @@ class Client
         return new Vpc($this);
     }
 
-    public function authenticate(string $token): void
+    public function authenticate(#[\SensitiveParameter] string $token): void
     {
         $this->getHttpClientBuilder()->addPlugin(new Authentication($token));
     }

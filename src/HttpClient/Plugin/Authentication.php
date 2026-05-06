@@ -34,7 +34,7 @@ final class Authentication implements Plugin
      */
     private readonly string $header;
 
-    public function __construct(string $token)
+    public function __construct(#[\SensitiveParameter] string $token)
     {
         $this->header = \sprintf('Bearer %s', $token);
     }
