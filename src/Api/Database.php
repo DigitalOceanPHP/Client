@@ -111,7 +111,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($rule) {
             return new DatabaseRuleEntity($rule);
-        }, $rules->rules);
+        }, $rules->rules ?? []);
     }
 
     /**
@@ -146,7 +146,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($backup) {
             return new DatabaseBackupEntity($backup);
-        }, $backups->backups);
+        }, $backups->backups ?? []);
     }
 
     /**
@@ -180,7 +180,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($replica) {
             return new DatabaseReplicaEntity($replica);
-        }, $replicas->replicas);
+        }, $replicas->replicas ?? []);
     }
 
     /**
@@ -228,7 +228,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($user) {
             return new DatabaseUserEntity($user);
-        }, $users->users);
+        }, $users->users ?? []);
     }
 
     /**
@@ -289,7 +289,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($database) {
             return new DatabaseEntity($database);
-        }, $databases->dbs);
+        }, $databases->dbs ?? []);
     }
 
     /**
@@ -333,7 +333,7 @@ class Database extends AbstractApi
 
         return \array_map(function ($pool) {
             return new DatabasePoolEntity($pool);
-        }, $pools->pools);
+        }, $pools->pools ?? []);
     }
 
     /**
