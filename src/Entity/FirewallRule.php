@@ -24,14 +24,25 @@ abstract class FirewallRule extends AbstractEntity
 
     public string $ports;
 
+    public ?string $action;
+
+    /**
+     * @psalm-suppress RedundantPropertyInitializationCheck
+     */
     public function toArray(): array
     {
         $data = [
             'protocol' => $this->protocol,
         ];
 
-        if ('icmp' != $this->protocol) {
+        if ('icmp' !== $this->protocol && 'all' !== $this->protocol) {
             $data['ports'] = ('0' === $this->ports) ? 'all' : $this->ports;
+        } elseif ('all' === $this->protocol && isset($this->ports)) {
+            $data['ports'] = $this->ports;
+        }
+
+        if (isset($this->action)) {
+            $data['action'] = $this->action;
         }
 
         return $data;

@@ -2,6 +2,11 @@ CHANGE LOG
 ==========
 
 
+## 5.1.2 (UPCOMING)
+
+* Add support for firewall rule action (`allow` or `deny`) and protocol `all`
+
+
 ## 5.1.1 (06/05/2026)
 
 * Add sensitive parameter annotations for authentication tokens

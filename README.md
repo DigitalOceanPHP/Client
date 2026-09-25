@@ -511,6 +511,22 @@ $firewall->addRules($firewallId, $rules);
 // remove above rule
 $firewall->removeRules($firewallId, $rules);
 
+// Add inbound rule denying all traffic from a specific IP address
+$denyRules = [
+    'inbound_rules' => [
+        [
+            'protocol' => 'all',
+            'ports' => '0',
+            'sources' => ['addresses' => ['203.0.113.5']],
+            'action' => 'deny',
+        ],
+    ],
+];
+$firewall->addRules($firewallId, $denyRules);
+
+// remove above deny rule
+$firewall->removeRules($firewallId, $denyRules);
+
 // remove firewall id 123-abc
 $firewall->remove('123-abc');
 ```

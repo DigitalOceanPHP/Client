@@ -283,12 +283,6 @@ parameters:
 			path: src/Entity/Firewall.php
 
 		-
-			message: '#^Loose comparison via "\!\=" is not allowed\.$#'
-			identifier: notEqual.notAllowed
-			count: 1
-			path: src/Entity/FirewallRule.php
-
-		-
 			message: '#^Variable property access on \$this\(DigitalOceanV2\\Entity\\FirewallRuleInbound\)\.$#'
 			identifier: property.dynamicName
 			count: 1
