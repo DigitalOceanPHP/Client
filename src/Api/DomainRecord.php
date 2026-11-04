@@ -31,11 +31,22 @@ class DomainRecord extends AbstractApi
      */
     public function getAll(string $domainName): array
     {
-        $domainRecords = $this->get(\sprintf('domains/%s/records', $domainName));
+        $result = [];
 
-        return \array_map(function ($domainRecord) {
-            return new DomainRecordEntity($domainRecord);
-        }, $domainRecords->domain_records);
+        $baseUrl = \sprintf('domains/%s/records', $domainName);
+        $url = $baseUrl;
+
+        do {
+            $domainRecords = $this->get($url);
+
+            $result = \array_merge($result, \array_map(function ($domainRecord) {
+                return new DomainRecordEntity($domainRecord);
+            }, $domainRecords->domain_records));
+
+            $url = \substr($domainRecords->links->pages->next ?? '', \strpos($domainRecords->links->pages->next ?? '', $baseUrl) ?: 0);
+        } while ('' != $url);
+
+        return $result;
     }
 
     /**
