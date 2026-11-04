@@ -43,7 +43,7 @@ class DomainRecord extends AbstractApi
                 return new DomainRecordEntity($domainRecord);
             }, $domainRecords->domain_records));
 
-            $url = substr($domainRecords->links->pages->next ?? '', strpos($domainRecords->links->pages->next ?? '', $baseUrl) ?: 0);
+            $url = \substr($domainRecords->links->pages->next ?? '', \strpos($domainRecords->links->pages->next ?? '', $baseUrl) ?: 0);
         } while ($url != '');
 
         return $result;
