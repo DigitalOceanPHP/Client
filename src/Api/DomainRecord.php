@@ -44,7 +44,7 @@ class DomainRecord extends AbstractApi
             }, $domainRecords->domain_records));
 
             $url = \substr($domainRecords->links->pages->next ?? '', \strpos($domainRecords->links->pages->next ?? '', $baseUrl) ?: 0);
-        } while ($url != '');
+        } while ('' != $url);
 
         return $result;
     }
