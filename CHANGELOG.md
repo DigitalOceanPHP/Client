@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## 5.1.2 (UPCOMING)
+## 5.1.2 (17/11/2026)
 
 * Changed authentication to only be sent to the origin of the base URL
 * Stopped authenticating requests redirected from an `http` base URL to `https`
