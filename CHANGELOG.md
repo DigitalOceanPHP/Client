@@ -6,6 +6,7 @@ CHANGE LOG
 
 * Changed authentication to only be sent to the origin of the base URL
 * Stopped authenticating requests redirected from an `http` base URL to `https`
+* Work around more null list bugs in the database API
 
 
 ## 5.1.1 (06/05/2026)
