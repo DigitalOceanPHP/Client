@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## 5.1.2 (UPCOMING)
+
+* Changed authentication to only be sent to the origin of the base URL
+* Stopped authenticating requests redirected from an `http` base URL to `https`
+
+
 ## 5.1.1 (06/05/2026)
 
 * Add sensitive parameter annotations for authentication tokens

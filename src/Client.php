@@ -50,6 +50,7 @@ use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @author Antoine Kirk <contact@sbin.dk>
@@ -73,11 +74,14 @@ class Client
 
     private readonly Builder $httpClientBuilder;
     private readonly History $responseHistory;
+    private UriInterface $url;
+    private ?Authentication $authentication = null;
 
     public function __construct(?Builder $httpClientBuilder = null)
     {
         $this->httpClientBuilder = $builder = $httpClientBuilder ?? new Builder();
         $this->responseHistory = new History();
+        $this->url = Psr17FactoryDiscovery::findUriFactory()->createUri(self::BASE_URL);
 
         $builder->addPlugin(new ExceptionThrower());
         $builder->addPlugin(new HistoryPlugin($this->responseHistory));
@@ -215,7 +219,10 @@ class Client
 
     public function authenticate(#[\SensitiveParameter] string $token): void
     {
-        $this->getHttpClientBuilder()->addPlugin(new Authentication($token));
+        $this->authentication = new Authentication($token, $this->url);
+
+        $this->getHttpClientBuilder()->removePlugin(Authentication::class);
+        $this->getHttpClientBuilder()->addPlugin($this->authentication);
     }
 
     /**
@@ -223,8 +230,18 @@ class Client
      */
     public function setUrl(string $url): void
     {
+        $this->url = Psr17FactoryDiscovery::findUriFactory()->createUri($url);
+
         $this->httpClientBuilder->removePlugin(AddHostPlugin::class);
-        $this->httpClientBuilder->addPlugin(new AddHostPlugin(Psr17FactoryDiscovery::findUriFactory()->createUri($url)));
+        $this->httpClientBuilder->addPlugin(new AddHostPlugin($this->url));
+
+        if (null !== $this->authentication) {
+            $this->authentication = $this->authentication->withUrl($this->url);
+
+            // the authentication plugin must run after the host plugin
+            $this->httpClientBuilder->removePlugin(Authentication::class);
+            $this->httpClientBuilder->addPlugin($this->authentication);
+        }
     }
 
     /**

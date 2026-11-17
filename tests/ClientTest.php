@@ -36,8 +36,11 @@ use DigitalOceanV2\Api\Tag;
 use DigitalOceanV2\Api\Volume;
 use DigitalOceanV2\Api\Vpc;
 use DigitalOceanV2\Client;
+use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\HttpMethodsClientInterface;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @author Graham Campbell <hello@gjcampbell.co.uk>
@@ -77,5 +80,107 @@ final class ClientTest extends TestCase
         self::assertInstanceOf(Tag::class, $client->tag());
         self::assertInstanceOf(Volume::class, $client->volume());
         self::assertInstanceOf(Vpc::class, $client->vpc());
+    }
+
+    public function testAuthenticationIsSentToTheBaseUrl(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests));
+        $client->authenticate('my-token');
+        $client->getHttpClient()->get('/v2/account');
+        $client->getHttpClient()->get('https://API.digitalocean.com:443/v2/droplets?page=2');
+
+        self::assertCount(2, $requests);
+        self::assertSame('Bearer my-token', $requests[0]->getHeaderLine('Authorization'));
+        self::assertSame('Bearer my-token', $requests[1]->getHeaderLine('Authorization'));
+    }
+
+    public function testAuthenticationIsNotSentToOtherOrigins(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests));
+        $client->authenticate('my-token');
+        $client->getHttpClient()->get('https://cloud.digitalocean.com/v2/account');
+        $client->getHttpClient()->get('http://api.digitalocean.com/v2/account');
+        $client->getHttpClient()->get('https://api.digitalocean.com:8443/v2/account');
+        $client->getHttpClient()->get('https://api.digitalocean.com.example.com/v2/account');
+
+        self::assertCount(4, $requests);
+
+        foreach ($requests as $request) {
+            self::assertFalse($request->hasHeader('Authorization'), (string) $request->getUri());
+        }
+    }
+
+    public function testAuthenticationIsRemovedFromRequestsToOtherOrigins(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests));
+        $client->authenticate('my-token');
+        $client->getHttpClient()->get('https://digitalocean.example.com/v2/account', ['Authorization' => 'Bearer my-token']);
+        $client->getHttpClient()->get('https://digitalocean.example.com/v2/account', ['Authorization' => 'Bearer other-token']);
+
+        self::assertFalse($requests[0]->hasHeader('Authorization'));
+        self::assertSame('Bearer other-token', $requests[1]->getHeaderLine('Authorization'));
+    }
+
+    public function testAuthenticationFollowsTheBaseUrl(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests));
+        $client->authenticate('my-token');
+        $client->setUrl('https://digitalocean.example.com');
+        $client->getHttpClient()->get('/v2/account');
+        $client->getHttpClient()->get('https://api.digitalocean.com/v2/account');
+
+        self::assertSame('digitalocean.example.com', $requests[0]->getUri()->getHost());
+        self::assertSame('Bearer my-token', $requests[0]->getHeaderLine('Authorization'));
+        self::assertFalse($requests[1]->hasHeader('Authorization'));
+    }
+
+    public function testAuthenticationIsSentToTheBaseUrlOnRedirect(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests, new Response(302, ['Location' => 'https://api.digitalocean.com/v2/droplets/2'])));
+        $client->authenticate('my-token');
+        $client->getHttpClient()->get('/v2/droplets/1');
+
+        self::assertSame('/v2/droplets/2', $requests[1]->getUri()->getPath());
+        self::assertSame('Bearer my-token', $requests[1]->getHeaderLine('Authorization'));
+    }
+
+    public function testAuthenticationIsNotSentToOtherOriginsOnRedirect(): void
+    {
+        $requests = [];
+
+        $client = Client::createWithHttpClient($this->createHttpClient($requests, new Response(302, ['Location' => 'https://digitalocean.example.com/v2/droplets/1'])));
+        $client->authenticate('my-token');
+        $client->getHttpClient()->get('/v2/droplets/1');
+
+        self::assertSame('Bearer my-token', $requests[0]->getHeaderLine('Authorization'));
+        self::assertSame('digitalocean.example.com', $requests[1]->getUri()->getHost());
+        self::assertFalse($requests[1]->hasHeader('Authorization'));
+    }
+
+    /**
+     * @param RequestInterface[] $requests
+     */
+    private function createHttpClient(array &$requests, Response ...$responses): ClientInterface
+    {
+        $httpClient = $this->createMock(ClientInterface::class);
+        $httpClient->expects(self::any())
+            ->method('sendRequest')
+            ->willReturnCallback(static function (RequestInterface $request) use (&$requests, &$responses): Response {
+                $requests[] = $request;
+
+                return \array_shift($responses) ?? new Response();
+            });
+
+        return $httpClient;
     }
 }
