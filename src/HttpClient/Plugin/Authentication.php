@@ -18,6 +18,7 @@ use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * A plugin to add authentication to the request.
@@ -34,9 +35,23 @@ final class Authentication implements Plugin
      */
     private readonly string $header;
 
-    public function __construct(#[\SensitiveParameter] string $token)
+    /**
+     * The base URL.
+     */
+    private UriInterface $url;
+
+    public function __construct(#[\SensitiveParameter] string $token, UriInterface $url)
     {
         $this->header = \sprintf('Bearer %s', $token);
+        $this->url = $url;
+    }
+
+    public function withUrl(UriInterface $url): self
+    {
+        $plugin = clone $this;
+        $plugin->url = $url;
+
+        return $plugin;
     }
 
     /**
@@ -49,8 +64,25 @@ final class Authentication implements Plugin
      */
     public function handleRequest(RequestInterface $request, callable $next, callable $first): Promise
     {
-        $request = $request->withHeader('Authorization', $this->header);
+        if (self::isSameOrigin($request->getUri(), $this->url)) {
+            $request = $request->withHeader('Authorization', $this->header);
+        } elseif ($request->getHeaderLine('Authorization') === $this->header) {
+            // a redirected request already carries it
+            $request = $request->withoutHeader('Authorization');
+        }
 
         return $next($request);
+    }
+
+    private static function isSameOrigin(UriInterface $a, UriInterface $b): bool
+    {
+        return 0 === \strcasecmp($a->getScheme(), $b->getScheme())
+            && 0 === \strcasecmp($a->getHost(), $b->getHost())
+            && self::getPort($a) === self::getPort($b);
+    }
+
+    private static function getPort(UriInterface $uri): ?int
+    {
+        return $uri->getPort() ?? ['http' => 80, 'https' => 443][\strtolower($uri->getScheme())] ?? null;
     }
 }
